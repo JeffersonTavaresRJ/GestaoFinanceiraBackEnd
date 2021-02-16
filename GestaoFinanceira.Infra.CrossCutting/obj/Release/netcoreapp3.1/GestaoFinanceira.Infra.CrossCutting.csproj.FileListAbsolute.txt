@@ -1,0 +1,12 @@
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.deps.json
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.pdb
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.csprojAssemblyReference.cache
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.AssemblyInfoInputs.cache
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.AssemblyInfo.cs
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.csproj.CoreCompileInputs.cache
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.csproj.CopyComplete
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.pdb

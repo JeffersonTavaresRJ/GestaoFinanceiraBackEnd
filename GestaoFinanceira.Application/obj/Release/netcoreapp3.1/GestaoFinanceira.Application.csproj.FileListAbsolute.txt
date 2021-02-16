@@ -1,0 +1,16 @@
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\bin\Release\netcoreapp3.1\GestaoFinanceira.Application.deps.json
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\bin\Release\netcoreapp3.1\GestaoFinanceira.Application.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\bin\Release\netcoreapp3.1\GestaoFinanceira.Application.pdb
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.Caching.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.Caching.pdb
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.CrossCutting.pdb
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\obj\Release\netcoreapp3.1\GestaoFinanceira.Application.csprojAssemblyReference.cache
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\obj\Release\netcoreapp3.1\GestaoFinanceira.Application.AssemblyInfoInputs.cache
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\obj\Release\netcoreapp3.1\GestaoFinanceira.Application.AssemblyInfo.cs
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\obj\Release\netcoreapp3.1\GestaoFinanceira.Application.csproj.CoreCompileInputs.cache
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\obj\Release\netcoreapp3.1\GestaoFinanceira.Application.csproj.CopyComplete
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\obj\Release\netcoreapp3.1\GestaoFinanceira.Application.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Application\obj\Release\netcoreapp3.1\GestaoFinanceira.Application.pdb

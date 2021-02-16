@@ -1,0 +1,15 @@
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.deps.json
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.runtimeconfig.json
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.runtimeconfig.dev.json
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.pdb
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Debug\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Debug\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.csprojAssemblyReference.cache
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.AssemblyInfoInputs.cache
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.AssemblyInfo.cs
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.csproj.CoreCompileInputs.cache
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.csproj.CopyComplete
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.pdb
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Data.genruntimeconfig.cache

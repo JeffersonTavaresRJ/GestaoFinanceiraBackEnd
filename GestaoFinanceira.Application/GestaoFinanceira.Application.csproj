@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GestaoFinanceira.Domain\GestaoFinanceira.Domain.csproj" />
+    <ProjectReference Include="..\GestaoFinanceira.Infra.Caching\GestaoFinanceira.Infra.Caching.csproj" />
+    <ProjectReference Include="..\GestaoFinanceira.Infra.CrossCutting\GestaoFinanceira.Infra.CrossCutting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+  </ItemGroup>
+
+</Project>

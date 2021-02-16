@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "h1dXXWRa7sblnVzq4l7PbhY/BG7o01xUFHdJUQaX9USi6O96UgJ/qr1RC0NqyapS2E2bhNhM5HXcBBuzoogzWg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jefta\\.nuget\\packages\\fluentvalidation\\9.4.0\\fluentvalidation.9.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}

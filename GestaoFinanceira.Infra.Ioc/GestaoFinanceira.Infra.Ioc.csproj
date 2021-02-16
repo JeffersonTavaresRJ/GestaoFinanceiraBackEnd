@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GestaoFinanceira.Application\GestaoFinanceira.Application.csproj" />
+    <ProjectReference Include="..\GestaoFinanceira.Domain\GestaoFinanceira.Domain.csproj" />
+    <ProjectReference Include="..\GestaoFinanceira.Infra.Caching\GestaoFinanceira.Infra.Caching.csproj" />
+    <ProjectReference Include="..\GestaoFinanceira.Infra.CrossCutting\GestaoFinanceira.Infra.CrossCutting.csproj" />
+    <ProjectReference Include="..\GestaoFinanceira.Infra.Data\GestaoFinanceira.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
