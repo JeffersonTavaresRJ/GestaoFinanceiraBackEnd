@@ -41,6 +41,10 @@ namespace GestaoFinanceira.Service.Api
             MongoDBSetup.AddMongoDBSetup(services, Configuration);
             //setup para MediatR..
             MediatRSetup.AddMediatRSetup(services);
+            //setup para AutoMapper..
+            AutoMapperSetup.AddAutoMapperSetup(services);
+            //Setup para o Cors
+            CorsSetup.AddCorsSetup(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +54,8 @@ namespace GestaoFinanceira.Service.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            CorsSetup.UseCorsSetup(app);//deve ficar aqui esta linha
 
             app.UseHttpsRedirection();
 

@@ -89,3 +89,5 @@ C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFi
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Debug\netcoreapp3.1\GestaoFinanceira.Service.Api.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Debug\netcoreapp3.1\GestaoFinanceira.Service.Api.pdb
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Debug\netcoreapp3.1\GestaoFinanceira.Service.Api.genruntimeconfig.cache
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

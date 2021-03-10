@@ -9,6 +9,7 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace GestaoFinanceira.Application.RequestHandler
 {
@@ -19,37 +20,41 @@ namespace GestaoFinanceira.Application.RequestHandler
     {
         private readonly ICategoriaDomainService categoriaDomainService;
         private readonly IMediator mediator;
+        private readonly IMapper mapper;
 
-        public CategoriaRequestHandler(ICategoriaDomainService categoriaDomainService, IMediator mediator)
+        public CategoriaRequestHandler(ICategoriaDomainService categoriaDomainService, IMediator mediator, IMapper mapper)
         {
             this.categoriaDomainService = categoriaDomainService;
             this.mediator = mediator;
+            this.mapper = mapper;
         }
 
         public async Task<Unit> Handle(CreateCategoriaCommand request, CancellationToken cancellationToken)
         {
-            var Categoria = new Categoria
-            {
-                Descricao = request.Descricao,
-                Tipo = (TipoCategoria)Enum.Parse(typeof(TipoCategoria), request.Tipo),
-                IdUsuario = int.Parse(request.IdUsuario),
-                Status = true,
+            //var categoria = new Categoria
+            //{
+            //    Descricao = request.Descricao,
+            //    Tipo = (TipoCategoria)Enum.Parse(typeof(TipoCategoria), request.Tipo),
+            //    IdUsuario = int.Parse(request.IdUsuario),
+            //    Status = true,
 
-            };
+            //};
 
-            var validation = new CategoriaValidation().Validate(Categoria);
+            var categoria = mapper.Map<Categoria>(request);
+
+            var validation = new CategoriaValidation().Validate(categoria);
             if (!validation.IsValid)
             {
                 throw new ValidationException(validation.Errors);
             }
 
             //base relacional..
-            categoriaDomainService.Add(Categoria);
+            categoriaDomainService.Add(categoria);
 
             //base não relacional..
             await mediator.Publish(new CategoriaNotification
             {
-                Categoria = Categoria,
+                Categoria = categoria,
                 Action = ActionNotification.Criar
             });
 
@@ -58,24 +63,26 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(UpdateCategoriaCommand request, CancellationToken cancellationToken)
         {
-            var Categoria = categoriaDomainService.GetId(int.Parse(request.Id));
-            Categoria.Descricao = request.Descricao;
-            Categoria.Tipo = (TipoCategoria)Enum.Parse(typeof(TipoCategoria), request.Tipo);
-            Categoria.Status = bool.Parse(request.Status);
+            //var categoria = categoriaDomainService.GetId(int.Parse(request.Id));
+            //Categoria.Descricao = request.Descricao;
+            //Categoria.Tipo = (TipoCategoria)Enum.Parse(typeof(TipoCategoria), request.Tipo);
+            //Categoria.Status = bool.Parse(request.Status);
 
-            var validation = new CategoriaValidation().Validate(Categoria);
+            var categoria = mapper.Map<Categoria>(request);
+
+            var validation = new CategoriaValidation().Validate(categoria);
             if (!validation.IsValid)
             {
                 throw new ValidationException(validation.Errors);
             }
 
             //base relacional..
-            categoriaDomainService.Update(Categoria);
+            categoriaDomainService.Update(categoria);
 
             //base não relacional..
             await mediator.Publish(new CategoriaNotification
             {
-                Categoria = Categoria,
+                Categoria = categoria,
                 Action = ActionNotification.Atualizar
             });
 
@@ -84,15 +91,16 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(DeleteCategoriaCommand request, CancellationToken cancellationToken)
         {
-            var Categoria = categoriaDomainService.GetId(int.Parse(request.Id));
+            //var categoria = categoriaDomainService.GetId(int.Parse(request.Id));
+            var categoria = mapper.Map<Categoria>(request);
 
             //base relacional..
-            categoriaDomainService.Delete(Categoria);
+            categoriaDomainService.Delete(categoria);
 
             //base não relacional..
             await mediator.Publish(new CategoriaNotification
             {
-                Categoria = Categoria,
+                Categoria = categoria,
                 Action = ActionNotification.Excluir
             });
 

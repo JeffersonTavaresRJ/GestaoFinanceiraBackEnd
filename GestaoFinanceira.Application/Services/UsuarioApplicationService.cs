@@ -6,6 +6,7 @@ using GestaoFinanceira.Domain.Validations;
 using GestaoFinanceira.Infra.CrossCutting.Security;
 using FluentValidation;
 using System;
+using AutoMapper;
 
 namespace GestaoFinanceira.Application.Services
 {
@@ -14,12 +15,14 @@ namespace GestaoFinanceira.Application.Services
 
         private readonly IUsuarioDomainService usuarioDomainService;
         private readonly TokenService tokenService;
+        private readonly IMapper mapper;
 
 
-        public UsuarioApplicationService(IUsuarioDomainService usuarioDomainService, TokenService tokenService)
+        public UsuarioApplicationService(IUsuarioDomainService usuarioDomainService, TokenService tokenService, IMapper mapper)
         {
             this.usuarioDomainService = usuarioDomainService;
             this.tokenService = tokenService;
+            this.mapper = mapper;
         }
 
         public void Add(CreateUsuarioCommand command)
@@ -33,12 +36,14 @@ namespace GestaoFinanceira.Application.Services
                     throw new Exception("O e-mail já encontra-se cadastrado para outro usuário");
                 }
 
-                usuario = new Usuario
-                {
-                    EMail = command.EMail,
-                    Nome = command.Nome,
-                    Senha = command.Senha
-                };
+                //usuario = new Usuario
+                //{
+                //    EMail = command.EMail,
+                //    Nome = command.Nome,
+                //    Senha = command.Senha
+                //};
+
+                usuario = mapper.Map<Usuario>(command);
 
                 var validation = new UsuarioValidation().Validate(usuario);
                 if (!validation.IsValid)
@@ -59,10 +64,12 @@ namespace GestaoFinanceira.Application.Services
         {
             try
             {
-                var usuario = usuarioDomainService.GetId(int.Parse(command.Id));
-                usuario.Nome = command.Nome;
-                usuario.EMail = command.EMail;
-                usuario.Senha = command.Senha;
+                //var usuario = usuarioDomainService.GetId(int.Parse(command.Id));
+                //usuario.Nome = command.Nome;
+                //usuario.EMail = command.EMail;
+                //usuario.Senha = command.Senha;
+
+                var usuario = mapper.Map<Usuario>(command);
 
 
                 var user = usuarioDomainService.Get(command.EMail);
@@ -90,7 +97,8 @@ namespace GestaoFinanceira.Application.Services
         {
             try
             {
-                var usuario = usuarioDomainService.GetId(int.Parse(command.Id));
+                //var usuario = usuarioDomainService.GetId(int.Parse(command.Id));
+                var usuario = mapper.Map<Usuario>(command);
                 usuarioDomainService.Delete(usuario);
             }
             catch (Exception e)
@@ -120,9 +128,6 @@ namespace GestaoFinanceira.Application.Services
             }
 
         }
-
-
-
 
     }
 }

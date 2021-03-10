@@ -1,4 +1,5 @@
-﻿using GestaoFinanceira.Application.Notifications;
+﻿using AutoMapper;
+using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Domain.Models.Enuns;
@@ -12,24 +13,28 @@ namespace GestaoFinanceira.Application.Handlers
     public class CategoriaHandler : INotificationHandler<CategoriaNotification>
     {
         private readonly ICategoriaCaching categoriaCaching;
+        private readonly IMapper mapper;
 
-        public CategoriaHandler(ICategoriaCaching categoriaCaching)
+        public CategoriaHandler(ICategoriaCaching categoriaCaching, IMapper mapper)
         {
             this.categoriaCaching = categoriaCaching;
+            this.mapper = mapper;
         }
 
         public Task Handle(CategoriaNotification notification, CancellationToken cancellationToken)
         {
             return Task.Run(() => {
-                var categoriaDTO = new CategoriaDTO
-                {
-                    Id = notification.Categoria.Id,
-                    Descricao = notification.Categoria.Descricao,
-                    Tipo = ExtensionEnum.ObterDescricao((TipoCategoria)Enum.Parse(typeof(TipoCategoria), notification.Categoria.Tipo.ToString())),
-                    IdUsuario = notification.Categoria.IdUsuario,
-                    Status = notification.Categoria.Status
-                     
-                };
+                //var categoriaDTO = new CategoriaDTO
+                //{
+                //    Id = notification.Categoria.Id,
+                //    Descricao = notification.Categoria.Descricao,
+                //    Tipo = ExtensionEnum.ObterDescricao((TipoCategoria)Enum.Parse(typeof(TipoCategoria), notification.Categoria.Tipo.ToString())),
+                //    IdUsuario = notification.Categoria.IdUsuario,
+                //    Status = notification.Categoria.Status
+
+                //};
+
+                var categoriaDTO = mapper.Map<CategoriaDTO>(notification.Categoria);
 
                 switch (notification.Action)
                 {
