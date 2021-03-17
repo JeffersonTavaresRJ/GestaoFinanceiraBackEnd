@@ -1,5 +1,8 @@
-﻿using GestaoFinanceira.Application.Commands.Usuario;
+﻿using FluentValidation;
+using GestaoFinanceira.Application.Commands.Usuario;
+using GestaoFinanceira.Application.Exceptions.Usuario;
 using GestaoFinanceira.Application.Interfaces;
+using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,6 +30,16 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 usuarioApplicationService.Add(command);
                 return Ok(new { message = "Usuário cadastrado com sucesso!" });
             }
+            catch(ValidationException e)
+            {
+                return BadRequest(ValidationAdapter.Parse(e.Errors));
+            }
+
+            catch(EmailJaCadastradoExcpetion e)
+            {
+                return StatusCode(403,e.Message);
+            }
+
             catch (Exception e)
             {
 
@@ -42,6 +55,10 @@ namespace GestaoFinanceira.Service.Api.Controllers
             {
                 usuarioApplicationService.Update(command);
                 return Ok(new { message = "Usuário atualizado com sucesso!" });
+            }
+            catch (ValidationException e)
+            {
+                return BadRequest(ValidationAdapter.Parse(e.Errors));
             }
             catch (Exception e)
             {

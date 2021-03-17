@@ -5,6 +5,8 @@ C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFi
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\GestaoFinanceira.Service.Api.deps.json
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\GestaoFinanceira.Service.Api.runtimeconfig.json
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\GestaoFinanceira.Service.Api.pdb
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\AutoMapper.dll
+C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\DnsClient.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\FluentValidation.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\MediatR.dll

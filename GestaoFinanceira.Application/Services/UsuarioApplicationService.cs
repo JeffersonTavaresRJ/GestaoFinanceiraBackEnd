@@ -7,6 +7,7 @@ using GestaoFinanceira.Infra.CrossCutting.Security;
 using FluentValidation;
 using System;
 using AutoMapper;
+using GestaoFinanceira.Application.Exceptions.Usuario;
 
 namespace GestaoFinanceira.Application.Services
 {
@@ -27,77 +28,48 @@ namespace GestaoFinanceira.Application.Services
 
         public void Add(CreateUsuarioCommand command)
         {
-            try
+            var usuario = usuarioDomainService.Get(command.EMail);
+
+            if (usuario != null)
             {
-                var usuario = usuarioDomainService.Get(command.EMail);
-
-                if (usuario != null)
-                {
-                    throw new Exception("O e-mail já encontra-se cadastrado para outro usuário");
-                }
-
-                //usuario = new Usuario
-                //{
-                //    EMail = command.EMail,
-                //    Nome = command.Nome,
-                //    Senha = command.Senha
-                //};
-
-                usuario = mapper.Map<Usuario>(command);
-
-                var validation = new UsuarioValidation().Validate(usuario);
-                if (!validation.IsValid)
-                {
-                    throw new ValidationException(validation.Errors);
-                }
-
-                usuarioDomainService.Add(usuario);
+                throw new EmailJaCadastradoExcpetion(command.EMail);
             }
-            catch (Exception e)
+
+            usuario = mapper.Map<Usuario>(command);
+
+            var validation = new UsuarioValidation().Validate(usuario);
+            if (!validation.IsValid)
             {
-
-                throw new Exception(e.Message);
+                throw new ValidationException(validation.Errors);
             }
+
+            usuarioDomainService.Add(usuario);
         }
 
         public void Update(UpdateUsuarioCommand command)
         {
-            try
+            var usuario = mapper.Map<Usuario>(command);
+
+            var user = usuarioDomainService.Get(command.EMail);
+            if (user != null && user.Id != usuario.Id && user.EMail == usuario.EMail)
             {
-                //var usuario = usuarioDomainService.GetId(int.Parse(command.Id));
-                //usuario.Nome = command.Nome;
-                //usuario.EMail = command.EMail;
-                //usuario.Senha = command.Senha;
-
-                var usuario = mapper.Map<Usuario>(command);
-
-
-                var user = usuarioDomainService.Get(command.EMail);
-                if (user != null && user.Id != usuario.Id && user.EMail == usuario.EMail)
-                {
-                    throw new Exception("O e-mail já encontra-se cadastrado para outro usuário");
-                }
-
-                var validation = new UsuarioValidation().Validate(usuario);
-                if (!validation.IsValid)
-                {
-                    throw new ValidationException(validation.Errors);
-                }
-
-                usuarioDomainService.Update(usuario);
+                throw new EmailJaCadastradoExcpetion(usuario.EMail);
             }
-            catch (Exception e)
+
+            var validation = new UsuarioValidation().Validate(usuario);
+            if (!validation.IsValid)
             {
-
-                throw new Exception(e.Message);
+                throw new ValidationException(validation.Errors);
             }
+
+            usuarioDomainService.Update(usuario);
+
         }
 
         public void Delete(DeleteUsuarioCommand command)
         {
             try
             {
-                //var usuario = usuarioDomainService.GetId(int.Parse(command.Id));
                 var usuario = mapper.Map<Usuario>(command);
                 usuarioDomainService.Delete(usuario);
             }
