@@ -73,7 +73,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
             try
             {
                 usuarioApplicationService.Delete(command);
-                return Ok(new { Message = "Usuário excluído com sucesso!" });
+                return Ok(new { message = "Usuário excluído com sucesso!" });
             }
             catch (Exception e)
             {
@@ -87,7 +87,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
-                return Ok(User.Identity.Name);
+                return Ok( new { user = User.Identity.Name });
             }
             catch (Exception e)
             {
