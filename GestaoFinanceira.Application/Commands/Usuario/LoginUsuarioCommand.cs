@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GestaoFinanceira.Application.Commands.Usuario
 {
-    public class AuthenticateUsuarioCommand
+    public class LoginUsuarioCommand
     {
         public string EMail { get; set; }
         public string Senha { get; set; }

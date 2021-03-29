@@ -100,17 +100,17 @@ namespace GestaoFinanceira.Service.Api.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Autenthicate")]
-        public IActionResult Autenthicate(AuthenticateUsuarioCommand command)
+        public IActionResult Autenthicate(LoginUsuarioCommand command)
         {
             try
             {
-                var token = usuarioApplicationService.Authenticate(command);
-                if (token != null)
+                var user = usuarioApplicationService.Authenticate(command);
+                if (user != null)
                 {
                     return Ok(new
                     {
                         message = "Usuário autenticado com sucesso!",
-                        acessToken = token
+                        user = user
                     });
                 }
 

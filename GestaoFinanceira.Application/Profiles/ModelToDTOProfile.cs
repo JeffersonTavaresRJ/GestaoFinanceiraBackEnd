@@ -14,6 +14,8 @@ namespace GestaoFinanceira.Application.Profiles
         {
             CreateMap<Categoria, CategoriaDTO>()
                 .AfterMap((scr, dest) => dest.Tipo = ExtensionEnum.ObterDescricao((TipoCategoria)Enum.Parse(typeof(TipoCategoria), dest.Tipo.ToString())));
+
+            CreateMap<Usuario, UsuarioDTO>();
                 
         }
     }

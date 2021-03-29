@@ -8,6 +8,7 @@ using FluentValidation;
 using System;
 using AutoMapper;
 using GestaoFinanceira.Application.Exceptions.Usuario;
+using GestaoFinanceira.Domain.DTOs;
 
 namespace GestaoFinanceira.Application.Services
 {
@@ -80,17 +81,18 @@ namespace GestaoFinanceira.Application.Services
             }
         }
 
-        public string Authenticate(AuthenticateUsuarioCommand command)
+        public UsuarioDTO Authenticate(LoginUsuarioCommand command)
         {
             try
             {
-                var usuario = usuarioDomainService.Get(command.EMail, command.Senha);
+                Usuario usuario = usuarioDomainService.Get(command.EMail, command.Senha);
+                var user = mapper.Map<UsuarioDTO>(usuario);
 
-                if (usuario != null)
+                if (user != null)
                 {
-                    return tokenService.GenerateToken(command.EMail);
+                    user.AccessToken = tokenService.GenerateToken(command.EMail);
+                    return user;
                 }
-
                 return null;
             }
             catch (Exception e)

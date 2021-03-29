@@ -20,7 +20,7 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((src, dest) => dest.Id = int.Parse(src.Id));
 
             CreateMap<DeleteUsuarioCommand, Usuario>()
-                .AfterMap((src, dest) => dest.Id = int.Parse(src.Id));
+                .AfterMap((src, dest) => dest.Id = int.Parse(src.Id));            
             #endregion
 
             #region Categoria
