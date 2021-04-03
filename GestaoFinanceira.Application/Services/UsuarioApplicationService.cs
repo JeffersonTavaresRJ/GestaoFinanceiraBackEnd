@@ -67,11 +67,11 @@ namespace GestaoFinanceira.Application.Services
 
         }
 
-        public void Delete(DeleteUsuarioCommand command)
+        public void Delete(string id)
         {
             try
             {
-                var usuario = mapper.Map<Usuario>(command);
+                var usuario = usuarioDomainService.GetId(int.Parse(id));
                 usuarioDomainService.Delete(usuario);
             }
             catch (Exception e)
@@ -92,6 +92,7 @@ namespace GestaoFinanceira.Application.Services
                 {
                     user.AccessToken = tokenService.GenerateToken(command.EMail);
                     return user;
+
                 }
                 return null;
             }

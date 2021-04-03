@@ -30,7 +30,7 @@ namespace GestaoFinanceira.Infra.CrossCutting.Security
                 }),
 
                 //tempo de expiração..
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.UtcNow.AddMinutes(double.Parse(appSetting.ValidForMinutes)),
 
                 //criptografia do token..
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

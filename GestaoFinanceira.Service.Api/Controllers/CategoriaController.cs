@@ -59,11 +59,12 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(DeleteCategoriaCommand command)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
         {
             try
             {
+                DeleteCategoriaCommand command = new DeleteCategoriaCommand() { Id = id };
                 await categoriaApplicationService.Delete(command);
                 return Ok(new { message = "Categoria excluída com sucesso!" });
             }

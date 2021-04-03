@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GestaoFinanceira.Services.Api.Configurations;
+using Microsoft.IdentityModel.Logging;
 
 namespace GestaoFinanceira.Service.Api
 {
@@ -53,7 +54,10 @@ namespace GestaoFinanceira.Service.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                IdentityModelEventSource.ShowPII = true; //capturar erros PII (expiração token)
             }
+
+            
 
             CorsSetup.UseCorsSetup(app);//deve ficar aqui esta linha
 

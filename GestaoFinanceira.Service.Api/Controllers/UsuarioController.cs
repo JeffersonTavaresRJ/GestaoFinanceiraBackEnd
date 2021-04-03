@@ -67,13 +67,17 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpDelete]
-        public IActionResult Delete(DeleteUsuarioCommand command)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(string id)
         {
             try
             {
-                usuarioApplicationService.Delete(command);
+                usuarioApplicationService.Delete(id);
                 return Ok(new { message = "Usuário excluído com sucesso!" });
+            }
+            catch(SenhaInvalidaException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (Exception e)
             {
