@@ -75,10 +75,6 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 usuarioApplicationService.Delete(id);
                 return Ok(new { message = "Usuário excluído com sucesso!" });
             }
-            catch(SenhaInvalidaException e)
-            {
-                return BadRequest(e.Message);
-            }
             catch (Exception e)
             {
 
