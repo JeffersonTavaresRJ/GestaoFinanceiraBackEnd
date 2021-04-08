@@ -30,5 +30,20 @@ namespace GestaoFinanceira.Infra.Data.Repositories
         {
             return dbset.Where(u => u.Id == idUsuario || idUsuario == 0);
         }
+
+        public void UpdateByCadastro(Usuario usuario)
+        {
+            context.Usuarios.Attach(usuario);
+            context.Entry(usuario).Property(u => u.Nome).IsModified = true;
+            context.Entry(usuario).Property(u => u.EMail).IsModified = true;
+            context.SaveChanges();
+        }
+
+        public void UpdateBySenha(Usuario usuario)
+        {
+            context.Usuarios.Attach(usuario);
+            context.Entry(usuario).Property(u => u.Senha).IsModified = true;
+            context.SaveChanges();
+        }
     }
 }

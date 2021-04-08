@@ -49,12 +49,33 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
 
         [HttpPut]
+        [Route("AlteracaoCadastral")]
         public IActionResult Put(UpdateUsuarioCommand command)
         {
             try
             {
-                usuarioApplicationService.Update(command);
+                usuarioApplicationService.UpdateByCadastro(command);
                 return Ok(new { message = "Usuário atualizado com sucesso!" });
+            }
+            catch (ValidationException e)
+            {
+                return BadRequest(ValidationAdapter.Parse(e.Errors));
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("TrocaSenha")]
+        public IActionResult PutBySenha(UpdateUsuarioCommand command)
+        {
+            try
+            {
+                usuarioApplicationService.UpdateBySenha(command);
+                return Ok(new { message = "Senha alterada com sucesso!" });
             }
             catch (ValidationException e)
             {

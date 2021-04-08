@@ -47,15 +47,15 @@ namespace GestaoFinanceira.Application.Services
             usuarioDomainService.Add(usuario);
         }
 
-        public void Update(UpdateUsuarioCommand command)
+        public void UpdateByCadastro(UpdateUsuarioCommand command)
         {
-            var usuario = mapper.Map<Usuario>(command);
-
             var user = usuarioDomainService.Get(command.EMail);
-            if (user != null && user.Id != usuario.Id && user.EMail == usuario.EMail)
+            if (user != null && user.Id != int.Parse(command.Id) && user.EMail == command.EMail)
             {
-                throw new EmailJaCadastradoExcpetion(usuario.EMail);
+                throw new EmailJaCadastradoExcpetion(command.EMail);
             }
+
+            var usuario = mapper.Map<Usuario>(command);
 
             var validation = new UsuarioValidation().Validate(usuario);
             if (!validation.IsValid)
@@ -63,7 +63,22 @@ namespace GestaoFinanceira.Application.Services
                 throw new ValidationException(validation.Errors);
             }
 
-            usuarioDomainService.Update(usuario);
+            usuarioDomainService.UpdateByCadastro(usuario);  
+
+        }
+
+        public void UpdateBySenha(UpdateUsuarioCommand command)
+        {
+
+            var usuario = mapper.Map<Usuario>(command);
+
+            var validation = new UsuarioValidation().Validate(usuario);
+            if (!validation.IsValid)
+            {
+                throw new ValidationException(validation.Errors);
+            }
+
+            usuarioDomainService.UpdateBySenha(usuario);
 
         }
 

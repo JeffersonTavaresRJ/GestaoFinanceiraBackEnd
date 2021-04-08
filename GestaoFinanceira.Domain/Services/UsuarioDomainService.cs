@@ -34,12 +34,40 @@ namespace GestaoFinanceira.Domain.Services
             }
         }
 
+
         public override void Update(Usuario obj)
         {
             try
             {
                 obj.Senha = mD5Service.Encrypt(obj.Senha);
                 base.Update(obj);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
+        public void UpdateBySenha(Usuario obj)
+        {
+            try
+            {
+                obj.Senha = mD5Service.Encrypt(obj.Senha);
+                unitOfWork.IUsuarioRepository.UpdateBySenha(obj);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
+        public void UpdateByCadastro(Usuario obj)
+        {
+            try
+            {
+                unitOfWork.IUsuarioRepository.UpdateByCadastro(obj);
             }
             catch (Exception e)
             {
