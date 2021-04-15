@@ -49,17 +49,28 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
 
         [HttpPut]
-        [Route("AlteracaoCadastral")]
         public IActionResult Put(UpdateUsuarioCommand command)
         {
             try
             {
-                usuarioApplicationService.UpdateByCadastro(command);
-                return Ok(new { message = "Usuário atualizado com sucesso!" });
+                usuarioApplicationService.Update(command);
+                return Ok(new { message = "Usuário alterado com sucesso!" });
             }
             catch (ValidationException e)
             {
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
+            }
+            catch (UsuarioInvalidoException e)
+            {
+                return StatusCode(403, e.Message);
+            }
+            catch (EmailJaCadastradoExcpetion e)
+            {
+                return StatusCode(403, e.Message);
+            }
+            catch (SenhaInvalidaException e)
+            {
+                return StatusCode(403, e.Message);
             }
             catch (Exception e)
             {
@@ -70,16 +81,24 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         [HttpPut]
         [Route("TrocaSenha")]
-        public IActionResult PutBySenha(UpdateUsuarioCommand command)
+        public IActionResult Put(TrocaSenhaUsuarioCommand command)
         {
             try
             {
-                usuarioApplicationService.UpdateBySenha(command);
+                usuarioApplicationService.Update(command);
                 return Ok(new { message = "Senha alterada com sucesso!" });
             }
             catch (ValidationException e)
             {
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
+            }
+            catch (UsuarioInvalidoException e)
+            {
+                return StatusCode(403, e.Message);
+            }
+            catch (SenhaInvalidaException e)
+            {
+                return StatusCode(403, e.Message);
             }
             catch (Exception e)
             {

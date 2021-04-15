@@ -49,33 +49,25 @@ namespace GestaoFinanceira.Domain.Services
             }
         }
 
-        public void UpdateBySenha(Usuario obj)
+        public void TrocaSenha(Usuario obj)
         {
             try
             {
                 obj.Senha = mD5Service.Encrypt(obj.Senha);
-                unitOfWork.IUsuarioRepository.UpdateBySenha(obj);
+                unitOfWork.BeginTransaction();
+                unitOfWork.IUsuarioRepository.TrocaSenha(obj);
+                unitOfWork.Commit();
             }
             catch (Exception e)
             {
-
+                unitOfWork.Rollback();
                 throw new Exception(e.Message);
             }
-        }
-
-        public void UpdateByCadastro(Usuario obj)
-        {
-            try
+            finally
             {
-                unitOfWork.IUsuarioRepository.UpdateByCadastro(obj);
-            }
-            catch (Exception e)
-            {
-
-                throw new Exception(e.Message);
+                unitOfWork.Dispose();
             }
         }
-
 
         public override void Delete(Usuario obj)
         {

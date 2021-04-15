@@ -19,6 +19,7 @@ namespace GestaoFinanceira.Infra.Data.Context
 
         //TODO: LOG DE EXECUÇÃO DO EF CORE - PASSO 01: ALTERAR O MÉTODO OnConfiguring DO DBCONTEXT..
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.EnableSensitiveDataLogging(false);
+     
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

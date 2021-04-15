@@ -18,6 +18,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories
         protected GenericRepository(SqlContext context)
         {
             this.context = context;
+            /*consulta sem acompanhamento de leitura..*/
+            this.context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             this.dbset = context.Set<TEntity>();
         }
 

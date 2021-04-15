@@ -10,8 +10,8 @@ namespace GestaoFinanceira.Application.Interfaces
     public interface IUsuarioApplicationService
     {
         void Add(CreateUsuarioCommand command);
-        void UpdateByCadastro(UpdateUsuarioCommand command);
-        void UpdateBySenha(UpdateUsuarioCommand command);
+        void Update(UpdateUsuarioCommand command);
+        void Update(TrocaSenhaUsuarioCommand command);
         void Delete(string id);
         UsuarioDTO Authenticate(LoginUsuarioCommand command);
     }       

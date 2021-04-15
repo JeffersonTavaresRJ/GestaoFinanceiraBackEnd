@@ -47,13 +47,25 @@ namespace GestaoFinanceira.Application.Services
             usuarioDomainService.Add(usuario);
         }
 
-        public void UpdateByCadastro(UpdateUsuarioCommand command)
+        public void Update(UpdateUsuarioCommand command)
         {
-            var user = usuarioDomainService.Get(command.EMail);
-            if (user != null && user.Id != int.Parse(command.Id) && user.EMail == command.EMail)
+
+            var userSenha = usuarioDomainService.GetId(int.Parse(command.Id));
+            if (userSenha == null)
+            {
+                throw new UsuarioInvalidoException();
+            }
+
+            if (usuarioDomainService.Get(userSenha.EMail, command.Senha) == null)
+            {
+                throw new SenhaInvalidaException();
+            }
+
+            var userEmail = usuarioDomainService.Get(command.EMail);
+            if (userEmail != null && userEmail.Id != int.Parse(command.Id) && userEmail.EMail == command.EMail)
             {
                 throw new EmailJaCadastradoExcpetion(command.EMail);
-            }
+            }            
 
             var usuario = mapper.Map<Usuario>(command);
 
@@ -63,14 +75,24 @@ namespace GestaoFinanceira.Application.Services
                 throw new ValidationException(validation.Errors);
             }
 
-            usuarioDomainService.UpdateByCadastro(usuario);  
+            usuarioDomainService.Update(usuario);  
 
         }
 
-        public void UpdateBySenha(UpdateUsuarioCommand command)
+        public void Update(TrocaSenhaUsuarioCommand command)
         {
+            var usuario = usuarioDomainService.GetId(int.Parse(command.Id));
 
-            var usuario = mapper.Map<Usuario>(command);
+            if (usuario == null)
+            {
+                throw new UsuarioInvalidoException();
+            }
+
+            if (usuarioDomainService.Get(usuario.EMail, command.Senha) == null)
+            {
+                throw new SenhaInvalidaException();
+            }
+            usuario.Senha = command.NovaSenha;
 
             var validation = new UsuarioValidation().Validate(usuario);
             if (!validation.IsValid)
@@ -78,9 +100,10 @@ namespace GestaoFinanceira.Application.Services
                 throw new ValidationException(validation.Errors);
             }
 
-            usuarioDomainService.UpdateBySenha(usuario);
+            usuarioDomainService.TrocaSenha(usuario);
 
         }
+
 
         public void Delete(string id)
         {

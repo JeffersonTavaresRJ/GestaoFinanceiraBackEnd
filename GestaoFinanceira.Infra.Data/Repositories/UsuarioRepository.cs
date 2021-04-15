@@ -18,7 +18,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         public Usuario Get(string email)
         {
-            return dbset.FirstOrDefault(u => u.EMail.Equals(email));
+             return dbset.FirstOrDefault(u => u.EMail.Equals(email));
         }
 
         public Usuario Get(string email, string senha)
@@ -30,20 +30,13 @@ namespace GestaoFinanceira.Infra.Data.Repositories
         {
             return dbset.Where(u => u.Id == idUsuario || idUsuario == 0);
         }
-
-        public void UpdateByCadastro(Usuario usuario)
-        {
-            context.Usuarios.Attach(usuario);
-            context.Entry(usuario).Property(u => u.Nome).IsModified = true;
-            context.Entry(usuario).Property(u => u.EMail).IsModified = true;
-            context.SaveChanges();
-        }
-
-        public void UpdateBySenha(Usuario usuario)
+        
+        public void TrocaSenha(Usuario usuario)
         {
             context.Usuarios.Attach(usuario);
             context.Entry(usuario).Property(u => u.Senha).IsModified = true;
             context.SaveChanges();
         }
+        
     }
 }
