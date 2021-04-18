@@ -37,7 +37,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
             catch(EmailJaCadastradoExcpetion e)
             {
-                return StatusCode(403,e.Message);
+                return StatusCode(418,e.Message);
             }
 
             catch (Exception e)
@@ -62,15 +62,15 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
             catch (UsuarioInvalidoException e)
             {
-                return StatusCode(403, e.Message);
+                return StatusCode(418, e.Message);
             }
             catch (EmailJaCadastradoExcpetion e)
             {
-                return StatusCode(403, e.Message);
+                return StatusCode(418, e.Message);
             }
             catch (SenhaInvalidaException e)
             {
-                return StatusCode(403, e.Message);
+                return StatusCode(418, e.Message);
             }
             catch (Exception e)
             {
@@ -94,11 +94,11 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
             catch (UsuarioInvalidoException e)
             {
-                return StatusCode(403, e.Message);
+                return StatusCode(418, e.Message);
             }
             catch (SenhaInvalidaException e)
             {
-                return StatusCode(403, e.Message);
+                return StatusCode(418, e.Message);
             }
             catch (Exception e)
             {

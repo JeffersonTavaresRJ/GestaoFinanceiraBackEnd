@@ -88,11 +88,11 @@ namespace GestaoFinanceira.Application.Services
                 throw new UsuarioInvalidoException();
             }
 
-            if (usuarioDomainService.Get(usuario.EMail, command.Senha) == null)
+            if (usuarioDomainService.Get(usuario.EMail, command.SenhaAtual) == null)
             {
                 throw new SenhaInvalidaException();
             }
-            usuario.Senha = command.NovaSenha;
+            usuario.Senha = command.Senha;
 
             var validation = new UsuarioValidation().Validate(usuario);
             if (!validation.IsValid)

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jPKnu+lBolK1EXq+JrfLbbjTJOl+WJNSTXJ8OzHvofpoixrkT2tofdE6gGzG75jW/YsBQeU8AZB3gaXLF29MTA==",
+  "dgSpecHash": "94Jh9ZI73sgpZZ5jmRT1J5NS8pSlnzajdGT8HG3JeVdXuWM+2HP9VRlU9Y2UsjsGZ2JON64FKrL2Uj9Mwb1+ng==",
   "success": true,
   "projectFilePath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Service.Api\\GestaoFinanceira.Service.Api.csproj",
   "expectedPackageFiles": [
@@ -174,7 +174,8 @@
     "C:\\Users\\jefta\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\jefta\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\jefta\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.13\\microsoft.netcore.app.host.win-x64.3.1.13.nupkg.sha512"
   ],
   "logs": []
 }
