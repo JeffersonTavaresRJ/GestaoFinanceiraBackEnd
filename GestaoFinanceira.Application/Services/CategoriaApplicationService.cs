@@ -48,7 +48,7 @@ namespace GestaoFinanceira.Application.Services
         
         public IList GetAllTipo()
         {
-            return ExtensionEnum.Listar(typeof(TipoCategoria));
+            return ExtensionEnum.Listar(typeof(TipoItemMovimentacao));
         }
     }
 }

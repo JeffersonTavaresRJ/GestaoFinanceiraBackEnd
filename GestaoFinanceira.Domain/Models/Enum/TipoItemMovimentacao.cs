@@ -3,7 +3,7 @@
 namespace GestaoFinanceira.Domain.Models.Enuns
 {
 
-    public enum TipoCategoria
+    public enum TipoItemMovimentacao
     {
         [Description("Despesa")]
         D,

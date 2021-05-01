@@ -26,13 +26,13 @@ namespace GestaoFinanceira.Application.Profiles
             #region Categoria
             CreateMap<CreateCategoriaCommand, Categoria>()
                 .AfterMap((src, dest) => dest.Status = true)
-                .AfterMap((src, dest) => dest.Tipo = (TipoCategoria)Enum.Parse(typeof(TipoCategoria), src.Tipo))
+               /* .AfterMap((src, dest) => dest.Tipo = (TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), src.Tipo))*/
                 .AfterMap((src, dest) => dest.IdUsuario = int.Parse(src.IdUsuario));
 
             CreateMap<UpdateCategoriaCommand, Categoria>()
                 .AfterMap((src, dest) => dest.Id = int.Parse(src.Id))
                 .AfterMap((src, dest) => dest.Status = bool.Parse(src.Status))
-                .AfterMap((src, dest) => dest.Tipo = (TipoCategoria)Enum.Parse(typeof(TipoCategoria), src.Tipo))
+              /*  .AfterMap((src, dest) => dest.Tipo = (TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), src.Tipo))*/
                 .AfterMap((src, dest) => dest.IdUsuario = int.Parse(src.IdUsuario));
 
             CreateMap<DeleteCategoriaCommand, Categoria>()

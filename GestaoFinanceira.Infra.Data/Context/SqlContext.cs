@@ -28,12 +28,13 @@ namespace GestaoFinanceira.Infra.Data.Context
 
             modelBuilder.ApplyConfiguration(new CategoriaMap());
             modelBuilder.Entity<Categoria>(entity => entity.Property(c => c.Id).ValueGeneratedOnAdd());
-
+            /*
             modelBuilder.Entity<Categoria>()
                         .Property(c => c.Tipo)
                         .HasConversion(
                                         v => v.ToString(),
-                                        v => (TipoCategoria)Enum.Parse(typeof(TipoCategoria), v));
+                                        v => (TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), v));
+            */
 
 
             base.OnModelCreating(modelBuilder);

@@ -17,11 +17,6 @@ namespace GestaoFinanceira.Infra.Data.Mappings
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.Property(c => c.Tipo)
-                .HasColumnName("TIPO_CATE")
-                .HasMaxLength(1)                
-                .IsRequired();
-
             builder.Property(c => c.Status)
                 .HasColumnName("STATUS_CATE")                
                 .IsRequired();
