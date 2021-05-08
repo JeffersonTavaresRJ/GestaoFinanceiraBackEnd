@@ -11,6 +11,7 @@ namespace GestaoFinanceira.Infra.Data.Context
     {
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Conta> Contas { get; set; }
 
         public SqlContext(DbContextOptions<SqlContext> options) : base(options)
         {
@@ -28,6 +29,9 @@ namespace GestaoFinanceira.Infra.Data.Context
 
             modelBuilder.ApplyConfiguration(new CategoriaMap());
             modelBuilder.Entity<Categoria>(entity => entity.Property(c => c.Id).ValueGeneratedOnAdd());
+
+            modelBuilder.ApplyConfiguration(new ContaMap());
+            modelBuilder.Entity<Conta>(entity => entity.Property(c => c.Id).ValueGeneratedOnAdd());
             /*
             modelBuilder.Entity<Categoria>()
                         .Property(c => c.Tipo)

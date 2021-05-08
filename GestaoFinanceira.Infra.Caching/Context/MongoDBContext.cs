@@ -32,7 +32,12 @@ namespace GestaoFinanceira.Infra.Caching.Context
         //Configurar as Collections que serão criadas no MongoDB
         public IMongoCollection<CategoriaDTO> Categorias { 
             get { return mongoDataBase.GetCollection<CategoriaDTO>("Categorias"); } 
-        }       
-       
+        }
+
+        public IMongoCollection<ContaDTO> Contas
+        {
+            get { return mongoDataBase.GetCollection<ContaDTO>("Contas"); }
+        }
+
     }
 }

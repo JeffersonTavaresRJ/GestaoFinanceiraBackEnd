@@ -12,6 +12,7 @@ namespace GestaoFinanceira.Domain.Models
         public string Senha { get; set; }
 
         public virtual List<Categoria> Categorias { get; set; }
+        public virtual List<Conta> Contas { get; set; }
 
         public Usuario()
         {

@@ -12,6 +12,7 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
 
         IUsuarioRepository IUsuarioRepository { get; }
         ICategoriaRepository ICategoriaRepository { get; }
+        IContaRepository IContaRepository { get; }
 
     }
 }

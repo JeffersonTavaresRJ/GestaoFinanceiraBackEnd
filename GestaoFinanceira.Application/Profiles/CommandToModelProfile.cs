@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GestaoFinanceira.Application.Commands.Categoria;
+using GestaoFinanceira.Application.Commands.Conta;
 using GestaoFinanceira.Application.Commands.Usuario;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Models.Enuns;
@@ -40,6 +41,15 @@ namespace GestaoFinanceira.Application.Profiles
             CreateMap<DeleteCategoriaCommand, Categoria>()
                 .AfterMap((src, dest) => dest.Id = int.Parse(src.Id));
             #endregion
+
+            #region Conta
+            CreateMap<CreateContaCommand, Conta>()
+                .AfterMap((src, dest)=>dest.Status = true);
+            CreateMap<UpdateContaCommand, Conta>()
+                .AfterMap((src, dest)=>dest.Status = bool.Parse(src.Status));
+            CreateMap<DeleteContaCommand, Conta>();
+            #endregion
+
         }
     }
 }

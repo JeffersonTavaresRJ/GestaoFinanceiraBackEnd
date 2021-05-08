@@ -36,6 +36,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         public ICategoriaRepository ICategoriaRepository => new CategoriaRepository(context);
 
+        public IContaRepository IContaRepository => new ContaRepository(context);
+
         public void Dispose()
         {
             context.Dispose();
