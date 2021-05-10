@@ -6,6 +6,6 @@ namespace GestaoFinanceira.Application.Commands.Usuario
 {
     public class DeleteUsuarioCommand
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace GestaoFinanceira.Application.Commands.Categoria
     public class CreateCategoriaCommand :IRequest
     {
         public string Descricao { get; set; }
-        public string IdUsuario { get; set; }
+        public int IdUsuario { get; set; }
     }
 }

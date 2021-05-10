@@ -7,6 +7,6 @@ namespace GestaoFinanceira.Application.Commands.Categoria
 {
     public class DeleteCategoriaCommand: IRequest
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
     }
 }

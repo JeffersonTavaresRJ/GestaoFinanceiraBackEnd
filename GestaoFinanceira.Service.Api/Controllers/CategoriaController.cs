@@ -60,7 +60,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {

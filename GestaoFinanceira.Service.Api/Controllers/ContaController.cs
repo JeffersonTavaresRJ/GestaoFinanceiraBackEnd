@@ -99,7 +99,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpGet("GetAll/{idUsuario}")]
+        [HttpGet("{idUsuario}")]
         public IActionResult GetAll(int idUsuario)
         {
 

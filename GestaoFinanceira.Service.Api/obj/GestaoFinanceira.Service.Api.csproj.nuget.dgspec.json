@@ -527,6 +527,10 @@
               "target": "Package",
               "version": "[9.0.0, )"
             },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
             "Microsoft.AspNetCore.Server.IISIntegration": {
               "target": "Package",
               "version": "[2.2.1, )"

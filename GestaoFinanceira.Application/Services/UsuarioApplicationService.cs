@@ -50,7 +50,7 @@ namespace GestaoFinanceira.Application.Services
         public void Update(UpdateUsuarioCommand command)
         {
 
-            var userSenha = usuarioDomainService.GetId(int.Parse(command.Id));
+            var userSenha = usuarioDomainService.GetId(command.Id);
             if (userSenha == null)
             {
                 throw new UsuarioInvalidoException();
@@ -62,7 +62,7 @@ namespace GestaoFinanceira.Application.Services
             }
 
             var userEmail = usuarioDomainService.Get(command.EMail);
-            if (userEmail != null && userEmail.Id != int.Parse(command.Id) && userEmail.EMail == command.EMail)
+            if (userEmail != null && userEmail.Id != command.Id && userEmail.EMail == command.EMail)
             {
                 throw new EmailJaCadastradoExcpetion(command.EMail);
             }            
@@ -81,7 +81,7 @@ namespace GestaoFinanceira.Application.Services
 
         public void Update(TrocaSenhaUsuarioCommand command)
         {
-            var usuario = usuarioDomainService.GetId(int.Parse(command.Id));
+            var usuario = usuarioDomainService.GetId(command.Id);
 
             if (usuario == null)
             {

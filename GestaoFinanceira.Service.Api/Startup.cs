@@ -29,7 +29,13 @@ namespace GestaoFinanceira.Service.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            //Tratamento para erro de conversão de tipos de variáveis API: int, boolean, date, etc..
+            /*
+             * 1) Install Microsoft.AspNetCore.Mvc.NewtonsoftJson which is preview version.
+               2) Change to services.AddControllers().AddNewtonsoftJson();
+             * 
+             * */
+            services.AddControllers().AddNewtonsoftJson();
             //setup para configuração Swagger..
             SwaggerSetup.AddSwaggerSetup(services);
             //setup para configuração do EntityFramework..
