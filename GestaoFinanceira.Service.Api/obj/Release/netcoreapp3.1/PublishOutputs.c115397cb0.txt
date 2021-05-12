@@ -12,8 +12,6 @@ C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFi
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\MediatR.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\MediatR.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.JsonPatch.dll
-C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Data.SqlClient.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -40,7 +38,6 @@ C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFi
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\MongoDB.Driver.Core.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\MongoDB.Libmongocrypt.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.dll
-C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.Bson.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\SharpCompress.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Service.Api\obj\Release\netcoreapp3.1\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll

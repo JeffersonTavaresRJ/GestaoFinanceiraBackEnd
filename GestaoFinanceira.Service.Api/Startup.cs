@@ -1,18 +1,11 @@
+using GestaoFinanceira.Infra.IoC;
+using GestaoFinanceira.Service.Api.Configurations;
+using GestaoFinanceira.Services.Api.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using GestaoFinanceira.Infra.IoC;
-using GestaoFinanceira.Service.Api.Configurations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GestaoFinanceira.Services.Api.Configurations;
 using Microsoft.IdentityModel.Logging;
 
 namespace GestaoFinanceira.Service.Api
@@ -29,13 +22,7 @@ namespace GestaoFinanceira.Service.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Tratamento para erro de conversão de tipos de variáveis API: int, boolean, date, etc..
-            /*
-             * 1) Install Microsoft.AspNetCore.Mvc.NewtonsoftJson which is preview version.
-               2) Change to services.AddControllers().AddNewtonsoftJson();
-             * 
-             * */
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers();
             //setup para configuração Swagger..
             SwaggerSetup.AddSwaggerSetup(services);
             //setup para configuração do EntityFramework..
