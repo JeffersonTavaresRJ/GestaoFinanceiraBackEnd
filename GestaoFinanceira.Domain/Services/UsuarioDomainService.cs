@@ -75,6 +75,8 @@ namespace GestaoFinanceira.Domain.Services
             {
                 unitOfWork.BeginTransaction();
                 unitOfWork.ICategoriaRepository.Delete(obj.Id);
+                unitOfWork.IContaRepository.Delete(obj.Id);
+                unitOfWork.IFormaPagamentoRepository.Delete(obj.Id);
                 unitOfWork.IUsuarioRepository.Delete(obj);
                 unitOfWork.Commit();
             }

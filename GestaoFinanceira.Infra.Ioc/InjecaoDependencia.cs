@@ -28,24 +28,29 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IUsuarioApplicationService, UsuarioApplicationService>();
             services.AddTransient<ICategoriaApplicationService, CategoriaApplicationService>();
             services.AddTransient<IContaApplicationService, ContaApplicationService>();
+            services.AddTransient<IFormaPagamentoApplicationService, FormaPagamentoApplicationService>();
             #endregion
 
             #region Domain
             services.AddTransient<IContaDomainService, ContaDomainService>();
             services.AddTransient<ICategoriaDomainService, CategoriaDomainService>();
             services.AddTransient<IUsuarioDomainService, UsuarioDomainService>();
+            services.AddTransient<IFormaPagamentoDomainService, FormaPagamentoDomainService>();
             #endregion
 
             #region InfraData
-            services.AddTransient<IContaRepository, ContaRepository>();
-            services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+            services.AddTransient<IContaRepository, ContaRepository>();
+            services.AddTransient<IFormaPagamentoRepository, FormaPagamentoRepository>();
+
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             #endregion
 
             #region InfraCaching
             services.AddTransient<ICategoriaCaching, CategoriaCaching>();
             services.AddTransient<IContaCaching, ContaCaching>();
+            services.AddTransient<IFormaPagamentoCaching, FormaPagamentoCaching>();
             #endregion
 
             #region InfraCryptography

@@ -8,13 +8,15 @@ namespace GestaoFinanceira.Application.Profiles
     {
         public ModelToDTOProfile()
         {
-            CreateMap<Conta, ContaDTO>();
+            CreateMap<Usuario, UsuarioDTO>();
 
             CreateMap<Categoria, CategoriaDTO>();
             /*    .AfterMap((scr, dest) => dest.Tipo = ExtensionEnum.ObterDescricao((TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), dest.Tipo.ToString())));*/
 
-            CreateMap<Usuario, UsuarioDTO>();
-                
+            CreateMap<Conta, ContaDTO>();
+
+            CreateMap<FormaPagamento, FormaPagamentoDTO>();
+
         }
     }
 }

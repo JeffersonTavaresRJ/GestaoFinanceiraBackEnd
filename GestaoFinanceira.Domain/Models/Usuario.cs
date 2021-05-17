@@ -13,6 +13,7 @@ namespace GestaoFinanceira.Domain.Models
 
         public virtual List<Categoria> Categorias { get; set; }
         public virtual List<Conta> Contas { get; set; }
+        public virtual List<FormaPagamento> FormasPagamento { get; set; }
 
         public Usuario()
         {

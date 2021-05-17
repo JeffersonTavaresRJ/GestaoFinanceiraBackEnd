@@ -38,6 +38,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         public IContaRepository IContaRepository => new ContaRepository(context);
 
+        public IFormaPagamentoRepository IFormaPagamentoRepository => new FormaPagamentoRepository(context);
+
         public void Dispose()
         {
             context.Dispose();
