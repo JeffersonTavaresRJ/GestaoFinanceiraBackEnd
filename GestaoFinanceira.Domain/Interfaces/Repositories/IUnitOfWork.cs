@@ -14,6 +14,7 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
         ICategoriaRepository ICategoriaRepository { get; }
         IContaRepository IContaRepository { get; }
         IFormaPagamentoRepository IFormaPagamentoRepository { get; }
+        IItemMovimentacaoRepository IItemMovimentacaoRepository { get; }
 
     }
 }

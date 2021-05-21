@@ -2,6 +2,7 @@
 using GestaoFinanceira.Application.Commands.Categoria;
 using GestaoFinanceira.Application.Commands.Conta;
 using GestaoFinanceira.Application.Commands.FormaPagamento;
+using GestaoFinanceira.Application.Commands.ItemMovimentacao;
 using GestaoFinanceira.Application.Commands.Usuario;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Models.Enuns;
@@ -26,17 +27,7 @@ namespace GestaoFinanceira.Application.Profiles
             #region Categoria
             CreateMap<CreateCategoriaCommand, Categoria>()
                 .AfterMap((src, dest) => dest.Status = true);
-            /* .AfterMap((src, dest) => dest.Tipo = (TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), src.Tipo))*/
-
-
             CreateMap<UpdateCategoriaCommand, Categoria>();
-            /*    .AfterMap((src, dest) => dest.Id = int.Parse(src.Id))*/
-
-
-            /*  .AfterMap((src, dest) => dest.Tipo = (TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), src.Tipo))*/
-
-            /*  .AfterMap((src, dest) => dest.IdUsuario = int.Parse(src.IdUsuario));*/
-
             CreateMap<DeleteCategoriaCommand, Categoria>();
             
             #endregion
@@ -51,12 +42,20 @@ namespace GestaoFinanceira.Application.Profiles
             #region FormaPagamento
             CreateMap<CreateFormaPagamentoCommand, FormaPagamento>()
                 .AfterMap((src, dest)=>dest.Status = true);
-
             CreateMap<UpdateFormaPagamentoCommand, FormaPagamento>();
-
             CreateMap<DeleteFormaPagamentoCommand, FormaPagamento>();
             #endregion
 
+            #region ItemMovimentacao
+            CreateMap<CreateItemMovimentacaoCommand, ItemMovimentacao>()
+                .AfterMap((src, dest) => dest.Status = true)
+                .AfterMap((src, dest) => dest.Tipo = (TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), src.Tipo));
+
+            CreateMap<UpdateItemMovimentacaoCommand, ItemMovimentacao>()
+                .AfterMap((src, dest) => dest.Tipo = (TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), src.Tipo));
+
+            CreateMap<DeleteItemMovimentacaoCommand, ItemMovimentacao>();
+            #endregion
         }
     }
 }

@@ -7,6 +7,5 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
 {
     public interface IContaRepository : IGenericRepository<Conta>
     {
-        void Delete(int idUsuario);
     }
 }

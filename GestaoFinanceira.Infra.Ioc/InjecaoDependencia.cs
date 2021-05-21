@@ -29,6 +29,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<ICategoriaApplicationService, CategoriaApplicationService>();
             services.AddTransient<IContaApplicationService, ContaApplicationService>();
             services.AddTransient<IFormaPagamentoApplicationService, FormaPagamentoApplicationService>();
+            services.AddTransient<IItemMovimentacaoApplicationService, ItemMovimentacaoApplicationService>();
             #endregion
 
             #region Domain
@@ -36,6 +37,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<ICategoriaDomainService, CategoriaDomainService>();
             services.AddTransient<IUsuarioDomainService, UsuarioDomainService>();
             services.AddTransient<IFormaPagamentoDomainService, FormaPagamentoDomainService>();
+            services.AddTransient<IItemMovimentacaoDomainService, ItemMovimentacaoDomainService>();
             #endregion
 
             #region InfraData
@@ -43,6 +45,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<IContaRepository, ContaRepository>();
             services.AddTransient<IFormaPagamentoRepository, FormaPagamentoRepository>();
+            services.AddTransient<IItemMovimentacaoRepository, ItemMovimentacaoRepository>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             #endregion
@@ -51,6 +54,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<ICategoriaCaching, CategoriaCaching>();
             services.AddTransient<IContaCaching, ContaCaching>();
             services.AddTransient<IFormaPagamentoCaching, FormaPagamentoCaching>();
+            services.AddTransient<IItemMovimentacaoCaching, ItemMovimentacaoCaching>();
             #endregion
 
             #region InfraCryptography

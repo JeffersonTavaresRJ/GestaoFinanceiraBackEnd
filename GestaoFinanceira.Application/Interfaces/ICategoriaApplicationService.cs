@@ -12,7 +12,6 @@ namespace GestaoFinanceira.Application.Interfaces
         Task Update(UpdateCategoriaCommand command);
         Task Delete(DeleteCategoriaCommand command);
         CategoriaDTO GetId(int id);
-        List<CategoriaDTO> GetAll(int idUsuario);
-        IList GetAllTipo();
+        List<CategoriaDTO> GetAll(int idUsuario);     
     }
 }

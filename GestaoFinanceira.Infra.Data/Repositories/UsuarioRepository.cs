@@ -37,6 +37,10 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             context.Entry(usuario).Property(u => u.Senha).IsModified = true;
             context.SaveChanges();
         }
-        
+
+        public override void Delete(int idUsuario)
+        {
+            dbset.RemoveRange(dbset.Where(u => u.Id == idUsuario));
+        }
     }
 }

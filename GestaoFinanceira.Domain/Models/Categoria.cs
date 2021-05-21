@@ -1,4 +1,6 @@
-﻿namespace GestaoFinanceira.Domain.Models
+﻿using System.Collections.Generic;
+
+namespace GestaoFinanceira.Domain.Models
 {
     public class Categoria 
     {
@@ -7,6 +9,7 @@
         public bool Status { get; set; }
         public int IdUsuario { get; set; }
         public virtual Usuario Usuario { get; set; }
+        public virtual List<ItemMovimentacao> ItemMovimentacoes { get; set; }
 
         public Categoria()
         {

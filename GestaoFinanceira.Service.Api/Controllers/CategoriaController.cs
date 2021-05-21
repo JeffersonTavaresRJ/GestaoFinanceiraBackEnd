@@ -105,23 +105,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 return StatusCode(500, e.Message);
             }
 
-        }
-
-        [HttpGet("GetAllTipo")]
-        public IActionResult GetAllTipo()
-        {
-
-            try
-            {
-                return Ok(categoriaApplicationService.GetAllTipo());
-            }
-            catch (Exception e)
-            {
-
-                return StatusCode(500, e.Message);
-            }
-
-        }
+        }       
 
     }
 }

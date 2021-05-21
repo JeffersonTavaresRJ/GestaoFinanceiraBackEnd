@@ -44,5 +44,10 @@ namespace GestaoFinanceira.Infra.Caching.Context
             get { return mongoDataBase.GetCollection<FormaPagamentoDTO>("FormasPagamento"); }
         }
 
+        public IMongoCollection<ItemMovimentacaoDTO> ItensMovimentacao
+        {
+            get { return mongoDataBase.GetCollection<ItemMovimentacaoDTO>("ItensMovimentacao"); }
+        }
+
     }
 }

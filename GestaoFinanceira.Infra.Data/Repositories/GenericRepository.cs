@@ -52,6 +52,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories
         }
 
         public abstract IEnumerable<TEntity> GetAll(int idUsuario);
+        public abstract void Delete(int idUsuario);
 
         
     }

@@ -15,7 +15,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         }
 
-        public void Delete(int idUsuario)
+        public override void Delete(int idUsuario)
         {
             dbset.RemoveRange(dbset.Where(c => c.IdUsuario == idUsuario));
         }

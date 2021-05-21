@@ -13,6 +13,7 @@ namespace GestaoFinanceira.Infra.Data.Context
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Conta> Contas { get; set; }
         public DbSet<FormaPagamento> FormasPagamento { get; set; }
+        public DbSet<ItemMovimentacao> ItensMovimentacao { get; set; }
 
         public SqlContext(DbContextOptions<SqlContext> options) : base(options)
         {
@@ -36,13 +37,16 @@ namespace GestaoFinanceira.Infra.Data.Context
 
             modelBuilder.ApplyConfiguration(new FormaPagamentoMap());
             modelBuilder.Entity<FormaPagamento>(entity => entity.Property(c => c.Id).ValueGeneratedOnAdd());
-            /*
-            modelBuilder.Entity<Categoria>()
+
+            modelBuilder.ApplyConfiguration(new ItemMovimentacaoMap());
+            modelBuilder.Entity<ItemMovimentacao>(entity => entity.Property(c => c.Id).ValueGeneratedOnAdd());
+            
+            modelBuilder.Entity<ItemMovimentacao>()
                         .Property(c => c.Tipo)
                         .HasConversion(
                                         v => v.ToString(),
                                         v => (TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), v));
-            */
+            
 
 
             base.OnModelCreating(modelBuilder);

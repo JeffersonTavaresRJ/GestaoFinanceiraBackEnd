@@ -16,6 +16,7 @@ namespace GestaoFinanceira.Domain.Validations
 
             RuleFor(f => f.IdUsuario)
                 .NotEmpty().WithMessage("O Id do usuário é obrigatório");
+            
         }
     }
 }

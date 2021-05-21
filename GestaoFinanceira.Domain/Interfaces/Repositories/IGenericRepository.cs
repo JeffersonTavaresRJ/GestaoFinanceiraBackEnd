@@ -9,6 +9,7 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
         void Add(TEntity obj);
         void Update(TEntity obj);
         void Delete(TEntity obj);
+        void Delete(int idUsuario);
         TEntity GetId(int id);
         abstract IEnumerable<TEntity> GetAll(int idUsuario);
 
