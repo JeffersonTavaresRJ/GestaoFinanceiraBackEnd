@@ -15,10 +15,12 @@ namespace GestaoFinanceira.Application.Handlers
     {
         private readonly IMapper mapper;
         private readonly IItemMovimentacaoCaching itemMovimentacaoCaching;
+        private readonly ICategoriaCaching categoriaCaching;
 
-        public ItemMovimentacaoHandler(IMapper mapper, IItemMovimentacaoCaching itemMovimentacaoCaching)
+        public ItemMovimentacaoHandler(IMapper mapper, ICategoriaCaching categoriaCaching, IItemMovimentacaoCaching itemMovimentacaoCaching)
         {
             this.mapper = mapper;
+            this.categoriaCaching = categoriaCaching;
             this.itemMovimentacaoCaching = itemMovimentacaoCaching;
         }
 
@@ -26,7 +28,8 @@ namespace GestaoFinanceira.Application.Handlers
         {
             return Task.Run(()=>
             {
-                var itemMovimentacaoDTO = mapper.Map<ItemMovimentacaoDTO>(notification.ItemMovimentacao);
+                ItemMovimentacaoDTO itemMovimentacaoDTO = mapper.Map<ItemMovimentacaoDTO>(notification.ItemMovimentacao);
+                itemMovimentacaoDTO.Categoria = categoriaCaching.GetId(notification.ItemMovimentacao.IdCategoria);
 
                 switch (notification.Action)
                 {

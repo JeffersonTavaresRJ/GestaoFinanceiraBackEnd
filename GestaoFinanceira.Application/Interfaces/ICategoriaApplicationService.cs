@@ -1,6 +1,5 @@
 ﻿using GestaoFinanceira.Application.Commands.Categoria;
 using GestaoFinanceira.Domain.DTOs;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

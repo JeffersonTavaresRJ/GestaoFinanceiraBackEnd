@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GestaoFinanceira.Domain.Interfaces.Repositories
 {
-    public interface IUnitOfWork :IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         void BeginTransaction();
         void Commit();
@@ -15,6 +15,8 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
         IContaRepository IContaRepository { get; }
         IFormaPagamentoRepository IFormaPagamentoRepository { get; }
         IItemMovimentacaoRepository IItemMovimentacaoRepository { get; }
+        IMovimentacaoRepository IMovimentacaoRepository {get;}
+        IMovimentacaoPrevistaRepository IMovimentacaoPrevistaRepository { get; }
 
     }
 }

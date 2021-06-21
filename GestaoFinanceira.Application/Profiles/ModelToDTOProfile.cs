@@ -19,7 +19,8 @@ namespace GestaoFinanceira.Application.Profiles
             CreateMap<FormaPagamento, FormaPagamentoDTO>();
 
             CreateMap<ItemMovimentacao, ItemMovimentacaoDTO>()
-                .AfterMap((scr, dest) => dest.Tipo = ExtensionEnum.ObterDescricao((TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), dest.Tipo.ToString()))); ;
+                .AfterMap((scr, dest) => dest.Tipo = scr.Tipo.ToString())
+                .AfterMap((scr, dest) => dest.TipoDescricao = ExtensionEnum.ObterDescricao((TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), dest.Tipo.ToString())));
 
         }
     }

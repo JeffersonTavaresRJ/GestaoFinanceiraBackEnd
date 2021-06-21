@@ -10,5 +10,4 @@ namespace GestaoFinanceira.Domain.Models.Enuns
         [Description("Receita")]
         R
     }
-
 }

@@ -132,7 +132,6 @@ namespace GestaoFinanceira.Service.Api.Controllers
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
-                throw;
             }
         }
 
@@ -154,7 +153,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                     });
                 }
 
-                return BadRequest(new { message = "e-mail e/ou senha inválidos" });
+                return StatusCode(418,"e-mail e/ou senha inválidos");
 
             }
             catch (Exception e)

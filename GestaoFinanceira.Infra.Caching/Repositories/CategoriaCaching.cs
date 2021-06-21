@@ -42,7 +42,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public List<CategoriaDTO> GetAll(int idUsuario)
         {
             var filter = Builders<CategoriaDTO>.Filter.Eq(c => c.IdUsuario, idUsuario);
-            return mongoDBContext.Categorias.Find(filter).ToList();
+            return mongoDBContext.Categorias.Find(filter).ToList().OrderBy(c => c.Descricao).ToList();           
         }        
     }
 }

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MediatR;
-using AutoMapper;
+﻿using AutoMapper;
+using FluentValidation;
 using GestaoFinanceira.Application.Commands.ItemMovimentacao;
-using System.Threading.Tasks;
-using System.Threading;
+using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Validations;
-using FluentValidation;
-using GestaoFinanceira.Application.Notifications;
+using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Application.RequestHandler
 {

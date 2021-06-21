@@ -42,7 +42,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         public List<ItemMovimentacaoDTO> GetAll(int idUsuario)
         {
-            var filter = Builders<ItemMovimentacaoDTO>.Filter.Eq(i => i.Categoria.IdUsuario, idUsuario);
+            var filter = Builders<ItemMovimentacaoDTO>.Filter.Eq(i => i.Categoria.IdUsuario, idUsuario);            
             return mongoDBContext.ItensMovimentacao.Find(filter).ToList();
         }
     }

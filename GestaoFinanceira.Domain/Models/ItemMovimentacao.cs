@@ -13,6 +13,7 @@ namespace GestaoFinanceira.Domain.Models
         public bool Status { get; set; }
         public int IdCategoria { get; set; }
         public virtual Categoria Categoria { get; set; }
+        public virtual List<Movimentacao> Movimentacoes { get; set; }
 
         public ItemMovimentacao()
         {

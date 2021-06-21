@@ -42,6 +42,12 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         public IItemMovimentacaoRepository IItemMovimentacaoRepository => new ItemMovimentacaoRepository(context);
 
+        public IMovimentacaoRepository IMovimentacaoRepository => new MovimentacaoRepository(context);
+
+        public IMovimentacaoPrevistaRepository IMovimentacaoPrevistaRepository => new MovimentacaoPrevistaRepository(context);
+
+        public IMovimentacaoRealizadaRepository IMovimentacaoRealizadaRepository => new MovimentacaoRealizadaRepository(context);
+
         public void Dispose()
         {
             context.Dispose();

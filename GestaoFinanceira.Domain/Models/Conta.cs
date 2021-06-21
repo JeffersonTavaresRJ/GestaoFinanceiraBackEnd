@@ -11,6 +11,7 @@ namespace GestaoFinanceira.Domain.Models
         public bool Status { get; set; }
         public int IdUsuario { get; set; }
         public Usuario Usuario { get; set; }
-        
+        public virtual List<MovimentacaoRealizada> MovimentacoesRealizadas { get; set; }
+
     }
 }

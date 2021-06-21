@@ -7,6 +7,7 @@ using MediatR;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,7 +46,7 @@ namespace GestaoFinanceira.Application.Services
 
         public List<ItemMovimentacaoDTO> GetAll(int idUsuario)
         {
-            return itemMovimentacaoCaching.GetAll(idUsuario);
+            return  itemMovimentacaoCaching.GetAll(idUsuario);
         }
 
         public IList GetAllTipo()

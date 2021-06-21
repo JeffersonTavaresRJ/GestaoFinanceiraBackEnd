@@ -3,12 +3,12 @@ using GestaoFinanceira.Application.Commands.Categoria;
 using GestaoFinanceira.Application.Commands.Conta;
 using GestaoFinanceira.Application.Commands.FormaPagamento;
 using GestaoFinanceira.Application.Commands.ItemMovimentacao;
+using GestaoFinanceira.Application.Commands.Movimentacao;
+using GestaoFinanceira.Application.Commands.MovimentacaoPrevista;
 using GestaoFinanceira.Application.Commands.Usuario;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Models.Enuns;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GestaoFinanceira.Application.Profiles
 {
@@ -55,6 +55,24 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((src, dest) => dest.Tipo = (TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), src.Tipo));
 
             CreateMap<DeleteItemMovimentacaoCommand, ItemMovimentacao>();
+            #endregion
+
+            #region Movimentacao
+            CreateMap<CreateMovimentacaoPrevistaCommand, Movimentacao>()
+                .AfterMap((src, dest) => dest.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade));
+            CreateMap<UpdateMovimentacaoPrevistaCommand, Movimentacao>()
+                .AfterMap((src, dest) => dest.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade));
+
+            #endregion
+
+            #region MovimentacaoPrevista
+            CreateMap<CreateMovimentacaoPrevistaCommand, MovimentacaoPrevista>()
+                .AfterMap((src, dest)=>dest.Status = (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), src.Status));
+
+            CreateMap<UpdateMovimentacaoPrevistaCommand, MovimentacaoPrevista>()
+                .AfterMap((src, dest) => dest.Status = (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), src.Status));
+
+            CreateMap<DeleteMovimentacaoPrevistaCommand, MovimentacaoPrevista>();
             #endregion
         }
     }
