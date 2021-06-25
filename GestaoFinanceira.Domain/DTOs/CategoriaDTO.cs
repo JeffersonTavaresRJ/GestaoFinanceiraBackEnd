@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using GestaoFinanceira.Domain.Models.Enuns;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
 namespace GestaoFinanceira.Domain.DTOs
 {
+    [BsonIgnoreExtraElements]
     public class CategoriaDTO
     {
         public int Id { get; set; }

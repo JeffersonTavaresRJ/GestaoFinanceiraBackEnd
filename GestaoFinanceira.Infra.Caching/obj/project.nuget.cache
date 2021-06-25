@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AXhM6iENdTMdXT76tY1L60oFdobv4TysKt3jOHMaJTPG7h5fd3qLOHvUAiAoYUpa5OWO0/+mu3V2huMPPLTjTA==",
+  "dgSpecHash": "yQ3hjm046mgpzJNkoRL7ltjlOMC6FNlzlNzcegFVys1W9mrPQsAYVvY/XRP/g2j09LE6uEUpf+LGujK+wVojAQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,7 @@
     "C:\\Users\\jefta\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
     "C:\\Users\\jefta\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\jefta\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
-    "C:\\Users\\jefta\\.nuget\\packages\\mongodb.bson\\2.11.6\\mongodb.bson.2.11.6.nupkg.sha512",
+    "C:\\Users\\jefta\\.nuget\\packages\\mongodb.bson\\2.12.4\\mongodb.bson.2.12.4.nupkg.sha512",
     "C:\\Users\\jefta\\.nuget\\packages\\mongodb.driver\\2.11.6\\mongodb.driver.2.11.6.nupkg.sha512",
     "C:\\Users\\jefta\\.nuget\\packages\\mongodb.driver.core\\2.11.6\\mongodb.driver.core.2.11.6.nupkg.sha512",
     "C:\\Users\\jefta\\.nuget\\packages\\mongodb.libmongocrypt\\1.0.0\\mongodb.libmongocrypt.1.0.0.nupkg.sha512",
@@ -63,7 +63,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.reflection.typeextensions\\4.3.0\\system.reflection.typeextensions.4.3.0.nupkg.sha512",
     "C:\\Users\\jefta\\.nuget\\packages\\system.resources.resourcemanager\\4.3.0\\system.resources.resourcemanager.4.3.0.nupkg.sha512",
     "C:\\Users\\jefta\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
-    "C:\\Users\\jefta\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
+    "C:\\Users\\jefta\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
     "C:\\Users\\jefta\\.nuget\\packages\\system.runtime.extensions\\4.3.0\\system.runtime.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\jefta\\.nuget\\packages\\system.runtime.handles\\4.3.0\\system.runtime.handles.4.3.0.nupkg.sha512",
     "C:\\Users\\jefta\\.nuget\\packages\\system.runtime.interopservices\\4.3.0\\system.runtime.interopservices.4.3.0.nupkg.sha512",

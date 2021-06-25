@@ -10,6 +10,8 @@ namespace GestaoFinanceira.Domain.Models.Enuns
         [Description("Aberto")]
         A,
         [Description("Quitado")]
-        Q
+        Q,
+        [Description("Não Aplicado")]
+        N
     }
 }

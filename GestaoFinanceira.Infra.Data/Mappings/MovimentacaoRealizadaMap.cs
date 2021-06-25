@@ -49,7 +49,8 @@ namespace GestaoFinanceira.Infra.Data.Mappings
 
             builder.HasOne(mr => mr.Movimentacao)
                 .WithMany(m => m.MovimentacoesRealizadas)
-                .HasForeignKey(mr => new { mr.IdItemMovimentacao, mr.DataReferencia });
+                .HasForeignKey(mr => new { mr.IdItemMovimentacao, mr.DataReferencia })
+                .OnDelete(DeleteBehavior.NoAction); 
         }
     }
 }

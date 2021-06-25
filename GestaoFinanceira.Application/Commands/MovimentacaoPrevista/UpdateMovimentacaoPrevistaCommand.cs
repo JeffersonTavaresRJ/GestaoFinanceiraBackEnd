@@ -13,6 +13,5 @@ namespace GestaoFinanceira.Application.Commands.MovimentacaoPrevista
         public string Status { get; set; }
         public int IdFormaPagamento { get; set; }
         public int QtdeParcelas { get; set; }
-        public MovimentacaoCommand Movimentacao { get; set; }
     }
 }

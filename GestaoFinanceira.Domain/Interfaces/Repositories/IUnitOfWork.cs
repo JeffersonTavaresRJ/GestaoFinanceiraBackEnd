@@ -17,6 +17,7 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
         IItemMovimentacaoRepository IItemMovimentacaoRepository { get; }
         IMovimentacaoRepository IMovimentacaoRepository {get;}
         IMovimentacaoPrevistaRepository IMovimentacaoPrevistaRepository { get; }
+        IMovimentacaoRealizadaRepository IMovimentacaoRealizadaRepository { get; }
 
     }
 }

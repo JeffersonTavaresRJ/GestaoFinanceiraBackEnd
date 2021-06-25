@@ -27,7 +27,7 @@ namespace GestaoFinanceira.Infra.Caching.Context
 
             var client = new MongoClient(settings);
             mongoDataBase = client.GetDatabase(mongoDBSettings.DataBaseName);
-        }
+         }
 
         //Configurar as Collections que serão criadas no MongoDB
         public IMongoCollection<CategoriaDTO> Categorias { 
@@ -47,6 +47,11 @@ namespace GestaoFinanceira.Infra.Caching.Context
         public IMongoCollection<ItemMovimentacaoDTO> ItensMovimentacao
         {
             get { return mongoDataBase.GetCollection<ItemMovimentacaoDTO>("ItensMovimentacao"); }
+        }
+
+        public IMongoCollection<MovimentacaoPrevistaDTO> MovimentacoesPrevistas
+        {
+            get { return mongoDataBase.GetCollection<MovimentacaoPrevistaDTO>("MovimentacoesPrevistas"); }
         }
 
     }

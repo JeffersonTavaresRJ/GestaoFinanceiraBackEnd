@@ -22,6 +22,14 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((scr, dest) => dest.Tipo = scr.Tipo.ToString())
                 .AfterMap((scr, dest) => dest.TipoDescricao = ExtensionEnum.ObterDescricao((TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), dest.Tipo.ToString())));
 
+            CreateMap<MovimentacaoPrevista, MovimentacaoPrevistaDTO>()
+                .AfterMap((scr, dest) => dest.Status = scr.Status.ToString())
+                .AfterMap((scr, dest) => dest.StatusDescricao = ExtensionEnum.ObterDescricao((StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), dest.Status.ToString())))
+                .AfterMap((scr, dest) => dest.TipoPrioridade = scr.Movimentacao.TipoPrioridade.ToString())
+                .AfterMap((scr, dest) => dest.TipoPrioridadeDescricao = ExtensionEnum.ObterDescricao((TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), scr.Movimentacao.TipoPrioridade.ToString())))
+                .AfterMap((scr, dest) => dest.Observacao = scr.Movimentacao.Observacao.ToString());
+
+
         }
     }
 }

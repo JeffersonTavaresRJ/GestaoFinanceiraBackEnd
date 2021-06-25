@@ -27,7 +27,7 @@ namespace GestaoFinanceira.Domain.Validations
                 .NotEmpty().WithMessage("O id da forma de pagamento é obrigatório");
 
             RuleFor(mp => mp.Status)
-                .IsInEnum().WithMessage("O status é diferente de: 'A' (Aberto) e 'Q' (Quitado)");         
+                .IsInEnum().WithMessage("O status é diferente de: 'A' (Aberto), 'Q' (Quitado) e 'N' (Não Aplicado)");         
                 
         }
     }

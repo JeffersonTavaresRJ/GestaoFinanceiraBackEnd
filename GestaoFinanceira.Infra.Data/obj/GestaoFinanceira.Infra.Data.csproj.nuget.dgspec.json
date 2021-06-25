@@ -48,6 +48,10 @@
             "FluentValidation": {
               "target": "Package",
               "version": "[9.4.0, )"
+            },
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.12.4, )"
             }
           },
           "imports": [
@@ -118,17 +122,17 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[3.1.16, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[3.1.16, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[3.1.16, )"
             }
           },
           "imports": [

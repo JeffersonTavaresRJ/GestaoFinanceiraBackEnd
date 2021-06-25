@@ -7,6 +7,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
 {
     public interface IMovimentacaoRepository : IGenericWriteRepository<Movimentacao>
     {
-        Movimentacao GetByKey(int idItMov, DateTime dataReferencia);
+        Movimentacao GetByKey(int idItemMovimentacao, DateTime dataReferencia);
     }
 }

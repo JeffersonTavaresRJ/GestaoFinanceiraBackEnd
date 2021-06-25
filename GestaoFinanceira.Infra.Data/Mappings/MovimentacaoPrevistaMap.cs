@@ -1,4 +1,5 @@
 ﻿using GestaoFinanceira.Domain.Models;
+using GestaoFinanceira.Domain.Models.Enuns;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -13,7 +14,7 @@ namespace GestaoFinanceira.Infra.Data.Mappings
         {
             builder.ToTable("MOVIMENTACAO_PREVISTA");
 
-          //  builder.HasKey(mp => new {mp.IdItemMovimentacao, mp.DataReferencia, mp.DataVencimento });
+            builder.HasKey(mp => new { mp.IdItemMovimentacao, mp.DataReferencia });
 
             builder.Property(mp => mp.IdItemMovimentacao)
                 .HasColumnName("ID_ITMO")
@@ -36,7 +37,9 @@ namespace GestaoFinanceira.Infra.Data.Mappings
             builder.Property(mp => mp.Status)
                .HasColumnName("STATUS_MOPR")
                .HasMaxLength(1)
-               .IsRequired();
+               .IsRequired()
+               .HasConversion(v => v.ToString(),
+                              v => (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), v));
 
             builder.Property(mp => mp.IdFormaPagamento)
                .HasColumnName("ID_FOPA")
@@ -45,6 +48,11 @@ namespace GestaoFinanceira.Infra.Data.Mappings
             builder.HasOne(mp => mp.FormaPagamento)
                .WithMany(m => m.MovimentacoesPrevistas)
                .HasForeignKey(mp => mp.IdFormaPagamento);
+
+            builder.HasOne(mp => mp.Movimentacao)
+                .WithMany(m => m.MovimentacoesPrevistas)
+                .HasForeignKey(mp => new { mp.IdItemMovimentacao, mp.DataReferencia })
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

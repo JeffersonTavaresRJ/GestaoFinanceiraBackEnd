@@ -1,4 +1,5 @@
 ﻿using GestaoFinanceira.Domain.Models;
+using GestaoFinanceira.Domain.Models.Enuns;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -23,7 +24,9 @@ namespace GestaoFinanceira.Infra.Data.Mappings
             builder.Property(i => i.Tipo)
                 .HasColumnName("TIPO_ITMO")
                 .HasMaxLength(1)
-                .IsRequired();
+                .IsRequired()
+                .HasConversion(v => v.ToString(),
+                               v => (TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), v)); ;
 
             builder.Property(i => i.Status)
                 .HasColumnName("STATUS_ITMO")

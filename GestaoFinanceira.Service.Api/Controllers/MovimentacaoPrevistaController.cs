@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoPrevista;
+using GestaoFinanceira.Application.Exceptions.MovimentacaoPrevista;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
@@ -33,7 +34,12 @@ namespace GestaoFinanceira.Service.Api.Controllers
             {
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
 
-            }catch(Exception e)
+            }
+            catch(StatusMovimentacaoInvalidoException e)
+            {
+                return StatusCode(418, e.Message);
+            }
+            catch(Exception e)
             {
                 return StatusCode(500, e.Message);
             }
@@ -60,7 +66,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpDelete("{idItemMovimentacao}/{dataReferencia}")]
+        [HttpDelete("{IdItemMovimentacao}/{dataReferencia}")]
         public async Task<IActionResult> Delete(int idItemMovimentacao, DateTime dataReferencia)
         {
             try
@@ -79,6 +85,53 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 return StatusCode(500, e.Message);
             }
 
+        }
+
+        [HttpGet("{idItemMovimentacao}/{dataReferencia}")]
+        public IActionResult Get(int idItemMovimentacao, DateTime dataReferencia)
+        {
+            try
+            {
+                return Ok(movimentacaoPrevistaApplicationService.GetByKey(idItemMovimentacao, dataReferencia));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+        }
+
+        [HttpGet("GetByDataReferencia/{idItemMovimentacao?}/{dataRefIni}/{dataRefFim}")]
+        public IActionResult GetAll(int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim)
+        {
+            try
+            {
+                if(dataRefFim.Subtract(dataRefIni).TotalDays > 90)
+                {
+                    return StatusCode(418, "O período excedeu o limite máximo de 90 dias");
+                }
+                
+                return Ok(movimentacaoPrevistaApplicationService.GetByDataReferencia(idItemMovimentacao, dataRefIni, dataRefFim));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+        }
+
+        [HttpGet("GetAllStatus")]
+        public IActionResult GetAllStatus()
+        {
+            try
+            {
+                return Ok(movimentacaoPrevistaApplicationService.GetAllStatus());
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+            }
         }
     }
 }

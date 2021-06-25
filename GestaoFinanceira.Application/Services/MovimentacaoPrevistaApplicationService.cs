@@ -1,6 +1,12 @@
 ﻿using GestaoFinanceira.Application.Commands.MovimentacaoPrevista;
 using GestaoFinanceira.Application.Interfaces;
+using GestaoFinanceira.Domain.DTOs;
+using GestaoFinanceira.Domain.Interfaces.Caching;
+using GestaoFinanceira.Domain.Models.Enuns;
 using MediatR;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Application.Services
@@ -9,10 +15,12 @@ namespace GestaoFinanceira.Application.Services
     {
 
         private readonly IMediator mediator;
+        private readonly IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching;
 
-        public MovimentacaoPrevistaApplicationService(IMediator mediator)
+        public MovimentacaoPrevistaApplicationService(IMediator mediator, IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching)
         {
             this.mediator = mediator;
+            this.movimentacaoPrevistaCaching = movimentacaoPrevistaCaching;
         }
 
         public Task Add(CreateMovimentacaoPrevistaCommand command)
@@ -28,6 +36,21 @@ namespace GestaoFinanceira.Application.Services
         public Task Delete(DeleteMovimentacaoPrevistaCommand command)
         {
             return mediator.Send(command);
+        }
+
+        public MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia)
+        {
+            return movimentacaoPrevistaCaching.GetByKey(idItemMovimentacao, dataReferencia);
+        }
+
+        public List<MovimentacaoPrevistaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim)
+        {
+            return movimentacaoPrevistaCaching.GetByDataReferencia(idItemMovimentacao, dataRefIni, dataRefFim);
+        }
+
+        public IList GetAllStatus()
+        {
+            return ExtensionEnum.Listar(typeof(StatusMovimentacaoPrevista));
         }
     }
 }

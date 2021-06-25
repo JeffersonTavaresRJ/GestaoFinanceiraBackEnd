@@ -138,6 +138,10 @@
             "FluentValidation": {
               "target": "Package",
               "version": "[9.4.0, )"
+            },
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.12.4, )"
             }
           },
           "imports": [

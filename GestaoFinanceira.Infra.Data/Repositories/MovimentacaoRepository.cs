@@ -3,9 +3,7 @@ using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GestaoFinanceira.Infra.Data.Repositories
 {
@@ -22,11 +20,13 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             dbset.RemoveRange(dbset.Where(m => m.ItemMovimentacao.Categoria.IdUsuario==idUsuario));
         }
 
-        public Movimentacao GetByKey(int idItMov, DateTime dataReferencia)
+        public Movimentacao GetByKey(int idItemMovimentacao, DateTime dataReferencia)
         {
-            return dbset.Where(m => m.IdItemMovimentacao == idItMov && m.DataReferencia == dataReferencia)
-                        .Include(m => m.MovimentacaoPrevista)
+            return dbset.Where(m => m.IdItemMovimentacao == idItemMovimentacao && m.DataReferencia == dataReferencia)
+                        .Include(m => m.MovimentacoesPrevistas)
                         .Include(m => m.MovimentacoesRealizadas)
+                        .Include(m=>  m.ItemMovimentacao)
+                        .Include(m => m.ItemMovimentacao.Categoria)
                         .FirstOrDefault();
 
         }

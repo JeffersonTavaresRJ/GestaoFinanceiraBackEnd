@@ -24,5 +24,13 @@ namespace GestaoFinanceira.Infra.Data.Repositories
         {
             dbset.RemoveRange(dbset.Where(mr => mr.Conta.IdUsuario == idUsuario));
         }
+
+        public IEnumerable<MovimentacaoRealizada> GetByDataReferencia(int? idItemMovimentacao, int idUsuario, DateTime dataRefIni, DateTime dataRefFim)
+        {
+            return dbset.Where(mr =>  mr.DataReferencia >= dataRefIni &&
+                                      mr.DataReferencia <= dataRefFim &&
+                                      mr.Conta.IdUsuario == idUsuario &&
+                                     (mr.IdItemMovimentacao == idItemMovimentacao || idItemMovimentacao == null));
+        }
     }
 }

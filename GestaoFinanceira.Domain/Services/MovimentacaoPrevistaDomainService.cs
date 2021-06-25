@@ -25,16 +25,17 @@ namespace GestaoFinanceira.Domain.Services
                 {
                     obj.DataReferencia = obj.DataReferencia.AddMonths(i);
                     obj.DataVencimento = obj.DataVencimento.AddMonths(i);
-                    /*Tratamento para evitar duplicidade de inserção e erro na gravação da tabela Movimentacao,
-                     pois a tabela de movimentacao já pode ter sido gravada na classe MovimentacaoRealizada..*/
-                    Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(obj.IdItemMovimentacao, obj.DataReferencia);
-                    if (movimentacao != null)
-                    {
-                        obj.Movimentacao = null;
+                    obj.Movimentacao.DataReferencia = obj.DataReferencia;
+
+                    var mov = unitOfWork.IMovimentacaoRepository.GetByKey(obj.Movimentacao.IdItemMovimentacao, obj.Movimentacao.DataReferencia);
+                    if (mov != null)
+                    {                    
+                        unitOfWork.IMovimentacaoRepository.Update(obj.Movimentacao);
                     }
-                    unitOfWork.IMovimentacaoPrevistaRepository.Add(obj);
+                    unitOfWork.IMovimentacaoPrevistaRepository.Add(obj);                    
                 }
                 unitOfWork.Commit();
+                
 
             }
             catch (Exception e)
@@ -53,7 +54,8 @@ namespace GestaoFinanceira.Domain.Services
         {
             try
             {
-                unitOfWork.BeginTransaction();                
+                unitOfWork.BeginTransaction();
+                unitOfWork.IMovimentacaoRepository.Update(obj.Movimentacao);
                 unitOfWork.IMovimentacaoPrevistaRepository.Update(obj);
                 unitOfWork.Commit();
 
@@ -73,13 +75,12 @@ namespace GestaoFinanceira.Domain.Services
         {
             try
             {
-                unitOfWork.BeginTransaction();
-                /*Tratamento para tratar erro de exclusão da tabela Movimentacao que possuir 
-                 * dados cadastrados na tabela Movimentacao Realizada..*/
+                unitOfWork.BeginTransaction();                
                 Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(obj.IdItemMovimentacao, obj.DataReferencia);
-                if (movimentacao.MovimentacoesRealizadas == null)
+                if (movimentacao.MovimentacoesPrevistas.Count == 1 &&
+                    movimentacao.MovimentacoesRealizadas.Count == 0)
                 {
-                    obj.Movimentacao = movimentacao;
+                    unitOfWork.IMovimentacaoRepository.Delete(movimentacao);
                 }
                 unitOfWork.IMovimentacaoPrevistaRepository.Delete(obj);
                 unitOfWork.Commit();
@@ -97,9 +98,14 @@ namespace GestaoFinanceira.Domain.Services
 
         }
 
-        public List<MovimentacaoPrevista> GetByDataReferencia(int idUsuario, int? idItemMovimentacao, DateTime dataReferenciaInicial, DateTime dataReferenciaFinal)
+        public List<MovimentacaoPrevista> GetByDataReferencia(int idUsuario, int? ItemMovimentacaoId, DateTime dataRefIni, DateTime dataRefFim)
         {
-            return unitOfWork.IMovimentacaoPrevistaRepository.GetByDataReferencia(idUsuario, idItemMovimentacao, dataReferenciaInicial, dataReferenciaFinal).ToList();
+            return unitOfWork.IMovimentacaoPrevistaRepository.GetByDataReferencia(idUsuario, ItemMovimentacaoId, dataRefIni, dataRefFim).ToList();
+        }
+
+        public MovimentacaoPrevista GetByKey(int idItemMovimentacao, DateTime dataReferencia)
+        {
+            return unitOfWork.IMovimentacaoPrevistaRepository.GetByKey(idItemMovimentacao, dataReferencia);
         }
     }
 }

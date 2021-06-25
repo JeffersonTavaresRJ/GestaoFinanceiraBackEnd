@@ -1,4 +1,5 @@
 ﻿using GestaoFinanceira.Domain.Models;
+using GestaoFinanceira.Domain.Models.Enuns;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -15,7 +16,7 @@ namespace GestaoFinanceira.Infra.Data.Mappings
 
             //declarado no OnModelCreating do sqlContext, porque a classe GenericRepository está configurada
             //para que as consultas não sejam acompanhadas de leitura..
-            // builder.HasKey(m => new {m.IdItemMovimentacao, m.DataReferencia});
+            builder.HasKey(m => new {m.IdItemMovimentacao, m.DataReferencia});
 
             builder.Property(m => m.IdItemMovimentacao)
                 .HasColumnName("ID_ITMO")
@@ -29,7 +30,9 @@ namespace GestaoFinanceira.Infra.Data.Mappings
             builder.Property(m => m.TipoPrioridade)
                 .HasColumnName("TIPO_PRIORIDADE_MOVI")
                 .HasMaxLength(1)
-                .IsRequired();
+                .IsRequired()
+                .HasConversion(v => v.ToString(),
+                               v => (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), v));
 
             builder.Property(m => m.Observacao)
                 .HasColumnName("OBSERVACAO_MOVI")

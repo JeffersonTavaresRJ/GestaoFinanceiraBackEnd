@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "of1pYQzeArbNL383zqwIFgYXzWNqc+aua15BP8wpYuN0Cuh89W1T4bBogpr4mXrCJK+NwB6O7d6SN6kQwf+vPA==",
+  "dgSpecHash": "i9EkJ5VBkY+bpuLfjZijfLZ20Mz0wKES455Q4c0cP8FL8s6ZzI8B646uRDvJAw8rr56nfi/nqsdZ6SGEMiZrpg==",
   "success": true,
   "projectFilePath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jefta\\.nuget\\packages\\fluentvalidation\\9.4.0\\fluentvalidation.9.4.0.nupkg.sha512"
+    "C:\\Users\\jefta\\.nuget\\packages\\fluentvalidation\\9.4.0\\fluentvalidation.9.4.0.nupkg.sha512",
+    "C:\\Users\\jefta\\.nuget\\packages\\mongodb.bson\\2.12.4\\mongodb.bson.2.12.4.nupkg.sha512",
+    "C:\\Users\\jefta\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }
