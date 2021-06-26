@@ -13,7 +13,7 @@ namespace GestaoFinanceira.Domain.Models
         public string Observacao { get; set; }
 
         public virtual ItemMovimentacao ItemMovimentacao { get; set; }
-        public virtual List<MovimentacaoPrevista> MovimentacoesPrevistas { get; set; }
+        public virtual MovimentacaoPrevista MovimentacoesPrevistas { get; set; }
         public virtual List<MovimentacaoRealizada> MovimentacoesRealizadas { get; set; }
     }
 }

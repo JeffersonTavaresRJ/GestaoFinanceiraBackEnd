@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using GestaoFinanceira.Application.Commands.Usuario;
-using GestaoFinanceira.Application.Exceptions.Usuario;
+using GestaoFinanceira.Domain.Exceptions.Usuario;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;

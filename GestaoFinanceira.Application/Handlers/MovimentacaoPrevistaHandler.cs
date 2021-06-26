@@ -38,7 +38,23 @@ namespace GestaoFinanceira.Application.Handlers
                 switch (notification.Action)
                 {
                     case ActionNotification.Criar:
-                        movimentacaoPrevistaCaching.Add(movimentacaoPrevistaDTO);
+                        for (int i = 1; i <= notification.QtdeParcelas; i++)
+                        {
+                            MovimentacaoPrevistaDTO mpDTO = new MovimentacaoPrevistaDTO
+                            {
+                                DataReferencia = movimentacaoPrevistaDTO.DataReferencia.AddMonths(i-1),
+                                DataVencimento = movimentacaoPrevistaDTO.DataVencimento.AddMonths(i-1),
+                                FormaPagamento = movimentacaoPrevistaDTO.FormaPagamento,
+                                ItemMovimentacao = movimentacaoPrevistaDTO.ItemMovimentacao,
+                                Observacao = notification.QtdeParcelas >= 2 ? $"{movimentacaoPrevistaDTO.Observacao} ({i}/{notification.QtdeParcelas})" : movimentacaoPrevistaDTO.Observacao,
+                                Status = movimentacaoPrevistaDTO.Status,
+                                StatusDescricao = movimentacaoPrevistaDTO.StatusDescricao,
+                                TipoPrioridade = movimentacaoPrevistaDTO.TipoPrioridade,
+                                TipoPrioridadeDescricao = movimentacaoPrevistaDTO.TipoPrioridadeDescricao,
+                                Valor = movimentacaoPrevistaDTO.Valor
+                            };
+                            movimentacaoPrevistaCaching.Add(mpDTO);
+                        }                        
                         break;
                     case ActionNotification.Atualizar:
                         movimentacaoPrevistaCaching.Update(movimentacaoPrevistaDTO);

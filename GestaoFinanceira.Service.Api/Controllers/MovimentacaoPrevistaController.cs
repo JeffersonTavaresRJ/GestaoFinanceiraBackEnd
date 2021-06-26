@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoPrevista;
-using GestaoFinanceira.Application.Exceptions.MovimentacaoPrevista;
+using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
@@ -33,13 +33,16 @@ namespace GestaoFinanceira.Service.Api.Controllers
             catch (ValidationException e)
             {
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
-
             }
-            catch(StatusMovimentacaoInvalidoException e)
+            catch (StatusMovimentacaoInvalidoException e)
             {
                 return StatusCode(418, e.Message);
             }
-            catch(Exception e)
+            catch (TotalParcelasMovimentacaoInvalidoException e)
+            {
+                return StatusCode(418, e.Message);
+            }
+            catch (Exception e)
             {
                 return StatusCode(500, e.Message);
             }

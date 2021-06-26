@@ -1,4 +1,5 @@
-﻿using GestaoFinanceira.Domain.Interfaces.Repositories;
+﻿using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
+using GestaoFinanceira.Domain.Interfaces.Repositories;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using System;
@@ -20,22 +21,51 @@ namespace GestaoFinanceira.Domain.Services
         {
             try
             {
-                unitOfWork.BeginTransaction();
-                for (int i = 0; i <= qtdeParcelas; i++)
-                {
-                    obj.DataReferencia = obj.DataReferencia.AddMonths(i);
-                    obj.DataVencimento = obj.DataVencimento.AddMonths(i);
-                    obj.Movimentacao.DataReferencia = obj.DataReferencia;
-
-                    var mov = unitOfWork.IMovimentacaoRepository.GetByKey(obj.Movimentacao.IdItemMovimentacao, obj.Movimentacao.DataReferencia);
-                    if (mov != null)
-                    {                    
-                        unitOfWork.IMovimentacaoRepository.Update(obj.Movimentacao);
-                    }
-                    unitOfWork.IMovimentacaoPrevistaRepository.Add(obj);                    
-                }
-                unitOfWork.Commit();
+                List<MovimentacaoPrevista> lista = new List<MovimentacaoPrevista>();
                 
+                for (int i = 1; i <= qtdeParcelas; i++)
+                {
+                    MovimentacaoPrevista mov = new MovimentacaoPrevista
+                    {
+                        Movimentacao = new Movimentacao
+                        {
+                            DataReferencia = obj.Movimentacao.DataReferencia.AddMonths(i-1),
+                            IdItemMovimentacao = obj.Movimentacao.IdItemMovimentacao,
+                            ItemMovimentacao = obj.Movimentacao.ItemMovimentacao,
+                            MovimentacoesPrevistas = obj.Movimentacao.MovimentacoesPrevistas,
+                            MovimentacoesRealizadas = obj.Movimentacao.MovimentacoesRealizadas,
+                            Observacao = qtdeParcelas >=2 ? $"{obj.Movimentacao.Observacao} ({i}/{qtdeParcelas})": obj.Movimentacao.Observacao,
+                            TipoPrioridade = obj.Movimentacao.TipoPrioridade
+                        },
+                        DataReferencia = obj.DataReferencia.AddMonths(i-1),
+                        DataVencimento = obj.DataVencimento.AddMonths(i-1),
+                        FormaPagamento = obj.FormaPagamento,
+                        IdFormaPagamento = obj.IdFormaPagamento,
+                        IdItemMovimentacao = obj.IdItemMovimentacao,                        
+                        Status = obj.Status,
+                        Valor = obj.Valor
+                    };
+                    lista.Add(mov);                    
+                }
+
+                unitOfWork.BeginTransaction();
+                foreach (MovimentacaoPrevista movimentacaoPrevista in lista)
+                {
+                    Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
+                                                                                            movimentacaoPrevista.DataReferencia);
+
+                    if (movimentacao != null)
+                    {
+                        if (movimentacao.MovimentacoesRealizadas.Count > 0 && movimentacaoPrevista.Status != Models.Enuns.StatusMovimentacaoPrevista.Q)
+                        {
+                            throw new StatusMovimentacaoInvalidoException(movimentacao.ItemMovimentacao.Descricao,
+                                                                          movimentacao.DataReferencia);
+                        }
+                        unitOfWork.IMovimentacaoRepository.Update(movimentacaoPrevista.Movimentacao);
+                    }
+                    unitOfWork.IMovimentacaoPrevistaRepository.Add(movimentacaoPrevista);
+                }
+                unitOfWork.Commit();              
 
             }
             catch (Exception e)
@@ -75,15 +105,16 @@ namespace GestaoFinanceira.Domain.Services
         {
             try
             {
-                unitOfWork.BeginTransaction();                
+                unitOfWork.BeginTransaction();
                 Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(obj.IdItemMovimentacao, obj.DataReferencia);
-                if (movimentacao.MovimentacoesPrevistas.Count == 1 &&
-                    movimentacao.MovimentacoesRealizadas.Count == 0)
+                if (movimentacao.MovimentacoesRealizadas.Count > 0)
                 {
-                    unitOfWork.IMovimentacaoRepository.Delete(movimentacao);
+                    obj.Movimentacao = null;
                 }
                 unitOfWork.IMovimentacaoPrevistaRepository.Delete(obj);
                 unitOfWork.Commit();
+                //setar movimentação para gravação no caching..
+                obj.Movimentacao = movimentacao;
             }
             catch (Exception e)
             {

@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Domain.Interfaces.Repositories;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             return dbset.Where(mr =>  mr.DataReferencia >= dataRefIni &&
                                       mr.DataReferencia <= dataRefFim &&
                                       mr.Conta.IdUsuario == idUsuario &&
-                                     (mr.IdItemMovimentacao == idItemMovimentacao || idItemMovimentacao == null));
+                                     (mr.IdItemMovimentacao == idItemMovimentacao || idItemMovimentacao == null))   
+                        .Include(mr=>mr.Movimentacao.ItemMovimentacao.Categoria);
         }
     }
 }

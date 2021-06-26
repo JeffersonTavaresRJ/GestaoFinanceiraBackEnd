@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GestaoFinanceira.Application.Exceptions.Usuario
+namespace GestaoFinanceira.Domain.Exceptions.Usuario
 {
     public class EmailJaCadastradoExcpetion : Exception
     {

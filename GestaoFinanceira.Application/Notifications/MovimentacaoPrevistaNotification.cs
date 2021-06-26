@@ -11,5 +11,7 @@ namespace GestaoFinanceira.Application.Notifications
         public MovimentacaoPrevista MovimentacaoPrevista { get; set; }
         public ActionNotification Action { get; set; }
 
+        public int QtdeParcelas { get; set; }
+
     }
 }

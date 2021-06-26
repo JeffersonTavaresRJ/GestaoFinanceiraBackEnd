@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoPrevista;
-using GestaoFinanceira.Application.Exceptions.MovimentacaoPrevista;
 using GestaoFinanceira.Application.Notifications;
+using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Validations;
@@ -34,15 +34,12 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(CreateMovimentacaoPrevistaCommand request, CancellationToken cancellationToken)
         {
-            MovimentacaoPrevista movimentacaoPrevista = mapper.Map<MovimentacaoPrevista>(request);
-
-            Movimentacao movimentacao = movimentacaoDomainService.GetByKey(movimentacaoPrevista.IdItemMovimentacao, movimentacaoPrevista.DataReferencia);
-
-            if (movimentacao.MovimentacoesRealizadas.Count > 0 && movimentacaoPrevista.Status != Domain.Models.Enuns.StatusMovimentacaoPrevista.Q)
+            if(request.QtdeParcelas <=0)
             {
-                throw new StatusMovimentacaoInvalidoException(movimentacao.ItemMovimentacao.Descricao, 
-                                                              movimentacao.DataReferencia);
+                throw new TotalParcelasMovimentacaoInvalidoException(0);
             }
+            
+            MovimentacaoPrevista movimentacaoPrevista = mapper.Map<MovimentacaoPrevista>(request);
 
             var validate = new MovimentacaoPrevistaValidation().Validate(movimentacaoPrevista);
             if (!validate.IsValid)
@@ -54,7 +51,8 @@ namespace GestaoFinanceira.Application.RequestHandler
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
                 MovimentacaoPrevista = movimentacaoPrevista,
-                Action = ActionNotification.Criar
+                Action = ActionNotification.Criar,
+                QtdeParcelas = request.QtdeParcelas
             });
 
             return Unit.Value;
@@ -73,7 +71,8 @@ namespace GestaoFinanceira.Application.RequestHandler
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
                 MovimentacaoPrevista = movimentacaoPrevista,
-                Action = ActionNotification.Atualizar
+                Action = ActionNotification.Atualizar,
+                QtdeParcelas = 0
             });
 
             return Unit.Value;
@@ -87,7 +86,8 @@ namespace GestaoFinanceira.Application.RequestHandler
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
                 MovimentacaoPrevista = movimentacaoPrevista,
-                Action = ActionNotification.Excluir
+                Action = ActionNotification.Excluir,
+                QtdeParcelas = 0
             });
             
 

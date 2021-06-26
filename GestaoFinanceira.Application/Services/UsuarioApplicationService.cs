@@ -7,7 +7,7 @@ using GestaoFinanceira.Infra.CrossCutting.Security;
 using FluentValidation;
 using System;
 using AutoMapper;
-using GestaoFinanceira.Application.Exceptions.Usuario;
+using GestaoFinanceira.Domain.Exceptions.Usuario;
 using GestaoFinanceira.Domain.DTOs;
 
 namespace GestaoFinanceira.Application.Services

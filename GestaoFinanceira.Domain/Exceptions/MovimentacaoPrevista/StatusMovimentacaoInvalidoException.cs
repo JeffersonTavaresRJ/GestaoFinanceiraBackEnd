@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GestaoFinanceira.Application.Exceptions.MovimentacaoPrevista
+namespace GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista
 {
     public class StatusMovimentacaoInvalidoException :Exception
     {

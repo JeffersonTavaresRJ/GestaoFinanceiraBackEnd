@@ -50,8 +50,8 @@ namespace GestaoFinanceira.Infra.Data.Mappings
                .HasForeignKey(mp => mp.IdFormaPagamento);
 
             builder.HasOne(mp => mp.Movimentacao)
-                .WithMany(m => m.MovimentacoesPrevistas)
-                .HasForeignKey(mp => new { mp.IdItemMovimentacao, mp.DataReferencia })
+                .WithOne(m => m.MovimentacoesPrevistas)                
+                .HasForeignKey<MovimentacaoPrevista>(mp => new { mp.IdItemMovimentacao, mp.DataReferencia })
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }
