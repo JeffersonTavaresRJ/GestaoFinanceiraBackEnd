@@ -27,8 +27,8 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((scr, dest) => dest.StatusDescricao = ExtensionEnum.ObterDescricao((StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), dest.Status.ToString())))
                 .AfterMap((scr, dest) => dest.TipoPrioridade = scr.Movimentacao.TipoPrioridade.ToString())
                 .AfterMap((scr, dest) => dest.TipoPrioridadeDescricao = ExtensionEnum.ObterDescricao((TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), scr.Movimentacao.TipoPrioridade.ToString())))
-                .AfterMap((scr, dest) => dest.Observacao = scr.Movimentacao.Observacao.ToString());
-
+                .AfterMap((scr, dest) => dest.Observacao = scr.Movimentacao.Observacao)
+                .AfterMap((scr, dest) => dest.Parcela = scr.NrParcelaTotal > 1 ? $"({scr.NrParcela}/{scr.NrParcelaTotal})": "");
 
         }
     }

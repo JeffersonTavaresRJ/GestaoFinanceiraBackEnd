@@ -42,6 +42,10 @@ namespace GestaoFinanceira.Service.Api.Controllers
             {
                 return StatusCode(418, e.Message);
             }
+            catch(TipoRecorrenciaMovimentacaoInvalidoException e)
+            {
+                return StatusCode(418, e.Message);
+            }
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);

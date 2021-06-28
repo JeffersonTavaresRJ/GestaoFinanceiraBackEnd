@@ -15,7 +15,15 @@ namespace GestaoFinanceira.Infra.Data.Repositories
         {
 
         }
-        
+
+        public override void Update(MovimentacaoPrevista obj)
+        {
+            context.Entry(obj).State = EntityState.Modified;
+            context.Entry(obj).Property(mp => mp.NrParcela).IsModified = false;
+            context.Entry(obj).Property(mp => mp.NrParcelaTotal).IsModified = false;
+            context.SaveChanges();
+        }
+
         public IEnumerable<MovimentacaoPrevista> GetByDataReferencia(int idUsuario,
                                                                      int? idItemMovimentacao, 
                                                                      DateTime dataRefIni, 

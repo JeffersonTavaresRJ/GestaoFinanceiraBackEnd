@@ -43,7 +43,15 @@ namespace GestaoFinanceira.Infra.Data.Mappings
 
             builder.Property(mp => mp.IdFormaPagamento)
                .HasColumnName("ID_FOPA")
-               .IsRequired();            
+               .IsRequired();
+
+            builder.Property(mp => mp.NrParcela)
+               .HasColumnName("NR_PARCELA")
+               .IsRequired();
+
+            builder.Property(mp => mp.NrParcelaTotal)
+               .HasColumnName("NR_PARCELA_TOTAL")
+               .IsRequired();
 
             builder.HasOne(mp => mp.FormaPagamento)
                .WithMany(m => m.MovimentacoesPrevistas)

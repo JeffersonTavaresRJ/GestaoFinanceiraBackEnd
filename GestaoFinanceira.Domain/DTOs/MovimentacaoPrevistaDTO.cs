@@ -13,6 +13,7 @@ namespace GestaoFinanceira.Domain.DTOs
         public double Valor { get; set; }
         public string Status { get; set; }
         public string StatusDescricao { get; set; }
+        public string Parcela { get; set; }
 
     }
 }

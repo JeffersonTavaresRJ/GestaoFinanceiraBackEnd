@@ -12,6 +12,5 @@ namespace GestaoFinanceira.Application.Commands.MovimentacaoPrevista
         public double Valor { get; set; }
         public string Status { get; set; }
         public int IdFormaPagamento { get; set; }
-        public int QtdeParcelas { get; set; }
     }
 }

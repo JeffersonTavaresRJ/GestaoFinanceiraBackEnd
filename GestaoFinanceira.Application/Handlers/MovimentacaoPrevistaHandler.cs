@@ -2,6 +2,7 @@
 using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
+using GestaoFinanceira.Domain.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace GestaoFinanceira.Application.Handlers
         private readonly IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching;
         private readonly IFormaPagamentoCaching formaPagamentoCaching;
         private readonly IItemMovimentacaoCaching itemMovimentacaoCaching;
+        MovimentacaoPrevistaDTO movimentacaoPrevistaDTO;
 
         public MovimentacaoPrevistaHandler(IMapper mapper, IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching, 
             IFormaPagamentoCaching formaPagamentoCaching, IItemMovimentacaoCaching itemMovimentacaoCaching)
@@ -29,41 +31,39 @@ namespace GestaoFinanceira.Application.Handlers
 
         public Task Handle(MovimentacaoPrevistaNotification notification, CancellationToken cancellationToken)
         {
+            
             return Task.Run(() =>
             {
-                MovimentacaoPrevistaDTO movimentacaoPrevistaDTO = mapper.Map<MovimentacaoPrevistaDTO>(notification.MovimentacaoPrevista);
-                movimentacaoPrevistaDTO.FormaPagamento = formaPagamentoCaching.GetId(notification.MovimentacaoPrevista.IdFormaPagamento);
-                movimentacaoPrevistaDTO.ItemMovimentacao = itemMovimentacaoCaching.GetId(notification.MovimentacaoPrevista.IdItemMovimentacao);
-
+                
                 switch (notification.Action)
                 {
                     case ActionNotification.Criar:
-                        for (int i = 1; i <= notification.QtdeParcelas; i++)
+                        foreach (MovimentacaoPrevista movimentacaoPrevista in notification.MovimentacoesPrevistas)
                         {
-                            MovimentacaoPrevistaDTO mpDTO = new MovimentacaoPrevistaDTO
-                            {
-                                DataReferencia = movimentacaoPrevistaDTO.DataReferencia.AddMonths(i-1),
-                                DataVencimento = movimentacaoPrevistaDTO.DataVencimento.AddMonths(i-1),
-                                FormaPagamento = movimentacaoPrevistaDTO.FormaPagamento,
-                                ItemMovimentacao = movimentacaoPrevistaDTO.ItemMovimentacao,
-                                Observacao = notification.QtdeParcelas >= 2 ? $"{movimentacaoPrevistaDTO.Observacao} ({i}/{notification.QtdeParcelas})" : movimentacaoPrevistaDTO.Observacao,
-                                Status = movimentacaoPrevistaDTO.Status,
-                                StatusDescricao = movimentacaoPrevistaDTO.StatusDescricao,
-                                TipoPrioridade = movimentacaoPrevistaDTO.TipoPrioridade,
-                                TipoPrioridadeDescricao = movimentacaoPrevistaDTO.TipoPrioridadeDescricao,
-                                Valor = movimentacaoPrevistaDTO.Valor
-                            };
-                            movimentacaoPrevistaCaching.Add(mpDTO);
-                        }                        
+                            movimentacaoPrevistaDTO = Convert(movimentacaoPrevista);
+                            movimentacaoPrevistaCaching.Add(movimentacaoPrevistaDTO);
+                        }                                                
                         break;
                     case ActionNotification.Atualizar:
+                        movimentacaoPrevistaDTO = Convert(notification.MovimentacaoPrevista);
+                        movimentacaoPrevistaDTO.Parcela = movimentacaoPrevistaCaching.GetByKey(notification.MovimentacaoPrevista.IdItemMovimentacao, notification.MovimentacaoPrevista.DataReferencia).Parcela;
                         movimentacaoPrevistaCaching.Update(movimentacaoPrevistaDTO);
                         break;
                     case ActionNotification.Excluir:
+                        movimentacaoPrevistaDTO = Convert(notification.MovimentacaoPrevista);
+                        movimentacaoPrevistaDTO.Parcela = movimentacaoPrevistaCaching.GetByKey(notification.MovimentacaoPrevista.IdItemMovimentacao, notification.MovimentacaoPrevista.DataReferencia).Parcela;
                         movimentacaoPrevistaCaching.Delete(movimentacaoPrevistaDTO);
                         break;
                 }
             });
+        }
+
+        private MovimentacaoPrevistaDTO Convert(MovimentacaoPrevista movimentacaoPrevista)
+        {
+            MovimentacaoPrevistaDTO movimentacaoPrevistaDTO = mapper.Map<MovimentacaoPrevistaDTO>(movimentacaoPrevista);
+            movimentacaoPrevistaDTO.FormaPagamento = formaPagamentoCaching.GetId(movimentacaoPrevista.IdFormaPagamento);
+            movimentacaoPrevistaDTO.ItemMovimentacao = itemMovimentacaoCaching.GetId(movimentacaoPrevista.IdItemMovimentacao);            
+            return movimentacaoPrevistaDTO;
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using GestaoFinanceira.Application.Commands.Movimentacao;
+using GestaoFinanceira.Domain.Models.Enuns;
 using MediatR;
 using System;
+using System.ComponentModel;
 
 namespace GestaoFinanceira.Application.Commands.MovimentacaoPrevista
 {
@@ -10,6 +12,8 @@ namespace GestaoFinanceira.Application.Commands.MovimentacaoPrevista
         public double Valor { get; set; }
         public string Status { get; set; }
         public int IdFormaPagamento { get; set; }
+        public string TipoRecorrencia { get; set; }
         public int QtdeParcelas { get; set; }
     }
+    
 }

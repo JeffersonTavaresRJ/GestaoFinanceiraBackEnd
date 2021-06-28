@@ -17,39 +17,12 @@ namespace GestaoFinanceira.Domain.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public void Add(MovimentacaoPrevista obj, int qtdeParcelas)
+        public void Add(List<MovimentacaoPrevista> movimentacoesPrevistas)
         {
             try
             {
-                List<MovimentacaoPrevista> lista = new List<MovimentacaoPrevista>();
-                
-                for (int i = 1; i <= qtdeParcelas; i++)
-                {
-                    MovimentacaoPrevista mov = new MovimentacaoPrevista
-                    {
-                        Movimentacao = new Movimentacao
-                        {
-                            DataReferencia = obj.Movimentacao.DataReferencia.AddMonths(i-1),
-                            IdItemMovimentacao = obj.Movimentacao.IdItemMovimentacao,
-                            ItemMovimentacao = obj.Movimentacao.ItemMovimentacao,
-                            MovimentacoesPrevistas = obj.Movimentacao.MovimentacoesPrevistas,
-                            MovimentacoesRealizadas = obj.Movimentacao.MovimentacoesRealizadas,
-                            Observacao = qtdeParcelas >=2 ? $"{obj.Movimentacao.Observacao} ({i}/{qtdeParcelas})": obj.Movimentacao.Observacao,
-                            TipoPrioridade = obj.Movimentacao.TipoPrioridade
-                        },
-                        DataReferencia = obj.DataReferencia.AddMonths(i-1),
-                        DataVencimento = obj.DataVencimento.AddMonths(i-1),
-                        FormaPagamento = obj.FormaPagamento,
-                        IdFormaPagamento = obj.IdFormaPagamento,
-                        IdItemMovimentacao = obj.IdItemMovimentacao,                        
-                        Status = obj.Status,
-                        Valor = obj.Valor
-                    };
-                    lista.Add(mov);                    
-                }
-
                 unitOfWork.BeginTransaction();
-                foreach (MovimentacaoPrevista movimentacaoPrevista in lista)
+                foreach (MovimentacaoPrevista movimentacaoPrevista in movimentacoesPrevistas)
                 {
                     Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
                                                                                             movimentacaoPrevista.DataReferencia);

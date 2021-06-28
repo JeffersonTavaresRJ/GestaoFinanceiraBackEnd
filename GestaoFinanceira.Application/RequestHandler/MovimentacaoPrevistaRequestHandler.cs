@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using GestaoFinanceira.Application.Commands.Enuns;
 using GestaoFinanceira.Application.Commands.MovimentacaoPrevista;
 using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
@@ -7,6 +8,7 @@ using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Validations;
 using MediatR;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,6 +40,13 @@ namespace GestaoFinanceira.Application.RequestHandler
             {
                 throw new TotalParcelasMovimentacaoInvalidoException(0);
             }
+
+            if(request.TipoRecorrencia != TipoRecorrenciaMovimentacaoPrevista.M.ToString() &&
+               request.TipoRecorrencia != TipoRecorrenciaMovimentacaoPrevista.N.ToString() &&
+               request.TipoRecorrencia != TipoRecorrenciaMovimentacaoPrevista.P.ToString())
+            {
+                throw new TipoRecorrenciaMovimentacaoInvalidoException();
+            }
             
             MovimentacaoPrevista movimentacaoPrevista = mapper.Map<MovimentacaoPrevista>(request);
 
@@ -46,13 +55,13 @@ namespace GestaoFinanceira.Application.RequestHandler
             {
                 throw new ValidationException(validate.Errors);
             }
-            movimentacaoPrevistaDomainService.Add(movimentacaoPrevista, request.QtdeParcelas);
+            List<MovimentacaoPrevista> movimentacoesPrevistas = ConvertList(movimentacaoPrevista, request.TipoRecorrencia, request.QtdeParcelas);
+            movimentacaoPrevistaDomainService.Add(movimentacoesPrevistas);
 
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
-                MovimentacaoPrevista = movimentacaoPrevista,
-                Action = ActionNotification.Criar,
-                QtdeParcelas = request.QtdeParcelas
+                MovimentacoesPrevistas = movimentacoesPrevistas,
+                Action = ActionNotification.Criar
             });
 
             return Unit.Value;
@@ -60,7 +69,8 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(UpdateMovimentacaoPrevistaCommand request, CancellationToken cancellationToken)
         {
-            MovimentacaoPrevista movimentacaoPrevista = mapper.Map<MovimentacaoPrevista>(request);
+            
+            MovimentacaoPrevista movimentacaoPrevista = mapper.Map<MovimentacaoPrevista>(request);            
        
             var validate = new MovimentacaoPrevistaValidation().Validate(movimentacaoPrevista);
             if (!validate.IsValid)
@@ -71,8 +81,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
                 MovimentacaoPrevista = movimentacaoPrevista,
-                Action = ActionNotification.Atualizar,
-                QtdeParcelas = 0
+                Action = ActionNotification.Atualizar
             });
 
             return Unit.Value;
@@ -86,12 +95,54 @@ namespace GestaoFinanceira.Application.RequestHandler
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
                 MovimentacaoPrevista = movimentacaoPrevista,
-                Action = ActionNotification.Excluir,
-                QtdeParcelas = 0
+                Action = ActionNotification.Excluir
             });
             
 
             return Unit.Value;
+        }
+
+        private List<MovimentacaoPrevista> ConvertList(MovimentacaoPrevista obj, string tipoRecorrencia, int qtdeParcelas)
+        {
+            if(tipoRecorrencia.Equals(TipoRecorrenciaMovimentacaoPrevista.M.ToString()))
+            {
+                qtdeParcelas = (13 - obj.DataReferencia.Month)==0? 13 : 13 - obj.DataReferencia.Month;
+            }
+            else if (tipoRecorrencia.Equals(TipoRecorrenciaMovimentacaoPrevista.N.ToString()))
+            {
+                qtdeParcelas = 1;
+            }
+            
+            List<MovimentacaoPrevista> lista = new List<MovimentacaoPrevista>();
+
+            for (int i = 1; i <= qtdeParcelas; i++)
+            {
+                MovimentacaoPrevista mov = new MovimentacaoPrevista
+                {
+                    Movimentacao = new Movimentacao
+                    {
+                        DataReferencia = obj.Movimentacao.DataReferencia.AddMonths(i - 1),
+                        IdItemMovimentacao = obj.Movimentacao.IdItemMovimentacao,
+                        ItemMovimentacao = obj.Movimentacao.ItemMovimentacao,
+                        MovimentacoesPrevistas = obj.Movimentacao.MovimentacoesPrevistas,
+                        MovimentacoesRealizadas = obj.Movimentacao.MovimentacoesRealizadas,
+                        Observacao = obj.Movimentacao.Observacao,
+                        TipoPrioridade = obj.Movimentacao.TipoPrioridade
+                    },
+                    DataReferencia = obj.DataReferencia.AddMonths(i - 1),
+                    DataVencimento = obj.DataVencimento.AddMonths(i - 1),
+                    FormaPagamento = obj.FormaPagamento,
+                    IdFormaPagamento = obj.IdFormaPagamento,
+                    IdItemMovimentacao = obj.IdItemMovimentacao,
+                    Status = obj.Status,
+                    Valor = obj.Valor,
+                    NrParcela = tipoRecorrencia.Equals(TipoRecorrenciaMovimentacaoPrevista.M.ToString()) ? 1 : i,
+                    NrParcelaTotal = tipoRecorrencia.Equals(TipoRecorrenciaMovimentacaoPrevista.M.ToString()) ? 1 : qtdeParcelas
+                };
+                lista.Add(mov);
+            }
+            return lista;
+
         }
     }
 }
