@@ -43,11 +43,13 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return mongoDBContext.MovimentacoesPrevistas.Find(filter).FirstOrDefault();
         }
 
-        public List<MovimentacaoPrevistaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim)
+        public List<MovimentacaoPrevistaDTO> GetByDataReferencia(int? idItemMovimentacao, int idUsuario, DateTime dataRefIni, DateTime dataRefFim)
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
                 .Where(mp => ( mp.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null ) && 
-                       mp.DataReferencia >= dataRefIni && mp.DataReferencia <= dataRefFim);
+                       mp.DataReferencia >= dataRefIni && 
+                       mp.DataReferencia <= dataRefFim &&
+                       mp.FormaPagamento.IdUsuario==idUsuario);
             return mongoDBContext.MovimentacoesPrevistas.Find(filter).ToList<MovimentacaoPrevistaDTO>();
         }
     }

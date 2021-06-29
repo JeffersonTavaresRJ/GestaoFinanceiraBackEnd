@@ -34,10 +34,6 @@ namespace GestaoFinanceira.Service.Api.Controllers
             {
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
             }
-            catch (StatusMovimentacaoInvalidoException e)
-            {
-                return StatusCode(418, e.Message);
-            }
             catch (TotalParcelasMovimentacaoInvalidoException e)
             {
                 return StatusCode(418, e.Message);
@@ -65,6 +61,10 @@ namespace GestaoFinanceira.Service.Api.Controllers
             {
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
 
+            }
+            catch (StatusMovimentacaoInvalidoException e)
+            {
+                return StatusCode(418, e.Message);
             }
             catch (Exception e)
             {
@@ -108,8 +108,8 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpGet("GetByDataReferencia/{idItemMovimentacao?}/{dataRefIni}/{dataRefFim}")]
-        public IActionResult GetAll(int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim)
+        [HttpGet("GetByDataReferencia/{idItemMovimentacao?}/{idUsuario}/{dataRefIni}/{dataRefFim}")]
+        public IActionResult GetAll(int? idItemMovimentacao, int idUsuario, DateTime dataRefIni, DateTime dataRefFim)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                     return StatusCode(418, "O período excedeu o limite máximo de 90 dias");
                 }
                 
-                return Ok(movimentacaoPrevistaApplicationService.GetByDataReferencia(idItemMovimentacao, dataRefIni, dataRefFim));
+                return Ok(movimentacaoPrevistaApplicationService.GetByDataReferencia(idItemMovimentacao, idUsuario, dataRefIni, dataRefFim));
             }
             catch (Exception e)
             {

@@ -14,7 +14,7 @@ namespace GestaoFinanceira.Application.Interfaces
         Task Update(UpdateMovimentacaoPrevistaCommand command);
         Task Delete(DeleteMovimentacaoPrevistaCommand command);
         MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia);
-        List<MovimentacaoPrevistaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim);
+        List<MovimentacaoPrevistaDTO> GetByDataReferencia(int? idItemMovimentacao, int idUsuario, DateTime dataRefIni, DateTime dataRefFim);
         IList GetAllStatus();
 
     }

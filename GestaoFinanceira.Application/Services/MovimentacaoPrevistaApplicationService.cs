@@ -43,9 +43,9 @@ namespace GestaoFinanceira.Application.Services
             return movimentacaoPrevistaCaching.GetByKey(idItemMovimentacao, dataReferencia);
         }
 
-        public List<MovimentacaoPrevistaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim)
+        public List<MovimentacaoPrevistaDTO> GetByDataReferencia(int? idItemMovimentacao, int idUsuario, DateTime dataRefIni, DateTime dataRefFim)
         {
-            return movimentacaoPrevistaCaching.GetByDataReferencia(idItemMovimentacao, dataRefIni, dataRefFim);
+            return movimentacaoPrevistaCaching.GetByDataReferencia(idItemMovimentacao, idUsuario, dataRefIni, dataRefFim);
         }
 
         public IList GetAllStatus()

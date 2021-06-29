@@ -10,7 +10,6 @@ namespace GestaoFinanceira.Application.Commands.MovimentacaoPrevista
     {
         public DateTime DataVencimento { get; set; }
         public double Valor { get; set; }
-        public string Status { get; set; }
         public int IdFormaPagamento { get; set; }
         public string TipoRecorrencia { get; set; }
         public int QtdeParcelas { get; set; }

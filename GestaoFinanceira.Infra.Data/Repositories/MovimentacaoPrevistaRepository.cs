@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GestaoFinanceira.Infra.Data.Repositories
 {
@@ -24,12 +23,19 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             context.SaveChanges();
         }
 
+        public override void Delete(MovimentacaoPrevista obj)
+        {
+            context.Entry(obj).State = EntityState.Deleted;
+            context.Entry(obj).Reference(mp => mp.Movimentacao).IsModified = false;
+            context.SaveChanges();
+        }
+
         public IEnumerable<MovimentacaoPrevista> GetByDataReferencia(int idUsuario,
                                                                      int? idItemMovimentacao, 
                                                                      DateTime dataRefIni, 
                                                                      DateTime dataRefFim)
         {
-            return this.dbset.Where(mp => mp.FormaPagamento.IdUsuario == idUsuario &&
+            return dbset.Where(mp => mp.FormaPagamento.IdUsuario == idUsuario &&
                                           (mp.IdItemMovimentacao == idItemMovimentacao ||
                                           idItemMovimentacao == null) &&
                                           mp.DataReferencia >= dataRefIni &&

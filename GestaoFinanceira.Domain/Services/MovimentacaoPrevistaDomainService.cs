@@ -26,19 +26,13 @@ namespace GestaoFinanceira.Domain.Services
                 {
                     Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
                                                                                             movimentacaoPrevista.DataReferencia);
-
                     if (movimentacao != null)
                     {
-                        if (movimentacao.MovimentacoesRealizadas.Count > 0 && movimentacaoPrevista.Status != Models.Enuns.StatusMovimentacaoPrevista.Q)
-                        {
-                            throw new StatusMovimentacaoInvalidoException(movimentacao.ItemMovimentacao.Descricao,
-                                                                          movimentacao.DataReferencia);
-                        }
                         unitOfWork.IMovimentacaoRepository.Update(movimentacaoPrevista.Movimentacao);
                     }
                     unitOfWork.IMovimentacaoPrevistaRepository.Add(movimentacaoPrevista);
                 }
-                unitOfWork.Commit();              
+                unitOfWork.Commit();
 
             }
             catch (Exception e)
@@ -79,15 +73,14 @@ namespace GestaoFinanceira.Domain.Services
             try
             {
                 unitOfWork.BeginTransaction();
-                Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(obj.IdItemMovimentacao, obj.DataReferencia);
-                if (movimentacao.MovimentacoesRealizadas.Count > 0)
-                {
-                    obj.Movimentacao = null;
-                }
                 unitOfWork.IMovimentacaoPrevistaRepository.Delete(obj);
+
+                Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(obj.IdItemMovimentacao, obj.DataReferencia);
+                if (movimentacao.MovimentacoesRealizadas.Count == 0)
+                {
+                    unitOfWork.IMovimentacaoRepository.Delete(movimentacao);
+                }
                 unitOfWork.Commit();
-                //setar movimentação para gravação no caching..
-                obj.Movimentacao = movimentacao;
             }
             catch (Exception e)
             {

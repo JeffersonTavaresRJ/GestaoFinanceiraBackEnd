@@ -11,6 +11,7 @@ using MediatR;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using GestaoFinanceira.Domain.Models.Enuns;
 
 namespace GestaoFinanceira.Application.RequestHandler
 {
@@ -71,12 +72,24 @@ namespace GestaoFinanceira.Application.RequestHandler
         {
             
             MovimentacaoPrevista movimentacaoPrevista = mapper.Map<MovimentacaoPrevista>(request);            
-       
+            
             var validate = new MovimentacaoPrevistaValidation().Validate(movimentacaoPrevista);
             if (!validate.IsValid)
             {
                 throw new ValidationException(validate.Errors);
             }
+
+            Movimentacao movimentacao = movimentacaoDomainService.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
+                                                                           movimentacaoPrevista.DataReferencia);
+
+            if (movimentacao.MovimentacoesRealizadas.Count == 0 && movimentacaoPrevista.Status.Equals(StatusMovimentacaoPrevista.Q) ||
+                movimentacao.MovimentacoesRealizadas.Count > 0 && !movimentacaoPrevista.Status.Equals(StatusMovimentacaoPrevista.Q))
+            {
+                throw new StatusMovimentacaoInvalidoException(movimentacao.ItemMovimentacao.Descricao, 
+                                                              movimentacao.DataReferencia, 
+                                                              StatusMovimentacaoPrevista.Q);
+            }
+
             movimentacaoPrevistaDomainService.Update(movimentacaoPrevista);
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
@@ -124,7 +137,7 @@ namespace GestaoFinanceira.Application.RequestHandler
                         DataReferencia = obj.Movimentacao.DataReferencia.AddMonths(i - 1),
                         IdItemMovimentacao = obj.Movimentacao.IdItemMovimentacao,
                         ItemMovimentacao = obj.Movimentacao.ItemMovimentacao,
-                        MovimentacoesPrevistas = obj.Movimentacao.MovimentacoesPrevistas,
+                        MovimentacaoPrevista = obj.Movimentacao.MovimentacaoPrevista,
                         MovimentacoesRealizadas = obj.Movimentacao.MovimentacoesRealizadas,
                         Observacao = obj.Movimentacao.Observacao,
                         TipoPrioridade = obj.Movimentacao.TipoPrioridade

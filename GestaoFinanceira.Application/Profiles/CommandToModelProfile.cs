@@ -3,7 +3,6 @@ using GestaoFinanceira.Application.Commands.Categoria;
 using GestaoFinanceira.Application.Commands.Conta;
 using GestaoFinanceira.Application.Commands.FormaPagamento;
 using GestaoFinanceira.Application.Commands.ItemMovimentacao;
-using GestaoFinanceira.Application.Commands.Movimentacao;
 using GestaoFinanceira.Application.Commands.MovimentacaoPrevista;
 using GestaoFinanceira.Application.Commands.Usuario;
 using GestaoFinanceira.Domain.Models;
@@ -67,8 +66,8 @@ namespace GestaoFinanceira.Application.Profiles
 
             #region MovimentacaoPrevista
             CreateMap<CreateMovimentacaoPrevistaCommand, MovimentacaoPrevista>()
-                .AfterMap((src, dest) => dest.Status = (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), src.Status))
-                .AfterMap((src, dest) => dest.Movimentacao = new Movimentacao())
+                .AfterMap((src, dest)=>dest.Status = StatusMovimentacaoPrevista.A)
+                .AfterMap((src, dest)=>dest.Movimentacao = new Movimentacao())
                 .AfterMap((src, dest)=>dest.Movimentacao.IdItemMovimentacao = src.IdItemMovimentacao)
                 .AfterMap((src, dest)=>dest.Movimentacao.DataReferencia = src.DataReferencia)
                 .AfterMap((src, dest)=>dest.Movimentacao.Observacao = src.Observacao)
@@ -82,8 +81,7 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((src, dest) => dest.Movimentacao.Observacao = src.Observacao)
                 .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade)); ;
 
-            CreateMap<DeleteMovimentacaoPrevistaCommand, MovimentacaoPrevista>()
-                .AfterMap((src, dest) => dest.Movimentacao = null);
+            CreateMap<DeleteMovimentacaoPrevistaCommand, MovimentacaoPrevista>();
             #endregion
         }
     }

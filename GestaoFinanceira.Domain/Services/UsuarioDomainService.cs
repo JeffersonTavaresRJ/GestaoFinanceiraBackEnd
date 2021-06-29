@@ -73,7 +73,10 @@ namespace GestaoFinanceira.Domain.Services
         {
             try
             {
-                unitOfWork.BeginTransaction();
+                unitOfWork.BeginTransaction(); 
+                unitOfWork.IMovimentacaoRealizadaRepository.Delete(obj.Id);
+                unitOfWork.IMovimentacaoPrevistaRepository.Delete(obj.Id);
+                unitOfWork.IMovimentacaoRepository.Delete(obj.Id);
                 unitOfWork.IItemMovimentacaoRepository.Delete(obj.Id);
                 unitOfWork.ICategoriaRepository.Delete(obj.Id);
                 unitOfWork.IContaRepository.Delete(obj.Id);

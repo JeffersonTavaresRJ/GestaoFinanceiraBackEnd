@@ -23,7 +23,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories
         public Movimentacao GetByKey(int idItemMovimentacao, DateTime dataReferencia)
         {
             return dbset.Where(m => m.IdItemMovimentacao == idItemMovimentacao && m.DataReferencia == dataReferencia)
-                        .Include(m => m.MovimentacoesPrevistas)
+                        .Include(m => m.MovimentacaoPrevista)
                         .Include(m => m.MovimentacoesRealizadas)
                         .Include(m=>  m.ItemMovimentacao)
                         .Include(m => m.ItemMovimentacao.Categoria)
