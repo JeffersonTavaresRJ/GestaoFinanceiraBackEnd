@@ -30,7 +30,10 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((scr, dest) => dest.Observacao = scr.Movimentacao.Observacao)
                 .AfterMap((scr, dest) => dest.Parcela = scr.NrParcelaTotal > 1 ? $"({scr.NrParcela}/{scr.NrParcelaTotal})": "");
 
-            CreateMap<MovimentacaoRealizada, MovimentacaoRealizadaDTO>();
+            CreateMap<MovimentacaoRealizada, MovimentacaoRealizadaDTO>()
+                .AfterMap((scr, dest) => dest.TipoPrioridade = scr.Movimentacao.TipoPrioridade.ToString())
+                .AfterMap((scr, dest) => dest.TipoPrioridadeDescricao = ExtensionEnum.ObterDescricao((TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), scr.Movimentacao.TipoPrioridade.ToString())))
+                .AfterMap((scr, dest) => dest.Observacao = scr.Movimentacao.Observacao);
 
         }
     }

@@ -27,28 +27,33 @@ namespace GestaoFinanceira.Domain.Services
                     unitOfWork.IMovimentacaoRealizadaRepository.Add(movimentacaoRealizada);
                 }
 
-                MovimentacaoPrevista movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository
-                                                                          .GetByKey(movimentacoesRealizadas[0].IdItemMovimentacao,
+    
+                Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacoesRealizadas[0].IdItemMovimentacao,
                                                                                     movimentacoesRealizadas[0].DataReferencia);
-                
-                if (movimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.A
-                 && movimentacoesRealizadas.Sum(x => x.Valor) >= movimentacaoPrevista.Valor)
+
+
+                if (movimentacao.MovimentacaoPrevista!= null && movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.A &&
+                    movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) >= movimentacao.MovimentacaoPrevista.Valor)
                 {
-                     movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
-                     unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
+                     movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
+                     unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
+                     throw new MovPrevAlteraStatus(movimentacao.MovimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
+                                                     movimentacao.MovimentacaoPrevista.DataReferencia,
+                                                     movimentacao.MovimentacaoPrevista.Status);
                 }
 
                 unitOfWork.Commit();
 
             }
+            catch (MovPrevAlteraStatus)
+            {
+                unitOfWork.Commit();
+                throw;
+            }
             catch (Exception e)
             {
                 unitOfWork.Rollback();
                 throw new Exception(e.Message);
-            }
-            finally
-            {
-                unitOfWork.Dispose();
             }
         }
 
@@ -57,18 +62,47 @@ namespace GestaoFinanceira.Domain.Services
             try
             {
                 unitOfWork.BeginTransaction();
-                unitOfWork.IMovimentacaoRealizadaRepository.Add(movimentacaoRealizada);
+                unitOfWork.IMovimentacaoRealizadaRepository.Update(movimentacaoRealizada);
+
+                List<MovimentacaoRealizada> movimentacoesRealizadas = unitOfWork.IMovimentacaoRealizadaRepository
+                                                                                .GetByDataReferencia(movimentacaoRealizada.IdItemMovimentacao,
+                                                                                                     movimentacaoRealizada.DataReferencia)
+                                                                                .ToList();
+
+                MovimentacaoPrevista movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository
+                                                                      .GetByKey(movimentacaoRealizada.IdItemMovimentacao,
+                                                                                movimentacaoRealizada.DataReferencia);
+
+                if (movimentacaoPrevista!= null && movimentacoesRealizadas.Sum(x => x.Valor) < movimentacaoPrevista.Valor &&
+                    movimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
+                {
+                    movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
+                    unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
+                    throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
+                                                  movimentacaoPrevista.DataReferencia,
+                                                  movimentacaoPrevista.Status);
+                }
+                else if (movimentacaoPrevista!= null && movimentacoesRealizadas.Sum(x => x.Valor) >= movimentacaoPrevista.Valor &&
+                         movimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.A)
+                {
+                    movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
+                    unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
+                    throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
+                                                  movimentacaoPrevista.DataReferencia,
+                                                  movimentacaoPrevista.Status);
+                }                
                 unitOfWork.Commit();
 
+            }
+            catch (MovPrevAlteraStatus)
+            {
+                unitOfWork.Commit();
+                throw;
             }
             catch (Exception e)
             {
                 unitOfWork.Rollback();
                 throw new Exception(e.Message);
-            }
-            finally
-            {
-                unitOfWork.Dispose();
             }
         }
 
@@ -83,7 +117,7 @@ namespace GestaoFinanceira.Domain.Services
                 MovimentacaoPrevista movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository.GetByKey(movimentacaoRealizada.IdItemMovimentacao,
                                                                                                                 movimentacaoRealizada.DataReferencia);
 
-                if(movimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
+                if(movimentacaoPrevista != null &&  movimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
                 {
                     List<MovimentacaoRealizada> movimentacoesRealizadas = unitOfWork.IMovimentacaoRealizadaRepository
                                                                                     .GetByDataReferencia(movimentacaoRealizada.IdItemMovimentacao,
@@ -94,22 +128,22 @@ namespace GestaoFinanceira.Domain.Services
                     {
                         movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
                         unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
+                        throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao, 
+                                                      movimentacaoPrevista.DataReferencia,
+                                                      movimentacaoPrevista.Status);
                     }
                 }                
                 unitOfWork.Commit();
             }
-            //catch (MovPrevAlteraStatus e)
-            //{
-   
-            //} 
+            catch (MovPrevAlteraStatus)
+            {
+                unitOfWork.Commit();
+                throw;
+            }
             catch (Exception e)
             {
                 unitOfWork.Rollback();
                 throw new Exception(e.Message);
-            }
-            finally
-            {
-                unitOfWork.Dispose();
             }
         }
 

@@ -87,7 +87,12 @@ namespace GestaoFinanceira.Application.Profiles
             #endregion
 
             #region MovimentacaoRealizada       
-            CreateMap<CreateMovimentacaoRealizadaCommand, MovimentacaoRealizada>();
+            CreateMap<MovimentacaoRealizadaCommand, MovimentacaoRealizada>()
+                .AfterMap((src, dest) => dest.Movimentacao = new Movimentacao())
+                .AfterMap((src, dest) => dest.Movimentacao.IdItemMovimentacao = src.IdItemMovimentacao)
+                .AfterMap((src, dest) => dest.Movimentacao.DataReferencia = src.DataReferencia)
+                .AfterMap((src, dest) => dest.Movimentacao.Observacao = src.Observacao)
+                .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade)); ;
             #endregion
 
         }

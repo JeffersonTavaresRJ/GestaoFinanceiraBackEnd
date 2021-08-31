@@ -9,7 +9,7 @@ namespace GestaoFinanceira.Application.Interfaces
 {
     public interface IMovimentacaoRealizadaApplicationService
     {
-        Task Add(List<CreateMovimentacaoRealizadaCommand> command);
+        Task Add(CreateMovimentacaoRealizadaCommand command);
         Task Update(UpdateMovimentacaoRealizadaCommand command);
         Task Delete(DeleteMovimentacaoRealizadaCommand command);   
         MovimentacaoRealizadaDTO GetId(int id);

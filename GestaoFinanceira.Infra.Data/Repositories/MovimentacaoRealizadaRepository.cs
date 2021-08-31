@@ -21,6 +21,13 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             return dbset.Where(mr=>mr.Conta.IdUsuario == idUsuario);
         }
 
+        public override void Add(MovimentacaoRealizada obj)
+        {
+            context.Entry(obj).State = EntityState.Added;
+            context.Entry(obj).Reference(mr => mr.Movimentacao).IsModified = false;
+            context.SaveChanges();
+        }
+
         public override void Delete(int idUsuario)
         {
             dbset.RemoveRange(dbset.Where(mr => mr.Conta.IdUsuario == idUsuario));

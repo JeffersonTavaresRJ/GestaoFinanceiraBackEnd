@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
 using GestaoFinanceira.Application.Interfaces;
+using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
 using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,19 +17,28 @@ namespace GestaoFinanceira.Service.Api.Controllers
     public class MovimentacaoRealizadaController : ControllerBase
     {
         private readonly IMovimentacaoRealizadaApplicationService movimentacaoRealizadaApplicationService;
-
+ 
         public MovimentacaoRealizadaController(IMovimentacaoRealizadaApplicationService movimentacaoRealizadaApplicationService)
         {
             this.movimentacaoRealizadaApplicationService = movimentacaoRealizadaApplicationService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(List<CreateMovimentacaoRealizadaCommand> command)
+        public async Task<IActionResult> Post(List<MovimentacaoRealizadaCommand> command)
         {
             try
             {
-                await movimentacaoRealizadaApplicationService.Add(command);
+                CreateMovimentacaoRealizadaCommand cmd = new CreateMovimentacaoRealizadaCommand
+                {
+                    MovimentacaoRealizadaCommand = command
+                };
+
+                await movimentacaoRealizadaApplicationService.Add(cmd);
                 return Ok(new { message = "Movimentação(ões) cadastrada(s) com sucesso!" });
+            }
+            catch (MovPrevAlteraStatus e)
+            {
+                return Ok(new { message = $"Movimentação(ões) cadastrada(s) com sucesso!\r\n{e.Message}" });
             }
             catch (ValidationException e)
             {
@@ -48,6 +58,10 @@ namespace GestaoFinanceira.Service.Api.Controllers
             {
                 await movimentacaoRealizadaApplicationService.Update(command);
                 return Ok(new { message = "Movimentação atualizada com sucesso!" });
+            }
+            catch (MovPrevAlteraStatus e)
+            {
+                return Ok(new { message = $"Movimentação atualizada com sucesso!\r\n{e.Message}" });
             }
             catch (ValidationException e)
             {
@@ -72,6 +86,10 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
                 await movimentacaoRealizadaApplicationService.Delete(command);
                 return Ok(new { message = "Movimentação excluída com sucesso!" });
+            }
+            catch (MovPrevAlteraStatus e)
+            {
+                return Ok(new { message = $"Movimentação excluída com sucesso!\r\n{e.Message}" });
             }
             catch (ValidationException e)
             {

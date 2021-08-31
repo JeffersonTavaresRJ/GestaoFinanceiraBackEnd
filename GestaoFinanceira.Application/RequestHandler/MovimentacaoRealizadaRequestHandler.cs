@@ -16,7 +16,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 {
 
 
-    public class MovimentacaoRealizadaRequestHandler : List<IRequestHandler<CreateMovimentacaoRealizadaCommand>>,
+    public class MovimentacaoRealizadaRequestHandler : IRequestHandler<CreateMovimentacaoRealizadaCommand>,
                                                        IRequestHandler<UpdateMovimentacaoRealizadaCommand>,
                                                        IRequestHandler<DeleteMovimentacaoRealizadaCommand>
     {
@@ -33,10 +33,10 @@ namespace GestaoFinanceira.Application.RequestHandler
             this.mapper = mapper;
         }
 
-        public async Task<Unit> Handle(List<CreateMovimentacaoRealizadaCommand> requests, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateMovimentacaoRealizadaCommand request, CancellationToken cancellationToken)
         {
-            List<MovimentacaoRealizada> movimentacoesRealizadas = new List<MovimentacaoRealizada>();            
-            foreach (var item in requests)
+            List<MovimentacaoRealizada> movimentacoesRealizadas = new List<MovimentacaoRealizada>();
+            foreach (MovimentacaoRealizadaCommand item in request.MovimentacaoRealizadaCommand)
             {
                 MovimentacaoRealizada movimentacaoRealizada = mapper.Map<MovimentacaoRealizada>(item);
 
@@ -91,7 +91,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(DeleteMovimentacaoRealizadaCommand request, CancellationToken cancellationToken)
         {
-            MovimentacaoRealizada movimentacaoRealizada = movimentacaoRealizadaDomainService.GetId(request.Id);            
+            MovimentacaoRealizada movimentacaoRealizada = movimentacaoRealizadaDomainService.GetId(request.Id);
             movimentacaoRealizadaDomainService.Delete(movimentacaoRealizada);
 
             await mediator.Publish(new MovimentacaoRealizadaNotification
@@ -110,7 +110,5 @@ namespace GestaoFinanceira.Application.RequestHandler
             });
             return Unit.Value;
         }
-
-
     }
 }

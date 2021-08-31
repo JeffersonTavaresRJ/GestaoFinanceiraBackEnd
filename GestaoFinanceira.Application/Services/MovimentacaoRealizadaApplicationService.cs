@@ -21,7 +21,7 @@ namespace GestaoFinanceira.Application.Services
             this.movimentacaoRealizadaCaching = movimentacaoRealizadaCaching;
         }
 
-        public Task Add(List<CreateMovimentacaoRealizadaCommand> command)
+        public Task Add(CreateMovimentacaoRealizadaCommand command)
         {
             return mediator.Send(command);
         }
