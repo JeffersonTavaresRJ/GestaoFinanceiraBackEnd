@@ -1,13 +1,14 @@
 ﻿using GestaoFinanceira.Application.Commands.Movimentacao;
-using GestaoFinanceira.Domain.Models.Enuns;
 using MediatR;
 using System;
-using System.ComponentModel;
 
 namespace GestaoFinanceira.Application.Commands.MovimentacaoPrevista
 {
-    public class CreateMovimentacaoPrevistaCommand : MovimentacaoCommand, IRequest
+    public class CreateMovimentacaoPrevistaCommand :  IRequest
     {
+        public int IdItemMovimentacao { get; set; }
+        public string TipoPrioridade { get; set; }
+        public string Observacao { get; set; }
         public DateTime DataVencimento { get; set; }
         public double Valor { get; set; }
         public int IdFormaPagamento { get; set; }

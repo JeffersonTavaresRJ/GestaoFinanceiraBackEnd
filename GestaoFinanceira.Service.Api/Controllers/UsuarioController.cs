@@ -35,7 +35,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
             }
 
-            catch(EmailJaCadastradoExcpetion e)
+            catch(UsuaEmailJaCadastradoExcpetion e)
             {
                 return StatusCode(418,e.Message);
             }
@@ -60,15 +60,15 @@ namespace GestaoFinanceira.Service.Api.Controllers
             {
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
             }
-            catch (UsuarioInvalidoException e)
+            catch (UsuaInvalidoException e)
             {
                 return StatusCode(418, e.Message);
             }
-            catch (EmailJaCadastradoExcpetion e)
+            catch (UsuaEmailJaCadastradoExcpetion e)
             {
                 return StatusCode(418, e.Message);
             }
-            catch (SenhaInvalidaException e)
+            catch (UsuaSenhaInvalidaException e)
             {
                 return StatusCode(418, e.Message);
             }
@@ -92,11 +92,11 @@ namespace GestaoFinanceira.Service.Api.Controllers
             {
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
             }
-            catch (UsuarioInvalidoException e)
+            catch (UsuaInvalidoException e)
             {
                 return StatusCode(418, e.Message);
             }
-            catch (SenhaInvalidaException e)
+            catch (UsuaSenhaInvalidaException e)
             {
                 return StatusCode(418, e.Message);
             }

@@ -33,7 +33,7 @@ namespace GestaoFinanceira.Application.Services
 
             if (usuario != null)
             {
-                throw new EmailJaCadastradoExcpetion(command.EMail);
+                throw new UsuaEmailJaCadastradoExcpetion(command.EMail);
             }
 
             usuario = mapper.Map<Usuario>(command);
@@ -53,18 +53,18 @@ namespace GestaoFinanceira.Application.Services
             var userSenha = usuarioDomainService.GetId(command.Id);
             if (userSenha == null)
             {
-                throw new UsuarioInvalidoException();
+                throw new UsuaInvalidoException();
             }
 
             if (usuarioDomainService.Get(userSenha.EMail, command.Senha) == null)
             {
-                throw new SenhaInvalidaException();
+                throw new UsuaSenhaInvalidaException();
             }
 
             var userEmail = usuarioDomainService.Get(command.EMail);
             if (userEmail != null && userEmail.Id != command.Id && userEmail.EMail == command.EMail)
             {
-                throw new EmailJaCadastradoExcpetion(command.EMail);
+                throw new UsuaEmailJaCadastradoExcpetion(command.EMail);
             }            
 
             var usuario = mapper.Map<Usuario>(command);
@@ -85,12 +85,12 @@ namespace GestaoFinanceira.Application.Services
 
             if (usuario == null)
             {
-                throw new UsuarioInvalidoException();
+                throw new UsuaInvalidoException();
             }
 
             if (usuarioDomainService.Get(usuario.EMail, command.SenhaAtual) == null)
             {
-                throw new SenhaInvalidaException();
+                throw new UsuaSenhaInvalidaException();
             }
             usuario.Senha = command.Senha;
 

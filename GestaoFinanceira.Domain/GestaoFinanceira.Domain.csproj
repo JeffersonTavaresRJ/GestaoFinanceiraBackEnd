@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Interfaces\Repositories\IMovimentacaoParceladaRepository.cs" />
+    <Compile Remove="Models\MovimentacaoParcelada.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="9.4.0" />
     <PackageReference Include="MongoDB.Bson" Version="2.12.4" />
   </ItemGroup>

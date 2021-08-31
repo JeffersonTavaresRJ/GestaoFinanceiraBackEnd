@@ -30,6 +30,8 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((scr, dest) => dest.Observacao = scr.Movimentacao.Observacao)
                 .AfterMap((scr, dest) => dest.Parcela = scr.NrParcelaTotal > 1 ? $"({scr.NrParcela}/{scr.NrParcelaTotal})": "");
 
+            CreateMap<MovimentacaoRealizada, MovimentacaoRealizadaDTO>();
+
         }
     }
 }

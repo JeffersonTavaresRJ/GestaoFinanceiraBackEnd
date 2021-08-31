@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GestaoFinanceira.Domain.Exceptions.Usuario
 {
-    public class UsuarioInvalidoException : Exception
+    public class UsuaInvalidoException : Exception
     {
         public override string Message => "Usuário inválido";
     }

@@ -32,7 +32,7 @@ namespace GestaoFinanceira.Application.Services
         {
             return mediator.Send(command);
         }
-
+        
         public Task Delete(DeleteMovimentacaoPrevistaCommand command)
         {
             return mediator.Send(command);
@@ -43,14 +43,26 @@ namespace GestaoFinanceira.Application.Services
             return movimentacaoPrevistaCaching.GetByKey(idItemMovimentacao, dataReferencia);
         }
 
-        public List<MovimentacaoPrevistaDTO> GetByDataReferencia(int? idItemMovimentacao, int idUsuario, DateTime dataRefIni, DateTime dataRefFim)
+        public List<MovimentacaoPrevistaDTO> GetByDataVencimento(int? idItemMovimentacao, int idUsuario, DateTime dataVencIni, DateTime dataVencFim)
         {
-            return movimentacaoPrevistaCaching.GetByDataReferencia(idItemMovimentacao, idUsuario, dataRefIni, dataRefFim);
+            return movimentacaoPrevistaCaching.GetByDataVencimento(idItemMovimentacao, idUsuario, dataVencIni, dataVencFim);
         }
 
         public IList GetAllStatus()
         {
             return ExtensionEnum.Listar(typeof(StatusMovimentacaoPrevista));
         }
+
+        public IList GetAllPrioridades()
+        {
+            return ExtensionEnum.Listar(typeof(TipoPrioridade));
+        }
+
+        public IList GetAllTipoRecorrencias()
+        {
+            return ExtensionEnum.Listar(typeof(TipoRecorrencia));
+        }
+
+        
     }
 }

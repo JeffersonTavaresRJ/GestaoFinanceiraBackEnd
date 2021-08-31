@@ -26,13 +26,12 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             dbset.RemoveRange(dbset.Where(mr => mr.Conta.IdUsuario == idUsuario));
         }
 
-        public IEnumerable<MovimentacaoRealizada> GetByDataReferencia(int? idItemMovimentacao, int idUsuario, DateTime dataRefIni, DateTime dataRefFim)
+        public IEnumerable<MovimentacaoRealizada> GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia)
         {
-            return dbset.Where(mr =>  mr.DataReferencia >= dataRefIni &&
-                                      mr.DataReferencia <= dataRefFim &&
-                                      mr.Conta.IdUsuario == idUsuario &&
-                                     (mr.IdItemMovimentacao == idItemMovimentacao || idItemMovimentacao == null))   
-                        .Include(mr=>mr.Movimentacao.ItemMovimentacao.Categoria);
+            return dbset.Where(mr =>  mr.DataReferencia == dataReferencia && mr.IdItemMovimentacao == idItemMovimentacao)
+                        .Include(mr => mr.Movimentacao.ItemMovimentacao)
+                        .Include(mr => mr.Movimentacao.ItemMovimentacao.Categoria)
+                        .Include(mr => mr.Movimentacao.MovimentacaoPrevista);
         }
     }
 }

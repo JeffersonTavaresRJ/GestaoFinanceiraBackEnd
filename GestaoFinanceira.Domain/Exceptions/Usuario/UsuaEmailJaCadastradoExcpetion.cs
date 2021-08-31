@@ -4,11 +4,11 @@ using System.Text;
 
 namespace GestaoFinanceira.Domain.Exceptions.Usuario
 {
-    public class EmailJaCadastradoExcpetion : Exception
+    public class UsuaEmailJaCadastradoExcpetion : Exception
     {
         private string email;
 
-        public EmailJaCadastradoExcpetion(string email)
+        public UsuaEmailJaCadastradoExcpetion(string email)
         {
             this.email = email;
         }

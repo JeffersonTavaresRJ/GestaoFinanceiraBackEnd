@@ -31,6 +31,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IFormaPagamentoApplicationService, FormaPagamentoApplicationService>();
             services.AddTransient<IItemMovimentacaoApplicationService, ItemMovimentacaoApplicationService>();
             services.AddTransient<IMovimentacaoPrevistaApplicationService, MovimentacaoPrevistaApplicationService>();
+            services.AddTransient<IMovimentacaoRealizadaApplicationService, MovimentacaoRealizadaApplicationService>();
 
             #endregion
 
@@ -42,6 +43,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IItemMovimentacaoDomainService, ItemMovimentacaoDomainService>();
             services.AddTransient<IMovimentacaoDomainService, MovimentacaoDomainService>();
             services.AddTransient<IMovimentacaoPrevistaDomainService, MovimentacaoPrevistaDomainService>();
+            services.AddTransient<IMovimentacaoRealizadaDomainService, MovimentacaoRealizadaDomainService>();
             #endregion
 
             #region InfraData
@@ -63,6 +65,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IFormaPagamentoCaching, FormaPagamentoCaching>();
             services.AddTransient<IItemMovimentacaoCaching, ItemMovimentacaoCaching>();
             services.AddTransient<IMovimentacaoPrevistaCaching, MovimentacaoPrevistaCaching>();
+            services.AddTransient<IMovimentacaoRealizadaCaching, MovimentacaoRealizadaCaching>();
             #endregion
 
             #region InfraCryptography

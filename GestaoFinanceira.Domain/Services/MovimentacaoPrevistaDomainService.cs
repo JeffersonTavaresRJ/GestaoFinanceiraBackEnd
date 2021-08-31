@@ -28,7 +28,17 @@ namespace GestaoFinanceira.Domain.Services
                                                                                             movimentacaoPrevista.DataReferencia);
                     if (movimentacao != null)
                     {
-                        unitOfWork.IMovimentacaoRepository.Update(movimentacaoPrevista.Movimentacao);
+                        movimentacao.Observacao = movimentacaoPrevista.Movimentacao.Observacao;
+                        movimentacao.TipoPrioridade = movimentacaoPrevista.Movimentacao.TipoPrioridade;
+
+                        unitOfWork.IMovimentacaoRepository.Update(movimentacao);
+                    }
+                    MovimentacaoPrevista movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
+                                                                                                       movimentacaoPrevista.DataReferencia);
+                    if(movPrev != null)
+                    {
+                        throw new MovPrevExisteException(movPrev.Movimentacao.ItemMovimentacao.Descricao,
+                                                                      movPrev.DataReferencia);
                     }
                     unitOfWork.IMovimentacaoPrevistaRepository.Add(movimentacaoPrevista);
                 }
@@ -68,11 +78,13 @@ namespace GestaoFinanceira.Domain.Services
             }
         }
 
-        public override void Delete(MovimentacaoPrevista obj)
+        public void Delete(MovimentacaoPrevista obj, out List<MovimentacaoPrevista> movimentacaoPrevistas)
         {
             try
             {
                 unitOfWork.BeginTransaction();
+                List<MovimentacaoPrevista> listaMovPrevistas = new List<MovimentacaoPrevista>();
+                
                 unitOfWork.IMovimentacaoPrevistaRepository.Delete(obj);
 
                 Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(obj.IdItemMovimentacao, obj.DataReferencia);
@@ -80,7 +92,31 @@ namespace GestaoFinanceira.Domain.Services
                 {
                     unitOfWork.IMovimentacaoRepository.Delete(movimentacao);
                 }
+
+                if (obj.NrParcelaTotal > 1)
+                {
+                    obj.NrParcelaTotal--;
+                    DateTime dataIni = obj.NrParcela == 1 ? obj.DataReferencia : obj.DataReferencia.AddMonths(obj.NrParcelaTotal*-1);
+                    DateTime dataFim = obj.NrParcela == 1 ? obj.DataReferencia.AddMonths(obj.NrParcelaTotal) : obj.DataReferencia;
+
+                    listaMovPrevistas = unitOfWork.IMovimentacaoPrevistaRepository.GetByDataReferencia(
+                        obj.Movimentacao.ItemMovimentacao.Categoria.IdUsuario,
+                        obj.IdItemMovimentacao,
+                        dataIni,
+                        dataFim).OrderBy(mp => mp.DataReferencia).ToList();
+
+                    int parcela = 0;
+                    foreach (MovimentacaoPrevista movPrevista in listaMovPrevistas)
+                    {
+                        movPrevista.NrParcela = ++parcela;
+                        movPrevista.NrParcelaTotal = obj.NrParcelaTotal;
+                        unitOfWork.IMovimentacaoPrevistaRepository.Update(movPrevista);
+                    }
+
+                }
+
                 unitOfWork.Commit();
+                movimentacaoPrevistas = listaMovPrevistas;
             }
             catch (Exception e)
             {

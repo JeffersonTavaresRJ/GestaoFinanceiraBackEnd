@@ -1,8 +1,6 @@
 ﻿using GestaoFinanceira.Application.Commands.Movimentacao;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GestaoFinanceira.Application.Commands.MovimentacaoPrevista
 {

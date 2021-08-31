@@ -31,7 +31,7 @@ namespace GestaoFinanceira.Infra.Data.Mappings
                 .HasColumnName("DATA_REFERENCIA_MOVI")
                 .IsRequired();
 
-            builder.Property(mr => mr.DataMovimentacao)
+            builder.Property(mr => mr.DataMovimentacaoRealizada)
                 .HasColumnName("DATA_MORE")
                 .IsRequired();
 

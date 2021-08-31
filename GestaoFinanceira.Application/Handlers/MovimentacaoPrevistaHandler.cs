@@ -18,7 +18,7 @@ namespace GestaoFinanceira.Application.Handlers
         private readonly IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching;
         private readonly IFormaPagamentoCaching formaPagamentoCaching;
         private readonly IItemMovimentacaoCaching itemMovimentacaoCaching;
-        MovimentacaoPrevistaDTO movimentacaoPrevistaDTO;
+        private MovimentacaoPrevistaDTO movimentacaoPrevistaDTO;
 
         public MovimentacaoPrevistaHandler(IMapper mapper, IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching, 
             IFormaPagamentoCaching formaPagamentoCaching, IItemMovimentacaoCaching itemMovimentacaoCaching)
@@ -46,12 +46,10 @@ namespace GestaoFinanceira.Application.Handlers
                         break;
                     case ActionNotification.Atualizar:
                         movimentacaoPrevistaDTO = Convert(notification.MovimentacaoPrevista);
-                        movimentacaoPrevistaDTO.Parcela = movimentacaoPrevistaCaching.GetByKey(notification.MovimentacaoPrevista.IdItemMovimentacao, notification.MovimentacaoPrevista.DataReferencia).Parcela;
                         movimentacaoPrevistaCaching.Update(movimentacaoPrevistaDTO);
                         break;
                     case ActionNotification.Excluir:
                         movimentacaoPrevistaDTO = Convert(notification.MovimentacaoPrevista);
-                        movimentacaoPrevistaDTO.Parcela = movimentacaoPrevistaCaching.GetByKey(notification.MovimentacaoPrevista.IdItemMovimentacao, notification.MovimentacaoPrevista.DataReferencia).Parcela;
                         movimentacaoPrevistaCaching.Delete(movimentacaoPrevistaDTO);
                         break;
                 }
@@ -62,7 +60,7 @@ namespace GestaoFinanceira.Application.Handlers
         {
             MovimentacaoPrevistaDTO movimentacaoPrevistaDTO = mapper.Map<MovimentacaoPrevistaDTO>(movimentacaoPrevista);
             movimentacaoPrevistaDTO.FormaPagamento = formaPagamentoCaching.GetId(movimentacaoPrevista.IdFormaPagamento);
-            movimentacaoPrevistaDTO.ItemMovimentacao = itemMovimentacaoCaching.GetId(movimentacaoPrevista.IdItemMovimentacao);            
+            movimentacaoPrevistaDTO.ItemMovimentacao = itemMovimentacaoCaching.GetId(movimentacaoPrevista.IdItemMovimentacao);  
             return movimentacaoPrevistaDTO;
         }
     }

@@ -9,7 +9,7 @@ namespace GestaoFinanceira.Domain.Models
         public int Id { get; set; }
         public int IdItemMovimentacao { get; set; }
         public DateTime DataReferencia { get; set; }
-        public DateTime DataMovimentacao { get; set; }
+        public DateTime DataMovimentacaoRealizada { get; set; }
         public double Valor { get; set; }
         public int IdFormaPagamento { get; set; }
         public int IdConta { get; set; }

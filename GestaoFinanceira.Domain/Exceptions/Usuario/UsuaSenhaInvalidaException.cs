@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GestaoFinanceira.Domain.Exceptions.Usuario
 {
-    public class SenhaInvalidaException : Exception
+    public class UsuaSenhaInvalidaException : Exception
     {
         public override string Message => "Senha inválida";
     }

@@ -5,32 +5,33 @@ using System.Text;
 
 namespace GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista
 {
-    public class StatusMovimentacaoInvalidoException :Exception
+    public class MovPrevStatusInvalidoException :Exception
     {
         private string DescricaoItemMovimentacao;
         private DateTime DataReferencia;
         private string Status;
+        private string Mensagem;
 
-        public StatusMovimentacaoInvalidoException(string descricaoItemMovimentacao, 
+        public MovPrevStatusInvalidoException(string descricaoItemMovimentacao, 
                                                    DateTime dataReferencia,
                                                    StatusMovimentacaoPrevista statusMovimentacaoPrevista)
         {
             DataReferencia = dataReferencia;
             DescricaoItemMovimentacao = descricaoItemMovimentacao;
 
-            if (!statusMovimentacaoPrevista.Equals(StatusMovimentacaoPrevista.Q))
+            if (statusMovimentacaoPrevista.Equals(StatusMovimentacaoPrevista.Q) || 
+                statusMovimentacaoPrevista.Equals(StatusMovimentacaoPrevista.A))
             {
-                Status = "quitado";
+                Status = statusMovimentacaoPrevista.ObterDescricao();
+                Mensagem = $"O item '{DescricaoItemMovimentacao}' para o mês de '{DataReferencia.ToString("MM/yyyy")}' encontra-se {Status}.\n Status Inválido.";
             }
             else
             {
-                Status = "em aberto";
+                Mensagem= "Status Inválido.";
             }
             
         }
 
-        public override string Message 
-            => $"O item '{DescricaoItemMovimentacao}' para o mês de '{DataReferencia.ToString("MM/yyyy")}' encontra-se {Status}.\n Status Inválido.";
-
+        public override string Message => Mensagem;
     }
 }

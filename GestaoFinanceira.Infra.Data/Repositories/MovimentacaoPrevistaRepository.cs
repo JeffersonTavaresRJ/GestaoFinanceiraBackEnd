@@ -18,8 +18,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories
         public override void Update(MovimentacaoPrevista obj)
         {
             context.Entry(obj).State = EntityState.Modified;
-            context.Entry(obj).Property(mp => mp.NrParcela).IsModified = false;
-            context.Entry(obj).Property(mp => mp.NrParcelaTotal).IsModified = false;
+            context.Entry(obj).Property(mp => mp.NrParcela).IsModified = obj.NrParcelaTotal > 1? true:false;
+            context.Entry(obj).Property(mp => mp.NrParcelaTotal).IsModified = obj.NrParcelaTotal > 1 ? true : false;
             context.SaveChanges();
         }
 
@@ -39,7 +39,10 @@ namespace GestaoFinanceira.Infra.Data.Repositories
                                           (mp.IdItemMovimentacao == idItemMovimentacao ||
                                           idItemMovimentacao == null) &&
                                           mp.DataReferencia >= dataRefIni &&
-                                          mp.DataReferencia <= dataRefFim).ToList();
+                                          mp.DataReferencia <= dataRefFim)
+                        .Include(mp => mp.Movimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria).ToList();
         }
 
         public override void Delete(int idUsuario)
@@ -56,7 +59,9 @@ namespace GestaoFinanceira.Infra.Data.Repositories
         {
             return dbset.Where(mp => mp.IdItemMovimentacao == idItemMovimentacao && 
                                mp.DataReferencia == dataReferencia)
-                        .Include(mp=>mp.Movimentacao)
+                        .Include(mp => mp.Movimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria)
                         .FirstOrDefault();
 
         }

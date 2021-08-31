@@ -4,11 +4,11 @@ using System.Text;
 
 namespace GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista
 {
-    public class TotalParcelasMovimentacaoInvalidoException : Exception
+    public class MovPrevTotalParcelasInvalidoException : Exception
     {
         private int TotalParcelas;
 
-        public TotalParcelasMovimentacaoInvalidoException(int totalParcelas)
+        public MovPrevTotalParcelasInvalidoException(int totalParcelas)
         {
             TotalParcelas = totalParcelas;
         }

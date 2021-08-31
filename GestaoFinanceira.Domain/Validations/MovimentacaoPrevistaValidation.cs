@@ -1,8 +1,5 @@
 ﻿using FluentValidation;
 using GestaoFinanceira.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GestaoFinanceira.Domain.Validations
 {
@@ -25,6 +22,9 @@ namespace GestaoFinanceira.Domain.Validations
 
             RuleFor(mp => mp.IdFormaPagamento)
                 .NotEmpty().WithMessage("O id da forma de pagamento é obrigatório");
+
+            RuleFor(mp => mp.Movimentacao.Observacao)
+                .MaximumLength(100).WithMessage("A observação deve ter no máximo 100 caracteres");
 
             RuleFor(mp => mp.Status)
                 .IsInEnum().WithMessage("O status é diferente de: 'A' (Aberto), 'Q' (Quitado) e 'N' (Não Aplicado)");         

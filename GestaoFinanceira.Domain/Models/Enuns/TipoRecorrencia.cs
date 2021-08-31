@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace GestaoFinanceira.Application.Commands.Enuns
+namespace GestaoFinanceira.Domain.Models.Enuns
 {
-    public enum TipoRecorrenciaMovimentacaoPrevista
+    public enum TipoRecorrencia
     {
         [Description("Nenhum")]
         N,

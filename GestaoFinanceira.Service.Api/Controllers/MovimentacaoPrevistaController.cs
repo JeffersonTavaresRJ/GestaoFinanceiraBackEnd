@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using GestaoFinanceira.Domain.Exceptions.Movimentacao;
 
 namespace GestaoFinanceira.Service.Api.Controllers
 {
@@ -34,11 +35,15 @@ namespace GestaoFinanceira.Service.Api.Controllers
             {
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
             }
-            catch (TotalParcelasMovimentacaoInvalidoException e)
+            catch (MovPrevParcelaInvalidaExclusaoException e)
             {
                 return StatusCode(418, e.Message);
             }
-            catch(TipoRecorrenciaMovimentacaoInvalidoException e)
+            catch (MovPrevTotalParcelasInvalidoException e)
+            {
+                return StatusCode(418, e.Message);
+            }
+            catch (MovPrevRecorrenciaInvalidaException e)
             {
                 return StatusCode(418, e.Message);
             }
@@ -62,7 +67,11 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
 
             }
-            catch (StatusMovimentacaoInvalidoException e)
+            catch (MovDataReferenciaException e)
+            {
+                return StatusCode(418, e.Message);
+            }
+            catch (MovPrevStatusInvalidoException e)
             {
                 return StatusCode(418, e.Message);
             }
@@ -108,17 +117,17 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpGet("GetByDataReferencia/{idItemMovimentacao?}/{idUsuario}/{dataRefIni}/{dataRefFim}")]
-        public IActionResult GetAll(int? idItemMovimentacao, int idUsuario, DateTime dataRefIni, DateTime dataRefFim)
+        [HttpGet("GetByDataVencimento/{idItemMovimentacao?}/{idUsuario}/{dataVencIni}/{dataVencFim}")]
+        public IActionResult GetAll(int? idItemMovimentacao, int idUsuario, DateTime dataVencIni, DateTime dataVencFim)
         {
             try
             {
-                if(dataRefFim.Subtract(dataRefIni).TotalDays > 90)
+                if(dataVencFim.Subtract(dataVencIni).TotalDays > 731)
                 {
-                    return StatusCode(418, "O período excedeu o limite máximo de 90 dias");
+                    return StatusCode(418, "O período excedeu o limite máximo de 731 dias");
                 }
                 
-                return Ok(movimentacaoPrevistaApplicationService.GetByDataReferencia(idItemMovimentacao, idUsuario, dataRefIni, dataRefFim));
+                return Ok(movimentacaoPrevistaApplicationService.GetByDataVencimento(idItemMovimentacao, idUsuario, dataVencIni, dataVencFim));
             }
             catch (Exception e)
             {
@@ -133,6 +142,34 @@ namespace GestaoFinanceira.Service.Api.Controllers
             try
             {
                 return Ok(movimentacaoPrevistaApplicationService.GetAllStatus());
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetAllPrioridades")]
+        public IActionResult GetAllPrioridades()
+        {
+            try
+            {
+                return Ok(movimentacaoPrevistaApplicationService.GetAllPrioridades());
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetAllTipoRecorrencias")]
+        public IActionResult GetAllTipoRecorrencias()
+        {
+            try
+            {
+                return Ok(movimentacaoPrevistaApplicationService.GetAllTipoRecorrencias());
             }
             catch (Exception e)
             {

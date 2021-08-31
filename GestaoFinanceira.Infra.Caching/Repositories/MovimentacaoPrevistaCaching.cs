@@ -36,19 +36,19 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                 .Where(mp => mp.ItemMovimentacao.Id == obj.ItemMovimentacao.Id && mp.DataReferencia == obj.DataReferencia); 
             mongoDBContext.MovimentacoesPrevistas.DeleteOne(filter);        }
 
-        public MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime idDataReferencia)
+        public MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia)
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.ItemMovimentacao.Id == idItemMovimentacao && mp.DataReferencia == idDataReferencia);
+                .Where(mp => mp.ItemMovimentacao.Id == idItemMovimentacao && mp.DataReferencia == dataReferencia);
             return mongoDBContext.MovimentacoesPrevistas.Find(filter).FirstOrDefault();
         }
 
-        public List<MovimentacaoPrevistaDTO> GetByDataReferencia(int? idItemMovimentacao, int idUsuario, DateTime dataRefIni, DateTime dataRefFim)
+        public List<MovimentacaoPrevistaDTO> GetByDataVencimento(int? idItemMovimentacao, int idUsuario, DateTime dataVencIni, DateTime dataVencFim)
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
                 .Where(mp => ( mp.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null ) && 
-                       mp.DataReferencia >= dataRefIni && 
-                       mp.DataReferencia <= dataRefFim &&
+                       mp.DataVencimento >= dataVencIni && 
+                       mp.DataVencimento <= dataVencFim &&
                        mp.FormaPagamento.IdUsuario==idUsuario);
             return mongoDBContext.MovimentacoesPrevistas.Find(filter).ToList<MovimentacaoPrevistaDTO>();
         }
