@@ -7,9 +7,9 @@ namespace GestaoFinanceira.Domain.Interfaces.Services
 {
     public interface IMovimentacaoRealizadaDomainService
     {
-        void Add(List<MovimentacaoRealizada> movimentacoesRealizadas);
-        void Update(MovimentacaoRealizada movimentacaoRealizada);
-        void Delete(MovimentacaoRealizada movimentacaoRealizada);
+        void Add(List<MovimentacaoRealizada> movimentacoesRealizadas, out MovimentacaoPrevista movimentacaoPrevista);
+        void Update(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista);
+        void Delete(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista);
         MovimentacaoRealizada GetId(int id);
 
     }

@@ -92,7 +92,14 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((src, dest) => dest.Movimentacao.IdItemMovimentacao = src.IdItemMovimentacao)
                 .AfterMap((src, dest) => dest.Movimentacao.DataReferencia = src.DataReferencia)
                 .AfterMap((src, dest) => dest.Movimentacao.Observacao = src.Observacao)
-                .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade)); ;
+                .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade));
+
+            CreateMap<UpdateMovimentacaoRealizadaCommand, MovimentacaoRealizada>()
+                .AfterMap((src, dest) => dest.Movimentacao = new Movimentacao())
+                .AfterMap((src, dest) => dest.Movimentacao.IdItemMovimentacao = src.IdItemMovimentacao)
+                .AfterMap((src, dest) => dest.Movimentacao.DataReferencia = src.DataReferencia)
+                .AfterMap((src, dest) => dest.Movimentacao.Observacao = src.Observacao)
+                .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade));
             #endregion
 
         }

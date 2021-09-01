@@ -1,5 +1,4 @@
-﻿using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
-using GestaoFinanceira.Domain.Interfaces.Repositories;
+﻿using GestaoFinanceira.Domain.Interfaces.Repositories;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using System;
@@ -17,142 +16,77 @@ namespace GestaoFinanceira.Domain.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public void Add(List<MovimentacaoRealizada> movimentacoesRealizadas)
+        public void Add(List<MovimentacaoRealizada> movimentacoesRealizadas, out MovimentacaoPrevista movimentacaoPrevista)
         {
             try
             {
                 unitOfWork.BeginTransaction();
+                Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacoesRealizadas[0].IdItemMovimentacao,
+                                                                                        movimentacoesRealizadas[0].DataReferencia);
+
+                if(movimentacao == null)
+                {
+                    unitOfWork.IMovimentacaoRepository.Add(movimentacoesRealizadas[0].Movimentacao);
+                }
+
                 foreach (MovimentacaoRealizada movimentacaoRealizada in movimentacoesRealizadas)
                 {
                     unitOfWork.IMovimentacaoRealizadaRepository.Add(movimentacaoRealizada);
                 }
 
-    
-                Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacoesRealizadas[0].IdItemMovimentacao,
-                                                                                    movimentacoesRealizadas[0].DataReferencia);
+                movimentacaoPrevista = null;
 
-
-                if (movimentacao.MovimentacaoPrevista!= null && movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.A &&
+                if (movimentacao != null && 
+                    movimentacao.MovimentacaoPrevista!= null && movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.A &&
                     movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) >= movimentacao.MovimentacaoPrevista.Valor)
                 {
                      movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
                      unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
-                     throw new MovPrevAlteraStatus(movimentacao.MovimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
-                                                     movimentacao.MovimentacaoPrevista.DataReferencia,
-                                                     movimentacao.MovimentacaoPrevista.Status);
+                     movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
                 }
 
                 unitOfWork.Commit();
 
-            }
-            catch (MovPrevAlteraStatus)
-            {
-                unitOfWork.Commit();
-                throw;
             }
             catch (Exception e)
             {
                 unitOfWork.Rollback();
                 throw new Exception(e.Message);
             }
+            finally{
+                unitOfWork.Dispose();
+            }
         }
 
-        public void Update(MovimentacaoRealizada movimentacaoRealizada)
+        public void Update(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista)
         {
             try
             {
                 unitOfWork.BeginTransaction();
                 unitOfWork.IMovimentacaoRealizadaRepository.Update(movimentacaoRealizada);
 
-                List<MovimentacaoRealizada> movimentacoesRealizadas = unitOfWork.IMovimentacaoRealizadaRepository
-                                                                                .GetByDataReferencia(movimentacaoRealizada.IdItemMovimentacao,
-                                                                                                     movimentacaoRealizada.DataReferencia)
-                                                                                .ToList();
+                movimentacaoPrevista = null;
+                Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoRealizada.IdItemMovimentacao,
+                                                                                        movimentacaoRealizada.DataReferencia);
 
-                MovimentacaoPrevista movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository
-                                                                      .GetByKey(movimentacaoRealizada.IdItemMovimentacao,
-                                                                                movimentacaoRealizada.DataReferencia);
-
-                if (movimentacaoPrevista!= null && movimentacoesRealizadas.Sum(x => x.Valor) < movimentacaoPrevista.Valor &&
-                    movimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
+                if (movimentacao.MovimentacaoPrevista != null && 
+                    movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) < movimentacao.MovimentacaoPrevista.Valor &&
+                    movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
                 {
-                    movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
-                    unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
-                    throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
-                                                  movimentacaoPrevista.DataReferencia,
-                                                  movimentacaoPrevista.Status);
+                    movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
+                    unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
+                    movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
+
                 }
-                else if (movimentacaoPrevista!= null && movimentacoesRealizadas.Sum(x => x.Valor) >= movimentacaoPrevista.Valor &&
-                         movimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.A)
+                else if (movimentacao.MovimentacaoPrevista != null && 
+                         movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) >= movimentacao.MovimentacaoPrevista.Valor &&
+                         movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.A)
                 {
-                    movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
-                    unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
-                    throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
-                                                  movimentacaoPrevista.DataReferencia,
-                                                  movimentacaoPrevista.Status);
+                    movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
+                    unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
+                    movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
                 }                
                 unitOfWork.Commit();
-
-            }
-            catch (MovPrevAlteraStatus)
-            {
-                unitOfWork.Commit();
-                throw;
-            }
-            catch (Exception e)
-            {
-                unitOfWork.Rollback();
-                throw new Exception(e.Message);
-            }
-        }
-
-        public void Delete(MovimentacaoRealizada movimentacaoRealizada)
-        {
-            try
-            {
-                unitOfWork.BeginTransaction();
-
-                unitOfWork.IMovimentacaoRealizadaRepository.Delete(movimentacaoRealizada);
-
-                MovimentacaoPrevista movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository.GetByKey(movimentacaoRealizada.IdItemMovimentacao,
-                                                                                                                movimentacaoRealizada.DataReferencia);
-
-                if(movimentacaoPrevista != null &&  movimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
-                {
-                    List<MovimentacaoRealizada> movimentacoesRealizadas = unitOfWork.IMovimentacaoRealizadaRepository
-                                                                                    .GetByDataReferencia(movimentacaoRealizada.IdItemMovimentacao,
-                                                                                                         movimentacaoRealizada.DataReferencia)
-                                                                                    .ToList();
-
-                    if (movimentacoesRealizadas.Sum(x => x.Valor) < movimentacaoPrevista.Valor)
-                    {
-                        movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
-                        unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
-                        throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao, 
-                                                      movimentacaoPrevista.DataReferencia,
-                                                      movimentacaoPrevista.Status);
-                    }
-                }                
-                unitOfWork.Commit();
-            }
-            catch (MovPrevAlteraStatus)
-            {
-                unitOfWork.Commit();
-                throw;
-            }
-            catch (Exception e)
-            {
-                unitOfWork.Rollback();
-                throw new Exception(e.Message);
-            }
-        }
-
-        public MovimentacaoRealizada GetId(int id)
-        {
-            try
-            {
-                unitOfWork.BeginTransaction();
-                return unitOfWork.IMovimentacaoRealizadaRepository.GetId(id);
 
             }
             catch (Exception e)
@@ -163,6 +97,59 @@ namespace GestaoFinanceira.Domain.Services
             finally
             {
                 unitOfWork.Dispose();
+            }
+        }
+
+        public void Delete(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista)
+        {
+            try
+            {
+                unitOfWork.BeginTransaction();
+                unitOfWork.IMovimentacaoRealizadaRepository.Delete(movimentacaoRealizada);
+
+                
+                Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoRealizada.IdItemMovimentacao,
+                                                                                        movimentacaoRealizada.DataReferencia);
+
+                if(movimentacao.MovimentacaoPrevista == null && movimentacao.MovimentacoesRealizadas.Count ==0)
+                {
+                    unitOfWork.IMovimentacaoRepository.Delete(movimentacao);
+                }
+
+                movimentacaoPrevista = null;
+
+                if (movimentacao.MovimentacaoPrevista != null && movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
+                {
+
+                    if (movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) < movimentacao.MovimentacaoPrevista.Valor)
+                    {
+                        movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
+                        unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
+                        movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
+                    }
+                }                
+                unitOfWork.Commit();
+            }
+            catch (Exception e)
+            {
+                unitOfWork.Rollback();
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                unitOfWork.Dispose();
+            }
+        }
+
+        public MovimentacaoRealizada GetId(int id)
+        {
+            try
+            {
+                return unitOfWork.IMovimentacaoRealizadaRepository.GetId(id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
         }
 

@@ -18,7 +18,7 @@ namespace GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista
             this.status = status.ObterDescricao();
         }
 
-        public override string Message => $"A Movimentação Prevista para o Item de Movimentação {this.descricaoItemMovimentacao} referente ao mês de {this.mesReferencia} teve seu status alterado para {this.status}";
+        public override string Message => $"Movimentação gravada com sucesso! \r\n A Movimentação Prevista para {this.descricaoItemMovimentacao} referente ao mês de {this.mesReferencia} teve seu status alterado para {this.status}";
 
 
     }

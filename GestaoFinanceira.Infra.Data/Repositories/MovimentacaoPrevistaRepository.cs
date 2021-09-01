@@ -30,10 +30,12 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             context.SaveChanges();
         }
 
-        public IEnumerable<MovimentacaoPrevista> GetByDataReferencia(int idUsuario,
-                                                                     int? idItemMovimentacao, 
-                                                                     DateTime dataRefIni, 
-                                                                     DateTime dataRefFim)
+        public override void Delete(int idUsuario)
+        {
+            this.dbset.RemoveRange(dbset.Where(mp=>mp.FormaPagamento.IdUsuario == idUsuario));
+        }
+
+        public IEnumerable<MovimentacaoPrevista> GetByDataReferencia(int idUsuario, int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim)
         {
             return dbset.Where(mp => mp.FormaPagamento.IdUsuario == idUsuario &&
                                           (mp.IdItemMovimentacao == idItemMovimentacao ||
@@ -43,11 +45,6 @@ namespace GestaoFinanceira.Infra.Data.Repositories
                         .Include(mp => mp.Movimentacao)
                         .Include(mp => mp.Movimentacao.ItemMovimentacao)
                         .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria).ToList();
-        }
-
-        public override void Delete(int idUsuario)
-        {
-            this.dbset.RemoveRange(dbset.Where(mp=>mp.FormaPagamento.IdUsuario == idUsuario));
         }
 
         public override IEnumerable<MovimentacaoPrevista> GetAll(int idUsuario)

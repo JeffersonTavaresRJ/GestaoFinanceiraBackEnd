@@ -2,6 +2,7 @@
 using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
 using GestaoFinanceira.Application.Notifications;
+using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Validations;
@@ -21,14 +22,18 @@ namespace GestaoFinanceira.Application.RequestHandler
                                                        IRequestHandler<DeleteMovimentacaoRealizadaCommand>
     {
         private readonly IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService;
-        private readonly IMovimentacaoPrevistaDomainService movimentacaoPrevistaDomainService;
+        private readonly IMovimentacaoDomainService movimentacaoDomainService;
         private readonly IMediator mediator;
         private readonly IMapper mapper;
+        private MovimentacaoPrevista movimentacaoPrevista;
 
-        public MovimentacaoRealizadaRequestHandler(IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService, IMovimentacaoPrevistaDomainService movimentacaoPrevistaDomainService, IMediator mediator, IMapper mapper)
+        public MovimentacaoRealizadaRequestHandler(IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService, 
+                                                   IMovimentacaoDomainService movimentacaoDomainService, 
+                                                   IMediator mediator, 
+                                                   IMapper mapper)
         {
             this.movimentacaoRealizadaDomainService = movimentacaoRealizadaDomainService;
-            this.movimentacaoPrevistaDomainService = movimentacaoPrevistaDomainService;
+            this.movimentacaoDomainService = movimentacaoDomainService;
             this.mediator = mediator;
             this.mapper = mapper;
         }
@@ -39,6 +44,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             foreach (MovimentacaoRealizadaCommand item in request.MovimentacaoRealizadaCommand)
             {
                 MovimentacaoRealizada movimentacaoRealizada = mapper.Map<MovimentacaoRealizada>(item);
+                //movimentacaoRealizada.Movimentacao = movimentacaoDomainService.GetByKey(item.IdItemMovimentacao, item.DataReferencia);
 
                 var validate = new MovimentacaoRealizadaValidation().Validate(movimentacaoRealizada);
                 if (!validate.IsValid)
@@ -49,7 +55,7 @@ namespace GestaoFinanceira.Application.RequestHandler
                 movimentacoesRealizadas.Add(movimentacaoRealizada);
 
             }
-            movimentacaoRealizadaDomainService.Add(movimentacoesRealizadas);
+            movimentacaoRealizadaDomainService.Add(movimentacoesRealizadas, out movimentacaoPrevista);
 
             await mediator.Publish(new MovimentacaoRealizadaNotification
             {
@@ -57,15 +63,19 @@ namespace GestaoFinanceira.Application.RequestHandler
                 Action = ActionNotification.Criar
             });
 
-            MovimentacaoPrevista movimentacaoPrevista = movimentacaoPrevistaDomainService
-                                               .GetByKey(movimentacoesRealizadas[0].IdItemMovimentacao,
-                                                         movimentacoesRealizadas[0].DataReferencia);
-
-            await mediator.Publish(new MovimentacaoPrevistaNotification
+            if(movimentacaoPrevista!= null)
             {
-                MovimentacaoPrevista = movimentacaoPrevista,
-                Action = ActionNotification.Atualizar
-            });
+                await mediator.Publish(new MovimentacaoPrevistaNotification
+                {
+                    MovimentacaoPrevista = movimentacaoPrevista,
+                    Action = ActionNotification.Atualizar
+                });
+
+                throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
+                                                     movimentacaoPrevista.DataReferencia,
+                                                     movimentacaoPrevista.Status);
+            }
+            
             return Unit.Value;
         }
 
@@ -78,13 +88,26 @@ namespace GestaoFinanceira.Application.RequestHandler
             {
                 throw new ValidationException(validate.Errors);
             }
-            movimentacaoRealizadaDomainService.Update(movimentacaoRealizada);
+            movimentacaoRealizadaDomainService.Update(movimentacaoRealizada, out movimentacaoPrevista);
 
             await mediator.Publish(new MovimentacaoRealizadaNotification
             {
                 MovimentacaoRealizada = movimentacaoRealizada,
                 Action = ActionNotification.Atualizar
             });
+
+            if (movimentacaoPrevista != null)
+            {
+                await mediator.Publish(new MovimentacaoPrevistaNotification
+                {
+                    MovimentacaoPrevista = movimentacaoPrevista,
+                    Action = ActionNotification.Atualizar
+                });
+
+                throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
+                                                     movimentacaoPrevista.DataReferencia,
+                                                     movimentacaoPrevista.Status);
+            }
 
             return Unit.Value;
         }
@@ -92,7 +115,7 @@ namespace GestaoFinanceira.Application.RequestHandler
         public async Task<Unit> Handle(DeleteMovimentacaoRealizadaCommand request, CancellationToken cancellationToken)
         {
             MovimentacaoRealizada movimentacaoRealizada = movimentacaoRealizadaDomainService.GetId(request.Id);
-            movimentacaoRealizadaDomainService.Delete(movimentacaoRealizada);
+            movimentacaoRealizadaDomainService.Delete(movimentacaoRealizada, out movimentacaoPrevista);
 
             await mediator.Publish(new MovimentacaoRealizadaNotification
             {
@@ -100,14 +123,18 @@ namespace GestaoFinanceira.Application.RequestHandler
                 Action = ActionNotification.Excluir
             });
 
-            MovimentacaoPrevista movimentacaoPrevista = movimentacaoPrevistaDomainService.GetByKey(movimentacaoRealizada.IdItemMovimentacao,
-                                                                                                       movimentacaoRealizada.DataReferencia);
-
-            await mediator.Publish(new MovimentacaoPrevistaNotification
+            if (movimentacaoPrevista != null)
             {
-                MovimentacaoPrevista = movimentacaoPrevista,
-                Action = ActionNotification.Atualizar
-            });
+                await mediator.Publish(new MovimentacaoPrevistaNotification
+                {
+                    MovimentacaoPrevista = movimentacaoPrevista,
+                    Action = ActionNotification.Atualizar
+                });
+
+                throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
+                                                     movimentacaoPrevista.DataReferencia,
+                                                     movimentacaoPrevista.Status);
+            }
             return Unit.Value;
         }
     }

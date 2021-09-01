@@ -38,7 +38,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
             catch (MovPrevAlteraStatus e)
             {
-                return Ok(new { message = $"Movimentação(ões) cadastrada(s) com sucesso!\r\n{e.Message}" });
+                return StatusCode(200, e.Message);
             }
             catch (ValidationException e)
             {
@@ -61,7 +61,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
             catch (MovPrevAlteraStatus e)
             {
-                return Ok(new { message = $"Movimentação atualizada com sucesso!\r\n{e.Message}" });
+                return StatusCode(200, e.Message);
             }
             catch (ValidationException e)
             {
@@ -89,7 +89,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
             catch (MovPrevAlteraStatus e)
             {
-                return Ok(new { message = $"Movimentação excluída com sucesso!\r\n{e.Message}" });
+                return StatusCode(200, e.Message.Replace("gravada", "excluída"));
             }
             catch (ValidationException e)
             {
