@@ -6,6 +6,7 @@ using GestaoFinanceira.Domain.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,9 +40,9 @@ namespace GestaoFinanceira.Application.Handlers
                 switch (notification.Action)
                 {
                     case ActionNotification.Criar:
-                        foreach (MovimentacaoRealizada MovimentacaoRealizada in notification.MovimentacoesRealizadas)
+                        foreach (MovimentacaoRealizada movimentacaoRealizada in notification.MovimentacoesRealizadas)
                         {
-                            movimentacaoRealizadaDTO = Convert(MovimentacaoRealizada);
+                            movimentacaoRealizadaDTO = Convert(movimentacaoRealizada);
                             movimentacaoRealizadaCaching.Add(movimentacaoRealizadaDTO);
                         }
                         break;
@@ -57,13 +58,14 @@ namespace GestaoFinanceira.Application.Handlers
             });
         }
 
-        private MovimentacaoRealizadaDTO Convert(MovimentacaoRealizada MovimentacaoRealizada)
+        private MovimentacaoRealizadaDTO Convert(MovimentacaoRealizada movimentacaoRealizada)
         {
-            MovimentacaoRealizadaDTO MovimentacaoRealizadaDTO = mapper.Map<MovimentacaoRealizadaDTO>(MovimentacaoRealizada);
-            MovimentacaoRealizadaDTO.FormaPagamento = formaPagamentoCaching.GetId(MovimentacaoRealizada.IdFormaPagamento);
-            MovimentacaoRealizadaDTO.ItemMovimentacao = itemMovimentacaoCaching.GetId(MovimentacaoRealizada.IdItemMovimentacao);
-            MovimentacaoRealizadaDTO.Conta = contaCaching.GetId(MovimentacaoRealizada.IdConta);
-            return MovimentacaoRealizadaDTO;
+            MovimentacaoRealizadaDTO movimentacaoRealizadaDTO = mapper.Map<MovimentacaoRealizadaDTO>(movimentacaoRealizada);
+            movimentacaoRealizadaDTO.FormaPagamento = formaPagamentoCaching.GetId(movimentacaoRealizada.IdFormaPagamento);
+            movimentacaoRealizadaDTO.ItemMovimentacao = itemMovimentacaoCaching.GetId(movimentacaoRealizada.IdItemMovimentacao);
+            movimentacaoRealizadaDTO.Conta = contaCaching.GetId(movimentacaoRealizada.IdConta);
+            return movimentacaoRealizadaDTO;
         }
+        
     }
 }

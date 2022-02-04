@@ -30,7 +30,7 @@ namespace GestaoFinanceira.Domain.Services
             catch (Exception e)
             {
 
-                throw new Exception(e.Message);
+                throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
             }
         }
 
@@ -45,7 +45,7 @@ namespace GestaoFinanceira.Domain.Services
             catch (Exception e)
             {
 
-                throw new Exception(e.Message);
+                throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
             }
         }
 
@@ -61,7 +61,7 @@ namespace GestaoFinanceira.Domain.Services
             catch (Exception e)
             {
                 unitOfWork.Rollback();
-                throw new Exception(e.Message);
+                throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
             }
             finally
             {
@@ -84,10 +84,10 @@ namespace GestaoFinanceira.Domain.Services
                 unitOfWork.IUsuarioRepository.Delete(obj);
                 unitOfWork.Commit();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 unitOfWork.Rollback();
-                throw new Exception(ex.Message);
+                throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
             }
             finally
             {

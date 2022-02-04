@@ -38,33 +38,35 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(CreateMovimentacaoPrevistaCommand request, CancellationToken cancellationToken)
         {
-            if(request.QtdeParcelas <=0)
-            {
-                throw new MovPrevTotalParcelasInvalidoException(0);
-            }
 
-            if(request.TipoRecorrencia != TipoRecorrencia.M.ToString() &&
-               request.TipoRecorrencia != TipoRecorrencia.N.ToString() &&
-               request.TipoRecorrencia != TipoRecorrencia.P.ToString())
-            {
-                throw new MovPrevRecorrenciaInvalidaException();
-            }
+            List<MovimentacaoPrevista> movimentacoesPrevistas = new List<MovimentacaoPrevista>();
+            IList<ValidationFailure> errors = new List<ValidationFailure>();
 
-            if (request.TipoPrioridade == null)
+            foreach (MovimentacaoPrevistaCommand item in request.MovimentacaoPrevistaCommand)
             {
-                IList<ValidationFailure> errors = new List<ValidationFailure>();
-                errors.Add(new ValidationFailure("TipoPrioridade", "A Prioridade é obrigatória"));
-                throw new ValidationException(errors);
-            }
-                       
-            MovimentacaoPrevista movimentacaoPrevista = mapper.Map<MovimentacaoPrevista>(request);
+                if (item.TipoPrioridade == null)                {
+                    
+                    errors.Add(new ValidationFailure("TipoPrioridade", "A Prioridade é obrigatória"));
+                    throw new ValidationException(errors);
+                }
 
-            var validate = new MovimentacaoPrevistaValidation().Validate(movimentacaoPrevista);
-            if (!validate.IsValid)
-            {
-                throw new ValidationException(validate.Errors);
+                if (item.DataVencimento.Year != item.DataReferencia.Year ||
+                    item.DataVencimento.Month != item.DataReferencia.Month)
+                {
+                    throw new MovDataReferenciaException("Data de Vencimento", item.DataVencimento, item.DataReferencia);
+                }
+
+                MovimentacaoPrevista movimentacaoPrevista = mapper.Map<MovimentacaoPrevista>(item);
+
+                var validate = new MovimentacaoPrevistaValidation().Validate(movimentacaoPrevista);
+                if (!validate.IsValid)
+                {
+                    throw new ValidationException(validate.Errors);
+                }
+
+                movimentacoesPrevistas.Add(movimentacaoPrevista);
+
             }
-            List<MovimentacaoPrevista> movimentacoesPrevistas = ConvertList(movimentacaoPrevista, request.TipoRecorrencia, request.QtdeParcelas);
             
             movimentacaoPrevistaDomainService.Add(movimentacoesPrevistas);
 
@@ -93,8 +95,8 @@ namespace GestaoFinanceira.Application.RequestHandler
                 throw new ValidationException(errors);
             }
 
-            MovimentacaoPrevista movimentacaoPrevista = mapper.Map<MovimentacaoPrevista>(request);            
-            
+            MovimentacaoPrevista movimentacaoPrevista = mapper.Map<MovimentacaoPrevista>(request);
+                        
             var validate = new MovimentacaoPrevistaValidation().Validate(movimentacaoPrevista);
             if (!validate.IsValid)
             {
@@ -126,6 +128,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             }
 
             movimentacaoPrevistaDomainService.Update(movimentacaoPrevista);
+            
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
                 MovimentacaoPrevista = movimentacaoPrevista,

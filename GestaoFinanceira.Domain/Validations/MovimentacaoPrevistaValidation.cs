@@ -17,8 +17,19 @@ namespace GestaoFinanceira.Domain.Validations
                 .NotEmpty().WithMessage("A data de vencimento é obrigatória");
 
             RuleFor(mp => mp.Valor)
+                .Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
                 .NotEmpty().WithMessage("O valor é obrigatório")
                 .GreaterThanOrEqualTo(1).WithMessage("O Valor deve ser igual ou maior do que 1");
+
+            RuleFor(mp => mp.NrParcela)
+                .Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
+                .NotEmpty().WithMessage("O número da parcela é obrigatório")
+                .GreaterThanOrEqualTo(1).WithMessage("O número da parcela deve ser igual ou maior do que 1");
+
+            RuleFor(mp => mp.NrParcelaTotal)
+                .Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
+                .NotEmpty().WithMessage("O número total da parcela é obrigatório")
+                .GreaterThanOrEqualTo(1).WithMessage("O total de parcelas deve ser igual ou maior do que 1");
 
             RuleFor(mp => mp.IdFormaPagamento)
                 .NotEmpty().WithMessage("O id da forma de pagamento é obrigatório");

@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Domain.Interfaces.Repositories;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Infra.Data.Context;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories
         {
             context.Entry(obj).State = EntityState.Added;
             context.Entry(obj).Reference(mr => mr.Movimentacao).IsModified = false;
-            context.SaveChanges();
+            context.SaveChanges();            
         }
 
         public override void Update(MovimentacaoRealizada obj)

@@ -10,3 +10,16 @@ C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFi
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.csproj.CopyComplete
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.pdb
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.deps.json
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.dll
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.pdb
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\bin\Debug\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\bin\Debug\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.AssemblyInfo.cs
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.csproj.CopyComplete
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.dll
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Caching\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Caching.pdb

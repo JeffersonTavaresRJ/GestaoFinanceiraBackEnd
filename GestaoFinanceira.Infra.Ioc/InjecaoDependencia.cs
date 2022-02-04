@@ -44,6 +44,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IMovimentacaoDomainService, MovimentacaoDomainService>();
             services.AddTransient<IMovimentacaoPrevistaDomainService, MovimentacaoPrevistaDomainService>();
             services.AddTransient<IMovimentacaoRealizadaDomainService, MovimentacaoRealizadaDomainService>();
+            services.AddTransient<ISaldoDiarioDomainService, SaldoDiarioDomainService>();
             #endregion
 
             #region InfraData
@@ -55,6 +56,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IMovimentacaoRepository, MovimentacaoRepository>();
             services.AddTransient<IMovimentacaoPrevistaRepository, MovimentacaoPrevistaRepository>();
             services.AddTransient<IMovimentacaoRealizadaRepository, MovimentacaoRealizadaRepository>();
+            services.AddTransient<ISaldoDiarioRepository, SaldoDiarioRepository>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             #endregion
@@ -66,6 +68,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IItemMovimentacaoCaching, ItemMovimentacaoCaching>();
             services.AddTransient<IMovimentacaoPrevistaCaching, MovimentacaoPrevistaCaching>();
             services.AddTransient<IMovimentacaoRealizadaCaching, MovimentacaoRealizadaCaching>();
+            services.AddTransient<ISaldoDiarioCaching, SaldoDiarioCaching>();
             #endregion
 
             #region InfraCryptography

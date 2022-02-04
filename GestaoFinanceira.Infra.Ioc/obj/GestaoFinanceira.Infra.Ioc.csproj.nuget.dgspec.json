@@ -1,26 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Ioc\\GestaoFinanceira.Infra.Ioc.csproj": {}
+    "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Ioc\\GestaoFinanceira.Infra.Ioc.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\GestaoFinanceira.Application.csproj": {
+    "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\GestaoFinanceira.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\GestaoFinanceira.Application.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\GestaoFinanceira.Application.csproj",
         "projectName": "GestaoFinanceira.Application",
-        "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\GestaoFinanceira.Application.csproj",
-        "packagesPath": "C:\\Users\\jefta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\obj\\",
+        "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\GestaoFinanceira.Application.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jefta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -33,14 +28,14 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
-                "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
               },
-              "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj": {
-                "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj"
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj"
               },
-              "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj": {
-                "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj"
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj"
               }
             }
           }
@@ -82,35 +77,41 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
             },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            }
+          ],
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
+    "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
         "projectName": "GestaoFinanceira.Domain",
-        "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
-        "packagesPath": "C:\\Users\\jefta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\obj\\",
+        "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jefta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -154,32 +155,41 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj": {
+    "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj",
         "projectName": "GestaoFinanceira.Infra.Caching",
-        "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj",
-        "packagesPath": "C:\\Users\\jefta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\obj\\",
+        "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jefta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -192,8 +202,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
-                "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
               }
             }
           }
@@ -223,32 +233,41 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj": {
+    "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj",
         "projectName": "GestaoFinanceira.Infra.CrossCutting",
-        "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj",
-        "packagesPath": "C:\\Users\\jefta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\obj\\",
+        "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jefta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -261,8 +280,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
-                "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
               }
             }
           }
@@ -296,35 +315,41 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
             },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            }
+          ],
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\GestaoFinanceira.Infra.Data.csproj": {
+    "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\GestaoFinanceira.Infra.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\GestaoFinanceira.Infra.Data.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\GestaoFinanceira.Infra.Data.csproj",
         "projectName": "GestaoFinanceira.Infra.Data",
-        "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\GestaoFinanceira.Infra.Data.csproj",
-        "packagesPath": "C:\\Users\\jefta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\obj\\",
+        "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\GestaoFinanceira.Infra.Data.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jefta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -337,8 +362,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
-                "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
               }
             }
           }
@@ -380,32 +405,41 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Ioc\\GestaoFinanceira.Infra.Ioc.csproj": {
+    "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Ioc\\GestaoFinanceira.Infra.Ioc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Ioc\\GestaoFinanceira.Infra.Ioc.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Ioc\\GestaoFinanceira.Infra.Ioc.csproj",
         "projectName": "GestaoFinanceira.Infra.Ioc",
-        "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Ioc\\GestaoFinanceira.Infra.Ioc.csproj",
-        "packagesPath": "C:\\Users\\jefta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Ioc\\obj\\",
+        "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Ioc\\GestaoFinanceira.Infra.Ioc.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Ioc\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\jefta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -418,20 +452,20 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\GestaoFinanceira.Application.csproj": {
-                "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\GestaoFinanceira.Application.csproj"
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\GestaoFinanceira.Application.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Application\\GestaoFinanceira.Application.csproj"
               },
-              "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
-                "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
               },
-              "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj": {
-                "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj"
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Caching\\GestaoFinanceira.Infra.Caching.csproj"
               },
-              "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj": {
-                "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj"
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj"
               },
-              "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\GestaoFinanceira.Infra.Data.csproj": {
-                "projectPath": "C:\\Users\\jefta\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\GestaoFinanceira.Infra.Data.csproj"
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\GestaoFinanceira.Infra.Data.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Data\\GestaoFinanceira.Infra.Data.csproj"
               }
             }
           }
@@ -455,15 +489,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
             },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            }
+          ],
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

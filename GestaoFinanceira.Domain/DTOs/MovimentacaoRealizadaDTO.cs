@@ -12,5 +12,6 @@ namespace GestaoFinanceira.Domain.DTOs
         public DateTime DataMovimentacaoRealizada { get; set; }
         public double Valor { get; set; }
 
+
     }
 }

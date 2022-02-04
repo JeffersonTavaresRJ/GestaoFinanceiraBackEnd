@@ -5,7 +5,6 @@ using GestaoFinanceira.Domain.Interfaces.Caching;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Application.Services
@@ -14,11 +13,13 @@ namespace GestaoFinanceira.Application.Services
     {
         private readonly IMediator mediator;
         private readonly IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching;
+        private readonly ISaldoDiarioCaching saldoDiarioCaching;
 
-        public MovimentacaoRealizadaApplicationService(IMediator mediator, IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching)
+        public MovimentacaoRealizadaApplicationService(IMediator mediator, IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching, ISaldoDiarioCaching saldoDiarioCaching)
         {
             this.mediator = mediator;
             this.movimentacaoRealizadaCaching = movimentacaoRealizadaCaching;
+            this.saldoDiarioCaching = saldoDiarioCaching;
         }
 
         public Task Add(CreateMovimentacaoRealizadaCommand command)
@@ -47,6 +48,11 @@ namespace GestaoFinanceira.Application.Services
         public List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim)
         {
             return movimentacaoRealizadaCaching.GetByDataMovimentacaoRealizada(idItemMovimentacao, idUsuario, dataMovRealIni, dataMovRealFim);
+        }
+
+        public List<SaldoDiarioDTO> GetMovimentacaoRealizadaGroupBySaldo( int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim)
+        {
+            return saldoDiarioCaching.GetBySaldosDiario(idUsuario, dataMovRealIni, dataMovRealFim);
         }
     }
 }

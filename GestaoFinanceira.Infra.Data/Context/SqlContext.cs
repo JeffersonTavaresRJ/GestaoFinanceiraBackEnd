@@ -17,6 +17,7 @@ namespace GestaoFinanceira.Infra.Data.Context
         public DbSet<Movimentacao> Movimentacoes { get; set; }
         public DbSet<MovimentacaoPrevista> MovimentacoesPrevistas { get; set; }
         public DbSet<MovimentacaoRealizada> MovimentacoesRealizadas { get; set; }
+        public DbSet<SaldoDiario> SaldosDiario { get; set; }
 
 
         public SqlContext(DbContextOptions<SqlContext> options) : base(options)
@@ -51,6 +52,8 @@ namespace GestaoFinanceira.Infra.Data.Context
 
             modelBuilder.ApplyConfiguration(new MovimentacaoRealizadaMap());
             modelBuilder.Entity<MovimentacaoRealizada>(entity => entity.Property(c => c.Id).ValueGeneratedOnAdd());
+
+            modelBuilder.ApplyConfiguration(new SaldoDiarioMap());
 
             base.OnModelCreating(modelBuilder);
         }

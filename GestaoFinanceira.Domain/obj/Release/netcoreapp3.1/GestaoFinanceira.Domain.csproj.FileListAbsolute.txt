@@ -7,3 +7,13 @@ C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFi
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.csproj.CoreCompileInputs.cache
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.dll
 C:\Users\jefta\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.deps.json
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.AssemblyInfo.cs
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.pdb

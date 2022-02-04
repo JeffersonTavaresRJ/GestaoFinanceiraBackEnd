@@ -18,17 +18,41 @@ namespace GestaoFinanceira.Domain.Services
 
         public virtual void Add(TEntity obj)
         {
-            repository.Add(obj);
+            try
+            {
+                repository.Add(obj);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
+            }
+            
         }
 
         public virtual void Update(TEntity obj)
         {
-            repository.Update(obj);
+            try
+            {
+                repository.Update(obj);
+            }            
+            catch (Exception e)
+            {
+                throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
+            }
         }
 
         public virtual void Delete(TEntity obj)
         {
-            repository.Delete(obj);
+            try
+            {
+                repository.Delete(obj);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
+            }
+
         }
         public virtual void Dispose()
         {

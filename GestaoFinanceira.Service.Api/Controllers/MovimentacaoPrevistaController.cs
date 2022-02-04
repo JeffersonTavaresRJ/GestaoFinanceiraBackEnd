@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using GestaoFinanceira.Domain.Exceptions.Movimentacao;
+using System.Collections.Generic;
 
 namespace GestaoFinanceira.Service.Api.Controllers
 {
@@ -24,26 +25,23 @@ namespace GestaoFinanceira.Service.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateMovimentacaoPrevistaCommand command)
+        public async Task<IActionResult> Post(List<MovimentacaoPrevistaCommand> command)
         {
             try
             {
-                await movimentacaoPrevistaApplicationService.Add(command);
-                return Ok(new { message = "Movimentação cadastrada com sucesso!" });
+                CreateMovimentacaoPrevistaCommand cmd = new CreateMovimentacaoPrevistaCommand
+                {
+                    MovimentacaoPrevistaCommand = command
+                };
+
+                await movimentacaoPrevistaApplicationService.Add(cmd);
+                return Ok(new { message = "Movimentação(ões) cadastrada(s) com sucesso!" });
             }
             catch (ValidationException e)
             {
                 return BadRequest(ValidationAdapter.Parse(e.Errors));
             }
             catch (MovPrevParcelaInvalidaExclusaoException e)
-            {
-                return StatusCode(418, e.Message);
-            }
-            catch (MovPrevTotalParcelasInvalidoException e)
-            {
-                return StatusCode(418, e.Message);
-            }
-            catch (MovPrevRecorrenciaInvalidaException e)
             {
                 return StatusCode(418, e.Message);
             }
@@ -117,7 +115,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpGet("GetByDataVencimento/{idItemMovimentacao?}/{idUsuario}/{dataVencIni}/{dataVencFim}")]
+        [HttpGet("GetByDataVencimento/{idUsuario}/{dataVencIni}/{dataVencFim}/{idItemMovimentacao?}")]
         public IActionResult GetAll(int? idItemMovimentacao, int idUsuario, DateTime dataVencIni, DateTime dataVencFim)
         {
             try

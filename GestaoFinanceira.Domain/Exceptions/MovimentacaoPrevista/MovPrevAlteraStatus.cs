@@ -10,6 +10,12 @@ namespace GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista
         private string descricaoItemMovimentacao;
         private string mesReferencia;
         private string status;
+        public List<string> Messages;
+
+        public MovPrevAlteraStatus(List<string> _messages)
+        {
+            this.Messages = _messages;
+        }
 
         public MovPrevAlteraStatus(string descricaoItemMovimentacao, DateTime dataReferencia, StatusMovimentacaoPrevista status)
         {

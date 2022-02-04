@@ -30,7 +30,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
             {
                 CreateMovimentacaoRealizadaCommand cmd = new CreateMovimentacaoRealizadaCommand
                 {
-                    MovimentacaoRealizadaCommand = command
+                    MovimentacaoRealizadaCommand = command                                                   
                 };
 
                 await movimentacaoRealizadaApplicationService.Add(cmd);
@@ -38,7 +38,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
             catch (MovPrevAlteraStatus e)
             {
-                return StatusCode(200, e.Message);
+                return StatusCode(200, e.Messages);
             }
             catch (ValidationException e)
             {
@@ -128,12 +128,35 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("GetByDataMovimentacaoRealizada/{idItemMovimentacao}/{idUsuario}/{dataMovRealIni}/{dataMovRealFim}")]
-        public IActionResult GetByDataMovimentacaoRealizada(int? idItemMovimentacao, int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim)
+        [HttpGet("GetByDataMovimentacaoRealizada/{idUsuario}/{dataMovRealIni}/{dataMovRealFim}/{idItemMovimentacao?}")]
+        public IActionResult GetByDataMovimentacaoRealizada(int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim, int? idItemMovimentacao=null)
         {
             try
             {
+                if (dataMovRealFim.Subtract(dataMovRealIni).TotalDays > 366)
+                {
+                    return StatusCode(418, "O período excedeu o limite máximo de 366 dias");
+                }
+
                 return Ok(movimentacaoRealizadaApplicationService.GetByDataMovimentacaoRealizada(idItemMovimentacao, idUsuario, dataMovRealIni, dataMovRealFim));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetMovimentacaoRealizadaGroupBySaldo/{idUsuario}/{dataMovRealIni}/{dataMovRealFim}")]
+        public IActionResult GetMovimentacaoRealizadaGroupBySaldo(int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim)
+        {
+            try
+            {
+                if (dataMovRealFim.Subtract(dataMovRealIni).TotalDays > 366)
+                {
+                    return StatusCode(418, "O período excedeu o limite máximo de 366 dias");
+                }
+
+                return Ok(movimentacaoRealizadaApplicationService.GetMovimentacaoRealizadaGroupBySaldo(idUsuario, dataMovRealIni, dataMovRealFim));
             }
             catch (Exception e)
             {

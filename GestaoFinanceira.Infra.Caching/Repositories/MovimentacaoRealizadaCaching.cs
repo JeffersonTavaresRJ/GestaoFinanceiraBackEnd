@@ -50,6 +50,14 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return mongoDBContext.MovimentacoesRealizadas.Find(filter).ToList();
         }
 
+        public List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada( int idConta, DateTime dataMovReal)
+        {
+            var filter = Builders<MovimentacaoRealizadaDTO>.Filter
+               .Where(mr => (mr.Conta.Id == idConta)
+                   && mr.DataMovimentacaoRealizada == dataMovReal);
+            return mongoDBContext.MovimentacoesRealizadas.Find(filter).ToList();
+        }
+
         public List<MovimentacaoRealizadaDTO> GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia)
         {
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter

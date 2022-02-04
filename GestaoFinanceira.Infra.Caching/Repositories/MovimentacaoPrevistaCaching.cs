@@ -26,20 +26,20 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public void Update(MovimentacaoPrevistaDTO obj)
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.ItemMovimentacao.Id == obj.ItemMovimentacao.Id && mp.DataReferencia == obj.DataReferencia);
-            mongoDBContext.MovimentacoesPrevistas.ReplaceOne(filter, obj);
+                .Where(mp => mp.ItemMovimentacao.Id == obj.ItemMovimentacao.Id && mp.DataReferencia == obj.DataReferencia.Date);
+            mongoDBContext.MovimentacoesPrevistas.ReplaceOne(filter, obj);  
         }
 
         public void Delete(MovimentacaoPrevistaDTO obj)
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.ItemMovimentacao.Id == obj.ItemMovimentacao.Id && mp.DataReferencia == obj.DataReferencia); 
+                .Where(mp => mp.ItemMovimentacao.Id == obj.ItemMovimentacao.Id && mp.DataReferencia == obj.DataReferencia.Date); 
             mongoDBContext.MovimentacoesPrevistas.DeleteOne(filter);        }
 
         public MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia)
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.ItemMovimentacao.Id == idItemMovimentacao && mp.DataReferencia == dataReferencia);
+                .Where(mp => mp.ItemMovimentacao.Id == idItemMovimentacao && mp.DataReferencia == dataReferencia.Date);
             return mongoDBContext.MovimentacoesPrevistas.Find(filter).FirstOrDefault();
         }
 
@@ -47,8 +47,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
                 .Where(mp => ( mp.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null ) && 
-                       mp.DataVencimento >= dataVencIni && 
-                       mp.DataVencimento <= dataVencFim &&
+                       mp.DataVencimento >= dataVencIni.Date && 
+                       mp.DataVencimento <= dataVencFim.Date &&
                        mp.FormaPagamento.IdUsuario==idUsuario);
             return mongoDBContext.MovimentacoesPrevistas.Find(filter).ToList<MovimentacaoPrevistaDTO>();
         }

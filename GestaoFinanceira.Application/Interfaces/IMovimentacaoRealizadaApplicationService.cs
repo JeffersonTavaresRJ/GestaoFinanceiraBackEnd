@@ -15,5 +15,6 @@ namespace GestaoFinanceira.Application.Interfaces
         MovimentacaoRealizadaDTO GetId(int id);
         List<MovimentacaoRealizadaDTO> GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia);
         List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim);
+        List<SaldoDiarioDTO> GetMovimentacaoRealizadaGroupBySaldo(int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim);
     }
 }

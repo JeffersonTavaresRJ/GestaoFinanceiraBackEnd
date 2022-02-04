@@ -59,5 +59,10 @@ namespace GestaoFinanceira.Infra.Caching.Context
             get { return mongoDataBase.GetCollection<MovimentacaoRealizadaDTO>("MovimentacoesRealizadas"); }
         }
 
+        public IMongoCollection<SaldoDiarioDTO> SaldosDiario
+        {
+            get { return mongoDataBase.GetCollection<SaldoDiarioDTO>("SaldosDiario"); }
+        }
+
     }
 }
