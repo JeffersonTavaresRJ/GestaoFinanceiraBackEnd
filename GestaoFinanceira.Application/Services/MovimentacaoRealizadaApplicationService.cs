@@ -50,9 +50,9 @@ namespace GestaoFinanceira.Application.Services
             return movimentacaoRealizadaCaching.GetByDataMovimentacaoRealizada(idItemMovimentacao, idUsuario, dataMovRealIni, dataMovRealFim);
         }
 
-        public List<SaldoDiarioDTO> GetMovimentacaoRealizadaGroupBySaldo( int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim)
+        public List<SaldoDiarioDTO> GetGroupBySaldoDiario( int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim)
         {
-            return saldoDiarioCaching.GetBySaldosDiario(idUsuario, dataMovRealIni, dataMovRealFim);
+            return saldoDiarioCaching.GetGroupBySaldoDiario(idUsuario, dataMovRealIni, dataMovRealFim);
         }
     }
 }

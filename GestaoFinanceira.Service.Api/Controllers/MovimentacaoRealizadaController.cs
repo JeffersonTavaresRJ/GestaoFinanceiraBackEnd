@@ -146,8 +146,8 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("GetMovimentacaoRealizadaGroupBySaldo/{idUsuario}/{dataMovRealIni}/{dataMovRealFim}")]
-        public IActionResult GetMovimentacaoRealizadaGroupBySaldo(int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim)
+        [HttpGet("GetGroupBySaldoDiario/{idUsuario}/{dataMovRealIni}/{dataMovRealFim}")]
+        public IActionResult GetGroupBySaldoDiario(int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                     return StatusCode(418, "O período excedeu o limite máximo de 366 dias");
                 }
 
-                return Ok(movimentacaoRealizadaApplicationService.GetMovimentacaoRealizadaGroupBySaldo(idUsuario, dataMovRealIni, dataMovRealFim));
+                return Ok(movimentacaoRealizadaApplicationService.GetGroupBySaldoDiario(idUsuario, dataMovRealIni, dataMovRealFim));
             }
             catch (Exception e)
             {

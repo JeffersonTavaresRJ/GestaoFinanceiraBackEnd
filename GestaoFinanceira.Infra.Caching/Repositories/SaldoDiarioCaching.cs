@@ -4,6 +4,7 @@ using GestaoFinanceira.Infra.Caching.Context;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GestaoFinanceira.Infra.Caching.Repositories
 {
@@ -42,13 +43,13 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return mongoDBContext.SaldosDiario.Find(filter).ToList();
         }
 
-        public List<SaldoDiarioDTO> GetBySaldosDiario(int idUsuario, DateTime dataIni, DateTime dataFim)
+        public List<SaldoDiarioDTO> GetGroupBySaldoDiario(int idUsuario, DateTime dataIni, DateTime dataFim)
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
                .Where(sa => (sa.Conta.IdUsuario == idUsuario)
                    && sa.DataSaldo >= dataIni
                    && sa.DataSaldo <= dataFim);
-            return mongoDBContext.SaldosDiario.Find(filter).ToList();
+            return mongoDBContext.SaldosDiario.Find(filter).ToList().OrderByDescending(sd => sd.DataSaldo).ToList();
         }
 
         public SaldoDiarioDTO GetByKey(int idConta, DateTime dataSaldo)

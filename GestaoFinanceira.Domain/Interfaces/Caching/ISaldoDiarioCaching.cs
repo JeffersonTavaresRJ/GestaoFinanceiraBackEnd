@@ -9,6 +9,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Caching
     {
         SaldoDiarioDTO GetByKey(int idConta, DateTime dataSaldo);
         List<SaldoDiarioDTO> GetBySaldosDiario(int idConta, DateTime dataSaldo);
-        List<SaldoDiarioDTO> GetBySaldosDiario(int idConta, DateTime dataIni, DateTime dataFim);
+        List<SaldoDiarioDTO> GetGroupBySaldoDiario(int idConta, DateTime dataIni, DateTime dataFim);
     }
 }
