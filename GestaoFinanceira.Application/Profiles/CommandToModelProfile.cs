@@ -70,28 +70,27 @@ namespace GestaoFinanceira.Application.Profiles
 
             #region MovimentacaoPrevista
             CreateMap<MovimentacaoPrevistaCommand, MovimentacaoPrevista>()
-                .AfterMap((src, dest) => dest.Status = StatusMovimentacaoPrevista.A)
-                .AfterMap((src, dest) => dest.Movimentacao = new Movimentacao())
-                .AfterMap((src, dest) => dest.Movimentacao.IdItemMovimentacao = src.IdItemMovimentacao)
-                .AfterMap((src, dest) => dest.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day))
-                .AfterMap((src, dest) => dest.Movimentacao.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day))
-                .AfterMap((src, dest) => dest.DataVencimento = new DateTime(src.DataVencimento.Year, src.DataVencimento.Month, src.DataVencimento.Day))
-                .AfterMap((src, dest) => dest.Movimentacao.Observacao = src.Observacao)
-                .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade));
-
-            CreateMap<UpdateMovimentacaoPrevistaCommand, MovimentacaoPrevista>()
-                .AfterMap((src, dest) => dest.Status = (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), src.Status))
                 .AfterMap((src, dest) => dest.Movimentacao = new Movimentacao())
                 .AfterMap((src, dest) => dest.Movimentacao.IdItemMovimentacao = src.IdItemMovimentacao)
                 .AfterMap((src, dest) => dest.Movimentacao.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day))
-                .AfterMap((src, dest) => dest.DataVencimento = new DateTime(src.DataVencimento.Year, src.DataVencimento.Month, src.DataVencimento.Day))
                 .AfterMap((src, dest) => dest.Movimentacao.Observacao = src.Observacao)
                 .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade))
+                .AfterMap((src, dest) => dest.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day))
+                .AfterMap((src, dest) => dest.Status = StatusMovimentacaoPrevista.A)
+                .AfterMap((src, dest) => dest.DataVencimento = new DateTime(src.DataVencimento.Year, src.DataVencimento.Month, src.DataVencimento.Day));
+
+            CreateMap<UpdateMovimentacaoPrevistaCommand, MovimentacaoPrevista>()
+                .AfterMap((src, dest) => dest.Movimentacao = new Movimentacao())
+                .AfterMap((src, dest) => dest.Movimentacao.IdItemMovimentacao = src.IdItemMovimentacao)
+                .AfterMap((src, dest) => dest.Movimentacao.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day))
+                .AfterMap((src, dest) => dest.Movimentacao.Observacao = src.Observacao)
+                .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade))
+                .AfterMap((src, dest) => dest.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day))
+                .AfterMap((src, dest) => dest.DataVencimento = new DateTime(src.DataVencimento.Year, src.DataVencimento.Month, src.DataVencimento.Day))
+                .AfterMap((src, dest) => dest.Status = (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), src.Status))
                 //parcelas não são alteradas na API (Tratamento para não criticar na Validação)
                 .AfterMap((src, dest) => dest.NrParcela = 1)
                 .AfterMap((src, dest) => dest.NrParcelaTotal = 1);
-
-
 
             CreateMap<DeleteMovimentacaoPrevistaCommand, MovimentacaoPrevista>();
             #endregion
@@ -101,17 +100,19 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((src, dest) => dest.Movimentacao = new Movimentacao())
                 .AfterMap((src, dest) => dest.Movimentacao.IdItemMovimentacao = src.IdItemMovimentacao)
                 .AfterMap((src, dest) => dest.Movimentacao.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day))
-                .AfterMap((src, dest) => dest.DataMovimentacaoRealizada = new DateTime(src.DataMovimentacaoRealizada.Year, src.DataMovimentacaoRealizada.Month, src.DataMovimentacaoRealizada.Day))
                 .AfterMap((src, dest) => dest.Movimentacao.Observacao = src.Observacao)
-                .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade));
+                .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade))
+                .AfterMap((src, dest) => dest.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day))
+                .AfterMap((src, dest) => dest.DataMovimentacaoRealizada = new DateTime(src.DataMovimentacaoRealizada.Year, src.DataMovimentacaoRealizada.Month, src.DataMovimentacaoRealizada.Day));
 
             CreateMap<UpdateMovimentacaoRealizadaCommand, MovimentacaoRealizada>()
                 .AfterMap((src, dest) => dest.Movimentacao = new Movimentacao())
                 .AfterMap((src, dest) => dest.Movimentacao.IdItemMovimentacao = src.IdItemMovimentacao)
                 .AfterMap((src, dest) => dest.Movimentacao.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day))
-                .AfterMap((src, dest) => dest.DataMovimentacaoRealizada = new DateTime(src.DataMovimentacaoRealizada.Year, src.DataMovimentacaoRealizada.Month, src.DataMovimentacaoRealizada.Day))
                 .AfterMap((src, dest) => dest.Movimentacao.Observacao = src.Observacao)
-                .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade));
+                .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade))
+                .AfterMap((src, dest) => dest.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day))
+                .AfterMap((src, dest) => dest.DataMovimentacaoRealizada = new DateTime(src.DataMovimentacaoRealizada.Year, src.DataMovimentacaoRealizada.Month, src.DataMovimentacaoRealizada.Day));
             #endregion
 
         }
