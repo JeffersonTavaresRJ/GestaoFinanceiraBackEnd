@@ -11,7 +11,5 @@ namespace GestaoFinanceira.Application.Commands.FormaPagamento
         public string Descricao { get; set; }
         public bool Status { get; set; }
 
-        public int IdUsuario { get; set; }
-
     }
 }

@@ -10,6 +10,5 @@ namespace GestaoFinanceira.Application.Commands.Conta
         public int Id { get; set; }
         public string Descricao { get; set; }
         public bool Status { get; set; }
-        public int IdUsuario { get; set; }
     }
 }

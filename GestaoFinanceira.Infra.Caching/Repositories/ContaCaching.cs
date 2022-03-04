@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using MongoDB.Driver;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 
 namespace GestaoFinanceira.Infra.Caching.Repositories
 {
@@ -36,13 +37,13 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         public ContaDTO GetId(int id)
         {
-            var filter = Builders<ContaDTO>.Filter.Eq(c => c.Id, id);
+            var filter = Builders<ContaDTO>.Filter.Where(c => c.Id == id && c.IdUsuario == UserEntity.IdUsuario);
             return mongoDBContext.Contas.Find(filter).FirstOrDefault();
         }
 
-        public List<ContaDTO> GetAll(int idUsuario)
+        public List<ContaDTO> GetAll()
         {
-            var filter = Builders<ContaDTO>.Filter.Eq(c => c.IdUsuario, idUsuario);
+            var filter = Builders<ContaDTO>.Filter.Eq(c => c.IdUsuario, UserEntity.IdUsuario);
             return mongoDBContext.Contas.Find(filter).ToList();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Infra.Caching.Context;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -36,13 +37,13 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         public FormaPagamentoDTO GetId(int id)
         {
-            var filter = Builders<FormaPagamentoDTO>.Filter.Eq(f => f.Id, id);
+            var filter = Builders<FormaPagamentoDTO>.Filter.Where(f => f.Id == id && f.IdUsuario== UserEntity.IdUsuario);
             return mongoDBContext.FormasPagamento.Find(filter).FirstOrDefault();
         }
 
-        public List<FormaPagamentoDTO> GetAll(int idUsuario)
+        public List<FormaPagamentoDTO> GetAll()
         {
-            var filter = Builders<FormaPagamentoDTO>.Filter.Eq(f => f.IdUsuario, idUsuario);
+            var filter = Builders<FormaPagamentoDTO>.Filter.Eq(f => f.IdUsuario, UserEntity.IdUsuario);
             return mongoDBContext.FormasPagamento.Find(filter).ToList();
         }
     }

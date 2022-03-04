@@ -14,7 +14,7 @@ namespace GestaoFinanceira.Application.Interfaces
         Task Delete(DeleteMovimentacaoRealizadaCommand command);   
         MovimentacaoRealizadaDTO GetId(int id);
         List<MovimentacaoRealizadaDTO> GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia);
-        List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim);
-        List<SaldoDiarioDTO> GetGroupBySaldoDiario(int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim);
+        List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, DateTime dataMovRealIni, DateTime dataMovRealFim);
+        List<SaldoDiarioDTO> GetGroupBySaldoDiario(DateTime dataMovRealIni, DateTime dataMovRealFim);
     }
 }

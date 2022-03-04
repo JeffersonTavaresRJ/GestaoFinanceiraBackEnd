@@ -2,11 +2,7 @@
 using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
-using GestaoFinanceira.Domain.Models;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

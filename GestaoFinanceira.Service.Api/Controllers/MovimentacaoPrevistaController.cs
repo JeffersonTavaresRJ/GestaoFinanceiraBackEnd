@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using GestaoFinanceira.Domain.Exceptions.Movimentacao;
 using System.Collections.Generic;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 
 namespace GestaoFinanceira.Service.Api.Controllers
 {
@@ -34,6 +35,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                     MovimentacaoPrevistaCommand = command
                 };
 
+                UserEntity.SetUsuarioID(this.User);
                 await movimentacaoPrevistaApplicationService.Add(cmd);
                 return Ok(new { message = "Movimentação(ões) cadastrada(s) com sucesso!" });
             }
@@ -57,6 +59,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 await movimentacaoPrevistaApplicationService.Update(command);
                 return Ok(new { message = "Movimentação atualizada com sucesso!" });
             }
@@ -90,7 +93,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                     IdItemMovimentacao = idItemMovimentacao,
                     DataReferencia = dataReferencia
                 };
-
+                
                 await movimentacaoPrevistaApplicationService.Delete(command);
                 return Ok(new { message = "Movimentação excluída com sucesso!" });
             }            
@@ -106,6 +109,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 return Ok(movimentacaoPrevistaApplicationService.GetByKey(idItemMovimentacao, dataReferencia));
             }
             catch (Exception e)
@@ -115,8 +119,8 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpGet("GetByDataVencimento/{idUsuario}/{dataVencIni}/{dataVencFim}/{idItemMovimentacao?}")]
-        public IActionResult GetAll(int? idItemMovimentacao, int idUsuario, DateTime dataVencIni, DateTime dataVencFim)
+        [HttpGet("GetByDataVencimento/{dataVencIni}/{dataVencFim}/{idItemMovimentacao?}")]
+        public IActionResult GetAll(DateTime dataVencIni, DateTime dataVencFim, int? idItemMovimentacao)
         {
             try
             {
@@ -124,8 +128,8 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 {
                     return StatusCode(418, "O período excedeu o limite máximo de 731 dias");
                 }
-                
-                return Ok(movimentacaoPrevistaApplicationService.GetByDataVencimento(idItemMovimentacao, idUsuario, dataVencIni, dataVencFim));
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(movimentacaoPrevistaApplicationService.GetByDataVencimento(dataVencIni, dataVencFim, idItemMovimentacao));
             }
             catch (Exception e)
             {

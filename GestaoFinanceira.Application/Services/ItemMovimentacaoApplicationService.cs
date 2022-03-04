@@ -3,6 +3,7 @@ using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Domain.Models.Enuns;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 using MediatR;
 using System;
 using System.Collections;
@@ -17,7 +18,6 @@ namespace GestaoFinanceira.Application.Services
     {
         private readonly IMediator mediator;
         private readonly IItemMovimentacaoCaching itemMovimentacaoCaching;
-
         public ItemMovimentacaoApplicationService(IMediator mediator, IItemMovimentacaoCaching itemMovimentacaoCaching)
         {
             this.mediator = mediator;
@@ -44,9 +44,9 @@ namespace GestaoFinanceira.Application.Services
             return itemMovimentacaoCaching.GetId(id);
         }
 
-        public List<ItemMovimentacaoDTO> GetAll(int idUsuario)
+        public List<ItemMovimentacaoDTO> GetAll()
         {
-            return  itemMovimentacaoCaching.GetAll(idUsuario);
+           return  itemMovimentacaoCaching.GetAll();  
         }
 
         public IList GetAllTipo()

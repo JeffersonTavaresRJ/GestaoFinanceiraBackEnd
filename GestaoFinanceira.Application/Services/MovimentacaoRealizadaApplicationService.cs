@@ -45,14 +45,14 @@ namespace GestaoFinanceira.Application.Services
             return movimentacaoRealizadaCaching.GetByDataReferencia(idItemMovimentacao, dataReferencia);
         }
 
-        public List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim)
+        public List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, DateTime dataMovRealIni, DateTime dataMovRealFim)
         {
-            return movimentacaoRealizadaCaching.GetByDataMovimentacaoRealizada(idItemMovimentacao, idUsuario, dataMovRealIni, dataMovRealFim);
+            return movimentacaoRealizadaCaching.GetByDataMovimentacaoRealizada(idItemMovimentacao, dataMovRealIni, dataMovRealFim);
         }
 
-        public List<SaldoDiarioDTO> GetGroupBySaldoDiario( int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim)
+        public List<SaldoDiarioDTO> GetGroupBySaldoDiario(DateTime dataMovRealIni, DateTime dataMovRealFim)
         {
-            return saldoDiarioCaching.GetGroupBySaldoDiario(idUsuario, dataMovRealIni, dataMovRealFim);
+            return saldoDiarioCaching.GetGroupBySaldoDiario(dataMovRealIni, dataMovRealFim);
         }
     }
 }

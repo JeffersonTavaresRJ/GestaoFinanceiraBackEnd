@@ -14,7 +14,7 @@ namespace GestaoFinanceira.Application.Interfaces
         Task Update(UpdateItemMovimentacaoCommand command);
         Task Delete(DeleteItemMovimentacaoCommand command);
         ItemMovimentacaoDTO GetId(int id);
-        List<ItemMovimentacaoDTO> GetAll(int idUsuario);
+        List<ItemMovimentacaoDTO> GetAll();
         IList GetAllTipo();
     }
 }

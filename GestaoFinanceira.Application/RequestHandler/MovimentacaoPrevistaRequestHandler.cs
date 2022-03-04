@@ -67,8 +67,8 @@ namespace GestaoFinanceira.Application.RequestHandler
                 movimentacoesPrevistas.Add(movimentacaoPrevista);
 
             }
-            
-            movimentacaoPrevistaDomainService.Add(movimentacoesPrevistas);
+
+            movimentacoesPrevistas = movimentacaoPrevistaDomainService.AddResult(movimentacoesPrevistas);
 
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
@@ -123,11 +123,11 @@ namespace GestaoFinanceira.Application.RequestHandler
             if (movimentacaoPrevista.Status.Equals(StatusMovimentacaoPrevista.N))
             {
                 throw new MovPrevStatusInvalidoException(movimentacao.ItemMovimentacao.Descricao,
-                                                              movimentacao.DataReferencia,
-                                                              movimentacaoPrevista.Status);
+                                                         movimentacao.DataReferencia,
+                                                         movimentacaoPrevista.Status);
             }
 
-            movimentacaoPrevistaDomainService.Update(movimentacaoPrevista);
+            movimentacaoPrevista = movimentacaoPrevistaDomainService.UpdateResult(movimentacaoPrevista);
             
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {

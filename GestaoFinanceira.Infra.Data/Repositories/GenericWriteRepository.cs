@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Domain.Interfaces.Repositories;
 using GestaoFinanceira.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace GestaoFinanceira.Infra.Data.Repositories
 {
@@ -16,11 +17,12 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             dbset = context.Set<TEntity>();
         }
 
-        public virtual void Add(TEntity obj)
+        public virtual int Add(TEntity obj)
         {
             
             dbset.Add(obj);
             context.SaveChanges();
+            return  obj.GetType().GetProperty("Id").GetValue(obj, null) != null ? (int)obj.GetType().GetProperty("Id").GetValue(obj, null) : 0;            
         }
 
         public virtual void Update(TEntity obj)

@@ -9,6 +9,7 @@ using System;
 using AutoMapper;
 using GestaoFinanceira.Domain.Exceptions.Usuario;
 using GestaoFinanceira.Domain.DTOs;
+using System.Security.Claims;
 
 namespace GestaoFinanceira.Application.Services
 {
@@ -128,7 +129,7 @@ namespace GestaoFinanceira.Application.Services
 
                 if (user != null)
                 {
-                    user.AccessToken = tokenService.GenerateToken(command.EMail);
+                    user.AccessToken = tokenService.GenerateToken(usuario.Id, command.EMail);
                     return user;
 
                 }
@@ -140,7 +141,7 @@ namespace GestaoFinanceira.Application.Services
                 throw new Exception(e.Message);
             }
 
-        }
+        }       
 
     }
 }

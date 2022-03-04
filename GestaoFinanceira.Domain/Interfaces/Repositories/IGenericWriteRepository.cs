@@ -6,7 +6,7 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
 {
     public interface IGenericWriteRepository<TEntity> : IDisposable
     {
-        void Add(TEntity obj);
+        int Add(TEntity obj);
         void Update(TEntity obj);
         void Delete(TEntity obj);
         void Delete(int idUsuario);

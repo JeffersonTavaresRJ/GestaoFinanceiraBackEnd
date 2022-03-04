@@ -4,9 +4,6 @@ using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Domain.Models;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,17 +13,12 @@ namespace GestaoFinanceira.Application.Handlers
     {
         private readonly IMapper mapper;
         private readonly IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching;
-        private readonly IFormaPagamentoCaching formaPagamentoCaching;
-        private readonly IItemMovimentacaoCaching itemMovimentacaoCaching;
         private MovimentacaoPrevistaDTO movimentacaoPrevistaDTO;
 
-        public MovimentacaoPrevistaHandler(IMapper mapper, IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching, 
-            IFormaPagamentoCaching formaPagamentoCaching, IItemMovimentacaoCaching itemMovimentacaoCaching)
+        public MovimentacaoPrevistaHandler(IMapper mapper, IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching)
         {
             this.mapper = mapper;
-            this.movimentacaoPrevistaCaching = movimentacaoPrevistaCaching;
-            this.formaPagamentoCaching = formaPagamentoCaching;
-            this.itemMovimentacaoCaching = itemMovimentacaoCaching;
+            this.movimentacaoPrevistaCaching = movimentacaoPrevistaCaching;           
         }
 
         public Task Handle(MovimentacaoPrevistaNotification notification, CancellationToken cancellationToken)
@@ -58,10 +50,8 @@ namespace GestaoFinanceira.Application.Handlers
 
         private MovimentacaoPrevistaDTO Convert(MovimentacaoPrevista movimentacaoPrevista, ActionNotification action)
         {
-            MovimentacaoPrevistaDTO movimentacaoPrevistaDTO = mapper.Map<MovimentacaoPrevistaDTO>(movimentacaoPrevista);
-            movimentacaoPrevistaDTO.FormaPagamento = formaPagamentoCaching.GetId(movimentacaoPrevista.IdFormaPagamento);
-            movimentacaoPrevistaDTO.ItemMovimentacao = itemMovimentacaoCaching.GetId(movimentacaoPrevista.IdItemMovimentacao); 
-            
+            MovimentacaoPrevistaDTO movimentacaoPrevistaDTO = mapper.Map<MovimentacaoPrevistaDTO>(movimentacaoPrevista);          
+                        
             if(action.Equals(ActionNotification.Atualizar) && movimentacaoPrevista.NrParcelaTotal <= 1)
             {
                 movimentacaoPrevistaDTO.Parcela = movimentacaoPrevistaCaching.GetByKey(movimentacaoPrevista.IdItemMovimentacao,

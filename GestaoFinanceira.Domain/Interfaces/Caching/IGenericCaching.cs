@@ -8,6 +8,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Caching
         where TEntity: class
     {        
         TEntity GetId(int id);
-        List<TEntity> GetAll(int idUsuario);
+        List<TEntity> GetAll();
     }
 }

@@ -1,9 +1,6 @@
 ﻿using GestaoFinanceira.Application.Commands.Usuario;
 using GestaoFinanceira.Domain.DTOs;
-using GestaoFinanceira.Infra.CrossCutting.Security;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Security.Claims;
 
 namespace GestaoFinanceira.Application.Interfaces
 {

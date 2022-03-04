@@ -41,9 +41,9 @@ namespace GestaoFinanceira.Application.Services
             return formaPagamentoCaching.GetId(id);
         }
 
-        public List<FormaPagamentoDTO> GetAll(int idUsuario)
+        public List<FormaPagamentoDTO> GetAll()
         {
-            return formaPagamentoCaching.GetAll(idUsuario);
+            return formaPagamentoCaching.GetAll();
         }
     }
 }

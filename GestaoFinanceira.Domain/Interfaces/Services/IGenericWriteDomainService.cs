@@ -7,7 +7,7 @@ namespace GestaoFinanceira.Domain.Interfaces.Services
     public interface IGenericWriteDomainService<TEntity>
         where TEntity : class
     {
-        void Add(TEntity obj);
+        int Add(TEntity obj);
         void Update(TEntity obj);
         void Delete(TEntity obj);
     }

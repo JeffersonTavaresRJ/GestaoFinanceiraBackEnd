@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Infra.Caching.Context;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,14 +36,14 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         public CategoriaDTO GetId(int id)
         {
-            var filter = Builders<CategoriaDTO>.Filter.Eq(c => c.Id, id);
+            var filter = Builders<CategoriaDTO>.Filter.Where(c => c.Id == id && c.IdUsuario == UserEntity.IdUsuario);
             return mongoDBContext.Categorias.Find(filter).FirstOrDefault();
         }
 
-        public List<CategoriaDTO> GetAll(int idUsuario)
+        public List<CategoriaDTO> GetAll()
         {
-            var filter = Builders<CategoriaDTO>.Filter.Eq(c => c.IdUsuario, idUsuario);
-            return mongoDBContext.Categorias.Find(filter).ToList().OrderBy(c => c.Descricao).ToList();           
+            var filter = Builders<CategoriaDTO>.Filter.Eq(c => c.IdUsuario, UserEntity.IdUsuario);
+            return mongoDBContext.Categorias.Find(filter).ToList().OrderBy(c => c.Descricao).ToList();
         }        
     }
 }

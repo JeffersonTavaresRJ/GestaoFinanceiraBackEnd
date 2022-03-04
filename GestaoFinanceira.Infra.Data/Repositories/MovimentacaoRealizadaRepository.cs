@@ -22,11 +22,12 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             return dbset.Where(mr=>mr.Conta.IdUsuario == idUsuario);
         }
 
-        public override void Add(MovimentacaoRealizada obj)
+        public override int Add(MovimentacaoRealizada obj)
         {
             context.Entry(obj).State = EntityState.Added;
             context.Entry(obj).Reference(mr => mr.Movimentacao).IsModified = false;
-            context.SaveChanges();            
+            context.SaveChanges(); 
+            return obj.Id;
         }
 
         public override void Update(MovimentacaoRealizada obj)

@@ -1,14 +1,11 @@
 ﻿using FluentValidation;
 using GestaoFinanceira.Application.Commands.Conta;
 using GestaoFinanceira.Application.Interfaces;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Service.Api.Controllers
@@ -22,7 +19,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         public ContaController(IContaApplicationService contaApplicationService)
         {
-            this.contaApplicationService = contaApplicationService;
+            this.contaApplicationService = contaApplicationService;            
         }
 
         [HttpPost]
@@ -30,6 +27,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 await contaApplicationService.Add(command);
                 return Ok(new { message = "Conta cadastrada com sucesso!" });
             }
@@ -49,6 +47,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 await contaApplicationService.Update(command);
                 return Ok(new { message = "Conta alterada com sucesso!" });
             }
@@ -99,13 +98,14 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpGet("{idUsuario}")]
-        public IActionResult GetAll(int idUsuario)
+        [HttpGet]
+        public IActionResult GetAll()
         {
 
             try
             {
-                return Ok(contaApplicationService.GetAll(idUsuario));
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(contaApplicationService.GetAll());
             }
             catch (Exception e)
             {

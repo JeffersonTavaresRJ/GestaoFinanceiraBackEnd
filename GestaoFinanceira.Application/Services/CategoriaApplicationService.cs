@@ -41,9 +41,9 @@ namespace GestaoFinanceira.Application.Services
             return categoriaCaching.GetId(id);
         }
 
-        public List<CategoriaDTO> GetAll(int idUsuario)
+        public List<CategoriaDTO> GetAll()
         {
-            return categoriaCaching.GetAll(idUsuario);
+            return categoriaCaching.GetAll();
         }
         
         public IList GetAllTipo()

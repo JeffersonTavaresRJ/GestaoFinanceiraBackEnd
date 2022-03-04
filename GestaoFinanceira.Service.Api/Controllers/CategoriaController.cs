@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 
 namespace GestaoFinanceira.Service.Api.Controllers
 {
@@ -18,7 +19,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         public CategoriaController(ICategoriaApplicationService categoriaApplicationService)
         {
-            this.categoriaApplicationService = categoriaApplicationService;
+            this.categoriaApplicationService = categoriaApplicationService;            
         }
 
         [HttpPost]
@@ -26,6 +27,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 await categoriaApplicationService.Add(command);
                 return Ok(new { message = "Categoria cadastrada com sucesso!" });
             }
@@ -45,6 +47,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 await categoriaApplicationService.Update(command);
                 return Ok(new { message = "Categoria alterada com sucesso!" });
             }
@@ -91,13 +94,14 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpGet("{idUsuario}")]
-        public IActionResult GetAll(int idUsuario)
+        [HttpGet]
+        public IActionResult GetAll()
         {
 
             try
             {
-                return Ok(categoriaApplicationService.GetAll(idUsuario));
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(categoriaApplicationService.GetAll());
             }
             catch (Exception e)
             {

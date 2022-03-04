@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using GestaoFinanceira.Application.Commands.FormaPagamento;
 using GestaoFinanceira.Application.Interfaces;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         public FormaPagamentoController(IFormaPagamentoApplicationService formaPagamentoApplicationService)
         {
-            this.formaPagamentoApplicationService = formaPagamentoApplicationService;
+            this.formaPagamentoApplicationService = formaPagamentoApplicationService;            
         }
 
         [HttpPost]
@@ -26,6 +27,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+               UserEntity.SetUsuarioID(this.User);
                await formaPagamentoApplicationService.Add(command);
                return Ok(new { message = "Forma de Pagamento cadastrada com sucesso!" });
             }
@@ -45,6 +47,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 await formaPagamentoApplicationService.Update(command);
                 return Ok(new { message = "Forma de Pagamento atualizada com sucesso!" });
             }
@@ -87,12 +90,13 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("{idUsuario}")]
-        public IActionResult GetAll(int idUsuario)
+        [HttpGet]
+        public IActionResult GetAll()
         {
             try
             {
-                return Ok(formaPagamentoApplicationService.GetAll(idUsuario));
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(formaPagamentoApplicationService.GetAll());
             }
             catch (Exception e)
             {

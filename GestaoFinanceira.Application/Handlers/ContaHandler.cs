@@ -3,7 +3,6 @@ using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 

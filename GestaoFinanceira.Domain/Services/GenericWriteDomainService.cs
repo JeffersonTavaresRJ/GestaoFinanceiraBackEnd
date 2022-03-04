@@ -1,8 +1,6 @@
 ﻿using GestaoFinanceira.Domain.Interfaces.Repositories;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GestaoFinanceira.Domain.Services
 {
@@ -16,17 +14,19 @@ namespace GestaoFinanceira.Domain.Services
             this.repository = repository;
         }
 
-        public virtual void Add(TEntity obj)
+        public virtual int Add(TEntity obj)
         {
+            int Id = 0;
             try
             {
-                repository.Add(obj);
+                Id=repository.Add(obj);
             }
             catch (Exception e)
             {
 
                 throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
             }
+            return Id;
             
         }
 

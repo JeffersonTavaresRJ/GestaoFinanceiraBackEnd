@@ -7,8 +7,8 @@ namespace GestaoFinanceira.Domain.Interfaces.Services
 {
     public interface IMovimentacaoPrevistaDomainService
     {
-        void Add(List<MovimentacaoPrevista> movimentacaoPrevistas);
-        void Update(MovimentacaoPrevista movimentacaoPrevista);
+        List<MovimentacaoPrevista> AddResult(List<MovimentacaoPrevista> movimentacaoPrevistas);
+        MovimentacaoPrevista UpdateResult(MovimentacaoPrevista movimentacaoPrevista);
         void Delete(MovimentacaoPrevista movimentacaoPrevista, out List<MovimentacaoPrevista> movimentacoesPrevistas);
         MovimentacaoPrevista GetByKey(int idItemMovimentacao, DateTime dataReferencia);
         List<MovimentacaoPrevista> GetByDataReferencia(int idUsuario, int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim);

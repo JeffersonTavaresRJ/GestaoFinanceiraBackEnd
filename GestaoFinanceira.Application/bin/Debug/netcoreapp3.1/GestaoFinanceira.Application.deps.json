@@ -1201,6 +1201,7 @@
       "GestaoFinanceira.Infra.Caching/1.0.0": {
         "dependencies": {
           "GestaoFinanceira.Domain": "1.0.0",
+          "GestaoFinanceira.Infra.CrossCutting": "1.0.0",
           "MongoDB.Driver": "2.11.6"
         },
         "runtime": {

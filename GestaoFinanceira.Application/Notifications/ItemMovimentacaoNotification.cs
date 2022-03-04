@@ -10,5 +10,6 @@ namespace GestaoFinanceira.Application.Notifications
     {
         public ActionNotification Action { get; set; }
         public ItemMovimentacao ItemMovimentacao { get; set; }
+        public int IdUsuario { get; set; }
     }
 }

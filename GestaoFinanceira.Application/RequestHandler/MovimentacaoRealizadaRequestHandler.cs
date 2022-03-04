@@ -65,7 +65,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             }
             /*adicionando no banco de dados..*/
-            movimentacaoRealizadaDomainService.Add(movimentacoesRealizadas, out movimentacoesPrevistas);
+            movimentacoesRealizadas = movimentacaoRealizadaDomainService.Add(movimentacoesRealizadas, out movimentacoesPrevistas);
 
             /*adicionando no mongoDB..*/
             await mediator.Publish(new MovimentacaoRealizadaNotification

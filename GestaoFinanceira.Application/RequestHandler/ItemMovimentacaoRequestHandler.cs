@@ -5,6 +5,7 @@ using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Validations;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,7 +42,8 @@ namespace GestaoFinanceira.Application.RequestHandler
             await mediator.Publish(new ItemMovimentacaoNotification
             {
                 Action = ActionNotification.Criar,
-                ItemMovimentacao = itemMovimentacao
+                ItemMovimentacao = itemMovimentacao,
+                IdUsuario = UserEntity.IdUsuario
             });
 
             return Unit.Value;
@@ -77,7 +79,8 @@ namespace GestaoFinanceira.Application.RequestHandler
             await mediator.Publish(new ItemMovimentacaoNotification
             {
                 Action = ActionNotification.Atualizar,
-                ItemMovimentacao = itemMovimentacao
+                ItemMovimentacao = itemMovimentacao,
+                IdUsuario = UserEntity.IdUsuario
             });
 
             return Unit.Value;

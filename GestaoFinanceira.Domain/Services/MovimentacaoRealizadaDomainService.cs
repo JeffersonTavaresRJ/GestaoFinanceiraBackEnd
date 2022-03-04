@@ -16,13 +16,16 @@ namespace GestaoFinanceira.Domain.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public void Add(List<MovimentacaoRealizada> movimentacoesRealizadas, out List<MovimentacaoPrevista> movimentacoesPrevistas)
+        public List<MovimentacaoRealizada> Add(List<MovimentacaoRealizada> movimentacoesRealizadas, out List<MovimentacaoPrevista> movimentacoesPrevistas)
         {
+            List<MovimentacaoRealizada> result = new List<MovimentacaoRealizada>();
             try
             {
                 unitOfWork.BeginTransaction();
                 Movimentacao movimentacao = null;
-                List<MovimentacaoPrevista> _movimentacoesPrevistas = new List<MovimentacaoPrevista>();
+                List<MovimentacaoPrevista>   _movimentacoesPrevistas = new List<MovimentacaoPrevista>();
+                int idMovimentacaoRealizada=0;
+               
 
                 foreach (MovimentacaoRealizada movimentacaoRealizada in movimentacoesRealizadas)
                 {
@@ -33,9 +36,10 @@ namespace GestaoFinanceira.Domain.Services
                     {
                         unitOfWork.IMovimentacaoRepository.Add(movimentacaoRealizada.Movimentacao);
                     }
-                    unitOfWork.IMovimentacaoRealizadaRepository.Add(movimentacaoRealizada);
+                    //Tratamento para retorno do método para gravação no MongoDB..
+                    idMovimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.Add(movimentacaoRealizada);                    
+                    result.Add(unitOfWork.IMovimentacaoRealizadaRepository.GetId(idMovimentacaoRealizada));
 
-                    
 
                     if (movimentacao != null &&
                         movimentacao.MovimentacaoPrevista != null && 
@@ -64,11 +68,9 @@ namespace GestaoFinanceira.Domain.Services
                     //                                         return x; 
                     //                                      }).FirstOrDefault<SaldoAtual>();
                     
-                }              
-
-                unitOfWork.Commit();
+                } 
+                unitOfWork.Commit();                
                 movimentacoesPrevistas = _movimentacoesPrevistas;
-
 
             }
             catch (Exception e)
@@ -79,14 +81,17 @@ namespace GestaoFinanceira.Domain.Services
             finally{
                 //unitOfWork.Dispose();
             }
+            return result;
         }
 
-        public void Update(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista)
+        public MovimentacaoRealizada Update(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista)
         {
             try
             {
                 unitOfWork.BeginTransaction();
                 unitOfWork.IMovimentacaoRealizadaRepository.Update(movimentacaoRealizada);
+                //Tratamento para retorno do método para gravação no MongoDB..
+                movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(movimentacaoRealizada.Id);
 
                 movimentacaoPrevista = null;
                 Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoRealizada.IdItemMovimentacao,
@@ -121,6 +126,7 @@ namespace GestaoFinanceira.Domain.Services
             {
                 //unitOfWork.Dispose();
             }
+            return movimentacaoRealizada;
         }
 
         public void Delete(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista)

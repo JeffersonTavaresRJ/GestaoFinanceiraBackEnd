@@ -2,9 +2,7 @@
 using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
-using GestaoFinanceira.Domain.Models.Enuns;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,6 +16,7 @@ namespace GestaoFinanceira.Application.Handlers
         public CategoriaHandler(ICategoriaCaching categoriaCaching, IMapper mapper)
         {
             this.categoriaCaching = categoriaCaching;
+           
             this.mapper = mapper;
         }
 
@@ -49,6 +48,6 @@ namespace GestaoFinanceira.Application.Handlers
                         break;
                 }
             });
-        }
+        }        
     }
 }

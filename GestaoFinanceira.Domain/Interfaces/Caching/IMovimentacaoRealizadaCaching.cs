@@ -8,8 +8,9 @@ namespace GestaoFinanceira.Domain.Interfaces.Caching
     public interface IMovimentacaoRealizadaCaching: IGenericWriteCaching<MovimentacaoRealizadaDTO>
     {
         MovimentacaoRealizadaDTO GetId(int id);
+        List<MovimentacaoRealizadaDTO> GetAll();
         List<MovimentacaoRealizadaDTO> GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia);
         List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int idConta, DateTime dataMovReal);
-        List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim);
+        List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, DateTime dataMovRealIni, DateTime dataMovRealFim);
     }
 }

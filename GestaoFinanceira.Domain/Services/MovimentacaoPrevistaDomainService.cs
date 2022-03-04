@@ -17,8 +17,9 @@ namespace GestaoFinanceira.Domain.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public void Add(List<MovimentacaoPrevista> movimentacoesPrevistas)
+        public List<MovimentacaoPrevista> AddResult(List<MovimentacaoPrevista> movimentacoesPrevistas)
         {
+            List<MovimentacaoPrevista> result = new List<MovimentacaoPrevista> ();
             try
             {
                 unitOfWork.BeginTransaction();
@@ -41,6 +42,10 @@ namespace GestaoFinanceira.Domain.Services
                                                                       movPrev.DataReferencia);
                     }
                     unitOfWork.IMovimentacaoPrevistaRepository.Add(movimentacaoPrevista);
+
+                    movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
+                                                                                  movimentacaoPrevista.DataReferencia);
+                    result.Add(movPrev);
                 }
                 unitOfWork.Commit();
 
@@ -52,19 +57,23 @@ namespace GestaoFinanceira.Domain.Services
             }
             finally
             {
-                unitOfWork.Dispose();
+                unitOfWork.Dispose();                
             }
+            return result;
 
         }
 
-        public override void Update(MovimentacaoPrevista obj)
+        public MovimentacaoPrevista UpdateResult(MovimentacaoPrevista obj)
         {
+            MovimentacaoPrevista movPrev;
             try
             {
                 unitOfWork.BeginTransaction();
                 unitOfWork.IMovimentacaoRepository.Update(obj.Movimentacao);
                 unitOfWork.IMovimentacaoPrevistaRepository.Update(obj);
                 unitOfWork.Commit();
+                //Preenchimento de todas as propriedades para atualização do MongoDB..
+                movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetByKey(obj.IdItemMovimentacao, obj.DataReferencia) as MovimentacaoPrevista;
 
             }
             catch (Exception e)
@@ -76,6 +85,7 @@ namespace GestaoFinanceira.Domain.Services
             {
                 unitOfWork.Dispose();
             }
+            return movPrev;
         }
 
         public void Delete(MovimentacaoPrevista obj, out List<MovimentacaoPrevista> movimentacaoPrevistas)

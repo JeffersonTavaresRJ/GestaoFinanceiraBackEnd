@@ -42,9 +42,9 @@ namespace GestaoFinanceira.Application.Services
             return contaCaching.GetId(id);
         }
 
-        public List<ContaDTO> GetAll(int idUsuario)
+        public List<ContaDTO> GetAll()
         {
-            return contaCaching.GetAll(idUsuario);
+            return contaCaching.GetAll();
         }
     }
 }

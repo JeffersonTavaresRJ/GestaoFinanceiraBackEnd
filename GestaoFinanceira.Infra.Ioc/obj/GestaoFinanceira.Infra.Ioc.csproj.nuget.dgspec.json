@@ -204,6 +204,9 @@
             "projectReferences": {
               "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
                 "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
+              },
+              "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\ProjetosPessoais\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting\\GestaoFinanceira.Infra.CrossCutting.csproj"
               }
             }
           }

@@ -12,8 +12,7 @@ namespace GestaoFinanceira.Application.Interfaces
         Task Add(CreateContaCommand command);
         Task Update(UpdateContaCommand command);
         Task Delete(DeleteContaCommand command);
-
         ContaDTO GetId(int id);
-        List<ContaDTO> GetAll(int idUsuario);
+        List<ContaDTO> GetAll();
     }
 }

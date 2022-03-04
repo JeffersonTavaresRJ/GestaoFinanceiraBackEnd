@@ -33,7 +33,7 @@ namespace GestaoFinanceira.Service.Api.Configurations
                         bearer.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = new SymmetricSecurityKey(key),
+                            IssuerSigningKey = new SymmetricSecurityKey(key),                            
                             ValidateIssuer = false, // definição de qual usuário vai acessar a api
                             ValidateAudience = false
                         };

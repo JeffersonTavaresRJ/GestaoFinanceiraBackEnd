@@ -20,7 +20,7 @@ namespace GestaoFinanceira.Domain.Services
             this.mD5Service = mD5Service;
         }
 
-        public override void Add(Usuario obj)
+        public override int Add(Usuario obj)
         {
             try
             {
@@ -32,6 +32,7 @@ namespace GestaoFinanceira.Domain.Services
 
                 throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
             }
+            return obj.Id;
         }
 
 

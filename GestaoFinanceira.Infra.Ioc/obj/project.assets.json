@@ -2541,6 +2541,7 @@
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "GestaoFinanceira.Domain": "1.0.0",
+          "GestaoFinanceira.Infra.CrossCutting": "1.0.0",
           "MongoDB.Driver": "2.11.6"
         },
         "compile": {

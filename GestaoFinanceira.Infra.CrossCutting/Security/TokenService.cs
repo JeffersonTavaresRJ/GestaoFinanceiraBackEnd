@@ -16,7 +16,7 @@ namespace GestaoFinanceira.Infra.CrossCutting.Security
             this.appSetting = appSetting;
         }
 
-        public string GenerateToken(string username)
+        public string GenerateToken(int idUsuario, string username)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(appSetting.Secret);
@@ -26,7 +26,8 @@ namespace GestaoFinanceira.Infra.CrossCutting.Security
             {
                 //definições do usuário..
                 Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Name, username)
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim("ID_USUARIO", idUsuario.ToString())
                 }),
 
                 //tempo de expiração..

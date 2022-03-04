@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoMapper;
+using GestaoFinanceira.Application.Notifications;
+using GestaoFinanceira.Domain.DTOs;
+using GestaoFinanceira.Domain.Interfaces.Caching;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using GestaoFinanceira.Application.Notifications;
-using MediatR;
-using AutoMapper;
-using GestaoFinanceira.Domain.Interfaces.Caching;
-using GestaoFinanceira.Domain.DTOs;
 
 namespace GestaoFinanceira.Application.Handlers
 {
@@ -15,12 +12,9 @@ namespace GestaoFinanceira.Application.Handlers
     {
         private readonly IMapper mapper;
         private readonly IItemMovimentacaoCaching itemMovimentacaoCaching;
-        private readonly ICategoriaCaching categoriaCaching;
-
-        public ItemMovimentacaoHandler(IMapper mapper, ICategoriaCaching categoriaCaching, IItemMovimentacaoCaching itemMovimentacaoCaching)
+        public ItemMovimentacaoHandler(IMapper mapper, IItemMovimentacaoCaching itemMovimentacaoCaching)
         {
             this.mapper = mapper;
-            this.categoriaCaching = categoriaCaching;
             this.itemMovimentacaoCaching = itemMovimentacaoCaching;
         }
 
@@ -29,7 +23,7 @@ namespace GestaoFinanceira.Application.Handlers
             return Task.Run(()=>
             {
                 ItemMovimentacaoDTO itemMovimentacaoDTO = mapper.Map<ItemMovimentacaoDTO>(notification.ItemMovimentacao);
-                itemMovimentacaoDTO.Categoria = categoriaCaching.GetId(notification.ItemMovimentacao.IdCategoria);
+                itemMovimentacaoDTO.Categoria.IdUsuario = notification.IdUsuario;
 
                 switch (notification.Action)
                 {

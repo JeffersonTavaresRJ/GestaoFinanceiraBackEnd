@@ -1,15 +1,12 @@
-﻿using GestaoFinanceira.Application.Commands.ItemMovimentacao;
-using GestaoFinanceira.Application.Services;
+﻿using FluentValidation;
+using GestaoFinanceira.Application.Commands.ItemMovimentacao;
+using GestaoFinanceira.Application.Interfaces;
+using GestaoFinanceira.Infra.CrossCutting.Security;
+using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using FluentValidation;
-using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
-using GestaoFinanceira.Application.Interfaces;
 
 namespace GestaoFinanceira.Service.Api.Controllers
 {
@@ -19,11 +16,11 @@ namespace GestaoFinanceira.Service.Api.Controllers
     public class ItemMovimentacaoController : ControllerBase
     {
 
-        private readonly IItemMovimentacaoApplicationService itemMovimentacaoApplicationService;
+        private readonly IItemMovimentacaoApplicationService itemMovimentacaoApplicationService;       
 
         public ItemMovimentacaoController(IItemMovimentacaoApplicationService itemMovimentacaoApplicationService)
         {
-            this.itemMovimentacaoApplicationService = itemMovimentacaoApplicationService;
+            this.itemMovimentacaoApplicationService = itemMovimentacaoApplicationService;            
         }
 
         [HttpPost]
@@ -31,6 +28,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 await itemMovimentacaoApplicationService.Add(command);
                 return Ok(new { message = "Item de movimentação cadastrado com sucesso!" });
 
@@ -51,9 +49,9 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 await itemMovimentacaoApplicationService.Update(command);
                 return Ok(new { message = "Item de movimentação alterado com sucesso!" });
-
             }
             catch (ValidationException e)
             {
@@ -83,12 +81,13 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("{idUsuario}")]
-        public IActionResult GetAll(int idUsuario)
+        [HttpGet]
+        public IActionResult GetAll()
         {
             try
-            {                
-                return Ok(itemMovimentacaoApplicationService.GetAll(idUsuario));
+            {
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(itemMovimentacaoApplicationService.GetAll());
             }
             catch (Exception e)
             {
@@ -109,7 +108,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
                 return StatusCode(500, e.Message);
             }
-        }
+        }        
 
         [HttpGet("GetAllTipo")]
         public IActionResult GetAllTipo()
@@ -123,6 +122,6 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
                 return StatusCode(500, e.Message);
             }
-        }
+        }        
     }
 }

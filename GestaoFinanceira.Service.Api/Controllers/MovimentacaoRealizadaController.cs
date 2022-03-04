@@ -2,6 +2,7 @@
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
  
         public MovimentacaoRealizadaController(IMovimentacaoRealizadaApplicationService movimentacaoRealizadaApplicationService)
         {
-            this.movimentacaoRealizadaApplicationService = movimentacaoRealizadaApplicationService;
+            this.movimentacaoRealizadaApplicationService = movimentacaoRealizadaApplicationService;            
         }
 
         [HttpPost]
@@ -32,7 +33,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 {
                     MovimentacaoRealizadaCommand = command                                                   
                 };
-
+                UserEntity.SetUsuarioID(this.User);
                 await movimentacaoRealizadaApplicationService.Add(cmd);
                 return Ok(new { message = "Movimentação(ões) cadastrada(s) com sucesso!" });
             }
@@ -56,6 +57,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 await movimentacaoRealizadaApplicationService.Update(command);
                 return Ok(new { message = "Movimentação atualizada com sucesso!" });
             }
@@ -83,7 +85,6 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 {
                     Id = id
                 };
-
                 await movimentacaoRealizadaApplicationService.Delete(command);
                 return Ok(new { message = "Movimentação excluída com sucesso!" });
             }
@@ -107,6 +108,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 return Ok(movimentacaoRealizadaApplicationService.GetId(id));
             }
             catch (Exception e)
@@ -120,6 +122,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                UserEntity.SetUsuarioID(this.User);
                 return Ok(movimentacaoRealizadaApplicationService.GetByDataReferencia(idItemMovimentacao, dataReferencia));
             }
             catch (Exception e)
@@ -128,8 +131,8 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("GetByDataMovimentacaoRealizada/{idUsuario}/{dataMovRealIni}/{dataMovRealFim}/{idItemMovimentacao?}")]
-        public IActionResult GetByDataMovimentacaoRealizada(int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim, int? idItemMovimentacao=null)
+        [HttpGet("GetByDataMovimentacaoRealizada/{dataMovRealIni}/{dataMovRealFim}/{idItemMovimentacao?}")]
+        public IActionResult GetByDataMovimentacaoRealizada(DateTime dataMovRealIni, DateTime dataMovRealFim, int? idItemMovimentacao=null)
         {
             try
             {
@@ -137,8 +140,8 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 {
                     return StatusCode(418, "O período excedeu o limite máximo de 366 dias");
                 }
-
-                return Ok(movimentacaoRealizadaApplicationService.GetByDataMovimentacaoRealizada(idItemMovimentacao, idUsuario, dataMovRealIni, dataMovRealFim));
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(movimentacaoRealizadaApplicationService.GetByDataMovimentacaoRealizada(idItemMovimentacao, dataMovRealIni, dataMovRealFim));
             }
             catch (Exception e)
             {
@@ -146,17 +149,17 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("GetGroupBySaldoDiario/{idUsuario}/{dataMovRealIni}/{dataMovRealFim}")]
-        public IActionResult GetGroupBySaldoDiario(int idUsuario, DateTime dataMovRealIni, DateTime dataMovRealFim)
+        [HttpGet("GetGroupBySaldoDiario/{dataMovRealIni}/{dataMovRealFim}")]
+        public IActionResult GetGroupBySaldoDiario(DateTime dataMovRealIni, DateTime dataMovRealFim)
         {
             try
             {
-                if (dataMovRealFim.Subtract(dataMovRealIni).TotalDays > 366)
+                if (dataMovRealFim.Subtract(dataMovRealIni).TotalDays > 31)
                 {
-                    return StatusCode(418, "O período excedeu o limite máximo de 366 dias");
+                    return StatusCode(418, "O período excedeu o limite máximo de 31 dias");
                 }
-
-                return Ok(movimentacaoRealizadaApplicationService.GetGroupBySaldoDiario(idUsuario, dataMovRealIni, dataMovRealFim));
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(movimentacaoRealizadaApplicationService.GetGroupBySaldoDiario( dataMovRealIni, dataMovRealFim));
             }
             catch (Exception e)
             {

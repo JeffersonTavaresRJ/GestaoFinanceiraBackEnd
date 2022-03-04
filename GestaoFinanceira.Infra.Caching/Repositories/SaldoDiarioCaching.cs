@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Infra.Caching.Context;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -43,10 +44,10 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return mongoDBContext.SaldosDiario.Find(filter).ToList();
         }
 
-        public List<SaldoDiarioDTO> GetGroupBySaldoDiario(int idUsuario, DateTime dataIni, DateTime dataFim)
+        public List<SaldoDiarioDTO> GetGroupBySaldoDiario(DateTime dataIni, DateTime dataFim)
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
-               .Where(sa => (sa.Conta.IdUsuario == idUsuario)
+               .Where(sa => (sa.Conta.IdUsuario == UserEntity.IdUsuario)
                    && sa.DataSaldo >= dataIni
                    && sa.DataSaldo <= dataFim);
             return mongoDBContext.SaldosDiario.Find(filter).ToList().OrderByDescending(sd => sd.DataSaldo).ToList();
@@ -57,6 +58,13 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             var filter = Builders<SaldoDiarioDTO>.Filter
                .Where(sa => sa.Conta.Id == idConta && sa.DataSaldo == dataSaldo);
             return mongoDBContext.SaldosDiario.Find(filter).FirstOrDefault<SaldoDiarioDTO>();
+        }
+
+        public List<SaldoDiarioDTO> GetAll()
+        {
+            var filter = Builders<SaldoDiarioDTO>.Filter
+               .Where(sa => sa.Conta.IdUsuario == UserEntity.IdUsuario);
+            return mongoDBContext.SaldosDiario.Find(filter).ToList();
         }
     }
 }

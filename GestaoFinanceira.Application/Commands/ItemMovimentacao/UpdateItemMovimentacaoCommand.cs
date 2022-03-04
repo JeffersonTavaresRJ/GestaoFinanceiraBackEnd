@@ -9,5 +9,6 @@ namespace GestaoFinanceira.Application.Commands.ItemMovimentacao
         public string Tipo { get; set; }
         public bool Status { get; set; }
         public int IdCategoria { get; set; }
+
     }
 }

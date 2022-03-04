@@ -1,7 +1,8 @@
 ﻿using FluentValidation;
 using GestaoFinanceira.Application.Commands.Usuario;
-using GestaoFinanceira.Domain.Exceptions.Usuario;
 using GestaoFinanceira.Application.Interfaces;
+using GestaoFinanceira.Domain.Exceptions.Usuario;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -150,7 +151,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                     {
                         message = "Usuário autenticado com sucesso!",
                         user = user
-                    });
+                    });                    
                 }
 
                 return StatusCode(418,"e-mail e/ou senha inválidos");
@@ -161,7 +162,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
                 return StatusCode(500, e.Message);
             }
-        }
+        }       
 
-     }
+    }
 }
