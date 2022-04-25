@@ -29,3 +29,19 @@ C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFin
 C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.dll
 C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.pdb
 C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.genruntimeconfig.cache
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.deps.json
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.runtimeconfig.json
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.runtimeconfig.dev.json
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.dll
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.pdb
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.csproj.AssemblyReference.cache
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.AssemblyInfoInputs.cache
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.AssemblyInfo.cs
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.csproj.CoreCompileInputs.cache
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.csproj.CopyComplete
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.dll
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.pdb
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Data\obj\Release\netcoreapp3.1\GestaoFinanceira.Infra.Data.genruntimeconfig.cache

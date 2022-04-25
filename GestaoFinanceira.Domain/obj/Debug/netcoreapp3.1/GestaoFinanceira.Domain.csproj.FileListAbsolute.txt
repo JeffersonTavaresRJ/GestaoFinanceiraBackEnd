@@ -17,3 +17,13 @@ C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFin
 C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Debug\netcoreapp3.1\GestaoFinanceira.Domain.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Debug\netcoreapp3.1\GestaoFinanceira.Domain.dll
 C:\Users\User\Desktop\ProjetosPessoais\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Debug\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\bin\Debug\netcoreapp3.1\GestaoFinanceira.Domain.deps.json
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\bin\Debug\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\bin\Debug\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Debug\netcoreapp3.1\GestaoFinanceira.Domain.csproj.AssemblyReference.cache
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Debug\netcoreapp3.1\GestaoFinanceira.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Debug\netcoreapp3.1\GestaoFinanceira.Domain.AssemblyInfoInputs.cache
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Debug\netcoreapp3.1\GestaoFinanceira.Domain.AssemblyInfo.cs
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Debug\netcoreapp3.1\GestaoFinanceira.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Debug\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Debug\netcoreapp3.1\GestaoFinanceira.Domain.pdb

@@ -22,7 +22,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             
             dbset.Add(obj);
             context.SaveChanges();
-            return  obj.GetType().GetProperty("Id").GetValue(obj, null) != null ? (int)obj.GetType().GetProperty("Id").GetValue(obj, null) : 0;            
+            return obj.GetType().GetProperty("Id") != null && obj.GetType().GetProperty("Id").GetValue(obj, null) != null ? (int)obj.GetType().GetProperty("Id").GetValue(obj, null) : 0;            
         }
 
         public virtual void Update(TEntity obj)
