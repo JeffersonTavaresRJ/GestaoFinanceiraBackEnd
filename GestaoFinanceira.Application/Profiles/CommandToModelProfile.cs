@@ -103,7 +103,7 @@ namespace GestaoFinanceira.Application.Profiles
             #endregion
 
             #region MovimentacaoRealizada       
-            CreateMap<MovimentacaoRealizadaCommand, MovimentacaoRealizada>()
+            CreateMap<CreateMovimentacaoRealizadaCommand, MovimentacaoRealizada>()
                 .AfterMap((src, dest) => dest.Movimentacao = new Movimentacao())
                 .AfterMap((src, dest) => dest.Movimentacao.IdItemMovimentacao = src.IdItemMovimentacao)
                 .AfterMap((src, dest) => dest.Movimentacao.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day,0,0,0))

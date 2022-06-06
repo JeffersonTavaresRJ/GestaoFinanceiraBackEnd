@@ -27,3 +27,13 @@ C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Doma
 C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.csproj.CoreCompileInputs.cache
 C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.dll
 C:\Users\Jefferson Tavares\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\Jefferson\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.deps.json
+C:\Users\Jefferson\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\Jefferson\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\bin\Release\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\Jefferson\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.csproj.AssemblyReference.cache
+C:\Users\Jefferson\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jefferson\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.AssemblyInfoInputs.cache
+C:\Users\Jefferson\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.AssemblyInfo.cs
+C:\Users\Jefferson\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Jefferson\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\Jefferson\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Domain\obj\Release\netcoreapp3.1\GestaoFinanceira.Domain.pdb

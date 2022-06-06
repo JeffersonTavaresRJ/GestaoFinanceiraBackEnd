@@ -27,7 +27,6 @@ namespace GestaoFinanceira.Application.RequestHandler
         private readonly ISaldoDiarioDomainService saldoDiarioDomainService;
         private readonly IMediator mediator;
         private readonly IMapper mapper;
-        private List<MovimentacaoPrevista> movimentacoesPrevistas;
         private MovimentacaoPrevista movimentacaoPrevista;
         private List<SaldoDiario> saldosDiario = new List<SaldoDiario>();
 
@@ -47,62 +46,51 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(CreateMovimentacaoRealizadaCommand request, CancellationToken cancellationToken)
         {
-            List<MovimentacaoRealizada> movimentacoesRealizadas = new List<MovimentacaoRealizada>();
 
-            foreach (MovimentacaoRealizadaCommand item in request.MovimentacaoRealizadaCommand)
+
+            MovimentacaoRealizada movimentacaoRealizada = mapper.Map<MovimentacaoRealizada>(request);
+
+            var validate = new MovimentacaoRealizadaValidation().Validate(movimentacaoRealizada);
+            if (!validate.IsValid)
             {
-                MovimentacaoRealizada movimentacaoRealizada = mapper.Map<MovimentacaoRealizada>(item);
-
-                var validate = new MovimentacaoRealizadaValidation().Validate(movimentacaoRealizada);
-                if (!validate.IsValid)
-                {
-                    throw new ValidationException(validate.Errors);
-                }
-
-                movimentacoesRealizadas.Add(movimentacaoRealizada);
-                //adicionando Saldos Diário para pesquisa..
-                this.saldosDiario.Add(new SaldoDiario { IdConta = movimentacaoRealizada.IdConta, DataSaldo = movimentacaoRealizada.DataMovimentacaoRealizada});
-
+                 throw new ValidationException(validate.Errors);
             }
+
+            //adicionando Saldos Diário para pesquisa..
+            this.saldosDiario.Add(new SaldoDiario { IdConta = movimentacaoRealizada.IdConta, DataSaldo = movimentacaoRealizada.DataMovimentacaoRealizada});
+
+
             /*adicionando no banco de dados..*/
-            movimentacoesRealizadas = movimentacaoRealizadaDomainService.Add(movimentacoesRealizadas, out movimentacoesPrevistas);
+            movimentacaoRealizada = movimentacaoRealizadaDomainService.Add(movimentacaoRealizada, out movimentacaoPrevista);
 
             /*adicionando no mongoDB..*/
             await mediator.Publish(new MovimentacaoRealizadaNotification
             {
-                MovimentacoesRealizadas = movimentacoesRealizadas,
+                MovimentacaoRealizada = movimentacaoRealizada,
                 Action = ActionNotification.Criar
             });
 
 
             /*==Atualização do Saldo Diário no MongoDB==*/
 
-            /*agrupando por Conta com a menor Data de Saldo..*/
-            dynamic saldoGroup = new List<dynamic>();
-            saldoGroup.Add(new ExpandoObject());
-
-            saldoGroup = saldosDiario.GroupBy(sa => sa.IdConta)
-                        .Select(g => new { IdConta = g.Key, 
-                                           DataSaldo = g.Min(row => row.DataSaldo) 
-                         });
-
-            /*adicionando no mongoDB..*/
-            foreach (var item in saldoGroup)
+            /*Lista todos os Saldos Diários da conta corrente, com data >= à data de movimentação */
+            foreach (var item in saldoDiarioDomainService.GetBySaldosDiario(movimentacaoRealizada.IdConta, movimentacaoRealizada.DataMovimentacaoRealizada))
             {
-                saldosDiario.Clear();
-                saldosDiario = saldoDiarioDomainService.GetBySaldosDiario(item.IdConta, item.DataSaldo);
-                
-                await mediator.Publish(new SaldoDiarioNotification
-                {
-                    SaldosDiario = saldosDiario,
-                    Action = ActionNotification.Criar
-                });
+                saldosDiario.Add(item);
             }
 
-            /*==Atualização do Status das Movimentações Previstas no MongoDB==*/
 
-            List<string> messages = new List<string>();
-            foreach (var movimentacaoPrevista in movimentacoesPrevistas)
+            /*adicionando no mongoDB..*/
+            await mediator.Publish(new SaldoDiarioNotification
+            {
+                SaldosDiario = saldosDiario,
+                Action = ActionNotification.Atualizar
+            });
+
+
+
+            /*==Atualização do Status das Movimentações Previstas no MongoDB==*/
+            if (movimentacaoPrevista != null)
             {
                 await mediator.Publish(new MovimentacaoPrevistaNotification
                 {
@@ -110,17 +98,9 @@ namespace GestaoFinanceira.Application.RequestHandler
                     Action = ActionNotification.Atualizar
                 });
 
-                /*movimentações previstas quitadas como mensagem para API..*/
-                messages.Add(new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
+                throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
                                                      movimentacaoPrevista.DataReferencia,
-                                                     movimentacaoPrevista.Status).Message);
-
-            }
-
-            /*Notificação das Movimentações Previstas com Status alterado..*/
-            if (movimentacoesPrevistas.Count > 0)
-            {
-                throw new MovPrevAlteraStatus(messages.Distinct().ToList());
+                                                     movimentacaoPrevista.Status);
             }
 
             return Unit.Value;

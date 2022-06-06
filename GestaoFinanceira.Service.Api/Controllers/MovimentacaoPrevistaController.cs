@@ -26,7 +26,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(List<MovimentacaoPrevistaCommand> command)
+        public async Task<IActionResult> Post([FromBody] List<MovimentacaoPrevistaCommand> command)
         {
             try
             {

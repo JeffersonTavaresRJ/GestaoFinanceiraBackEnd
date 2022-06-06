@@ -7,7 +7,6 @@ using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Service.Api.Controllers
@@ -25,16 +24,12 @@ namespace GestaoFinanceira.Service.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(List<MovimentacaoRealizadaCommand> command)
+        public async Task<IActionResult> Post([FromBody] CreateMovimentacaoRealizadaCommand command)
         {
             try
             {
-                CreateMovimentacaoRealizadaCommand cmd = new CreateMovimentacaoRealizadaCommand
-                {
-                    MovimentacaoRealizadaCommand = command                                                   
-                };
                 UserEntity.SetUsuarioID(this.User);
-                await movimentacaoRealizadaApplicationService.Add(cmd);
+                await movimentacaoRealizadaApplicationService.Add(command);
                 return Ok(new { message = "Movimentação(ões) cadastrada(s) com sucesso!" });
             }
             catch (MovPrevAlteraStatus e)

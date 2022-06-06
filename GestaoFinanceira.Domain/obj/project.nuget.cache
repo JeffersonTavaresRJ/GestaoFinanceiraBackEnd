@@ -1,15 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "bdviz5ZgxWrykMeRpciU8YHqyXuKFVxvVzmfUBXXryhC8gLxWo9VIAivf1KTR8iEkH5HXydlkVM/6DvHrC2niQ==",
+  "dgSpecHash": "NdywUZA8RHx2n/chdqevWGObTzKnPi6cG0VAeqy+bcV/3djeCWbjkndp4kmvjGTMQhm3fROZr44Ip9sE/rF+Pg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Jefferson Tavares\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
+  "projectFilePath": "C:\\Users\\Jefferson\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Jefferson Tavares\\.nuget\\packages\\fluentvalidation\\9.4.0\\fluentvalidation.9.4.0.nupkg.sha512",
-    "C:\\Users\\Jefferson Tavares\\.nuget\\packages\\mongodb.bson\\2.12.4\\mongodb.bson.2.12.4.nupkg.sha512",
-    "C:\\Users\\Jefferson Tavares\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
-    "C:\\Users\\Jefferson Tavares\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "C:\\Users\\Jefferson Tavares\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
-    "C:\\Users\\Jefferson Tavares\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512"
+    "C:\\Users\\Jefferson\\.nuget\\packages\\fluentvalidation\\9.4.0\\fluentvalidation.9.4.0.nupkg.sha512",
+    "C:\\Users\\Jefferson\\.nuget\\packages\\mongodb.bson\\2.12.4\\mongodb.bson.2.12.4.nupkg.sha512",
+    "C:\\Users\\Jefferson\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }
