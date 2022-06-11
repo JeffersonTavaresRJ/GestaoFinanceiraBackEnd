@@ -2,6 +2,7 @@
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
+using GestaoFinanceira.Domain.Exceptions.MovimentacaoRealizada;
 using GestaoFinanceira.Infra.CrossCutting.Security;
 using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
@@ -30,8 +31,13 @@ namespace GestaoFinanceira.Service.Api.Controllers
             {
                 UserEntity.SetUsuarioID(this.User);
                 await movimentacaoRealizadaApplicationService.Add(command);
-                return Ok(new { message = "Movimentação(ões) cadastrada(s) com sucesso!" });
+                return Ok();
             }
+            catch (MovRealSucessoException e)
+            {
+                return Ok(new { message = "Movimentação(ões) cadastrada(s) com sucesso!", id = e.Message });
+            }
+
             catch (MovPrevAlteraStatus e)
             {
                 return StatusCode(200, e.Messages);

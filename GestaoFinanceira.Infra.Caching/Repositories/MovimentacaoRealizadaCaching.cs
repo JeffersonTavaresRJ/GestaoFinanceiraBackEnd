@@ -50,6 +50,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter.Eq(c => c.Id, id);
             List<MovimentacaoRealizadaDTO> movimentacoesRealizadas = mongoDBContext.MovimentacoesRealizadas.Find(filter).ToList();
 
+
+
             return Query(movimentacoesRealizadas).FirstOrDefault();
         }
 
@@ -91,7 +93,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                .Where(mr => mr.ItemMovimentacao.Id == idItemMovimentacao && mr.DataReferencia == dataReferencia);
             List<MovimentacaoRealizadaDTO> movimentacoesRealizadas = mongoDBContext.MovimentacoesRealizadas.Find(filter).ToList();
 
-            return Query(movimentacoesRealizadas);
+            return Query(movimentacoesRealizadas).OrderBy(mr => mr.DataMovimentacaoRealizada).ToList();
         }
 
         private List<MovimentacaoRealizadaDTO> Query(List<MovimentacaoRealizadaDTO> movimentacoesRealizadas)

@@ -53,6 +53,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories
         {
             return dbset.Where(mr=>mr.Id==id)
                         .Include(mr => mr.Movimentacao).ThenInclude(x=>x.ItemMovimentacao).ThenInclude(x=>x.Categoria)
+                        .Include(mr=>mr.Conta)
+                        .Include(mr => mr.FormaPagamento)
                         .Include(mr => mr.Movimentacao.MovimentacaoPrevista).FirstOrDefault();
         }
 
@@ -61,7 +63,9 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             return dbset.Where(mr =>  mr.DataReferencia == dataReferencia && mr.IdItemMovimentacao == idItemMovimentacao)
                         .Include(mr => mr.Movimentacao.ItemMovimentacao)
                         .Include(mr => mr.Movimentacao.ItemMovimentacao.Categoria)
-                        .Include(mr => mr.Movimentacao.MovimentacaoPrevista);
+                        .Include(mr => mr.Movimentacao.MovimentacaoPrevista)
+                        .Include(mr => mr.Conta)
+                        .Include(mr => mr.FormaPagamento);
         }
     }
 }

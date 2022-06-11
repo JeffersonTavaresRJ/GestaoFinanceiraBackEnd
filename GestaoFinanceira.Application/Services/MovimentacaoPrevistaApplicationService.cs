@@ -16,11 +16,15 @@ namespace GestaoFinanceira.Application.Services
 
         private readonly IMediator mediator;
         private readonly IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching;
+        private readonly IFormaPagamentoCaching formaPagamentoCaching;
+        private readonly IItemMovimentacaoCaching itemMovimentacaoCaching;
 
-        public MovimentacaoPrevistaApplicationService(IMediator mediator, IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching)
+        public MovimentacaoPrevistaApplicationService(IMediator mediator, IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching, IFormaPagamentoCaching formaPagamentoCaching, IItemMovimentacaoCaching itemMovimentacaoCaching)
         {
             this.mediator = mediator;
             this.movimentacaoPrevistaCaching = movimentacaoPrevistaCaching;
+            this.formaPagamentoCaching = formaPagamentoCaching;
+            this.itemMovimentacaoCaching = itemMovimentacaoCaching;
         }
 
         public Task Add(CreateMovimentacaoPrevistaCommand command)
@@ -62,7 +66,5 @@ namespace GestaoFinanceira.Application.Services
         {
             return ExtensionEnum.Listar(typeof(TipoRecorrencia));
         }
-
-        
     }
 }

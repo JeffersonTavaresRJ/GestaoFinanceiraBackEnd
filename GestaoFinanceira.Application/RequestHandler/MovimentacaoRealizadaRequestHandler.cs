@@ -3,6 +3,7 @@ using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
 using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
+using GestaoFinanceira.Domain.Exceptions.MovimentacaoRealizada;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Validations;
@@ -46,7 +47,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(CreateMovimentacaoRealizadaCommand request, CancellationToken cancellationToken)
         {
-
+            /*==Gravação da Movimentação Realizada==*/
 
             MovimentacaoRealizada movimentacaoRealizada = mapper.Map<MovimentacaoRealizada>(request);
 
@@ -56,10 +57,7 @@ namespace GestaoFinanceira.Application.RequestHandler
                  throw new ValidationException(validate.Errors);
             }
 
-            //adicionando Saldos Diário para pesquisa..
-            this.saldosDiario.Add(new SaldoDiario { IdConta = movimentacaoRealizada.IdConta, DataSaldo = movimentacaoRealizada.DataMovimentacaoRealizada});
-
-
+            
             /*adicionando no banco de dados..*/
             movimentacaoRealizada = movimentacaoRealizadaDomainService.Add(movimentacaoRealizada, out movimentacaoPrevista);
 
@@ -101,6 +99,11 @@ namespace GestaoFinanceira.Application.RequestHandler
                 throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
                                                      movimentacaoPrevista.DataReferencia,
                                                      movimentacaoPrevista.Status);
+            }
+
+            if(movimentacaoRealizada.Id > 0)
+            {
+                throw new MovRealSucessoException(movimentacaoRealizada.Id);
             }
 
             return Unit.Value;

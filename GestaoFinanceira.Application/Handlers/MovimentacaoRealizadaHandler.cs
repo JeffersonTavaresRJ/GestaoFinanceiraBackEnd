@@ -13,39 +13,37 @@ namespace GestaoFinanceira.Application.Handlers
     {
         private readonly IMapper mapper;
         private readonly IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching;
+        private readonly IContaCaching contaCaching;
+        private readonly IFormaPagamentoCaching formaPagamentoCaching;
         private MovimentacaoRealizadaDTO movimentacaoRealizadaDTO;
 
-        public MovimentacaoRealizadaHandler(IMapper mapper, IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching)
+        public MovimentacaoRealizadaHandler(IMapper mapper, IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching, IContaCaching contaCaching, IFormaPagamentoCaching formaPagamentoCaching)
         {
             this.mapper = mapper;
-            this.movimentacaoRealizadaCaching = movimentacaoRealizadaCaching;            
+            this.movimentacaoRealizadaCaching = movimentacaoRealizadaCaching;
+            this.contaCaching = contaCaching;
+            this.formaPagamentoCaching = formaPagamentoCaching;
         }
 
         public Task Handle(MovimentacaoRealizadaNotification notification, CancellationToken cancellationToken)
         {
             return Task.Run(() =>
             {
+                movimentacaoRealizadaDTO = mapper.Map<MovimentacaoRealizadaDTO>(notification.MovimentacaoRealizada);
 
                 switch (notification.Action)
                 {
                     case ActionNotification.Criar:
-                        foreach (MovimentacaoRealizada movimentacaoRealizada in notification.MovimentacoesRealizadas)
-                        {
-                            movimentacaoRealizadaDTO = mapper.Map<MovimentacaoRealizadaDTO>(movimentacaoRealizada);
-                            movimentacaoRealizadaCaching.Add(movimentacaoRealizadaDTO);
-                        }
+                        movimentacaoRealizadaCaching.Add(movimentacaoRealizadaDTO);
                         break;
                     case ActionNotification.Atualizar:
-                        movimentacaoRealizadaDTO = mapper.Map<MovimentacaoRealizadaDTO>(notification.MovimentacaoRealizada);
                         movimentacaoRealizadaCaching.Update(movimentacaoRealizadaDTO);
                         break;
                     case ActionNotification.Excluir:
-                        movimentacaoRealizadaDTO = mapper.Map<MovimentacaoRealizadaDTO>(notification.MovimentacaoRealizada);
                         movimentacaoRealizadaCaching.Delete(movimentacaoRealizadaDTO);
                         break;
                 }
             });
-        }      
-        
+        }
     }
 }
