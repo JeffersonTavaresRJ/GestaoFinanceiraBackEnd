@@ -4,13 +4,13 @@ namespace GestaoFinanceira.Domain.Exceptions.MovimentacaoRealizada
 {
     public class MovRealSucessoException : Exception
     {
-        private string id;
+        public readonly int Id;
 
-        public MovRealSucessoException(int Id)
+        public MovRealSucessoException(int _id)
         {
-            this.id = Id.ToString();
+            this.Id = _id;
         }
 
-        public override string Message => this.id;
+        public override string Message => "Movimentação cadastrada com sucesso!";
     }
 }

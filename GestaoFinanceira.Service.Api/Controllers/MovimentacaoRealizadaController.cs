@@ -33,14 +33,14 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 await movimentacaoRealizadaApplicationService.Add(command);
                 return Ok();
             }
-            catch (MovRealSucessoException e)
+            catch (MovRealSucessoException e )
             {
-                return Ok(new { message = "Movimentação(ões) cadastrada(s) com sucesso!", id = e.Message });
+                return Ok(new { message = e.Message, id = e.Id });
             }
 
             catch (MovPrevAlteraStatus e)
             {
-                return StatusCode(200, e.Messages);
+                return Ok(new { message = e.Message, id = e.Id });
             }
             catch (ValidationException e)
             {
@@ -64,7 +64,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
             catch (MovPrevAlteraStatus e)
             {
-                return StatusCode(200, e.Message);
+                return Ok(new { message = e.Message });
             }
             catch (ValidationException e)
             {
@@ -91,7 +91,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
             catch (MovPrevAlteraStatus e)
             {
-                return StatusCode(200, e.Message.Replace("gravada", "excluída"));
+                  return Ok(new { message = e.Message.Replace("gravada", "excluída") });
             }
             catch (ValidationException e)
             {

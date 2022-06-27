@@ -10,18 +10,14 @@ namespace GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista
         private string descricaoItemMovimentacao;
         private string mesReferencia;
         private string status;
-        public List<string> Messages;
+        public readonly int? Id;
 
-        public MovPrevAlteraStatus(List<string> _messages)
-        {
-            this.Messages = _messages;
-        }
-
-        public MovPrevAlteraStatus(string descricaoItemMovimentacao, DateTime dataReferencia, StatusMovimentacaoPrevista status)
+        public MovPrevAlteraStatus(string descricaoItemMovimentacao, DateTime dataReferencia, StatusMovimentacaoPrevista status, int? _idMovimentacaoRealizada)
         {
             this.descricaoItemMovimentacao = descricaoItemMovimentacao;
             this.mesReferencia = dataReferencia.ToString("MM/yyyy");
             this.status = status.ObterDescricao();
+            this.Id = _idMovimentacaoRealizada;
         }
 
         public override string Message => $"Movimentação gravada com sucesso! \r\n A Movimentação Prevista para {this.descricaoItemMovimentacao} referente ao mês de {this.mesReferencia} teve seu status alterado para {this.status}";

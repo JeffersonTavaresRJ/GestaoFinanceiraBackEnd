@@ -97,16 +97,19 @@ namespace GestaoFinanceira.Application.RequestHandler
                 });
 
                 throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
-                                                     movimentacaoPrevista.DataReferencia,
-                                                     movimentacaoPrevista.Status);
+                                              movimentacaoPrevista.DataReferencia,
+                                              movimentacaoPrevista.Status,
+                                              movimentacaoRealizada.Id);
             }
-
-            if(movimentacaoRealizada.Id > 0)
+            else
             {
                 throw new MovRealSucessoException(movimentacaoRealizada.Id);
             }
-
-            return Unit.Value;
+            //if(movimentacaoRealizada.Id > 0)
+            //{
+            //    throw new MovRealSucessoException(movimentacaoRealizada.Id);
+            //}
+            //return Unit.Value;
         }
 
         public async Task<Unit> Handle(UpdateMovimentacaoRealizadaCommand request, CancellationToken cancellationToken)
@@ -177,7 +180,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
                 throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
                                                      movimentacaoPrevista.DataReferencia,
-                                                     movimentacaoPrevista.Status);
+                                                     movimentacaoPrevista.Status, null);
             }
 
             return Unit.Value;
@@ -232,7 +235,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
                 throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
                                                      movimentacaoPrevista.DataReferencia,
-                                                     movimentacaoPrevista.Status);
+                                                     movimentacaoPrevista.Status, null);
             }
 
             return Unit.Value;
