@@ -50,6 +50,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         public ISaldoDiarioRepository ISaldoDiarioRepository => new SaldoDiarioRepository(context);
 
+        public IFechamentoRepository IFechamentoRepository => new FechamentoRepository(context);
+
         public void Dispose()
         {
             context.Dispose();
