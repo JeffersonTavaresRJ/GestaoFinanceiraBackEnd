@@ -8,5 +8,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
     public interface IMovimentacaoRealizadaRepository : IGenericRepository<MovimentacaoRealizada>
     {
         IEnumerable<MovimentacaoRealizada> GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia);
+        IEnumerable<MovimentacaoRealizada> GetByUsuario(int idUsuario, DateTime dataReferencia);
     }
 }

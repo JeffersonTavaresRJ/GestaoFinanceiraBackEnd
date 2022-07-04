@@ -1,21 +1,24 @@
-﻿using GestaoFinanceira.Application.Interfaces;
+﻿using GestaoFinanceira.Application.Commands.Fechamento;
+using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.Interfaces.Services;
+using MediatR;
 using System;
+using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Application.Services
 {
     public class FechamentoApplicationService : IFechamentoApplicationService
     {
-        protected IFechamentoDomainService fechamentoDomainService;
+        private readonly IMediator mediator;
 
-        public FechamentoApplicationService(IFechamentoDomainService fechamentoDomainService)
+        public FechamentoApplicationService(IMediator mediator)
         {
-            this.fechamentoDomainService = fechamentoDomainService;
+            this.mediator = mediator;
         }
 
-        public void Executar(int idUsuario, DateTime dataReferencia)
+        public async Task Executar(CreateFechamentoCommand fechamentoCreateCommand)
         {
-            this.fechamentoDomainService.Executar(idUsuario, dataReferencia);
+            await mediator.Send(fechamentoCreateCommand);
         }
     }
 }

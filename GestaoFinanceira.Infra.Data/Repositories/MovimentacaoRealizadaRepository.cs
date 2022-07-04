@@ -60,7 +60,17 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         public IEnumerable<MovimentacaoRealizada> GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia)
         {
-            return dbset.Where(mr =>  mr.DataReferencia == dataReferencia && mr.IdItemMovimentacao == idItemMovimentacao)
+            return dbset.Where(mr =>  mr.DataReferencia == dataReferencia && mr.IdItemMovimentacao == idItemMovimentacao )
+                        .Include(mr => mr.Movimentacao.ItemMovimentacao)
+                        .Include(mr => mr.Movimentacao.ItemMovimentacao.Categoria)
+                        .Include(mr => mr.Movimentacao.MovimentacaoPrevista)
+                        .Include(mr => mr.Conta)
+                        .Include(mr => mr.FormaPagamento);
+        }
+
+        public IEnumerable<MovimentacaoRealizada> GetByUsuario(int idUsuario, DateTime dataReferencia)
+        {
+            return dbset.Where(mr => mr.DataReferencia == dataReferencia && mr.Conta.IdUsuario == idUsuario)
                         .Include(mr => mr.Movimentacao.ItemMovimentacao)
                         .Include(mr => mr.Movimentacao.ItemMovimentacao.Categoria)
                         .Include(mr => mr.Movimentacao.MovimentacaoPrevista)

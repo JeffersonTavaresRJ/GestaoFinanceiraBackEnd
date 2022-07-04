@@ -2,6 +2,7 @@
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GestaoFinanceira.Domain.Services
@@ -165,6 +166,16 @@ namespace GestaoFinanceira.Domain.Services
             }
         }
 
-
+        public List<MovimentacaoRealizada> GetByUsuario(int idUsuario, DateTime dataReferencia)
+        {
+            try
+            {
+                return unitOfWork.IMovimentacaoRealizadaRepository.GetByUsuario(idUsuario, dataReferencia).ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
+            }
+        }
     }
 }
