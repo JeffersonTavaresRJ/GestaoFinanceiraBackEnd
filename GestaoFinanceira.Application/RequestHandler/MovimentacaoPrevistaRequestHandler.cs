@@ -131,7 +131,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
-                MovimentacaoPrevista = movimentacaoPrevista,
+                MovimentacoesPrevistas = new List<MovimentacaoPrevista>((IEnumerable<MovimentacaoPrevista>)movimentacaoPrevista),
                 Action = ActionNotification.Atualizar
             });
 
@@ -152,19 +152,16 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
-                MovimentacaoPrevista = movimentacaoPrevista,
+                MovimentacoesPrevistas = new List<MovimentacaoPrevista>((IEnumerable<MovimentacaoPrevista>)movimentacaoPrevista),
                 Action = ActionNotification.Excluir
             });
 
-            foreach (MovimentacaoPrevista movPrevista in listaMovPrevistas)
+            await mediator.Publish(new MovimentacaoPrevistaNotification
             {
-                await mediator.Publish(new MovimentacaoPrevistaNotification
-                {
-                    MovimentacaoPrevista = movPrevista,
-                    Action = ActionNotification.Atualizar
-                });
-            }
-
+                MovimentacoesPrevistas = listaMovPrevistas,
+                Action = ActionNotification.Excluir
+            });
+            
             return Unit.Value;
         }
 

@@ -64,7 +64,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             /*adicionando no mongoDB..*/
             await mediator.Publish(new MovimentacaoRealizadaNotification
             {
-                MovimentacaoRealizada = movimentacaoRealizada,
+                MovimentacoesRealizadas = new List<MovimentacaoRealizada>((IEnumerable<MovimentacaoRealizada>)movimentacaoRealizada),
                 Action = ActionNotification.Criar
             });
 
@@ -92,7 +92,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             {
                 await mediator.Publish(new MovimentacaoPrevistaNotification
                 {
-                    MovimentacaoPrevista = movimentacaoPrevista,
+                    MovimentacoesPrevistas = new List<MovimentacaoPrevista>((IEnumerable<MovimentacaoPrevista>)movimentacaoPrevista),
                     Action = ActionNotification.Atualizar
                 });
 
@@ -128,7 +128,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             await mediator.Publish(new MovimentacaoRealizadaNotification
             {
-                MovimentacaoRealizada = movimentacaoRealizada,
+                MovimentacoesRealizadas = new List<MovimentacaoRealizada>((IEnumerable<MovimentacaoRealizada>)movimentacaoRealizada),
                 Action = ActionNotification.Atualizar
             });
 
@@ -174,7 +174,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             {
                 await mediator.Publish(new MovimentacaoPrevistaNotification
                 {
-                    MovimentacaoPrevista = movimentacaoPrevista,
+                    MovimentacoesPrevistas = new List<MovimentacaoPrevista>((IEnumerable<MovimentacaoPrevista>)movimentacaoPrevista),
                     Action = ActionNotification.Atualizar
                 });
 
@@ -193,11 +193,9 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             await mediator.Publish(new MovimentacaoRealizadaNotification
             {
-                MovimentacaoRealizada = movimentacaoRealizada,
+                MovimentacoesRealizadas = new List<MovimentacaoRealizada>((IEnumerable<MovimentacaoRealizada>)movimentacaoRealizada),
                 Action = ActionNotification.Excluir
             });
-
-
 
             /*==Atualização do Saldo Diário no MongoDB==*/
 
@@ -229,7 +227,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             {
                 await mediator.Publish(new MovimentacaoPrevistaNotification
                 {
-                    MovimentacaoPrevista = movimentacaoPrevista,
+                    MovimentacoesPrevistas = new List<MovimentacaoPrevista>((IEnumerable<MovimentacaoPrevista>)movimentacaoPrevista),
                     Action = ActionNotification.Atualizar
                 });
 

@@ -26,25 +26,26 @@ namespace GestaoFinanceira.Application.Handlers
             
             return Task.Run(() =>
             {
-                
-                switch (notification.Action)
+
+                foreach (MovimentacaoPrevista movimentacaoPrevista in notification.MovimentacoesPrevistas)
                 {
-                    case ActionNotification.Criar:
-                        foreach (MovimentacaoPrevista movimentacaoPrevista in notification.MovimentacoesPrevistas)
-                        {
+                    switch (notification.Action)
+                    {
+                        case ActionNotification.Criar:
                             movimentacaoPrevistaDTO = Convert(movimentacaoPrevista, ActionNotification.Criar);
                             movimentacaoPrevistaCaching.Add(movimentacaoPrevistaDTO);
-                        }                                                
-                        break;
-                    case ActionNotification.Atualizar:
-                        movimentacaoPrevistaDTO = Convert(notification.MovimentacaoPrevista, ActionNotification.Atualizar);
-                        movimentacaoPrevistaCaching.Update(movimentacaoPrevistaDTO);
-                        break;
-                    case ActionNotification.Excluir:
-                        movimentacaoPrevistaDTO = Convert(notification.MovimentacaoPrevista, ActionNotification.Excluir);
-                        movimentacaoPrevistaCaching.Delete(movimentacaoPrevistaDTO);
-                        break;
+                            break;
+                        case ActionNotification.Atualizar:
+                            movimentacaoPrevistaDTO = Convert(movimentacaoPrevista, ActionNotification.Atualizar);
+                            movimentacaoPrevistaCaching.Add(movimentacaoPrevistaDTO);
+                            break;
+                        case ActionNotification.Excluir:
+                            movimentacaoPrevistaDTO = Convert(movimentacaoPrevista, ActionNotification.Excluir);
+                            movimentacaoPrevistaCaching.Delete(movimentacaoPrevistaDTO);
+                            break;
+                    }
                 }
+                
             });
         }
 

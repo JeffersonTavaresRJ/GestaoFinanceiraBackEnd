@@ -13,36 +13,35 @@ namespace GestaoFinanceira.Application.Handlers
     {
         private readonly IMapper mapper;
         private readonly IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching;
-        private readonly IContaCaching contaCaching;
-        private readonly IFormaPagamentoCaching formaPagamentoCaching;
-        private MovimentacaoRealizadaDTO movimentacaoRealizadaDTO;
 
-        public MovimentacaoRealizadaHandler(IMapper mapper, IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching, IContaCaching contaCaching, IFormaPagamentoCaching formaPagamentoCaching)
+        public MovimentacaoRealizadaHandler(IMapper mapper, IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching)
         {
             this.mapper = mapper;
             this.movimentacaoRealizadaCaching = movimentacaoRealizadaCaching;
-            this.contaCaching = contaCaching;
-            this.formaPagamentoCaching = formaPagamentoCaching;
         }
 
         public Task Handle(MovimentacaoRealizadaNotification notification, CancellationToken cancellationToken)
         {
             return Task.Run(() =>
             {
-                movimentacaoRealizadaDTO = mapper.Map<MovimentacaoRealizadaDTO>(notification.MovimentacaoRealizada);
-
-                switch (notification.Action)
+                foreach (MovimentacaoRealizada movimentacaoRealizada in notification.MovimentacoesRealizadas)
                 {
-                    case ActionNotification.Criar:
-                        movimentacaoRealizadaCaching.Add(movimentacaoRealizadaDTO);
-                        break;
-                    case ActionNotification.Atualizar:
-                        movimentacaoRealizadaCaching.Update(movimentacaoRealizadaDTO);
-                        break;
-                    case ActionNotification.Excluir:
-                        movimentacaoRealizadaCaching.Delete(movimentacaoRealizadaDTO);
-                        break;
+                    var movimentacaoRealizadaDTO = mapper.Map<MovimentacaoRealizadaDTO>(movimentacaoRealizada);
+
+                    switch (notification.Action)
+                    {
+                        case ActionNotification.Criar:
+                            movimentacaoRealizadaCaching.Add(movimentacaoRealizadaDTO);
+                            break;
+                        case ActionNotification.Atualizar:
+                            movimentacaoRealizadaCaching.Update(movimentacaoRealizadaDTO);
+                            break;
+                        case ActionNotification.Excluir:
+                            movimentacaoRealizadaCaching.Delete(movimentacaoRealizadaDTO);
+                            break;
+                    }
                 }
+
             });
         }
     }

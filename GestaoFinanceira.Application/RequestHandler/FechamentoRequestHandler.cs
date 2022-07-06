@@ -38,26 +38,20 @@ namespace GestaoFinanceira.Application.RequestHandler
             List<MovimentacaoPrevista> movimentacoesPrevistas =
                 movimentacaoPrevistaDomainService.GetByDataReferencia(request.IdUsuario, null, dataIni, dataFim);
 
-            foreach (MovimentacaoPrevista item in movimentacoesPrevistas)
+            await mediator.Publish(new MovimentacaoPrevistaNotification
             {
-                await mediator.Publish(new MovimentacaoPrevistaNotification
-                {
-                    MovimentacaoPrevista = item,
-                    Action = ActionNotification.Atualizar
-                });
-            }
+                MovimentacoesPrevistas = movimentacoesPrevistas,
+                Action = ActionNotification.Atualizar
+            });
 
             List<MovimentacaoRealizada> movimentacoesRealizadas =
                 movimentacaoRealizadaDomainService.GetByUsuario(request.IdUsuario, dataFim);
 
-            foreach (MovimentacaoRealizada item in movimentacoesRealizadas)
+            await mediator.Publish(new MovimentacaoRealizadaNotification
             {
-                await mediator.Publish(new MovimentacaoRealizadaNotification
-                {
-                    MovimentacaoRealizada = item,
-                    Action = ActionNotification.Atualizar
-                });
-            }
+                MovimentacoesRealizadas = movimentacoesRealizadas,
+                Action = ActionNotification.Atualizar
+            });
             return Unit.Value;
         }
     }
