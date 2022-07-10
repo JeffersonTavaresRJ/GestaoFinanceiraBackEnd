@@ -123,6 +123,7 @@ namespace GestaoFinanceira.Domain.Services
                         unitOfWork.IMovimentacaoPrevistaRepository.Update(movPrevista);
                     }
 
+
                 }
 
                 unitOfWork.Commit();

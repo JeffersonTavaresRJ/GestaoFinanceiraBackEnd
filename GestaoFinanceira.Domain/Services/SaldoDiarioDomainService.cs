@@ -22,6 +22,11 @@ namespace GestaoFinanceira.Domain.Services
             return unitOfWork.ISaldoDiarioRepository.GetByKey(idConta, dataSaldo);
         }
 
+        public List<SaldoDiario> GetByPeriodo(int idUsuario, DateTime dataIni, DateTime dataFim)
+        {
+            return unitOfWork.ISaldoDiarioRepository.GetByPeriodo(idUsuario, dataIni, dataFim).ToList();
+        }
+
         public List<SaldoDiario> GetBySaldosDiario(int idConta, DateTime dataSaldo)
         {
             return unitOfWork.ISaldoDiarioRepository.GetBySaldosDiario(idConta, dataSaldo).ToList();

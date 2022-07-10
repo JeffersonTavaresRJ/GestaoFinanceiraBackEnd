@@ -128,10 +128,13 @@ namespace GestaoFinanceira.Application.RequestHandler
             }
 
             movimentacaoPrevista = movimentacaoPrevistaDomainService.UpdateResult(movimentacaoPrevista);
+
+            var listaUpdate = new List<MovimentacaoPrevista>();
+            listaUpdate.Add(movimentacaoPrevista);
             
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
-                MovimentacoesPrevistas = new List<MovimentacaoPrevista>((IEnumerable<MovimentacaoPrevista>)movimentacaoPrevista),
+                MovimentacoesPrevistas = listaUpdate,
                 Action = ActionNotification.Atualizar
             });
 
@@ -141,30 +144,34 @@ namespace GestaoFinanceira.Application.RequestHandler
         public async Task<Unit> Handle(DeleteMovimentacaoPrevistaCommand request, CancellationToken cancellationToken)
         {
             MovimentacaoPrevista movimentacaoPrevista = movimentacaoPrevistaDomainService.GetByKey(request.IdItemMovimentacao, request.DataReferencia);
-;           
+            var listaDelete = new List<MovimentacaoPrevista>();
+            listaDelete.Add(movimentacaoPrevista);
+            ;           
             if ( !(movimentacaoPrevista.NrParcela == 1 || movimentacaoPrevista.NrParcela == movimentacaoPrevista.NrParcelaTotal))
             {
                 throw new MovPrevParcelaInvalidaExclusaoException(movimentacaoPrevista.NrParcela, movimentacaoPrevista.NrParcelaTotal);
             }
 
-            List<MovimentacaoPrevista> listaMovPrevistas = new List<MovimentacaoPrevista>();
-            movimentacaoPrevistaDomainService.Delete(movimentacaoPrevista, out listaMovPrevistas);
+            var listaUpdate = new List<MovimentacaoPrevista>();
+            movimentacaoPrevistaDomainService.Delete(movimentacaoPrevista, out listaUpdate);
 
-            await mediator.Publish(new MovimentacaoPrevistaNotification
+            //exclui a previsão no mongo db..
+            _= mediator.Publish(new MovimentacaoPrevistaNotification
             {
-                MovimentacoesPrevistas = new List<MovimentacaoPrevista>((IEnumerable<MovimentacaoPrevista>)movimentacaoPrevista),
+                MovimentacoesPrevistas = listaDelete,
                 Action = ActionNotification.Excluir
             });
 
+            //atualiza as movimentações previstas parceladas..
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
-                MovimentacoesPrevistas = listaMovPrevistas,
-                Action = ActionNotification.Excluir
+                MovimentacoesPrevistas = listaUpdate,
+                Action = ActionNotification.Atualizar
             });
             
             return Unit.Value;
         }
-
+        /*
         private List<MovimentacaoPrevista> ConvertList(MovimentacaoPrevista obj, string tipoRecorrencia, int qtdeParcelas)
         {
             if(tipoRecorrencia.Equals(TipoRecorrencia.M.ToString()))
@@ -207,7 +214,6 @@ namespace GestaoFinanceira.Application.RequestHandler
             return lista;
 
         }
-
-       
+        */       
     }
 }

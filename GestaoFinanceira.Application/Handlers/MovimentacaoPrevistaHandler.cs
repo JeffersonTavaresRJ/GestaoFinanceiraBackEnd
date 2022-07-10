@@ -37,7 +37,7 @@ namespace GestaoFinanceira.Application.Handlers
                             break;
                         case ActionNotification.Atualizar:
                             movimentacaoPrevistaDTO = Convert(movimentacaoPrevista, ActionNotification.Atualizar);
-                            movimentacaoPrevistaCaching.Add(movimentacaoPrevistaDTO);
+                            movimentacaoPrevistaCaching.Update(movimentacaoPrevistaDTO);
                             break;
                         case ActionNotification.Excluir:
                             movimentacaoPrevistaDTO = Convert(movimentacaoPrevista, ActionNotification.Excluir);
@@ -55,8 +55,10 @@ namespace GestaoFinanceira.Application.Handlers
                         
             if(action.Equals(ActionNotification.Atualizar) && movimentacaoPrevista.NrParcelaTotal <= 1)
             {
-                movimentacaoPrevistaDTO.Parcela = movimentacaoPrevistaCaching.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
-                                                                                       movimentacaoPrevista.DataReferencia).Parcela;
+                /*movimentacaoPrevistaDTO.Parcela = movimentacaoPrevistaCaching.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
+                                                                                       movimentacaoPrevista.DataReferencia).Parcela;*/
+                movimentacaoPrevistaDTO.Parcela = "";
+
             }
             return movimentacaoPrevistaDTO;
         }

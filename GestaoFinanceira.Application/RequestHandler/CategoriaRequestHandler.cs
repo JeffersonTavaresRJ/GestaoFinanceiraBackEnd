@@ -30,14 +30,6 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(CreateCategoriaCommand request, CancellationToken cancellationToken)
         {
-            //var categoria = new Categoria
-            //{
-            //    Descricao = request.Descricao,
-            //    Tipo = (TipoCategoria)Enum.Parse(typeof(TipoCategoria), request.Tipo),
-            //    IdUsuario = int.Parse(request.IdUsuario),
-            //    Status = true,
-
-            //};
 
             var categoria = mapper.Map<Categoria>(request);
 
@@ -62,11 +54,6 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(UpdateCategoriaCommand request, CancellationToken cancellationToken)
         {
-            //var categoria = categoriaDomainService.GetId(int.Parse(request.Id));
-            //Categoria.Descricao = request.Descricao;
-            //Categoria.Tipo = (TipoCategoria)Enum.Parse(typeof(TipoCategoria), request.Tipo);
-            //Categoria.Status = bool.Parse(request.Status);
-
             var categoria = mapper.Map<Categoria>(request);
 
             var validation = new CategoriaValidation().Validate(categoria);

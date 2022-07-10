@@ -25,6 +25,14 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             return dbset.Where(sd => sd.IdConta == idConta && sd.DataSaldo == dataSaldo).FirstOrDefault();
         }
 
+        public IEnumerable<SaldoDiario> GetByPeriodo(int idUsuario, DateTime dataIni, DateTime dataFim)
+        {
+            return dbset.Include(sa=>sa.Conta)
+                        .Where(sa => sa.Conta.IdUsuario==idUsuario && 
+                               sa.DataSaldo >= dataIni && 
+                               sa.DataSaldo <= dataFim).ToList();
+        }
+
         public IEnumerable<SaldoDiario> GetBySaldosDiario(int idConta, DateTime dataSaldo)
         {
             return dbset.Where(sa => sa.IdConta == idConta && sa.DataSaldo >= dataSaldo).ToList();

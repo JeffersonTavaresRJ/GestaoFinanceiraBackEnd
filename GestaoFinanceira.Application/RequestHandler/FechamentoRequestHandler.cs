@@ -15,14 +15,14 @@ namespace GestaoFinanceira.Application.RequestHandler
     {
         private readonly IFechamentoDomainService fechamentoDomainService;
         private readonly IMovimentacaoPrevistaDomainService movimentacaoPrevistaDomainService;
-        private readonly IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService;
+        private readonly ISaldoDiarioDomainService saldoDiarioDomainService;
         private readonly IMediator mediator;
 
-        public FechamentoRequestHandler(IFechamentoDomainService fechamentoDomainService, IMovimentacaoPrevistaDomainService movimentacaoPrevistaDomainService, IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService, IMediator mediator)
+        public FechamentoRequestHandler(IFechamentoDomainService fechamentoDomainService, IMovimentacaoPrevistaDomainService movimentacaoPrevistaDomainService, ISaldoDiarioDomainService saldoDiarioDomainService, IMediator mediator)
         {
             this.fechamentoDomainService = fechamentoDomainService;
             this.movimentacaoPrevistaDomainService = movimentacaoPrevistaDomainService;
-            this.movimentacaoRealizadaDomainService = movimentacaoRealizadaDomainService;
+            this.saldoDiarioDomainService = saldoDiarioDomainService;
             this.mediator = mediator;
         }
 
@@ -37,21 +37,22 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             List<MovimentacaoPrevista> movimentacoesPrevistas =
                 movimentacaoPrevistaDomainService.GetByDataReferencia(request.IdUsuario, null, dataIni, dataFim);
-
-            await mediator.Publish(new MovimentacaoPrevistaNotification
+            
+            _ = mediator.Publish(new MovimentacaoPrevistaNotification
             {
                 MovimentacoesPrevistas = movimentacoesPrevistas,
                 Action = ActionNotification.Atualizar
             });
 
-            List<MovimentacaoRealizada> movimentacoesRealizadas =
-                movimentacaoRealizadaDomainService.GetByUsuario(request.IdUsuario, dataFim);
+            List<SaldoDiario> saldosDiario =
+                saldoDiarioDomainService.GetByPeriodo(request.IdUsuario, dataIni, dataFim);
 
-            await mediator.Publish(new MovimentacaoRealizadaNotification
+            await mediator.Publish(new SaldoDiarioNotification
             {
-                MovimentacoesRealizadas = movimentacoesRealizadas,
+                SaldosDiario = saldosDiario,
                 Action = ActionNotification.Atualizar
             });
+
             return Unit.Value;
         }
     }
