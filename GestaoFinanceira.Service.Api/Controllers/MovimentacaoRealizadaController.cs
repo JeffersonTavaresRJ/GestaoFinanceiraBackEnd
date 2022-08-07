@@ -167,5 +167,19 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpGet("GetMaxGroupBySaldoConta/{dataReferencia}")]
+        public IActionResult GetMaxGroupBySaldoConta(DateTime dataReferencia)
+        {
+            try
+            {
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(movimentacaoRealizadaApplicationService.GetMaxGroupBySaldoConta(dataReferencia));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

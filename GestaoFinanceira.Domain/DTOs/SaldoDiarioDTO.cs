@@ -13,4 +13,11 @@ namespace GestaoFinanceira.Domain.DTOs
         public string Status { get; set; }
         public List<MovimentacaoRealizadaDTO> MovimentacoesRealizadas { get; set; }
     }
+
+    public class SaldoDiarioFechamentoDTO
+    {
+        public string Conta { get; set; }
+        public DateTime DataSaldo { get; set; }
+        public double Valor { get; set; }
+    }
 }

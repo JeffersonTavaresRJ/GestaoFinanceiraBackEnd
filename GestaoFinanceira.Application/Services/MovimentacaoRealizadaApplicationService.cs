@@ -6,6 +6,7 @@ using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace GestaoFinanceira.Application.Services
 {
@@ -53,6 +54,42 @@ namespace GestaoFinanceira.Application.Services
         public List<SaldoDiarioDTO> GetGroupBySaldoDiario(DateTime dataMovRealIni, DateTime dataMovRealFim)
         {
             return saldoDiarioCaching.GetGroupBySaldoDiario(dataMovRealIni, dataMovRealFim);
+        }
+
+        public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia)
+        {
+            var dataIni = new DateTime(dataReferencia.Year, dataReferencia.Month, 1);
+            var dataFim = new DateTime(dataReferencia.Year, dataReferencia.Month, DateTime.DaysInMonth(dataReferencia.Year, dataReferencia.Month));
+
+            List<SaldoDiarioDTO> saldosDiario = saldoDiarioCaching.GetGroupBySaldoDiario(dataIni, dataFim);
+            //List<SaldoDiarioFechamentoDTO> result = new List<SaldoDiarioFechamentoDTO>();
+
+            //foreach (var item in saldosDiario)
+            //{
+            //    var model = new SaldoDiarioFechamentoDTO();
+            //    model.Conta = item.Conta.Id;
+            //    model.Valor = item.Valor;
+            //    model.DataSaldo = item.DataSaldo;
+            //    result.Add(model);
+            //}
+
+            //var xpto =  from sd in saldosDiario
+            //           group sd by sd.Conta into groupConta
+            //           orderby groupConta.Key ascending
+            //           select groupConta;
+
+
+
+            saldosDiario = saldosDiario
+                         .Select(s => new SaldoDiarioDTO
+                         {
+                             Conta = s.Conta,
+                             Valor = s.Valor,
+                             DataSaldo = (from x in saldosDiario select x.DataSaldo).Max()
+                         }).ToList();
+
+            return saldosDiario;
+
         }
     }
 }
