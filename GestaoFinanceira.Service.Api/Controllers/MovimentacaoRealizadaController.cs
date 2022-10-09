@@ -160,7 +160,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                     return StatusCode(418, "O período excedeu o limite máximo de 31 dias");
                 }
                 UserEntity.SetUsuarioID(this.User);
-                return Ok(movimentacaoRealizadaApplicationService.GetGroupBySaldoDiario( dataMovRealIni, dataMovRealFim));
+                return Ok(movimentacaoRealizadaApplicationService.GetGroupBySaldoDiario(dataMovRealIni, dataMovRealFim));
             }
             catch (Exception e)
             {

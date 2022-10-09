@@ -24,6 +24,10 @@ namespace GestaoFinanceira.Infra.Data.Mappings
                 .HasColumnName("STATUS_CONT")
                 .IsRequired();
 
+            builder.Property(c => c.DefaultConta)
+                .HasColumnName("DEFAULT_CONT")
+                .IsRequired();
+
             builder.Property(c => c.IdUsuario)
                 .HasColumnName("ID_USUA")
                 .IsRequired();

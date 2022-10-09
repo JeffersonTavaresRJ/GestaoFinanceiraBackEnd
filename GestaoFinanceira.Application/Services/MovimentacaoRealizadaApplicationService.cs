@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using GestaoFinanceira.Domain.Models;
 
 namespace GestaoFinanceira.Application.Services
 {
@@ -40,7 +41,6 @@ namespace GestaoFinanceira.Application.Services
         {
             return movimentacaoRealizadaCaching.GetId(id);
         }
-
         public List<MovimentacaoRealizadaDTO> GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia)
         {
             return movimentacaoRealizadaCaching.GetByDataReferencia(idItemMovimentacao, dataReferencia);
@@ -61,34 +61,26 @@ namespace GestaoFinanceira.Application.Services
             var dataIni = new DateTime(dataReferencia.Year, dataReferencia.Month, 1);
             var dataFim = new DateTime(dataReferencia.Year, dataReferencia.Month, DateTime.DaysInMonth(dataReferencia.Year, dataReferencia.Month));
 
-            List<SaldoDiarioDTO> saldosDiario = saldoDiarioCaching.GetGroupBySaldoDiario(dataIni, dataFim);
-            //List<SaldoDiarioFechamentoDTO> result = new List<SaldoDiarioFechamentoDTO>();
+            List<SaldoDiarioDTO> saldosDiario = saldoDiarioCaching.GetBySaldosDiario(dataIni, dataFim);
 
-            //foreach (var item in saldosDiario)
-            //{
-            //    var model = new SaldoDiarioFechamentoDTO();
-            //    model.Conta = item.Conta.Id;
-            //    model.Valor = item.Valor;
-            //    model.DataSaldo = item.DataSaldo;
-            //    result.Add(model);
-            //}
+            var listGroupConta = saldosDiario.GroupBy(x => new { x.Conta.Id })
+                                    .Select(grp => new
+                                    {
+                                        grp.Key,
+                                        ultimoLancamento = grp.OrderByDescending(x => x.DataSaldo)
+                                                              .Select(x => x.DataSaldo)
+                                                              .FirstOrDefault()
+                                    }).ToList();
+            saldosDiario.Clear();
 
-            //var xpto =  from sd in saldosDiario
-            //           group sd by sd.Conta into groupConta
-            //           orderby groupConta.Key ascending
-            //           select groupConta;
+            foreach (var item in listGroupConta)
+            {
+                SaldoDiarioDTO saldoDiarioDTO = saldoDiarioCaching.GetByKey(item.Key.Id, item.ultimoLancamento);
+                saldoDiarioDTO.MovimentacoesRealizadas = null;
+                saldosDiario.Add(saldoDiarioDTO);
+            }           
 
-
-
-            saldosDiario = saldosDiario
-                         .Select(s => new SaldoDiarioDTO
-                         {
-                             Conta = s.Conta,
-                             Valor = s.Valor,
-                             DataSaldo = (from x in saldosDiario select x.DataSaldo).Max()
-                         }).ToList();
-
-            return saldosDiario;
+            return saldosDiario; 
 
         }
     }
