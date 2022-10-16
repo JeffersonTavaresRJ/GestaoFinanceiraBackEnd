@@ -15,6 +15,14 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         }
 
+        public override int Add(MovimentacaoPrevista obj)
+        {
+            context.Entry(obj).State = EntityState.Added;
+            context.Entry(obj).Reference(mr => mr.Movimentacao).IsModified = false;
+            context.SaveChanges();
+            return 0;
+        }
+
         public override void Update(MovimentacaoPrevista obj)
         {
             context.Entry(obj).State = EntityState.Modified;
