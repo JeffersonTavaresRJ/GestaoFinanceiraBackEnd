@@ -31,6 +31,13 @@ namespace GestaoFinanceira.Domain.Services
                 {
                     unitOfWork.IMovimentacaoRepository.Add(movimentacaoRealizada.Movimentacao);
                 }
+                else
+                {
+                    movimentacao.Observacao = movimentacaoRealizada.Movimentacao.Observacao;
+                    movimentacao.TipoPrioridade = movimentacaoRealizada.Movimentacao.TipoPrioridade;
+
+                    unitOfWork.IMovimentacaoRepository.Update(movimentacao);
+                }
                 //Tratamento para retorno do método para gravação no MongoDB..
                 var id = unitOfWork.IMovimentacaoRealizadaRepository.Add(movimentacaoRealizada);
                 movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(id);

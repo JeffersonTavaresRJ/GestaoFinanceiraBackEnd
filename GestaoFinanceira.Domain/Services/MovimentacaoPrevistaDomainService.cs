@@ -27,12 +27,9 @@ namespace GestaoFinanceira.Domain.Services
                 {
                     Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
                                                                                             movimentacaoPrevista.DataReferencia);
-                    if (movimentacao != null)
+                    if (movimentacao == null)
                     {
-                        movimentacao.Observacao = movimentacaoPrevista.Movimentacao.Observacao;
-                        movimentacao.TipoPrioridade = movimentacaoPrevista.Movimentacao.TipoPrioridade;
-
-                        unitOfWork.IMovimentacaoRepository.Update(movimentacao);
+                        unitOfWork.IMovimentacaoRepository.Add(movimentacaoPrevista.Movimentacao);
                     }
                     MovimentacaoPrevista movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
                                                                                                        movimentacaoPrevista.DataReferencia);
