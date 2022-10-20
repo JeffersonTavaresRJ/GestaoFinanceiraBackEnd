@@ -28,7 +28,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(CreateFechamentoCommand request, CancellationToken cancellationToken)
         {
-            fechamentoDomainService.Executar(request.IdUsuario, request.DataReferencia);
+            fechamentoDomainService.Executar(request.IdUsuario, request.DataReferencia, request.Status);
 
             var dataIni = new DateTime(request.DataReferencia.Year,
                                        request.DataReferencia.Month,

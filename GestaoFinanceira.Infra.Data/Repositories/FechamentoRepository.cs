@@ -15,9 +15,19 @@ namespace GestaoFinanceira.Infra.Data.Repositories
             this.context = context;
         }
 
-        public void Executar(int idUsuario, DateTime dataReferencia)
+        public void Executar(int idUsuario, DateTime dataReferencia, string status)
         {
-            this.context.Database.ExecuteSqlRaw("PRC_GRAVA_FECHAMENTO @pIdUsuario, @pDataReferencia", new SqlParameter("@pIdUsuario", idUsuario), new SqlParameter("@pDataReferencia", dataReferencia));
+            try
+            {
+                this.context.Database.ExecuteSqlRaw("PRC_GRAVA_FECHAMENTO @pIdUsuario, @pDataReferencia, @pStatus",
+                new SqlParameter("@pIdUsuario", idUsuario), new SqlParameter("@pDataReferencia", dataReferencia), new SqlParameter("@pStatus", status));
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+            
         }
     }
 }

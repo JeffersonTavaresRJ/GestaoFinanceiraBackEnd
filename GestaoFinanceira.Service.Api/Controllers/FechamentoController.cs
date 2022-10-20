@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using GestaoFinanceira.Application.Commands.Fechamento;
+using GestaoFinanceira.Application.Services;
+using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Service.Api.Controllers
 {
@@ -16,11 +18,11 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         public FechamentoController(IFechamentoApplicationService fechamentoApplicationService)
         {
-            this.fechamentoApplicationService = fechamentoApplicationService;
+            this.fechamentoApplicationService = fechamentoApplicationService;            
         }
 
-        [HttpPut]
-        public IActionResult Put(DateTime dataReferencia )
+        [HttpPut("{dataReferencia}/{status}")]
+        public async Task<IActionResult> Put(DateTime dataReferencia, string status)
         {
             try
             {
@@ -28,17 +30,37 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 CreateFechamentoCommand fechamentoCreateCommand = new CreateFechamentoCommand
                 {
                     IdUsuario = UserEntity.IdUsuario,
-                    DataReferencia = dataReferencia
+                    DataReferencia = dataReferencia,
+                    Status = status
                 };
 
-                this.fechamentoApplicationService.Executar(fechamentoCreateCommand);
-                return Ok(new { message = "Fechamento executado com sucesso!" });
+                await fechamentoApplicationService.Executar(fechamentoCreateCommand);
+
+                var descricaoStatus = fechamentoCreateCommand.Status == "A" ? "reaberta" : "fechada";
+                return Ok(new { message = $"Movimentação {descricaoStatus} com sucesso!" });
             }
             catch (Exception e)
             {
 
                 return StatusCode(500, e.Message);
             }
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+
+            try
+            {
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(fechamentoApplicationService.GetAll());
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+            }
+
         }
     }
 }

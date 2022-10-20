@@ -4,6 +4,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Services
 {
     public interface IFechamentoDomainService
     {
-        void Executar(int idUsuario, DateTime dataReferencia);
+        void Executar(int idUsuario, DateTime dataReferencia, string status);
     }
 }

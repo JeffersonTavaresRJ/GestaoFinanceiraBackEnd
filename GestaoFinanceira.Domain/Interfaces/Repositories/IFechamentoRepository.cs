@@ -4,6 +4,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
 {
     public interface IFechamentoRepository
     {
-        void Executar(int idUsuario, DateTime dataReferencia);
+        void Executar(int idUsuario, DateTime dataReferencia, string status);
     }
 }

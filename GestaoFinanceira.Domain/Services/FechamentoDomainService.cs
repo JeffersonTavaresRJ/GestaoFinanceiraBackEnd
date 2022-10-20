@@ -13,12 +13,12 @@ namespace GestaoFinanceira.Domain.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public void Executar(int idUsuario, DateTime dataReferencia)
+        public void Executar(int idUsuario, DateTime dataReferencia, string status)
         {
             try
             {
                 this.unitOfWork.BeginTransaction();
-                this.unitOfWork.IFechamentoRepository.Executar(idUsuario, dataReferencia);
+                this.unitOfWork.IFechamentoRepository.Executar(idUsuario, dataReferencia, status);
                 this.unitOfWork.Commit();
             }
             catch (Exception e)

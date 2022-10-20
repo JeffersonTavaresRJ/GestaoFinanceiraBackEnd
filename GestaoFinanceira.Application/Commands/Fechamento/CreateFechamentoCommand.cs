@@ -9,5 +9,7 @@ namespace GestaoFinanceira.Application.Commands.Fechamento
     {
         public int IdUsuario { get; set; }
         public DateTime DataReferencia { get; set; }
+
+        public string Status { get; set; }
     }
 }
