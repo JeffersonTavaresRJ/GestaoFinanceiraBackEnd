@@ -5,6 +5,7 @@ using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Infra.CrossCutting.Security;
 using MediatR;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Application.Services
@@ -27,7 +28,7 @@ namespace GestaoFinanceira.Application.Services
 
         public List<FechamentoMensalDTO> GetAll()
         {
-            List<SaldoDiarioDTO> saldosDiariosDTO = saldoDiarioCaching.GetAll();
+            List<SaldoDiarioDTO> saldosDiariosDTO = saldoDiarioCaching.GetAll().OrderByDescending(x => x.DataSaldo).ToList();
             List<FechamentoMensalDTO> fechamentosmensais = new List<FechamentoMensalDTO>();
 
             foreach (var item in saldosDiariosDTO)
