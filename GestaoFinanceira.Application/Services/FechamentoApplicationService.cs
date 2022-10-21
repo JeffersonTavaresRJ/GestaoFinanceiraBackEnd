@@ -4,6 +4,8 @@ using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Infra.CrossCutting.Security;
 using MediatR;
+using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,6 +39,7 @@ namespace GestaoFinanceira.Application.Services
                     fechamentosmensais.Add(new FechamentoMensalDTO
                     {
                         MesAno = item.DataSaldo.ToString("MM/yyyy"),
+                        DataReferencia = new DateTime(item.DataSaldo.Year, item.DataSaldo.Month, DateTime.DaysInMonth(item.DataSaldo.Year, item.DataSaldo.Month)),
                         Status = item.Status,
                         DescricaoStatus = item.Status == "A" ? "Aberto" : "Fechado"
                     }); 
