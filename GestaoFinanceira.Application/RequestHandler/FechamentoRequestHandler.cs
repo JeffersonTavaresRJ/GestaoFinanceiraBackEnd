@@ -2,10 +2,10 @@
 using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
+using GestaoFinanceira.Infra.CrossCutting.Security;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,7 +28,9 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(CreateFechamentoCommand request, CancellationToken cancellationToken)
         {
-            fechamentoDomainService.Executar(request.IdUsuario, request.DataReferencia, request.Status);
+            var idUsuario = UserEntity.IdUsuario;
+
+            fechamentoDomainService.Executar(idUsuario, request.DataReferencia, request.Status);
 
             var dataIni = new DateTime(request.DataReferencia.Year,
                                        request.DataReferencia.Month,
@@ -36,7 +38,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             var dataFim = request.DataReferencia;
 
             List<MovimentacaoPrevista> movimentacoesPrevistas =
-                movimentacaoPrevistaDomainService.GetByDataReferencia(request.IdUsuario, null, dataIni, dataFim);
+                movimentacaoPrevistaDomainService.GetByDataReferencia(idUsuario, null, dataIni, dataFim);
             
             _ = mediator.Publish(new MovimentacaoPrevistaNotification
             {
@@ -45,7 +47,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             });
 
             List<SaldoDiario> saldosDiario =
-                saldoDiarioDomainService.GetByPeriodo(request.IdUsuario, dataIni, dataFim);
+                saldoDiarioDomainService.GetByPeriodo(idUsuario, dataIni, dataFim);
 
             await mediator.Publish(new SaldoDiarioNotification
             {

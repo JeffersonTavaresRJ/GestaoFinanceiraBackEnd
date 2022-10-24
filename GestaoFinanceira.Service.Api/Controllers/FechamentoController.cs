@@ -21,21 +21,13 @@ namespace GestaoFinanceira.Service.Api.Controllers
             this.fechamentoApplicationService = fechamentoApplicationService;            
         }
 
-        [HttpPut("{dataReferencia}/{status}")]
-        public async Task<IActionResult> Put(DateTime dataReferencia, string status)
+        [HttpPut]
+        public async Task<IActionResult> Put(CreateFechamentoCommand fechamentoCreateCommand )
         {
             try
             {
                 UserEntity.SetUsuarioID(this.User);
-                CreateFechamentoCommand fechamentoCreateCommand = new CreateFechamentoCommand
-                {
-                    IdUsuario = UserEntity.IdUsuario,
-                    DataReferencia = dataReferencia,
-                    Status = status
-                };
-
                 await fechamentoApplicationService.Executar(fechamentoCreateCommand);
-
                 var descricaoStatus = fechamentoCreateCommand.Status == "A" ? "reaberta" : "fechada";
                 return Ok(new { message = $"Movimentação {descricaoStatus} com sucesso!" });
             }
