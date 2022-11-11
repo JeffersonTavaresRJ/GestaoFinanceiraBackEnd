@@ -26,7 +26,8 @@ namespace GestaoFinanceira.Infra.Data.Mappings
 
             builder.Property(c => c.DefaultConta)
                 .HasColumnName("DEFAULT_CONT")
-                .IsRequired();
+                .IsRequired()
+                .HasDefaultValue("N");
 
             builder.Property(c => c.IdUsuario)
                 .HasColumnName("ID_USUA")
