@@ -119,12 +119,12 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpGet("GetByDataVencimento/{dataVencIni}/{dataVencFim}/{idItemMovimentacao?}")]
-        public IActionResult GetAll(DateTime dataVencIni, DateTime dataVencFim, int? idItemMovimentacao)
+        [HttpGet("GetByDataVencimento/{dataVencIni?}/{dataVencFim?}/{idItemMovimentacao?}")]
+        public IActionResult GetAll(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao)
         {
             try
             {
-                if(dataVencFim.Subtract(dataVencIni).TotalDays > 731)
+                if(dataVencIni.HasValue && dataVencFim.HasValue && dataVencFim.Value.Subtract(dataVencIni.Value).TotalDays > 731)
                 {
                     return StatusCode(418, "O período excedeu o limite máximo de 731 dias");
                 }

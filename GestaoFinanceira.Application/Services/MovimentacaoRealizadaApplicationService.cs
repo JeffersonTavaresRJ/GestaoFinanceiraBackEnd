@@ -5,9 +5,8 @@ using GestaoFinanceira.Domain.Interfaces.Caching;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
-using GestaoFinanceira.Domain.Models;
+using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Application.Services
 {
@@ -56,10 +55,12 @@ namespace GestaoFinanceira.Application.Services
             return saldoDiarioCaching.GetGroupBySaldoDiario(dataMovRealIni, dataMovRealFim);
         }
 
-        public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia)
+        public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime? dataReferencia)
         {
-            var dataIni = new DateTime(dataReferencia.Year, dataReferencia.Month, 1);
-            var dataFim = new DateTime(dataReferencia.Year, dataReferencia.Month, DateTime.DaysInMonth(dataReferencia.Year, dataReferencia.Month));
+
+            var date = dataReferencia.HasValue ? dataReferencia.Value : saldoDiarioCaching.GetAll().Max(x => x.DataSaldo);
+            var dataIni = new DateTime(date.Year, date.Month, 1);
+            var dataFim = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
 
             List<SaldoDiarioDTO> saldosDiario = saldoDiarioCaching.GetBySaldosDiario(dataIni, dataFim);
 
@@ -82,6 +83,6 @@ namespace GestaoFinanceira.Application.Services
 
             return saldosDiario; 
 
-        }
+        }        
     }
 }
