@@ -7,6 +7,7 @@ using MediatR;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Application.Services
@@ -16,15 +17,14 @@ namespace GestaoFinanceira.Application.Services
 
         private readonly IMediator mediator;
         private readonly IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching;
-        private readonly IFormaPagamentoCaching formaPagamentoCaching;
-        private readonly IItemMovimentacaoCaching itemMovimentacaoCaching;
+        private readonly ISaldoDiarioCaching saldoDiarioCaching;
 
-        public MovimentacaoPrevistaApplicationService(IMediator mediator, IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching, IFormaPagamentoCaching formaPagamentoCaching, IItemMovimentacaoCaching itemMovimentacaoCaching)
+ 
+        public MovimentacaoPrevistaApplicationService(IMediator mediator, IMovimentacaoPrevistaCaching movimentacaoPrevistaCaching, ISaldoDiarioCaching saldoDiarioCaching)
         {
             this.mediator = mediator;
             this.movimentacaoPrevistaCaching = movimentacaoPrevistaCaching;
-            this.formaPagamentoCaching = formaPagamentoCaching;
-            this.itemMovimentacaoCaching = itemMovimentacaoCaching;
+            this.saldoDiarioCaching = saldoDiarioCaching;
         }
 
         public Task Add(CreateMovimentacaoPrevistaCommand command)
@@ -47,9 +47,19 @@ namespace GestaoFinanceira.Application.Services
             return movimentacaoPrevistaCaching.GetByKey(idItemMovimentacao, dataReferencia);
         }
 
-        public List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime dataVencIni, DateTime dataVencFim, int? idItemMovimentacao)
+        public List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao)
         {
-            return movimentacaoPrevistaCaching.GetByDataVencimento(dataVencIni, dataVencFim, idItemMovimentacao);
+            var date = dataVencIni.HasValue ? dataVencIni.Value : saldoDiarioCaching.GetAll().Max(x => x.DataSaldo);
+            var dataIni = new DateTime(date.Year, date.Month, 1);
+            var dataFim = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
+
+            if (dataVencIni.HasValue && dataVencFim.HasValue)
+            {
+                dataIni = dataVencIni.Value;
+                dataFim = dataVencFim.Value;
+            }
+            
+            return movimentacaoPrevistaCaching.GetByDataVencimento(dataIni, dataFim, idItemMovimentacao);
         }
 
         public IList GetAllStatus()

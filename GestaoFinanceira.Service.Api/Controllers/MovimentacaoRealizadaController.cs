@@ -168,8 +168,8 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("GetMaxGroupBySaldoConta/{dataReferencia}")]
-        public IActionResult GetMaxGroupBySaldoConta(DateTime dataReferencia)
+        [HttpGet("GetMaxGroupBySaldoConta/{dataReferencia?}")]
+        public IActionResult GetMaxGroupBySaldoConta(DateTime? dataReferencia)
         {
             try
             {
