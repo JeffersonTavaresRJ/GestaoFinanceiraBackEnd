@@ -74,5 +74,32 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                    && sa.DataSaldo <= dataFim);
             return mongoDBContext.SaldosDiario.Find(filter).ToList().OrderByDescending(sd => sd.DataSaldo).ToList();
         }
+
+        public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime? dataReferencia)
+        {
+            var date = dataReferencia.HasValue ? dataReferencia.Value : GetAll().Max(x => x.DataSaldo);
+            var dataIni = new DateTime(date.Year, date.Month, 1);
+            var dataFim = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
+
+            List<SaldoDiarioDTO> saldosDiario = GetBySaldosDiario(dataIni, dataFim);
+
+            var listGroupConta = saldosDiario.GroupBy(x => new { x.Conta.Id })
+                                    .Select(grp => new
+                                    {
+                                        grp.Key,
+                                        ultimoLancamento = grp.OrderByDescending(x => x.DataSaldo)
+                                                              .Select(x => x.DataSaldo)
+                                                              .FirstOrDefault()
+                                    }).ToList();
+            saldosDiario.Clear();
+
+            foreach (var item in listGroupConta)
+            {
+                SaldoDiarioDTO saldoDiarioDTO = GetByKey(item.Key.Id, item.ultimoLancamento);
+                saldoDiarioDTO.MovimentacoesRealizadas = null;
+                saldosDiario.Add(saldoDiarioDTO);
+            }
+            return saldosDiario;
+        }
     }
 }
