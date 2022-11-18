@@ -1,7 +1,6 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GestaoFinanceira.Domain.Interfaces.Caching
 {
@@ -9,6 +8,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Caching
     {
         MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia);
         List<MovimentacaoPrevistaDTO> GetAll();
-        List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime dataVencIni, DateTime dataVencFim, int? idItemMovimentacao);
+        List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao);
     }
 }

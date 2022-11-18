@@ -15,12 +15,14 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         private readonly MongoDBContext mongoDBContext;
         private readonly IItemMovimentacaoCaching itemMovimentacaoCaching;
         private readonly IFormaPagamentoCaching formaPagamentoCaching;
+        private readonly ISaldoDiarioCaching saldoDiarioCaching;
 
-        public MovimentacaoPrevistaCaching(MongoDBContext mongoDBContext, IItemMovimentacaoCaching itemMovimentacaoCaching, IFormaPagamentoCaching formaPagamentoCaching)
+        public MovimentacaoPrevistaCaching(MongoDBContext mongoDBContext, IItemMovimentacaoCaching itemMovimentacaoCaching, IFormaPagamentoCaching formaPagamentoCaching, ISaldoDiarioCaching saldoDiarioCaching)
         {
             this.mongoDBContext = mongoDBContext;
             this.itemMovimentacaoCaching = itemMovimentacaoCaching;
             this.formaPagamentoCaching = formaPagamentoCaching;
+            this.saldoDiarioCaching = saldoDiarioCaching;
         }
 
         public void Add(MovimentacaoPrevistaDTO obj)
@@ -66,11 +68,22 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return Query(movimentacoesPrevistas).FirstOrDefault();
         }
 
-        public List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime dataVencIni, DateTime dataVencFim, int? idItemMovimentacao)
+        public List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao)
         {
+
+            var date = dataVencIni.HasValue ? dataVencIni.Value : saldoDiarioCaching.GetAll().Max(x => x.DataSaldo);
+            var dataIni = new DateTime(date.Year, date.Month, 1);
+            var dataFim = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
+
+            if (dataVencIni.HasValue && dataVencFim.HasValue)
+            {
+                dataIni = dataVencIni.Value;
+                dataFim = dataVencFim.Value;
+            }
+
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.DataVencimento >= dataVencIni.Date && 
-                             mp.DataVencimento <= dataVencFim.Date &&
+                .Where(mp => mp.DataVencimento >= dataIni.Date && 
+                             mp.DataVencimento <= dataFim.Date &&
                              mp.FormaPagamento.IdUsuario== UserEntity.IdUsuario &&
                             (mp.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null) );
             List<MovimentacaoPrevistaDTO> movimentacoesPrevistas = mongoDBContext.MovimentacoesPrevistas.Find(filter).ToList();
