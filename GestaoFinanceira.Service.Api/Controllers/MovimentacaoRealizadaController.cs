@@ -118,8 +118,8 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("GetByDataReferencia/{idItemMovimentacao}/{dataReferencia}")]
-        public IActionResult GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia)
+        [HttpGet("GetByDataReferencia/{idItemMovimentacao?}/{dataReferencia?}")]
+        public IActionResult GetByDataReferencia(int? idItemMovimentacao, DateTime? dataReferencia)
         {
             try
             {

@@ -42,7 +42,7 @@ namespace GestaoFinanceira.Application.Services
             return movimentacaoRealizadaCaching.GetId(id);
         }
 
-        public List<MovimentacaoRealizadaDTO> GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia)
+        public List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime? dataReferencia)
         {
             return movimentacaoRealizadaCaching.GetByDataReferencia(idItemMovimentacao, dataReferencia);
         }

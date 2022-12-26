@@ -86,10 +86,11 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return Query(movimentacoesRealizadas);
         }
 
-        public List<MovimentacaoRealizadaDTO> GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia)
+        public List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime? dataReferencia)
         {
+            var date = dataReferencia.HasValue ? dataReferencia.Value : GetAll().Max(x => x.DataReferencia);
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter
-               .Where(mr => mr.ItemMovimentacao.Id == idItemMovimentacao && mr.DataReferencia == dataReferencia);
+               .Where(mr => (mr.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null) && mr.DataReferencia == date);
             List<MovimentacaoRealizadaDTO> movimentacoesRealizadas = mongoDBContext.MovimentacoesRealizadas.Find(filter).ToList();
 
             return Query(movimentacoesRealizadas).OrderBy(mr => mr.DataMovimentacaoRealizada).ToList();
