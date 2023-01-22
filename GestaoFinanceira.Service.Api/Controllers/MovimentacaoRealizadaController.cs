@@ -137,9 +137,9 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
-                if (dataMovRealFim.Subtract(dataMovRealIni).TotalDays > 366)
+                if (dataMovRealFim.Subtract(dataMovRealIni).TotalDays > 731)
                 {
-                    return StatusCode(418, "O período excedeu o limite máximo de 366 dias");
+                    return StatusCode(418, "O período excedeu o limite máximo de 731 dias");
                 }
                 UserEntity.SetUsuarioID(this.User);
                 return Ok(movimentacaoRealizadaApplicationService.GetByDataMovimentacaoRealizada(idItemMovimentacao, dataMovRealIni, dataMovRealFim));
