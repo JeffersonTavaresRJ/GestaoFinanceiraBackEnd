@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
+using GestaoFinanceira.Application.Commands.SaldoAnual;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoRealizada;
@@ -143,6 +144,45 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 }
                 UserEntity.SetUsuarioID(this.User);
                 return Ok(movimentacaoRealizadaApplicationService.GetByDataMovimentacaoRealizada(idItemMovimentacao, dataMovRealIni, dataMovRealFim));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetSaldoAnualPorConta/{ano}")]
+        public IActionResult GetSaldoAnualPorConta(int ano)
+        {
+            try
+            {
+                UserEntity.SetUsuarioID(this.User);
+                ReaderSaldoAnualPorContaCommand command = new ReaderSaldoAnualPorContaCommand
+                {
+                    IdUsuario = UserEntity.IdUsuario,
+                    Ano = ano
+                };
+                return Ok(movimentacaoRealizadaApplicationService.GetSaldoAnualPorConta(command));
+            }
+            catch(Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetSaldoAnualPorPeriodo/{anoInicial}/{anoFinal}")]
+        public IActionResult GetSaldoAnualPorPeriodo(int anoInicial, int anoFinal)
+        {
+            try
+            {
+                UserEntity.SetUsuarioID(this.User);
+                ReaderSaldoAnualPorPeriodoCommand command = new ReaderSaldoAnualPorPeriodoCommand
+                {
+                    IdUsuario = UserEntity.IdUsuario,
+                    AnoInicial = anoInicial,
+                    AnoFinal = anoFinal
+                };
+                return Ok(movimentacaoRealizadaApplicationService.GetSaldoAnualPorPeriodo(command));
             }
             catch (Exception e)
             {
