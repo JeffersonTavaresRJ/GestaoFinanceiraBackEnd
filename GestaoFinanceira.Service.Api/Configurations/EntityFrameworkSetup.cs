@@ -23,6 +23,8 @@ namespace GestaoFinanceira.Service.Api.Configurations
                               .AddDebug();
             });
 
+            services.AddControllers().AddNewtonsoftJson(x =>x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddDbContext<SqlContext>(
                 options => { options.UseSqlServer(configuration.GetConnectionString("GestaoFinanceira"));
                     //TODO: LOG DE EXECUÇÃO DO EF CORE - PASSO 03: ADICIONAR O EnableSensitiveDataLogging(true) no OPTIONS..

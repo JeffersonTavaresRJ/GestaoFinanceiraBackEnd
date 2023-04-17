@@ -22,13 +22,10 @@ namespace GestaoFinanceira.Application.RequestHandler
 
     public class MovimentacaoRealizadaRequestHandler : IRequestHandler<CreateMovimentacaoRealizadaCommand>,
                                                        IRequestHandler<UpdateMovimentacaoRealizadaCommand>,
-                                                       IRequestHandler<DeleteMovimentacaoRealizadaCommand>,
-                                                       IRequestHandler<ReaderSaldoAnualPorContaCommand, List<SaldoAnualPorContaDTO>>,
-                                                       IRequestHandler<ReaderSaldoAnualPorPeriodoCommand, List<SaldoAnualPorPeriodoDTO>>
+                                                       IRequestHandler<DeleteMovimentacaoRealizadaCommand>
     {
         private readonly IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService;
         private readonly ISaldoDiarioDomainService saldoDiarioDomainService;
-        private readonly ISaldoAnualDomainService saldoAnualDomainService;
         private readonly IMediator mediator;
         private readonly IMapper mapper;
         private MovimentacaoPrevista movimentacaoPrevista;
@@ -38,14 +35,12 @@ namespace GestaoFinanceira.Application.RequestHandler
 
 
         public MovimentacaoRealizadaRequestHandler(IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService,
-                                                   ISaldoAnualDomainService saldoAnualDomainService,
                                                    ISaldoDiarioDomainService saldoDiarioDomainService,
                                                    IMediator mediator, 
                                                    IMapper mapper)
         {
             this.movimentacaoRealizadaDomainService = movimentacaoRealizadaDomainService;
             this.saldoDiarioDomainService = saldoDiarioDomainService;
-            this.saldoAnualDomainService= saldoAnualDomainService;
             this.mediator = mediator;
             this.mapper = mapper; 
         }
@@ -245,28 +240,5 @@ namespace GestaoFinanceira.Application.RequestHandler
             return Unit.Value;
         }
 
-        public async Task<List<SaldoAnualPorContaDTO>> Handle(ReaderSaldoAnualPorContaCommand request, CancellationToken cancellationToken)
-        {
-            List<SaldoAnualPorContaDTO> lista = new List<SaldoAnualPorContaDTO>();
-
-            foreach (SaldoAnual item in await  saldoAnualDomainService.GetSaldoAnual(request.IdUsuario, request.Ano, request.Ano))
-            {
-                lista.Add(mapper.Map<SaldoAnualPorContaDTO>(item));
-            }
-
-            return lista;
-        }
-
-        public async Task<List<SaldoAnualPorPeriodoDTO>> Handle(ReaderSaldoAnualPorPeriodoCommand request, CancellationToken cancellationToken)
-        {
-            List<SaldoAnualPorPeriodoDTO> lista = new List<SaldoAnualPorPeriodoDTO>();
-
-            foreach (SaldoAnual item in await saldoAnualDomainService.GetSaldoAnual(request.IdUsuario, request.AnoInicial, request.AnoFinal))
-            {
-                lista.Add(mapper.Map<SaldoAnualPorPeriodoDTO>(item));
-            }
-
-            return lista;
-        }
     }
 }

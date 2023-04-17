@@ -10,8 +10,8 @@ namespace GestaoFinanceira.Infra.Data.Mappings
         {
             builder.ToView("VW_SALDO_ANUAL");
 
-            //builder.HasKey(s => new { s.IdUsuario, s.IdConta, s.Ano });
-            builder.HasNoKey();
+            builder.HasKey(s => new { s.IdUsuario, s.IdConta, s.Ano });
+            //builder.HasNoKey();
 
             builder.Property(s => s.IdUsuario)
                 .HasColumnName("ID_USUA")

@@ -2,6 +2,7 @@
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
 using GestaoFinanceira.Application.Commands.SaldoAnual;
 using GestaoFinanceira.Application.Interfaces;
+using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoRealizada;
 using GestaoFinanceira.Infra.CrossCutting.Security;
@@ -9,6 +10,7 @@ using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Service.Api.Controllers
@@ -152,7 +154,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         }
 
         [HttpGet("GetSaldoAnualPorConta/{ano}")]
-        public IActionResult GetSaldoAnualPorConta(int ano)
+        public async Task<ActionResult<List<SaldoAnualPorContaDTO>>>  GetSaldoAnualPorConta(int ano)
         {
             try
             {
@@ -162,7 +164,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                     IdUsuario = UserEntity.IdUsuario,
                     Ano = ano
                 };
-                return Ok(movimentacaoRealizadaApplicationService.GetSaldoAnualPorConta(command));
+                return Ok( await movimentacaoRealizadaApplicationService.GetSaldoAnualPorConta(command));
             }
             catch(Exception e)
             {
@@ -171,7 +173,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         }
 
         [HttpGet("GetSaldoAnualPorPeriodo/{anoInicial}/{anoFinal}")]
-        public IActionResult GetSaldoAnualPorPeriodo(int anoInicial, int anoFinal)
+        public async Task<ActionResult<List<SaldoAnualPorPeriodoDTO>>> GetSaldoAnualPorPeriodo(int anoInicial, int anoFinal)
         {
             try
             {
@@ -182,7 +184,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                     AnoInicial = anoInicial,
                     AnoFinal = anoFinal
                 };
-                return Ok(movimentacaoRealizadaApplicationService.GetSaldoAnualPorPeriodo(command));
+                return Ok(await movimentacaoRealizadaApplicationService.GetSaldoAnualPorPeriodo(command));
             }
             catch (Exception e)
             {

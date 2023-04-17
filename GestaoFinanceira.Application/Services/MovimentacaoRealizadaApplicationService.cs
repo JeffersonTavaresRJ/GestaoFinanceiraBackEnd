@@ -3,12 +3,9 @@ using GestaoFinanceira.Application.Commands.SaldoAnual;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
-using GestaoFinanceira.Domain.Interfaces.Repositories;
-using GestaoFinanceira.Domain.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Application.Services
@@ -21,8 +18,7 @@ namespace GestaoFinanceira.Application.Services
 
         public MovimentacaoRealizadaApplicationService(IMediator mediator, 
                                                        IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching, 
-                                                       ISaldoDiarioCaching saldoDiarioCaching,
-                                                       ISaldoAnualRepository saldoAnualRepository)
+                                                       ISaldoDiarioCaching saldoDiarioCaching)
         {
             this.mediator = mediator;
             this.movimentacaoRealizadaCaching = movimentacaoRealizadaCaching;
@@ -44,14 +40,14 @@ namespace GestaoFinanceira.Application.Services
             return mediator.Send(command);
         }
 
-        public Task<List<SaldoAnualPorContaDTO>> GetSaldoAnualPorConta(ReaderSaldoAnualPorContaCommand command)
+        public async Task<List<SaldoAnualPorContaDTO>> GetSaldoAnualPorConta(ReaderSaldoAnualPorContaCommand command)
         {
-            return mediator.Send(command);
+            return await mediator.Send(command); 
         }
 
-        public Task<List<SaldoAnualPorPeriodoDTO>> GetSaldoAnualPorPeriodo(ReaderSaldoAnualPorPeriodoCommand command)
+        public async Task<List<SaldoAnualPorPeriodoDTO>> GetSaldoAnualPorPeriodo(ReaderSaldoAnualPorPeriodoCommand command)
         {
-            return mediator.Send(command);
+            return await mediator.Send(command);
         }
 
         public MovimentacaoRealizadaDTO GetId(int id)
