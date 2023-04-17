@@ -52,9 +52,11 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         public IFechamentoRepository IFechamentoRepository => new FechamentoRepository(context);
 
+        public ISaldoAnualRepository ISaldoAnualRepository => new SaldoAnualRepository(context);
+
         public void Dispose()
         {
-            context.Dispose();
+            //context.Dispose();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
+using GestaoFinanceira.Application.Commands.SaldoAnual;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
@@ -15,7 +16,9 @@ namespace GestaoFinanceira.Application.Services
         private readonly IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching;
         private readonly ISaldoDiarioCaching saldoDiarioCaching;
 
-        public MovimentacaoRealizadaApplicationService(IMediator mediator, IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching, ISaldoDiarioCaching saldoDiarioCaching)
+        public MovimentacaoRealizadaApplicationService(IMediator mediator, 
+                                                       IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching, 
+                                                       ISaldoDiarioCaching saldoDiarioCaching)
         {
             this.mediator = mediator;
             this.movimentacaoRealizadaCaching = movimentacaoRealizadaCaching;
@@ -35,6 +38,16 @@ namespace GestaoFinanceira.Application.Services
         public Task Delete(DeleteMovimentacaoRealizadaCommand command)
         {
             return mediator.Send(command);
+        }
+
+        public async Task<List<SaldoAnualPorContaDTO>> GetSaldoAnualPorConta(ReaderSaldoAnualPorContaCommand command)
+        {
+            return await mediator.Send(command); 
+        }
+
+        public async Task<List<SaldoAnualPorPeriodoDTO>> GetSaldoAnualPorPeriodo(ReaderSaldoAnualPorPeriodoCommand command)
+        {
+            return await mediator.Send(command);
         }
 
         public MovimentacaoRealizadaDTO GetId(int id)
@@ -60,6 +73,6 @@ namespace GestaoFinanceira.Application.Services
         public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime? dataReferencia)
         {
             return saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia); 
-        }        
+        }
     }
 }
