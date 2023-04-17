@@ -1,17 +1,18 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
+using GestaoFinanceira.Application.Commands.SaldoAnual;
 using GestaoFinanceira.Application.Notifications;
+using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoRealizada;
+using GestaoFinanceira.Domain.Interfaces.Repositories;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Validations;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,7 +25,6 @@ namespace GestaoFinanceira.Application.RequestHandler
                                                        IRequestHandler<DeleteMovimentacaoRealizadaCommand>
     {
         private readonly IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService;
-        private readonly IMovimentacaoDomainService movimentacaoDomainService;
         private readonly ISaldoDiarioDomainService saldoDiarioDomainService;
         private readonly IMediator mediator;
         private readonly IMapper mapper;
@@ -34,14 +34,12 @@ namespace GestaoFinanceira.Application.RequestHandler
         private List<MovimentacaoPrevista> movimentacoesPrevistas = new List<MovimentacaoPrevista>();
 
 
-        public MovimentacaoRealizadaRequestHandler(IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService, 
-                                                   IMovimentacaoDomainService movimentacaoDomainService,
+        public MovimentacaoRealizadaRequestHandler(IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService,
                                                    ISaldoDiarioDomainService saldoDiarioDomainService,
                                                    IMediator mediator, 
                                                    IMapper mapper)
         {
             this.movimentacaoRealizadaDomainService = movimentacaoRealizadaDomainService;
-            this.movimentacaoDomainService = movimentacaoDomainService;
             this.saldoDiarioDomainService = saldoDiarioDomainService;
             this.mediator = mediator;
             this.mapper = mapper; 
@@ -241,5 +239,6 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             return Unit.Value;
         }
+
     }
 }

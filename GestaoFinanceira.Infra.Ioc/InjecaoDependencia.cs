@@ -46,6 +46,8 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IMovimentacaoRealizadaDomainService, MovimentacaoRealizadaDomainService>();
             services.AddTransient<ISaldoDiarioDomainService, SaldoDiarioDomainService>();
             services.AddTransient<IFechamentoDomainService, FechamentoDomainService>();
+            services.AddTransient<ISaldoAnualDomainService, SaldoAnualDomainService>();
+        
             #endregion
 
             #region InfraData
@@ -59,6 +61,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IMovimentacaoRealizadaRepository, MovimentacaoRealizadaRepository>();
             services.AddTransient<ISaldoDiarioRepository, SaldoDiarioRepository>();
             services.AddTransient<IFechamentoRepository, FechamentoRepository>();
+            services.AddTransient<ISaldoAnualRepository, SaldoAnualRepository>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             #endregion

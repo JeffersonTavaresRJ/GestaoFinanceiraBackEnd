@@ -60,6 +60,15 @@ namespace GestaoFinanceira.Application.Profiles
 
             CreateMap<SaldoDiario, SaldoDiarioDTO>()
                 .AfterMap((scr, dest) => dest.DataSaldo = new DateTime(scr.DataSaldo.Year, scr.DataSaldo.Month, scr.DataSaldo.Day,0,0,0));
+
+            CreateMap<SaldoAnual, SaldoAnualPorContaDTO>();
+
+            CreateMap<SaldoAnual, SaldoAnualPorPeriodoDTO>()
+                .AfterMap((scr, dest) => dest.IdUsuario = scr.IdUsuario)
+                .AfterMap((scr, dest) => dest.IdConta = scr.IdConta)
+                .AfterMap((scr, dest) => dest.DescricaoConta = scr.DescricaoConta)
+                .AfterMap((scr, dest) => dest.Ano = scr.Ano)
+                .AfterMap((scr, dest) => dest.Saldo = scr.Dezembro);
         }
     }
 }
