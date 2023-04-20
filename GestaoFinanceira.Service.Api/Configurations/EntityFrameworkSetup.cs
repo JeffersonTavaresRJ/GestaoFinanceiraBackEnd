@@ -23,7 +23,7 @@ namespace GestaoFinanceira.Service.Api.Configurations
                               .AddDebug();
             });
 
-            services.AddControllers().AddNewtonsoftJson(x =>x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            //services.AddControllers().AddNewtonsoftJson(x =>x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<SqlContext>(
                 options => { options.UseSqlServer(configuration.GetConnectionString("GestaoFinanceira"));

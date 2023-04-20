@@ -6,7 +6,6 @@ namespace GestaoFinanceira.Domain.DTOs
 {
     public class SaldoAnualPorPeriodoDTO
     {
-        public int IdUsuario { get; set; }
         public int IdConta { get; set; }
         public string DescricaoConta { get; set; }
         public int Ano { get; set; }
