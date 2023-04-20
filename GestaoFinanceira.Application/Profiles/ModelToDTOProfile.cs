@@ -64,7 +64,6 @@ namespace GestaoFinanceira.Application.Profiles
             CreateMap<SaldoAnual, SaldoAnualPorContaDTO>();
 
             CreateMap<SaldoAnual, SaldoAnualPorPeriodoDTO>()
-                .AfterMap((scr, dest) => dest.IdUsuario = scr.IdUsuario)
                 .AfterMap((scr, dest) => dest.IdConta = scr.IdConta)
                 .AfterMap((scr, dest) => dest.DescricaoConta = scr.DescricaoConta)
                 .AfterMap((scr, dest) => dest.Ano = scr.Ano)
