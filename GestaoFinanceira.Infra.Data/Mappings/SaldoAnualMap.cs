@@ -30,6 +30,10 @@ namespace GestaoFinanceira.Infra.Data.Mappings
                 .HasColumnName("ANO")
                 .HasColumnType("INT");
 
+            builder.Property(s => s.DezembroAnterior)
+                .HasColumnName("DEZEMBRO_ANT")
+                .HasColumnType("FLOAT");
+
             builder.Property(s => s.Janeiro)
                 .HasColumnName("JANEIRO")
                 .HasColumnType("FLOAT");
