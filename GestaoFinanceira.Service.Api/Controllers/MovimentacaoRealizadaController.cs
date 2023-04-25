@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
-using GestaoFinanceira.Application.Commands.SaldoAnual;
+using GestaoFinanceira.Application.Commands.SaldoMensalConta;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
@@ -153,18 +153,18 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("GetSaldoAnualPorConta/{ano}")]
-        public async Task<ActionResult<List<SaldoAnualPorContaDTO>>>  GetSaldoAnualPorConta(int ano)
+        [HttpGet("GetSaldoMensalPorConta/{ano}")]
+        public async Task<ActionResult<List<SaldoContaMensalDTO>>> GetSaldoMensalPorConta(int ano)
         {
             try
             {
                 UserEntity.SetUsuarioID(this.User);
-                ReaderSaldoAnualPorContaCommand command = new ReaderSaldoAnualPorContaCommand
+                ReaderSaldoMensalPorContaCommand command = new ReaderSaldoMensalPorContaCommand
                 {
                     IdUsuario = UserEntity.IdUsuario,
                     Ano = ano
                 };
-                return Ok( await movimentacaoRealizadaApplicationService.GetSaldoAnualPorConta(command));
+                return Ok( await movimentacaoRealizadaApplicationService.GetSaldoMensalPorConta(command));
             }
             catch(Exception e)
             {
@@ -172,19 +172,19 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("GetSaldoAnualPorPeriodo/{anoInicial}/{anoFinal}")]
-        public async Task<ActionResult<List<SaldoAnualPorPeriodoDTO>>> GetSaldoAnualPorPeriodo(int anoInicial, int anoFinal)
+        [HttpGet("GetSaldoAnualPorConta/{anoInicial}/{anoFinal}")]
+        public async Task<ActionResult<List<SaldoContaAnualDTO>>> GetSaldoAnualPorConta(int anoInicial, int anoFinal)
         {
             try
             {
                 UserEntity.SetUsuarioID(this.User);
-                ReaderSaldoAnualPorPeriodoCommand command = new ReaderSaldoAnualPorPeriodoCommand
+                ReaderSaldoAnualPorContaCommand command = new ReaderSaldoAnualPorContaCommand
                 {
                     IdUsuario = UserEntity.IdUsuario,
                     AnoInicial = anoInicial,
                     AnoFinal = anoFinal
                 };
-                return Ok(await movimentacaoRealizadaApplicationService.GetSaldoAnualPorPeriodo(command));
+                return Ok(await movimentacaoRealizadaApplicationService.GetSaldoAnualPorConta(command));
             }
             catch (Exception e)
             {

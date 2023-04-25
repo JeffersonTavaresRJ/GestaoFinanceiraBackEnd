@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
-using GestaoFinanceira.Application.Commands.SaldoAnual;
+using GestaoFinanceira.Application.Commands.SaldoMensalConta;
 using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;

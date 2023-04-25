@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GestaoFinanceira.Infra.Data.Mappings
 {
-    public class SaldoAnualMap :IEntityTypeConfiguration<SaldoAnual>
+    public class SaldoContaMensalMap :IEntityTypeConfiguration<SaldoContaMensal>
     {
-        public void Configure(EntityTypeBuilder<SaldoAnual> builder)
+        public void Configure(EntityTypeBuilder<SaldoContaMensal> builder)
         {
-            builder.ToView("VW_SALDO_ANUAL");
+            builder.ToView("VW_SAME_CONT");
 
             builder.HasKey(s => new { s.IdUsuario, s.IdConta, s.Ano });
             //builder.HasNoKey();
