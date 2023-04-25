@@ -54,6 +54,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         public ISaldoContaMensalRepository ISaldoMensalContaRepository => new SaldoContaMensalRepository(context);
 
+        public IItemMovimentacaoMensalRepository IItemMovimentacaoMensalRepository => new ItemMovimentacaoMensalRepository(context);
+
         public void Dispose()
         {
             //context.Dispose();
