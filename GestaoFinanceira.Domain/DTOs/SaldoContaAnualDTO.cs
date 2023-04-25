@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GestaoFinanceira.Domain.DTOs
 {
-    public class SaldoAnualPorPeriodoDTO
+    public class SaldoContaAnualDTO
     {
         public int IdConta { get; set; }
         public string DescricaoConta { get; set; }
