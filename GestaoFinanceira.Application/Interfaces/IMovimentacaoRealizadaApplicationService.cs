@@ -1,4 +1,5 @@
-﻿using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
+﻿using GestaoFinanceira.Application.Commands.ItemMovimentacao;
+using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
 using GestaoFinanceira.Application.Commands.SaldoMensalConta;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Models;
@@ -20,5 +21,6 @@ namespace GestaoFinanceira.Application.Interfaces
         List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime? dataReferencia);
         Task<List<SaldoContaMensalDTO>> GetSaldoMensalPorConta(ReaderSaldoMensalPorContaCommand command);
         Task<List<SaldoContaAnualDTO>> GetSaldoAnualPorConta(ReaderSaldoAnualPorContaCommand command);
+        Task<List<ItemMovimentacaoMensalDTO>> GetItemMovimentacaoMensal(ReaderItemMovimentacaoMensalCommand command);
     }
 }

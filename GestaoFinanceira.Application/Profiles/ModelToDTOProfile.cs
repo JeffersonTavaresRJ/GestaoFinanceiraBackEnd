@@ -68,6 +68,8 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((scr, dest) => dest.DescricaoConta = scr.DescricaoConta)
                 .AfterMap((scr, dest) => dest.Ano = scr.Ano)
                 .AfterMap((scr, dest) => dest.Saldo = scr.Dezembro);
+
+            CreateMap<ItemMovimentacaoMensal, ItemMovimentacaoMensalDTO>();
         }
     }
 }

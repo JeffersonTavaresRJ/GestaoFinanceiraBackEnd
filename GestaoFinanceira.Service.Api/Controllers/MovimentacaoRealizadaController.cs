@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using GestaoFinanceira.Application.Commands.ItemMovimentacao;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
 using GestaoFinanceira.Application.Commands.SaldoMensalConta;
 using GestaoFinanceira.Application.Interfaces;
@@ -185,6 +186,26 @@ namespace GestaoFinanceira.Service.Api.Controllers
                     AnoFinal = anoFinal
                 };
                 return Ok(await movimentacaoRealizadaApplicationService.GetSaldoAnualPorConta(command));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("GetItemMovimentacaoMensal/{dataInicial}/{dataFinal}")]
+        public async Task<ActionResult<List<SaldoContaAnualDTO>>> GetItemMovimentacaoMensal(DateTime dataInicial, DateTime dataFinal)
+        {
+            try
+            {
+                UserEntity.SetUsuarioID(this.User);
+                ReaderItemMovimentacaoMensalCommand command = new ReaderItemMovimentacaoMensalCommand
+                {
+                    IdUsuario = UserEntity.IdUsuario,
+                    DataInicial = dataInicial,
+                    DataFinal = dataFinal
+                };
+                return Ok(await movimentacaoRealizadaApplicationService.GetItemMovimentacaoMensal(command));
             }
             catch (Exception e)
             {
