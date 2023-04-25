@@ -58,6 +58,8 @@ namespace GestaoFinanceira.Infra.Data.Context
 
             modelBuilder.ApplyConfiguration(new SaldoContaMensalMap());
 
+            modelBuilder.ApplyConfiguration(new ItemMovimentacaoMensalMap());
+
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -21,6 +21,7 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
         ISaldoDiarioRepository ISaldoDiarioRepository { get; }
         IFechamentoRepository IFechamentoRepository { get; }
         ISaldoContaMensalRepository ISaldoMensalContaRepository { get; }
+        IItemMovimentacaoMensalRepository IItemMovimentacaoMensalRepository { get; }
 
     }
 }
