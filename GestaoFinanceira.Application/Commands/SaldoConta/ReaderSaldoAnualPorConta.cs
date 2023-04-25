@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GestaoFinanceira.Application.Commands.SaldoAnual
+namespace GestaoFinanceira.Application.Commands.SaldoMensalConta
 {
-    public class ReaderSaldoAnualPorPeriodoCommand: IRequest<List<SaldoAnualPorPeriodoDTO>>
+    public class ReaderSaldoAnualPorContaCommand: IRequest<List<SaldoContaAnualDTO>>
     {
         public int IdUsuario { get; set; }
         public int AnoInicial { get; set; }

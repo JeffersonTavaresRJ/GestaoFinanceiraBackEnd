@@ -1,5 +1,5 @@
 ﻿using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
-using GestaoFinanceira.Application.Commands.SaldoAnual;
+using GestaoFinanceira.Application.Commands.SaldoMensalConta;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
@@ -40,12 +40,12 @@ namespace GestaoFinanceira.Application.Services
             return mediator.Send(command);
         }
 
-        public async Task<List<SaldoAnualPorContaDTO>> GetSaldoAnualPorConta(ReaderSaldoAnualPorContaCommand command)
+        public async Task<List<SaldoContaMensalDTO>> GetSaldoMensalPorConta(ReaderSaldoMensalPorContaCommand command)
         {
             return await mediator.Send(command); 
         }
 
-        public async Task<List<SaldoAnualPorPeriodoDTO>> GetSaldoAnualPorPeriodo(ReaderSaldoAnualPorPeriodoCommand command)
+        public async Task<List<SaldoContaAnualDTO>> GetSaldoAnualPorConta(ReaderSaldoAnualPorContaCommand command)
         {
             return await mediator.Send(command);
         }

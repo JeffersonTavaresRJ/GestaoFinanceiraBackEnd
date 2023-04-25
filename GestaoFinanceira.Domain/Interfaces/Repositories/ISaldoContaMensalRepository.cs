@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Domain.Interfaces.Repositories
 {
-    public interface ISaldoAnualRepository
+    public interface ISaldoContaMensalRepository
     {
-        Task<IEnumerable<SaldoAnual>> GetSaldoAnual(int idUsuario, int anoInicial, int anoFinal);
+        Task<IEnumerable<SaldoContaMensal>> GetSaldoMensalConta(int idUsuario, int anoInicial, int anoFinal);
     }
 }

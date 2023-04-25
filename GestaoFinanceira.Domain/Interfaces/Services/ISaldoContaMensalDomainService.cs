@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Domain.Interfaces.Services
 {
-    public interface ISaldoAnualDomainService
+    public interface ISaldoContaMensalDomainService
     {
-       Task<IEnumerable<SaldoAnual>>GetSaldoAnual(int idUsuario, int anoInicial, int anoFinal);
+       Task<IEnumerable<SaldoContaMensal>>GetSaldoMensalConta(int idUsuario, int anoInicial, int anoFinal);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
-using GestaoFinanceira.Application.Commands.SaldoAnual;
+using GestaoFinanceira.Application.Commands.SaldoMensalConta;
 using GestaoFinanceira.Application.Notifications;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
@@ -20,40 +20,40 @@ namespace GestaoFinanceira.Application.RequestHandler
 {
 
 
-    public class MovimentacaoRealizadaQueryHandler :   IRequestHandler<ReaderSaldoAnualPorContaCommand, List<SaldoAnualPorContaDTO>>,
-                                                       IRequestHandler<ReaderSaldoAnualPorPeriodoCommand, List<SaldoAnualPorPeriodoDTO>>
+    public class MovimentacaoRealizadaQueryHandler :   IRequestHandler<ReaderSaldoMensalPorContaCommand, List<SaldoContaMensalDTO>>,
+                                                       IRequestHandler<ReaderSaldoAnualPorContaCommand, List<SaldoContaAnualDTO>>
     {
-        private readonly ISaldoAnualDomainService saldoAnualDomainService;
+        private readonly ISaldoContaMensalDomainService SaldoContaMensalDomainService;
         private readonly IMapper mapper;
 
 
-        public MovimentacaoRealizadaQueryHandler(  ISaldoAnualDomainService saldoAnualDomainService,
+        public MovimentacaoRealizadaQueryHandler(  ISaldoContaMensalDomainService SaldoContaMensalDomainService,
                                                    IMapper mapper)
         {
-            this.saldoAnualDomainService= saldoAnualDomainService;
+            this.SaldoContaMensalDomainService= SaldoContaMensalDomainService;
             this.mapper = mapper; 
         }
 
-        public async Task<List<SaldoAnualPorContaDTO>> Handle(ReaderSaldoAnualPorContaCommand request, CancellationToken cancellationToken)
+        public async Task<List<SaldoContaMensalDTO>> Handle(ReaderSaldoMensalPorContaCommand request, CancellationToken cancellationToken)
         {
-            List<SaldoAnual> lista = (List <SaldoAnual>) await saldoAnualDomainService.GetSaldoAnual(request.IdUsuario, request.Ano, request.Ano);
-            List<SaldoAnualPorContaDTO> result = new List<SaldoAnualPorContaDTO>();
+            List<SaldoContaMensal> lista = (List <SaldoContaMensal>) await SaldoContaMensalDomainService.GetSaldoMensalConta(request.IdUsuario, request.Ano, request.Ano);
+            List<SaldoContaMensalDTO> result = new List<SaldoContaMensalDTO>();
 
-            foreach (SaldoAnual item in lista)
+            foreach (SaldoContaMensal item in lista)
             {
-                result.Add(mapper.Map<SaldoAnualPorContaDTO>(item));
+                result.Add(mapper.Map<SaldoContaMensalDTO>(item));
             }
 
             return result;
         }
 
-        public async Task<List<SaldoAnualPorPeriodoDTO>> Handle(ReaderSaldoAnualPorPeriodoCommand request, CancellationToken cancellationToken)
+        public async Task<List<SaldoContaAnualDTO>> Handle(ReaderSaldoAnualPorContaCommand request, CancellationToken cancellationToken)
         {
-            List<SaldoAnualPorPeriodoDTO> lista = new List<SaldoAnualPorPeriodoDTO>();
+            List<SaldoContaAnualDTO> lista = new List<SaldoContaAnualDTO>();
 
-            foreach (SaldoAnual item in await saldoAnualDomainService.GetSaldoAnual(request.IdUsuario, request.AnoInicial, request.AnoFinal))
+            foreach (SaldoContaMensal item in await SaldoContaMensalDomainService.GetSaldoMensalConta(request.IdUsuario, request.AnoInicial, request.AnoFinal))
             {
-                lista.Add(mapper.Map<SaldoAnualPorPeriodoDTO>(item));
+                lista.Add(mapper.Map<SaldoContaAnualDTO>(item));
             }
 
             return lista;

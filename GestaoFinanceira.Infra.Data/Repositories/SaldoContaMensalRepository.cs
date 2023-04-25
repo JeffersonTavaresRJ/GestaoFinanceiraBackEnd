@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Infra.Data.Repositories
 {
-    public class SaldoAnualRepository : ISaldoAnualRepository
+    public class SaldoContaMensalRepository : ISaldoContaMensalRepository
     {
         protected SqlContext context;
-        protected DbSet<SaldoAnual> dbset;
+        protected DbSet<SaldoContaMensal> dbset;
 
-        public SaldoAnualRepository(SqlContext context)
+        public SaldoContaMensalRepository(SqlContext context)
         {
             this.context = context;
-            dbset = this.context.Set<SaldoAnual>();
+            dbset = this.context.Set<SaldoContaMensal>();
         }
 
-        public async Task<IEnumerable<SaldoAnual>> GetSaldoAnual(int idUsuario, int anoInicial, int anoFinal)
+        public async Task<IEnumerable<SaldoContaMensal>> GetSaldoMensalConta(int idUsuario, int anoInicial, int anoFinal)
         {
             return await dbset.Where(x=>x.IdUsuario==idUsuario && x.Ano >=anoInicial && x.Ano <= anoFinal).ToListAsync();
         }        

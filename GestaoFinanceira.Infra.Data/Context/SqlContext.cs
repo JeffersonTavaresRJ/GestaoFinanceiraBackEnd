@@ -18,7 +18,7 @@ namespace GestaoFinanceira.Infra.Data.Context
         public DbSet<MovimentacaoPrevista> MovimentacoesPrevistas { get; set; }
         public DbSet<MovimentacaoRealizada> MovimentacoesRealizadas { get; set; }
         public DbSet<SaldoDiario> SaldosDiario { get; set; }
-        //public DbSet<SaldoAnual> SaldosAnuais{ get; set; }
+        //public DbSet<SaldoMensalConta> SaldosAnuais{ get; set; }
 
 
         public SqlContext(DbContextOptions<SqlContext> options) : base(options)
@@ -56,7 +56,7 @@ namespace GestaoFinanceira.Infra.Data.Context
 
             modelBuilder.ApplyConfiguration(new SaldoDiarioMap());
 
-            modelBuilder.ApplyConfiguration(new SaldoAnualMap());
+            modelBuilder.ApplyConfiguration(new SaldoContaMensalMap());
 
             base.OnModelCreating(modelBuilder);
         }
