@@ -38,6 +38,16 @@ namespace GestaoFinanceira.Infra.Data.Mappings
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(50);
 
+            builder.Property(s => s.TipoItemMovimentcao)
+                .HasColumnName("TIPO_ITMO")
+                .HasColumnType("CHAR")
+                .HasMaxLength(1);
+
+            builder.Property(s => s.DescricaoTipoItemMovimentcao)
+                .HasColumnName("DESCRICAO_TIPO_ITMO")
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(10);
+
             builder.Property(s => s.ValorMensal)
                 .HasColumnName("VALOR_MENSAL_ITMO")
                 .HasColumnType("FLOAT");
