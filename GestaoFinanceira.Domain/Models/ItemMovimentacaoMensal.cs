@@ -12,6 +12,8 @@ namespace GestaoFinanceira.Domain.Models
         public string DescricaoCategoria { get; set; }
         public int IdItemMovimentacao { get; set; }
         public string DescricaoItemMovimentacao { get; set; }
+        public string TipoItemMovimentcao { get; set; }
+        public string DescricaoTipoItemMovimentcao { get; set; } 
         public float ValorMensal { get; set; }
         public float DiferencaPercentualMensal { get; set; }
     }
