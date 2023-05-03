@@ -18,3 +18,4 @@ GestaoFinanceira.Infra.Data/obj/*
 GestaoFinanceira.Infra.Ioc/obj/*
 GestaoFinanceira.Service.Api/obj/*
 GestaoFinanceira.Service.Api/Properties/*
+GestaoFinanceira.Service.Api/appsettings.json
