@@ -3,6 +3,7 @@ using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Models.Enuns;
 using GestaoFinanceira.Infra.CrossCutting.Security;
+using Microsoft.AspNetCore.Routing.Constraints;
 using System;
 
 namespace GestaoFinanceira.Application.Profiles
@@ -67,7 +68,19 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((scr, dest) => dest.IdConta = scr.IdConta)
                 .AfterMap((scr, dest) => dest.DescricaoConta = scr.DescricaoConta)
                 .AfterMap((scr, dest) => dest.Ano = scr.Ano)
-                .AfterMap((scr, dest) => dest.Saldo = scr.Dezembro);
+                .AfterMap((scr, dest) => dest.Saldo = DateTime.Now.Year == scr.Ano? 
+                                                      DateTime.Now.Month == 1 ? scr.Janeiro :
+                                                      DateTime.Now.Month == 2 ? scr.Fevereiro :
+                                                      DateTime.Now.Month == 3 ? scr.Marco :
+                                                      DateTime.Now.Month == 4 ? scr.Abril :
+                                                      DateTime.Now.Month == 5 ? scr.Maio :
+                                                      DateTime.Now.Month == 6 ? scr.Junho :
+                                                      DateTime.Now.Month == 7 ? scr.Julho :
+                                                      DateTime.Now.Month == 8 ? scr.Agosto :
+                                                      DateTime.Now.Month == 9 ? scr.Setembro :
+                                                      DateTime.Now.Month == 10 ? scr.Outubro :
+                                                      DateTime.Now.Month == 11 ? scr.Novembro : scr.Dezembro 
+                                                      : scr.Dezembro);
 
             CreateMap<ItemMovimentacaoMensal, ItemMovimentacaoMensalDTO>();
         }
