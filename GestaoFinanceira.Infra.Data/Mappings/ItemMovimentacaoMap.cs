@@ -36,6 +36,10 @@ namespace GestaoFinanceira.Infra.Data.Mappings
                 .HasColumnName("ID_CATE")
                 .IsRequired();
 
+            builder.Property(i => i.TipoOperacao)
+                .HasColumnName("TIPO_OPERACAO_ITMO")
+                .HasDefaultValue("MD");
+
             builder.HasOne(i => i.Categoria)
                 .WithMany(c => c.ItemMovimentacoes)
                 .HasForeignKey(i => i.IdCategoria);
