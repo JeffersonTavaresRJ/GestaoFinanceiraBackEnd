@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Infra.Caching.Context;
+using GestaoFinanceira.Infra.CrossCutting.GenericFunctions;
 using GestaoFinanceira.Infra.CrossCutting.Security;
 using MongoDB.Driver;
 using System;
@@ -25,7 +26,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         public void Update(SaldoDiarioDTO obj)
         {
-            var filter = Builders<SaldoDiarioDTO>.Filter.Where(sa => sa.Conta.Id == obj.Conta.Id && sa.DataSaldo == obj.DataSaldo);
+            var filter = Builders<SaldoDiarioDTO>.Filter.Where(sa => sa.Conta.Id == obj.Conta.Id && 
+            sa.DataSaldo ==obj.DataSaldo);
             mongoDBContext.SaldosDiario.ReplaceOne(filter, obj);
         }
 
@@ -54,7 +56,9 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public SaldoDiarioDTO GetByKey(int idConta, DateTime dataSaldo)
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
-               .Where(sa => sa.Conta.Id == idConta && sa.DataSaldo == dataSaldo);
+               .Where(sa => sa.Conta.Id == idConta && 
+               sa.DataSaldo >= DateTimeClass.DataHoraIni(dataSaldo) &&
+               sa.DataSaldo <= DateTimeClass.DataHoraFim(dataSaldo));
             return mongoDBContext.SaldosDiario.Find(filter).FirstOrDefault<SaldoDiarioDTO>();
         }
 
