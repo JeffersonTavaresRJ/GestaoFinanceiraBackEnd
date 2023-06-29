@@ -123,7 +123,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
         }
 
 
-        [HttpGet("GetByDataReferencia/'{dataReferencia}/{idItemMovimentacao?}")]
+        [HttpGet("GetByDataReferencia/{dataReferencia}/{idItemMovimentacao?}")]
         public IActionResult GetByDataReferencia(DateTime dataReferencia, int? idItemMovimentacao)
         {
             try
