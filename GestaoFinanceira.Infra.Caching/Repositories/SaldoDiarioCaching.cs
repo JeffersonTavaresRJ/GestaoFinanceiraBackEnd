@@ -69,7 +69,6 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return mongoDBContext.SaldosDiario.Find(filter).ToList();
         }
 
-
         public List<SaldoDiarioDTO> GetGroupBySaldoDiario(DateTime dataIni, DateTime dataFim)
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
@@ -79,11 +78,10 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return mongoDBContext.SaldosDiario.Find(filter).ToList().OrderByDescending(sd => sd.DataSaldo).ToList();
         }
 
-        public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime? dataReferencia)
+        public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia)
         {
-            var date = dataReferencia.HasValue ? dataReferencia.Value : GetAll().Max(x => x.DataSaldo);
-            var dataIni = new DateTime(date.Year, date.Month, 1);
-            var dataFim = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
+             var dataIni = new DateTime(dataReferencia.Year, dataReferencia.Month, 1);
+            var dataFim = new DateTime(dataReferencia.Year, dataReferencia.Month, DateTime.DaysInMonth(dataReferencia.Year, dataReferencia.Month));
 
             List<SaldoDiarioDTO> saldosDiario = GetBySaldosDiario(dataIni, dataFim);
 

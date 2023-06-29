@@ -61,7 +61,7 @@ namespace GestaoFinanceira.Application.Services
             return movimentacaoRealizadaCaching.GetId(id);
         }
 
-        public List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime? dataReferencia)
+        public List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime dataReferencia)
         {
             return movimentacaoRealizadaCaching.GetByDataReferencia(idItemMovimentacao, dataReferencia);
         }
@@ -76,7 +76,7 @@ namespace GestaoFinanceira.Application.Services
             return saldoDiarioCaching.GetGroupBySaldoDiario(dataMovRealIni, dataMovRealFim);
         }
 
-        public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime? dataReferencia)
+        public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia)
         {
             return saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia); 
         }

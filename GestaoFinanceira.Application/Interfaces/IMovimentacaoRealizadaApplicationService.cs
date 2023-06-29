@@ -15,10 +15,10 @@ namespace GestaoFinanceira.Application.Interfaces
         Task Update(UpdateMovimentacaoRealizadaCommand command);
         Task Delete(DeleteMovimentacaoRealizadaCommand command);   
         MovimentacaoRealizadaDTO GetId(int id);
-        List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime? dataReferencia);
+        List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime dataReferencia);
         List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, DateTime dataMovRealIni, DateTime dataMovRealFim);
         List<SaldoDiarioDTO> GetGroupBySaldoDiario(DateTime dataMovRealIni, DateTime dataMovRealFim);
-        List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime? dataReferencia);
+        List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia);
         Task<List<SaldoContaMensalDTO>> GetSaldoMensalPorConta(ReaderSaldoMensalPorContaCommand command);
         Task<List<SaldoContaAnualDTO>> GetSaldoAnualPorConta(ReaderSaldoAnualPorContaCommand command);
         Task<List<ItemMovimentacaoMensalDTO>> GetItemMovimentacaoMensal(ReaderItemMovimentacaoMensalCommand command);

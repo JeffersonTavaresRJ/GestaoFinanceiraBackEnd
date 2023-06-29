@@ -9,7 +9,7 @@ namespace GestaoFinanceira.Domain.Interfaces.Caching
     {
         MovimentacaoRealizadaDTO GetId(int id);
         List<MovimentacaoRealizadaDTO> GetAll();
-        List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime? dataReferencia);
+        List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime dataReferencia);
         List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int idConta, DateTime dataMovReal);
         List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, DateTime dataMovRealIni, DateTime dataMovRealFim);
     }
