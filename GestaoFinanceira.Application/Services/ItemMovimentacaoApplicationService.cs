@@ -46,7 +46,7 @@ namespace GestaoFinanceira.Application.Services
 
         public List<ItemMovimentacaoDTO> GetAll()
         {
-           return  itemMovimentacaoCaching.GetAll();  
+            return itemMovimentacaoCaching.GetAll();
         }
 
         public IList GetAllTipo()

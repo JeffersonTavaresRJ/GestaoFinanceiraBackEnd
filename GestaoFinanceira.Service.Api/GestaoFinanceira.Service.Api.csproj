@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>dd3ec8f2-a813-4024-934b-af1aca4ecc43</UserSecretsId>
 	  <!--publicação no smarterasp.net-->
-	  <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+	  <!--<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>-->
   </PropertyGroup>
 
   <ItemGroup>
