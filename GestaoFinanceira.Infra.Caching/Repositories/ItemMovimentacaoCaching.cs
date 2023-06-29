@@ -69,6 +69,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                             Status = i.Status,
                             Tipo = i.Tipo,
                             TipoDescricao = i.TipoDescricao,
+                            TipoOperacao = i.TipoOperacao,
                             Categoria = c
                         };
 

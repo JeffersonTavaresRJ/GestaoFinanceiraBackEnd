@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Infra.Caching.Context;
+using GestaoFinanceira.Infra.CrossCutting.GenericFunctions;
 using GestaoFinanceira.Infra.CrossCutting.Security;
 using MongoDB.Driver;
 using System;
@@ -25,7 +26,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         public void Update(SaldoDiarioDTO obj)
         {
-            var filter = Builders<SaldoDiarioDTO>.Filter.Where(sa => sa.Conta.Id == obj.Conta.Id && sa.DataSaldo == obj.DataSaldo);
+            var filter = Builders<SaldoDiarioDTO>.Filter.Where(sa => sa.Conta.Id == obj.Conta.Id && 
+            sa.DataSaldo ==obj.DataSaldo);
             mongoDBContext.SaldosDiario.ReplaceOne(filter, obj);
         }
 
@@ -54,7 +56,9 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public SaldoDiarioDTO GetByKey(int idConta, DateTime dataSaldo)
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
-               .Where(sa => sa.Conta.Id == idConta && sa.DataSaldo == dataSaldo);
+               .Where(sa => sa.Conta.Id == idConta && 
+               sa.DataSaldo >= DateTimeClass.DataHoraIni(dataSaldo) &&
+               sa.DataSaldo <= DateTimeClass.DataHoraFim(dataSaldo));
             return mongoDBContext.SaldosDiario.Find(filter).FirstOrDefault<SaldoDiarioDTO>();
         }
 
@@ -65,7 +69,6 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return mongoDBContext.SaldosDiario.Find(filter).ToList();
         }
 
-
         public List<SaldoDiarioDTO> GetGroupBySaldoDiario(DateTime dataIni, DateTime dataFim)
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
@@ -75,11 +78,10 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return mongoDBContext.SaldosDiario.Find(filter).ToList().OrderByDescending(sd => sd.DataSaldo).ToList();
         }
 
-        public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime? dataReferencia)
+        public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia)
         {
-            var date = dataReferencia.HasValue ? dataReferencia.Value : GetAll().Max(x => x.DataSaldo);
-            var dataIni = new DateTime(date.Year, date.Month, 1);
-            var dataFim = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
+             var dataIni = new DateTime(dataReferencia.Year, dataReferencia.Month, 1);
+            var dataFim = new DateTime(dataReferencia.Year, dataReferencia.Month, DateTime.DaysInMonth(dataReferencia.Year, dataReferencia.Month));
 
             List<SaldoDiarioDTO> saldosDiario = GetBySaldosDiario(dataIni, dataFim);
 

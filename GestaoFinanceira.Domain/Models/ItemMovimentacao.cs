@@ -12,6 +12,7 @@ namespace GestaoFinanceira.Domain.Models
         public TipoItemMovimentacao Tipo { get; set; }
         public bool Status { get; set; }
         public int IdCategoria { get; set; }
+        public string TipoOperacao { get; set; }
         public virtual Categoria Categoria { get; set; }
         public virtual List<Movimentacao> Movimentacoes { get; set; }
 

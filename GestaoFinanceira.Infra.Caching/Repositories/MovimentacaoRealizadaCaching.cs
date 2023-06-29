@@ -1,8 +1,10 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Infra.Caching.Context;
+using GestaoFinanceira.Infra.CrossCutting.GenericFunctions;
 using GestaoFinanceira.Infra.CrossCutting.Security;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         private readonly IFormaPagamentoCaching formaPagamentoCaching;
         private readonly IContaCaching contaCaching;
         private readonly IItemMovimentacaoCaching itemMovimentacaoCaching;
-
+   
         public MovimentacaoRealizadaCaching(MongoDBContext mongoDBContext, 
                                             IFormaPagamentoCaching formaPagamentoCaching, 
                                             IContaCaching contaCaching, 
@@ -80,17 +82,19 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         {
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter
                .Where(mr => (mr.Conta.Id == idConta)
-                   && mr.DataMovimentacaoRealizada == dataMovReal);
+                   && mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataMovReal)
+                   && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataMovReal));
             List<MovimentacaoRealizadaDTO> movimentacoesRealizadas = mongoDBContext.MovimentacoesRealizadas.Find(filter).ToList();
 
             return Query(movimentacoesRealizadas);
         }
 
-        public List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime? dataReferencia)
+        public List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime dataReferencia)
         {
-            var date = dataReferencia.HasValue ? dataReferencia.Value : GetAll().Max(x => x.DataReferencia);
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter
-               .Where(mr => (mr.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null) && mr.DataReferencia == date);
+               .Where(mr => (mr.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null) && 
+               mr.DataReferencia >= DateTimeClass.DataHoraIni(dataReferencia) &&
+               mr.DataReferencia <= DateTimeClass.DataHoraFim(dataReferencia));
             List<MovimentacaoRealizadaDTO> movimentacoesRealizadas = mongoDBContext.MovimentacoesRealizadas.Find(filter).ToList();
 
             return Query(movimentacoesRealizadas).OrderBy(mr => mr.DataMovimentacaoRealizada).ToList();

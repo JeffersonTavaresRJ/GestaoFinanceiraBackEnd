@@ -14,5 +14,6 @@ namespace GestaoFinanceira.Domain.DTOs
         public string TipoDescricao { get; set; }
         public bool Status { get; set; }
         public virtual CategoriaDTO Categoria { get; set; }
+        public string TipoOperacao { get; set; }
     }
 }

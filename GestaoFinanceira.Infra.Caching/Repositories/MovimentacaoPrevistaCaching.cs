@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Infra.Caching.Context;
+using GestaoFinanceira.Infra.CrossCutting.GenericFunctions;
 using GestaoFinanceira.Infra.CrossCutting.Security;
 using MongoDB.Driver;
 using System;
@@ -61,7 +62,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
                 .Where(mp => mp.ItemMovimentacao.Id == idItemMovimentacao && 
-                       mp.DataReferencia == dataReferencia.Date &&
+                       mp.DataReferencia >= DateTimeClass.DataHoraIni(dataReferencia.Date) &&
+                       mp.DataReferencia <= DateTimeClass.DataHoraFim(dataReferencia.Date) &&
                        mp.FormaPagamento.IdUsuario == UserEntity.IdUsuario);
             List<MovimentacaoPrevistaDTO> movimentacoesPrevistas = mongoDBContext.MovimentacoesPrevistas.Find(filter).ToList();
             

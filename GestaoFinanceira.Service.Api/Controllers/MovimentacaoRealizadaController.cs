@@ -122,8 +122,9 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("GetByDataReferencia/{idItemMovimentacao?}/{dataReferencia?}")]
-        public IActionResult GetByDataReferencia(int? idItemMovimentacao, DateTime? dataReferencia)
+
+        [HttpGet("GetByDataReferencia/'{dataReferencia}/{idItemMovimentacao?}")]
+        public IActionResult GetByDataReferencia(DateTime dataReferencia, int? idItemMovimentacao)
         {
             try
             {
@@ -231,8 +232,8 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("GetMaxGroupBySaldoConta/{dataReferencia?}")]
-        public IActionResult GetMaxGroupBySaldoConta(DateTime? dataReferencia)
+        [HttpGet("GetMaxGroupBySaldoConta/{dataReferencia}")]
+        public IActionResult GetMaxGroupBySaldoConta(DateTime dataReferencia)
         {
             try
             {
