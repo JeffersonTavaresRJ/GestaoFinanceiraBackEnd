@@ -23,7 +23,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         public async Task<IEnumerable<ItemMovimentacaoMensal>> GetItemMovimentacaoMensal(int idUsuario, DateTime dataIncial, DateTime dataFinal)
         {
-            return await dbset.Where(x=>x.IdUsuario==idUsuario && x.DataReferencia >= dataIncial && x.DataReferencia <= dataFinal).ToListAsync();
+            IEnumerable<ItemMovimentacaoMensal> result = await dbset.Where(x => x.IdUsuario == idUsuario && x.DataReferencia >= dataIncial && x.DataReferencia <= dataFinal).ToListAsync();
+            return result;
         }        
     }
 }
