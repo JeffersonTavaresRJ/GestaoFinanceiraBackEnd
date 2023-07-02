@@ -34,20 +34,24 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public void Update(MovimentacaoPrevistaDTO obj)
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.ItemMovimentacao.Id == obj.ItemMovimentacao.Id && mp.DataReferencia == obj.DataReferencia.Date);
+                .Where(mp => mp.ItemMovimentacao.Id == obj.ItemMovimentacao.Id && 
+                       mp.DataReferencia >= DateTimeClass.DataHoraIni(obj.DataReferencia.Date) &&
+                       mp.DataReferencia <= DateTimeClass.DataHoraFim(obj.DataReferencia.Date));
             mongoDBContext.MovimentacoesPrevistas.ReplaceOne(filter, obj);  
         }
 
         public void Delete(MovimentacaoPrevistaDTO obj)
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.ItemMovimentacao.Id == obj.ItemMovimentacao.Id && mp.DataReferencia == obj.DataReferencia.Date); 
+                .Where(mp => mp.ItemMovimentacao.Id == obj.ItemMovimentacao.Id &&
+                       mp.DataReferencia >= DateTimeClass.DataHoraIni(obj.DataReferencia.Date) &&
+                       mp.DataReferencia <= DateTimeClass.DataHoraFim(obj.DataReferencia.Date)); 
             mongoDBContext.MovimentacoesPrevistas.DeleteOne(filter);        }
 
         public List<MovimentacaoPrevistaDTO> GetAll()
         {
-            DateTime dataIni = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-            DateTime dataFim = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month));
+            DateTime dataIni = DateTimeClass.DataHoraIni(new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1));
+            DateTime dataFim = DateTimeClass.DataHoraFim(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month)));
 
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
                 .Where(mp => mp.DataVencimento >= dataIni &&
@@ -74,8 +78,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         {
 
             var date = dataVencIni.HasValue ? dataVencIni.Value : saldoDiarioCaching.GetAll().Max(x => x.DataSaldo);
-            var dataIni = new DateTime(date.Year, date.Month, 1);
-            var dataFim = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
+            var dataIni = DateTimeClass.DataHoraIni(new DateTime(date.Year, date.Month, 1));
+            var dataFim = DateTimeClass.DataHoraFim(new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)));
 
             if (dataVencIni.HasValue && dataVencFim.HasValue)
             {

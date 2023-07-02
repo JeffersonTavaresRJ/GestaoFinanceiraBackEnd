@@ -70,8 +70,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         {
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter
                .Where(mr => (mr.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null)
-                   && mr.DataMovimentacaoRealizada >= dataMovRealIni
-                   && mr.DataMovimentacaoRealizada <= dataMovRealFim
+                   && mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataMovRealIni)
+                   && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataMovRealFim)
                    && mr.FormaPagamento.IdUsuario == UserEntity.IdUsuario);
             List<MovimentacaoRealizadaDTO> movimentacoesRealizadas = mongoDBContext.MovimentacoesRealizadas.Find(filter).ToList();
 
