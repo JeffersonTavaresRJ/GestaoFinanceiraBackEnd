@@ -27,29 +27,34 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public void Update(SaldoDiarioDTO obj)
         {
             var filter = Builders<SaldoDiarioDTO>.Filter.Where(sa => sa.Conta.Id == obj.Conta.Id && 
-            sa.DataSaldo ==obj.DataSaldo);
+            sa.DataSaldo >= DateTimeClass.DataHoraIni(obj.DataSaldo) &&
+            sa.DataSaldo <= DateTimeClass.DataHoraFim(obj.DataSaldo));
             mongoDBContext.SaldosDiario.ReplaceOne(filter, obj);
         }
 
         public void Delete(SaldoDiarioDTO obj)
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
-                 .Where(sa => sa.Conta.Id == obj.Conta.Id && sa.DataSaldo == obj.DataSaldo);
+                 .Where(sa => sa.Conta.Id == obj.Conta.Id &&
+                 sa.DataSaldo >= DateTimeClass.DataHoraIni(obj.DataSaldo) &&
+                 sa.DataSaldo <= DateTimeClass.DataHoraFim(obj.DataSaldo));
             mongoDBContext.SaldosDiario.DeleteOne(filter);
         }
 
         public List<SaldoDiarioDTO> GetBySaldosDiario(int idConta, DateTime dataSaldo)
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
-               .Where(sa => (sa.Conta.Id == idConta )
-                   && sa.DataSaldo >= dataSaldo);
+               .Where(sa => (sa.Conta.Id == idConta ) &&
+                      sa.DataSaldo >= DateTimeClass.DataHoraIni(dataSaldo) &&
+                      sa.DataSaldo <= DateTimeClass.DataHoraFim(dataSaldo));
             return mongoDBContext.SaldosDiario.Find(filter).ToList();
         }
 
         public List<SaldoDiarioDTO> GetBySaldosDiario( DateTime dataSaldoIni, DateTime dataSaldoFim)
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
-               .Where(sa => sa.DataSaldo >= dataSaldoIni && sa.DataSaldo <= dataSaldoFim);
+               .Where(sa => sa.DataSaldo >= DateTimeClass.DataHoraIni(dataSaldoIni) && 
+                            sa.DataSaldo <= DateTimeClass.DataHoraFim(dataSaldoFim));
             return mongoDBContext.SaldosDiario.Find(filter).ToList();
         }
 
@@ -73,14 +78,14 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
                .Where(sa => (sa.Conta.IdUsuario == UserEntity.IdUsuario)
-                   && sa.DataSaldo >= dataIni
-                   && sa.DataSaldo <= dataFim);
+                   && sa.DataSaldo >= DateTimeClass.DataHoraIni(dataIni)
+                   && sa.DataSaldo <= DateTimeClass.DataHoraFim(dataFim));
             return mongoDBContext.SaldosDiario.Find(filter).ToList().OrderByDescending(sd => sd.DataSaldo).ToList();
         }
 
         public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia)
         {
-             var dataIni = new DateTime(dataReferencia.Year, dataReferencia.Month, 1);
+            var dataIni = new DateTime(dataReferencia.Year, dataReferencia.Month, 1);
             var dataFim = new DateTime(dataReferencia.Year, dataReferencia.Month, DateTime.DaysInMonth(dataReferencia.Year, dataReferencia.Month));
 
             List<SaldoDiarioDTO> saldosDiario = GetBySaldosDiario(dataIni, dataFim);

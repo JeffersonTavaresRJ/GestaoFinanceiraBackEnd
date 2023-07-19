@@ -54,26 +54,28 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<List<SaldoContaAnualDTO>> Handle(ReaderSaldoAnualPorContaCommand request, CancellationToken cancellationToken)
         {
-            List<SaldoContaAnualDTO> lista = new List<SaldoContaAnualDTO>();
+            List<SaldoContaMensal> lista    = (List<SaldoContaMensal>) await saldoContaMensalDomainService.GetSaldoMensalConta(request.IdUsuario, request.AnoInicial, request.AnoFinal);
+            List<SaldoContaAnualDTO> result = new List<SaldoContaAnualDTO>();
 
-            foreach (SaldoContaMensal item in await saldoContaMensalDomainService.GetSaldoMensalConta(request.IdUsuario, request.AnoInicial, request.AnoFinal))
+            foreach (SaldoContaMensal item in lista)
             {
-                lista.Add(mapper.Map<SaldoContaAnualDTO>(item));
+                result.Add(mapper.Map<SaldoContaAnualDTO>(item));
             }
 
-            return lista;
+            return result;
         }
 
         public async Task<List<ItemMovimentacaoMensalDTO>> Handle(ReaderItemMovimentacaoMensalCommand request, CancellationToken cancellationToken)
         {
-            List<ItemMovimentacaoMensalDTO> lista = new List<ItemMovimentacaoMensalDTO>();
+            List<ItemMovimentacaoMensal> lista = (List<ItemMovimentacaoMensal>) await itemMovimentacaoMensalDomainService.GetItemMovimentacaoMensal(request.IdUsuario, request.DataInicial, request.DataFinal);
+            List<ItemMovimentacaoMensalDTO> result = new List<ItemMovimentacaoMensalDTO>();
 
-            foreach (ItemMovimentacaoMensal item in await itemMovimentacaoMensalDomainService.GetItemMovimentacaoMensal(request.IdUsuario, request.DataInicial, request.DataFinal))
+            foreach (ItemMovimentacaoMensal item in lista)
             {
-                lista.Add(mapper.Map<ItemMovimentacaoMensalDTO>(item));
+                result.Add(mapper.Map<ItemMovimentacaoMensalDTO>(item));
             }
 
-            return lista;
+            return result;
         }
     }
 }

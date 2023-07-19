@@ -11,8 +11,9 @@ namespace GestaoFinanceira.Domain.DTOs
         public string DescricaoCategoria { get; set; }
         public int IdItemMovimentacao { get; set; }
         public string DescricaoItemMovimentacao { get; set; }
-        public string TipoItemMovimentcao { get; set; }
-        public string DescricaoTipoItemMovimentcao { get; set; }
+        public string TipoItemMovimentacao { get; set; }
+        public string DescricaoTipoItemMovimentacao { get; set; }
+        public string TipoOperacao { get; set; }
         public float ValorMensal { get; set; }
         public float DiferencaPercentualMensal { get; set; }
     }
