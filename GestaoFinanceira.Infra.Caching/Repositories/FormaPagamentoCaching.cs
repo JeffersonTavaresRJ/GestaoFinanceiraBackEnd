@@ -5,6 +5,7 @@ using GestaoFinanceira.Infra.CrossCutting.Security;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace GestaoFinanceira.Infra.Caching.Repositories
@@ -44,7 +45,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public List<FormaPagamentoDTO> GetAll()
         {
             var filter = Builders<FormaPagamentoDTO>.Filter.Eq(f => f.IdUsuario, UserEntity.IdUsuario);
-            return mongoDBContext.FormasPagamento.Find(filter).ToList();
+            return mongoDBContext.FormasPagamento.Find(filter).ToList().OrderBy(f=>f.Descricao).ToList();
         }
     }
 }

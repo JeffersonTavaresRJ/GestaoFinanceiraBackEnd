@@ -55,7 +55,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         private List<ItemMovimentacaoDTO> GetListItemMovimentacao(int? id, int idUsuario)
         {
             var filter = Builders<ItemMovimentacaoDTO>.Filter.Where(i => (i.Id == id || id==null) && i.Categoria.IdUsuario==idUsuario);
-            return mongoDBContext.ItensMovimentacao.Find(filter).ToList();
+            return mongoDBContext.ItensMovimentacao.Find(filter).ToList().OrderBy(i=>i.Descricao).ToList();
         }
 
         private List<ItemMovimentacaoDTO> Query(List<ItemMovimentacaoDTO> itensMovimentacao, List<CategoriaDTO> categorias)
@@ -73,7 +73,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                             Categoria = c
                         };
 
-            return query.ToList();
+            return query.ToList().OrderBy(i=>i.Descricao).ToList();
         }
     }
 }
