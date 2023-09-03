@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using MongoDB.Driver;
 using GestaoFinanceira.Infra.CrossCutting.Security;
+using System.Linq;
 
 namespace GestaoFinanceira.Infra.Caching.Repositories
 {
@@ -44,7 +45,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public List<ContaDTO> GetAll()
         {
             var filter = Builders<ContaDTO>.Filter.Eq(c => c.IdUsuario, UserEntity.IdUsuario);
-            return mongoDBContext.Contas.Find(filter).ToList();
+            return mongoDBContext.Contas.Find(filter).ToList().OrderBy(c=>c.Descricao).ToList();
         }
     }
 }

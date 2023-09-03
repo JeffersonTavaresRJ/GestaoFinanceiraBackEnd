@@ -2,7 +2,6 @@
 using GestaoFinanceira.Application.Commands.Usuario;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.Exceptions.Usuario;
-using GestaoFinanceira.Infra.CrossCutting.Security;
 using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
