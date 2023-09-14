@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GestaoFinanceira.Service.Api.Controllers
 {
@@ -113,6 +114,25 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 return StatusCode(500, e.Message);
             }
 
+        }
+
+        [HttpGet("GetReport")]
+        public IActionResult GetReport() {
+            try
+            {
+                var file = contaApplicationService.GetReport();
+
+                if (file != null)
+                {
+                    return File(file,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                }
+
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
     }
 }

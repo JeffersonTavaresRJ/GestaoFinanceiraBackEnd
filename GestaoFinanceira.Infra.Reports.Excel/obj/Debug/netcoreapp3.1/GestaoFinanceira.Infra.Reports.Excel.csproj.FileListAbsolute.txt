@@ -1,0 +1,13 @@
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.csproj.AssemblyReference.cache
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.AssemblyInfoInputs.cache
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.AssemblyInfo.cs
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.csproj.CoreCompileInputs.cache
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.deps.json
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.dll
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.pdb
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\bin\Debug\netcoreapp3.1\GestaoFinanceira.Domain.dll
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\bin\Debug\netcoreapp3.1\GestaoFinanceira.Domain.pdb
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.csproj.CopyComplete
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.dll
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.pdb

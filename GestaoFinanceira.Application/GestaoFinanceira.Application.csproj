@@ -8,6 +8,7 @@
     <ProjectReference Include="..\GestaoFinanceira.Domain\GestaoFinanceira.Domain.csproj" />
     <ProjectReference Include="..\GestaoFinanceira.Infra.Caching\GestaoFinanceira.Infra.Caching.csproj" />
     <ProjectReference Include="..\GestaoFinanceira.Infra.CrossCutting\GestaoFinanceira.Infra.CrossCutting.csproj" />
+    <ProjectReference Include="..\GestaoFinanceira.Infra.Reports.Excel\GestaoFinanceira.Infra.Reports.Excel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
