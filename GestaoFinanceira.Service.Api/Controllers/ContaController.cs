@@ -116,11 +116,11 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpGet("GetReport")]
-        public IActionResult GetReport() {
+        [HttpGet("GetAllReportExcel")]
+        public IActionResult GetAllReportExcel() {
             try
             {
-                var file = contaApplicationService.GetReport();
+                var file = contaApplicationService.GetAllReportExcel();
 
                 if (file != null)
                 {

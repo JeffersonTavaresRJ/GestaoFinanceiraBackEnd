@@ -48,9 +48,9 @@ namespace GestaoFinanceira.Application.Services
             return contaCaching.GetAll();
         }
 
-        public byte[] GetReport()
+        public byte[] GetAllReportExcel()
         {
-            return ReportContas.Get(contaCaching.GetAll());
+            return ReportContas.GetAll("Lista de Contas",contaCaching.GetAll());
         }
     }
 }

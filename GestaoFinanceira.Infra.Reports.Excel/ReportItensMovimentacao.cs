@@ -1,12 +1,11 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Text;
 
 namespace GestaoFinanceira.Infra.Reports.Excel
 {
-    public class ReportContas : GenericReport<ContaDTO>
+    public class ReportItensMovimentacao : GenericReport<ItemMovimentacaoDTO>
     {
     }
 }

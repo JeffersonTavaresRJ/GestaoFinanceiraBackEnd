@@ -6,11 +6,8 @@ using System.Text;
 namespace GestaoFinanceira.Domain.DTOs
 {
     [BsonIgnoreExtraElements]
-    public class FormaPagamentoDTO
+    public class FormaPagamentoDTO : GenericDTO
     {
-        public int Id { get; set; }
-        public string Descricao { get; set; }
-        public bool Status { get; set; }
         public int IdUsuario { get; set; }
     }
 }
