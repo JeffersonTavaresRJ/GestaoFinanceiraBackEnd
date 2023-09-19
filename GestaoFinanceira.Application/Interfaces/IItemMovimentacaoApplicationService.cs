@@ -16,5 +16,6 @@ namespace GestaoFinanceira.Application.Interfaces
         ItemMovimentacaoDTO GetId(int id);
         List<ItemMovimentacaoDTO> GetAll();
         IList GetAllTipo();
+        byte[] GetAllReportExcel();
     }
 }

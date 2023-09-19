@@ -2,6 +2,7 @@
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
+using GestaoFinanceira.Infra.Reports.Excel;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,11 @@ namespace GestaoFinanceira.Application.Services
         public List<FormaPagamentoDTO> GetAll()
         {
             return formaPagamentoCaching.GetAll();
+        }
+
+        public byte[] GetAllReportExcel()
+        {
+            return ReportFormasPagamento.GetAll("Lista de Formas de Pagamento", formaPagamentoCaching.GetAll());
         }
     }
 }

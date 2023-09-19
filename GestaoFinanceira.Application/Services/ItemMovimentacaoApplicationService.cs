@@ -4,6 +4,7 @@ using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Domain.Models.Enuns;
 using GestaoFinanceira.Infra.CrossCutting.Security;
+using GestaoFinanceira.Infra.Reports.Excel;
 using MediatR;
 using System;
 using System.Collections;
@@ -52,6 +53,11 @@ namespace GestaoFinanceira.Application.Services
         public IList GetAllTipo()
         {
             return ExtensionEnum.Listar(typeof(TipoItemMovimentacao));
+        }
+
+        public byte[] GetAllReportExcel()
+        {
+            return ReportItensMovimentacao.GetAll("Lista de Itens de Movimentação", itemMovimentacaoCaching.GetAll());
         }
     }
 }

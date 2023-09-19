@@ -1,0 +1,478 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "GestaoFinanceira.Infra.Reports.Excel/1.0.0": {
+        "dependencies": {
+          "EPPlus": "6.2.9",
+          "GestaoFinanceira.Domain": "1.0.0"
+        },
+        "runtime": {
+          "GestaoFinanceira.Infra.Reports.Excel.dll": {}
+        }
+      },
+      "EPPlus/6.2.9": {
+        "dependencies": {
+          "EPPlus.Interfaces": "6.1.1",
+          "EPPlus.System.Drawing": "6.1.1",
+          "Microsoft.Extensions.Configuration.Json": "3.1.30",
+          "Microsoft.IO.RecyclableMemoryStream": "2.2.1",
+          "System.Drawing.Primitives": "4.3.0",
+          "System.Security.Cryptography.Pkcs": "4.7.0",
+          "System.Text.Encoding.CodePages": "4.7.1"
+        },
+        "runtime": {
+          "lib/netstandard2.1/EPPlus.dll": {
+            "assemblyVersion": "6.2.9.0",
+            "fileVersion": "6.2.9.0"
+          }
+        }
+      },
+      "EPPlus.Interfaces/6.1.1": {
+        "runtime": {
+          "lib/netstandard2.1/EPPlus.Interfaces.dll": {
+            "assemblyVersion": "6.1.1.0",
+            "fileVersion": "6.1.1.0"
+          }
+        }
+      },
+      "EPPlus.System.Drawing/6.1.1": {
+        "dependencies": {
+          "EPPlus.Interfaces": "6.1.1",
+          "System.Drawing.Common": "4.7.3"
+        },
+        "runtime": {
+          "lib/netstandard2.1/EPPlus.System.Drawing.dll": {
+            "assemblyVersion": "6.1.1.0",
+            "fileVersion": "6.1.1.0"
+          }
+        }
+      },
+      "FluentValidation/9.4.0": {
+        "runtime": {
+          "lib/netstandard2.0/FluentValidation.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.4.0.0"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration/3.1.30": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.30"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.dll": {
+            "assemblyVersion": "3.1.30.0",
+            "fileVersion": "3.100.3022.47602"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/3.1.30": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "3.1.30"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "assemblyVersion": "3.1.30.0",
+            "fileVersion": "3.100.3022.47602"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.FileExtensions/3.1.30": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "3.1.30",
+          "Microsoft.Extensions.FileProviders.Physical": "3.1.30"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.FileExtensions.dll": {
+            "assemblyVersion": "3.1.30.0",
+            "fileVersion": "3.100.3022.47602"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.Json/3.1.30": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration": "3.1.30",
+          "Microsoft.Extensions.Configuration.FileExtensions": "3.1.30"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Json.dll": {
+            "assemblyVersion": "3.1.30.0",
+            "fileVersion": "3.100.3022.47602"
+          }
+        }
+      },
+      "Microsoft.Extensions.FileProviders.Abstractions/3.1.30": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "3.1.30"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll": {
+            "assemblyVersion": "3.1.30.0",
+            "fileVersion": "3.100.3022.47602"
+          }
+        }
+      },
+      "Microsoft.Extensions.FileProviders.Physical/3.1.30": {
+        "dependencies": {
+          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.30",
+          "Microsoft.Extensions.FileSystemGlobbing": "3.1.30"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Physical.dll": {
+            "assemblyVersion": "3.1.30.0",
+            "fileVersion": "3.100.3022.47602"
+          }
+        }
+      },
+      "Microsoft.Extensions.FileSystemGlobbing/3.1.30": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.FileSystemGlobbing.dll": {
+            "assemblyVersion": "3.1.30.0",
+            "fileVersion": "3.100.3022.47602"
+          }
+        }
+      },
+      "Microsoft.Extensions.Primitives/3.1.30": {
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "3.1.30.0",
+            "fileVersion": "3.100.3022.47602"
+          }
+        }
+      },
+      "Microsoft.IO.RecyclableMemoryStream/2.2.1": {
+        "runtime": {
+          "lib/netcoreapp2.1/Microsoft.IO.RecyclableMemoryStream.dll": {
+            "assemblyVersion": "2.2.1.0",
+            "fileVersion": "2.2.1.0"
+          }
+        }
+      },
+      "Microsoft.NETCore.Platforms/3.1.9": {},
+      "Microsoft.NETCore.Targets/1.1.0": {},
+      "Microsoft.Win32.SystemEvents/4.7.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.9"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "MongoDB.Bson/2.12.4": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/MongoDB.Bson.dll": {
+            "assemblyVersion": "2.12.4.0",
+            "fileVersion": "2.12.4.0"
+          }
+        }
+      },
+      "System.Drawing.Common/4.7.3": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.9",
+          "Microsoft.Win32.SystemEvents": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "4.0.0.2",
+            "fileVersion": "4.6.29719.1"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.3",
+            "fileVersion": "4.700.21.51508"
+          },
+          "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.0.2.3",
+            "fileVersion": "4.700.21.51508"
+          }
+        }
+      },
+      "System.Drawing.Primitives/4.3.0": {
+        "dependencies": {
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0"
+        }
+      },
+      "System.Runtime/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.9",
+          "Microsoft.NETCore.Targets": "1.1.0"
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe/5.0.0": {
+        "runtime": {
+          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        }
+      },
+      "System.Runtime.Extensions/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.9",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Security.Cryptography.Cng/4.7.0": {},
+      "System.Security.Cryptography.Pkcs/4.7.0": {
+        "dependencies": {
+          "System.Security.Cryptography.Cng": "4.7.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Security.Cryptography.Pkcs.dll": {
+            "assemblyVersion": "4.1.1.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp3.0/System.Security.Cryptography.Pkcs.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.1.1.0",
+            "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "System.Text.Encoding.CodePages/4.7.1": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.9"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {
+            "assemblyVersion": "4.1.3.0",
+            "fileVersion": "4.700.20.21406"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp2.0/System.Text.Encoding.CodePages.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.1.3.0",
+            "fileVersion": "4.700.20.21406"
+          }
+        }
+      },
+      "GestaoFinanceira.Domain/1.0.0": {
+        "dependencies": {
+          "FluentValidation": "9.4.0",
+          "MongoDB.Bson": "2.12.4"
+        },
+        "runtime": {
+          "GestaoFinanceira.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GestaoFinanceira.Infra.Reports.Excel/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EPPlus/6.2.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XDdpsCtcz8Rkz5a69xC6/oBVah8jwKnabvvlJdlR8S8hpJAUx9D5JuzlFmgrk2mUIKYMXLVUwiRmnv6Y7iZHfQ==",
+      "path": "epplus/6.2.9",
+      "hashPath": "epplus.6.2.9.nupkg.sha512"
+    },
+    "EPPlus.Interfaces/6.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-y7dkrOoE1ZR9Vgy1Jf2rEIaTf3SHlUjYt01NklP+F5Qh7S2ruPbzTcpYLRWMeXiG8XL8h2jqX4CyIkFt3NQGZw==",
+      "path": "epplus.interfaces/6.1.1",
+      "hashPath": "epplus.interfaces.6.1.1.nupkg.sha512"
+    },
+    "EPPlus.System.Drawing/6.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lRF5gHYrmkHOOiLMI0t6q8zNYjUrzRgAM5BCXumv5xiqXko8fx3AWI+HCNZfhEqVFGOop+42KfR5GiUcCoyoMw==",
+      "path": "epplus.system.drawing/6.1.1",
+      "hashPath": "epplus.system.drawing.6.1.1.nupkg.sha512"
+    },
+    "FluentValidation/9.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MfOKZJoGX2B7sh0tEB8BU6pRL/ECvSKiNcrK9QsZ3aQYTVQKL9Fw0FR8qh4Wy9+DIQz9didDiMm0HfCOt6S62A==",
+      "path": "fluentvalidation/9.4.0",
+      "hashPath": "fluentvalidation.9.4.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration/3.1.30": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-IDvwPfQAAouJWTOezYRLEq7IjcoqTVMM6Ql/jR5KmnK3OcX74DoBrO9GrFl70ujyYyL6FWJSnZnZ1MyT3B54qQ==",
+      "path": "microsoft.extensions.configuration/3.1.30",
+      "hashPath": "microsoft.extensions.configuration.3.1.30.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.Abstractions/3.1.30": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tFGyCZeCC934bWWCgRgUi4Bb1XCCvjU6mMlIOViXJHvT8ZbNpsQrgdPcnXv2NJ4WFh2K/NQ9wE2wseTYLc2bwA==",
+      "path": "microsoft.extensions.configuration.abstractions/3.1.30",
+      "hashPath": "microsoft.extensions.configuration.abstractions.3.1.30.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.FileExtensions/3.1.30": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-P1jMakV2jIOHLnt3rRAglEChR0QYsy+YocAOUoZJjr9B/EJdrMNdKwe7nLbvVo/BqAiG82cEjyVODrJbZvDgsw==",
+      "path": "microsoft.extensions.configuration.fileextensions/3.1.30",
+      "hashPath": "microsoft.extensions.configuration.fileextensions.3.1.30.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.Json/3.1.30": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sF0NMpfHhvwynq3XlkHoiZcmutcLogrmWrioEpC7j9rYoI1zo7TeVUamLAfQhlIEFCljZbAuCgTIzP9OT4G8Fw==",
+      "path": "microsoft.extensions.configuration.json/3.1.30",
+      "hashPath": "microsoft.extensions.configuration.json.3.1.30.nupkg.sha512"
+    },
+    "Microsoft.Extensions.FileProviders.Abstractions/3.1.30": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rSQFZTMP4d8Fg+tFe0ifCE7/jzl/bye9vaD/LLvG3lpn1bmBIQysIRK3+pAoZaFnj/kLh4JNvFDJsfOdNRtTZw==",
+      "path": "microsoft.extensions.fileproviders.abstractions/3.1.30",
+      "hashPath": "microsoft.extensions.fileproviders.abstractions.3.1.30.nupkg.sha512"
+    },
+    "Microsoft.Extensions.FileProviders.Physical/3.1.30": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/5sOVDw9jVSe7ykRaJAo/pIpwuVrEfJe6TQrlkQYGKY7QCvwMbntfRSCy3it0GwfYvYiFDJsgP7HmK2L2yLjzQ==",
+      "path": "microsoft.extensions.fileproviders.physical/3.1.30",
+      "hashPath": "microsoft.extensions.fileproviders.physical.3.1.30.nupkg.sha512"
+    },
+    "Microsoft.Extensions.FileSystemGlobbing/3.1.30": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JnTqP+vjnbtJatCp29xUOyBYOvxYVQP7HMcbbO912AL7Ovn62o/Ikgwnsk0k157L7zAAOvRQuH4JvyMLlf2ZDA==",
+      "path": "microsoft.extensions.filesystemglobbing/3.1.30",
+      "hashPath": "microsoft.extensions.filesystemglobbing.3.1.30.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Primitives/3.1.30": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JI/dGdfbEodhiVtCBnHoN7FUldXNSTzF+eOTLml9Z3le75XSV6f86EgLw1Y/8uHzZIVEkB55i3t0L6GEljFCyw==",
+      "path": "microsoft.extensions.primitives/3.1.30",
+      "hashPath": "microsoft.extensions.primitives.3.1.30.nupkg.sha512"
+    },
+    "Microsoft.IO.RecyclableMemoryStream/2.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-T5ahjOqWFMTSb9wFHKFNAcGXm35BxbUbwARtAPLSSPPFehcLz5mwDsKO1RR9R2aZ2Lk1BNQC7Ja63onOBE6rpA==",
+      "path": "microsoft.io.recyclablememorystream/2.2.1",
+      "hashPath": "microsoft.io.recyclablememorystream.2.2.1.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/3.1.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-e+/BrhryHoMojWlbcPJAFcShpk3JYvsMfrmoM26dnvHARWR6vtmGbfHppZcANVqf7DUBDIRxlZXcWg7v/9e1TQ==",
+      "path": "microsoft.netcore.platforms/3.1.9",
+      "hashPath": "microsoft.netcore.platforms.3.1.9.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Targets/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
+      "path": "microsoft.netcore.targets/1.1.0",
+      "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
+      "path": "microsoft.win32.systemevents/4.7.0",
+      "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
+    },
+    "MongoDB.Bson/2.12.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cQ0DTdKIpPzqDWnu1lTbW7TU8zQkMZ6YkbICcA1x3zDQefPYi0T0WYA/t3VJbowiEH3IKNHsJ4DIFfCt9AOG7A==",
+      "path": "mongodb.bson/2.12.4",
+      "hashPath": "mongodb.bson.2.12.4.nupkg.sha512"
+    },
+    "System.Drawing.Common/4.7.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-B3+wwhAeoUQ6KeshWSq3IRLQiMoqPEzSHzyVyxTI/EbYuqIp90lXrRISlip2AF+5tj74ycIVPpnRY4M424HahA==",
+      "path": "system.drawing.common/4.7.3",
+      "hashPath": "system.drawing.common.4.7.3.nupkg.sha512"
+    },
+    "System.Drawing.Primitives/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1QU/c35gwdhvj77fkScXQQbjiVAqIL3fEYn/19NE0CV/ic5TN5PyWAft8HsrbRd4SBLEoErNCkWSzMDc0MmbRw==",
+      "path": "system.drawing.primitives/4.3.0",
+      "hashPath": "system.drawing.primitives.4.3.0.nupkg.sha512"
+    },
+    "System.Runtime/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JufQi0vPQ0xGnAczR13AUFglDyVYt4Kqnz1AZaiKZ5+GICq0/1MH/mO/eAJHt/mHW1zjKBJd7kV26SrxddAhiw==",
+      "path": "system.runtime/4.3.0",
+      "hashPath": "system.runtime.4.3.0.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZD9TMpsmYJLrxbbmdvhwt9YEgG5WntEnZ/d1eH8JBX9LBp+Ju8BSBhUGbZMNVHHomWo2KVImJhTDl2hIgw/6MA==",
+      "path": "system.runtime.compilerservices.unsafe/5.0.0",
+      "hashPath": "system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+    },
+    "System.Runtime.Extensions/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-guW0uK0fn5fcJJ1tJVXYd7/1h5F+pea1r7FLSOz/f8vPEqbR2ZAknuRDvTQ8PzAilDveOxNjSfr0CHfIQfFk8g==",
+      "path": "system.runtime.extensions/4.3.0",
+      "hashPath": "system.runtime.extensions.4.3.0.nupkg.sha512"
+    },
+    "System.Security.Cryptography.Cng/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4WQjFuypWtxb/bl/YwEE7LYGn4fgpsikFfBU6xwEm4YBYiRAhXAEJ62lILBu2JJSFbClIAntFTGfDZafn8yZTg==",
+      "path": "system.security.cryptography.cng/4.7.0",
+      "hashPath": "system.security.cryptography.cng.4.7.0.nupkg.sha512"
+    },
+    "System.Security.Cryptography.Pkcs/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0Srzh6YlhjuMxaqMyeCCdZs22cucaUAG6SKDd3gNHBJmre0VZ71ekzWu9rvLD4YXPetyNdPvV6Qst+8C++9v3Q==",
+      "path": "system.security.cryptography.pkcs/4.7.0",
+      "hashPath": "system.security.cryptography.pkcs.4.7.0.nupkg.sha512"
+    },
+    "System.Text.Encoding.CodePages/4.7.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-i2fOvznVVgOOTLUz8FgSap/MsR98I4Iaoz99VXcOW/e7Y2OdY42zhYpBYpZyivk5alYY/UsOWAVswhtjxceodA==",
+      "path": "system.text.encoding.codepages/4.7.1",
+      "hashPath": "system.text.encoding.codepages.4.7.1.nupkg.sha512"
+    },
+    "GestaoFinanceira.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

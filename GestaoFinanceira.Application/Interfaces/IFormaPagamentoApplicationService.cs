@@ -18,5 +18,7 @@ namespace GestaoFinanceira.Application.Interfaces
         FormaPagamentoDTO GetById(int id);
 
         List<FormaPagamentoDTO> GetAll();
+
+        byte[] GetAllReportExcel();
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using GestaoFinanceira.Domain.Models.Enuns;
 using System.Collections;
+using GestaoFinanceira.Infra.Reports.Excel;
 
 namespace GestaoFinanceira.Application.Services
 {
@@ -49,6 +50,11 @@ namespace GestaoFinanceira.Application.Services
         public IList GetAllTipo()
         {
             return ExtensionEnum.Listar(typeof(TipoItemMovimentacao));
+        }
+
+        public byte[] GetAllReportExcel()
+        {
+            return ReportCategorias.GetAll("Lista de Categorias", categoriaCaching.GetAll());
         }
     }
 }

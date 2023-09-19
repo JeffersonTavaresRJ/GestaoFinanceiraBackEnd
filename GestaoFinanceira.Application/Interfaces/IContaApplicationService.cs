@@ -14,5 +14,6 @@ namespace GestaoFinanceira.Application.Interfaces
         Task Delete(DeleteContaCommand command);
         ContaDTO GetId(int id);
         List<ContaDTO> GetAll();
+        byte[] GetAllReportExcel();
     }
 }

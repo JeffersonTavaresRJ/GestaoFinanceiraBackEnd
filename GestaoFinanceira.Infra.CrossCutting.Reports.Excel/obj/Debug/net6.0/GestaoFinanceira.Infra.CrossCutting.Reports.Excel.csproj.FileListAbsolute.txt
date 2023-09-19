@@ -1,0 +1,15 @@
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\bin\Debug\net6.0\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.deps.json
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\bin\Debug\net6.0\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.dll
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\bin\Debug\net6.0\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.pdb
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.AssemblyInfoInputs.cache
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.AssemblyInfo.cs
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.csproj.CoreCompileInputs.cache
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.dll
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\obj\Debug\net6.0\refint\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.dll
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.pdb
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\obj\Debug\net6.0\ref\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.dll
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.csproj.AssemblyReference.cache
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\bin\Debug\net6.0\GestaoFinanceira.Domain.dll
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\bin\Debug\net6.0\GestaoFinanceira.Domain.pdb
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.csproj.CopyComplete

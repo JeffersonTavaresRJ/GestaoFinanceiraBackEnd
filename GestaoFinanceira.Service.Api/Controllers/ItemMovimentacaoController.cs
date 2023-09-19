@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using GestaoFinanceira.Application.Commands.ItemMovimentacao;
 using GestaoFinanceira.Application.Interfaces;
+using GestaoFinanceira.Application.Services;
 using GestaoFinanceira.Infra.CrossCutting.Security;
 using GestaoFinanceira.Infra.CrossCutting.ValidationAdapters;
 using Microsoft.AspNetCore.Authorization;
@@ -122,6 +123,26 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
                 return StatusCode(500, e.Message);
             }
-        }        
+        }
+
+        [HttpGet("GetAllReportExcel")]
+        public IActionResult GetAllReportExcel()
+        {
+            try
+            {
+                var file = itemMovimentacaoApplicationService.GetAllReportExcel();
+
+                if (file != null)
+                {
+                    return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                }
+
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

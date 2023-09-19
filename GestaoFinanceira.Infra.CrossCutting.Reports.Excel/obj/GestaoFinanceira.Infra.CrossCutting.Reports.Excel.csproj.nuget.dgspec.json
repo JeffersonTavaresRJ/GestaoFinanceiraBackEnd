@@ -1,0 +1,152 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
+        "projectName": "GestaoFinanceira.Domain",
+        "projectPath": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
+        "packagesPath": "C:\\Users\\Jefferson Tavares\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Jefferson Tavares\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[9.4.0, )"
+            },
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.12.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[3.1.0, 3.1.0]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.csproj",
+        "projectName": "GestaoFinanceira.Infra.CrossCutting.Reports.Excel",
+        "projectPath": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\\GestaoFinanceira.Infra.CrossCutting.Reports.Excel.csproj",
+        "packagesPath": "C:\\Users\\Jefferson Tavares\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.CrossCutting.Reports.Excel\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Jefferson Tavares\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
+                "projectPath": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[6.2.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
