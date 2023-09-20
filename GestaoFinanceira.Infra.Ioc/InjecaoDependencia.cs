@@ -75,6 +75,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IItemMovimentacaoCaching, ItemMovimentacaoCaching>();
             services.AddTransient<IMovimentacaoPrevistaCaching, MovimentacaoPrevistaCaching>();
             services.AddTransient<IMovimentacaoRealizadaCaching, MovimentacaoRealizadaCaching>();
+            services.AddTransient<IMovimentacaoRealizadaMensalCaching, MovimentacaoRealizadaMensalCaching>();
             services.AddTransient<ISaldoDiarioCaching, SaldoDiarioCaching>();
             #endregion
 

@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace GestaoFinanceira.Infra.Caching.Repositories
 {
-    public class MovimentacaoRealizadaCaching : IMovimentacaoRealizadaCaching
+    public class MovimentacaoRealizadaCaching :IMovimentacaoRealizadaCaching
     {
         private readonly MongoDBContext mongoDBContext;
         private readonly IFormaPagamentoCaching formaPagamentoCaching;
