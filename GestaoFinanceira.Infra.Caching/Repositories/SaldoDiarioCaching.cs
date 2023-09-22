@@ -98,6 +98,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                                                               .Select(x => x.DataSaldo)
                                                               .FirstOrDefault()
                                     }).ToList();
+
             saldosDiario.Clear();
 
             foreach (var item in listGroupConta)
