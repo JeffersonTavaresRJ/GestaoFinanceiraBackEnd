@@ -7,6 +7,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,6 +30,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             var ano = dataReferencia.Year;
             var mes = dataReferencia.Month;
 
+
             //Movimentações Realizadas no período..
             List<MovimentacaoRealizadaDTO> movimentacaoRealizadaDTOs = 
                 this.movimentacaoRealizadaCaching.GetByDataMovimentacaoRealizada(null, new DateTime(ano-1, mes, 1), new DateTime(ano, mes+1, 1).AddDays(-1));
@@ -37,13 +39,14 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             List<ContaDTO> contaDTOs = 
                 movimentacaoRealizadaDTOs.Select(mr=>mr.Conta).Distinct().ToList().OrderBy(c=>c.Descricao).ToList();
 
+            //return da function..
             List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs = new List<MovimentacaoRealizadaMensalDTO>();          
 
             //Percorrendo as Contas..
             foreach (ContaDTO contaDTO in contaDTOs)
             {
 
-                //Todos os Itens de Movimentação por Conta durante o período..
+                //Leitura de todos os Itens de Movimentação por Conta durante o período..
                 List<ItemMovimentacaoDTO> itemMovimentacaoDTOs =
                 movimentacaoRealizadaDTOs.Where(mr=>mr.Conta.Id.Equals(contaDTO.Id))
                                          .Select(mr => mr.ItemMovimentacao)
@@ -52,27 +55,68 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                                          .OrderBy(c => c.Descricao)
                                          .ToList();
 
-                MovimentacaoRealizadaMensalDTO movimentacaoRealizadaMensalDTO = 
-                                               new MovimentacaoRealizadaMensalDTO(contaDTO, itemMovimentacaoDTOs, dataReferencia);
-                
+                //Calculando Saldos da Conta..
+                List<SaldoContaDTO> saldoContaDTOs = new List<SaldoContaDTO>();
 
+                var meses = 13;
 
-                //Percorrendo os meses do período..
-                foreach (SaldoContaDTO saldoContaDTO in movimentacaoRealizadaMensalDTO.SaldosContaDTO)
+                while (meses > 0)
                 {
-                    //Calculando os Saldos..
-                    saldoContaDTO.SaldoAnterior = GetSaldo(contaDTO.Id, new DateTime(saldoContaDTO.Ano, saldoContaDTO.Mes, 1).AddMonths(-1));
-                    saldoContaDTO.SaldoAtual = GetSaldo(contaDTO.Id, new DateTime(saldoContaDTO.Ano, saldoContaDTO.Mes, 1));
-                    movimentacaoRealizadaMensalDTO.UpdateSaldo(saldoContaDTO);
-
-                    //Calculando os Valores dos Itens de Movimentação..
-                    foreach (var item in itemMovimentacaoDTOs)
+                    SaldoContaDTO saldoContaDTO = new SaldoContaDTO()
                     {
-                        double valor = GetValor(contaDTO.Id, item.Id, saldoContaDTO.Ano, saldoContaDTO.Mes, movimentacaoRealizadaDTOs);
-                        movimentacaoRealizadaMensalDTO.UpdateItemMovimentacao(item, saldoContaDTO.Ano, saldoContaDTO.Mes, valor);
-                    }
-                }               
+                        Mes = mes,
+                        Ano = ano,
+                        SaldoAnterior = GetSaldo(contaDTO.Id, new DateTime(ano, mes, 1).AddMonths(-1)),
+                        SaldoAtual = GetSaldo(contaDTO.Id, new DateTime(ano, mes, 1))
+                    };
 
+                    mes = mes--;
+                    if (mes == 0)
+                    {
+                        mes = 12;
+                        ano--;
+                    }
+                    saldoContaDTOs.Add(saldoContaDTO);
+
+                    meses--;
+                }
+
+
+                MovimentacaoRealizadaMensalDTO movimentacaoRealizadaMensalDTO = 
+                                               new MovimentacaoRealizadaMensalDTO(contaDTO, saldoContaDTOs, itemMovimentacaoDTOs);
+
+
+                //Populando o valor mensal de cada item.. 
+                foreach (TipoMovimentacao tipoMovimentacao in movimentacaoRealizadaMensalDTO.TiposMovimentacao)
+                {
+
+                    foreach (ItemDTO item in tipoMovimentacao.ItemDTOs)
+                    {
+                        meses = 13;
+                        List<MesItemDTO> mesItemDTOs = new List<MesItemDTO>();
+
+                        while (meses > 0)
+                        {
+                            MesItemDTO mesItemDTO = new MesItemDTO()
+                            {
+                                Mes = mes,
+                                Ano = ano,
+                                Valor = GetValor(contaDTO.Id, item.ItemMovimentacaoDTO.Id, ano, mes, movimentacaoRealizadaDTOs)
+                            };
+
+                            mes = mes--;
+                            if (mes == 0)
+                            {
+                                mes = 12;
+                                ano--;
+                            }
+                            movimentacaoRealizadaMensalDTO.UpdateItemMovimentacao(item.ItemMovimentacaoDTO, mesItemDTO);
+                            meses--;
+                        }
+                        
+                    }                    
+                    
+                }
 
                 movimentacaoRealizadaMensalDTOs.Add(movimentacaoRealizadaMensalDTO);
             }
@@ -82,11 +126,11 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         private double GetSaldo(int idConta, DateTime dataReferencia)
         {
-            List<SaldoDiarioDTO> saldoAnteriorConta = saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia);
+            List<SaldoDiarioDTO> saldoDiario = saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia);
 
-            return saldoAnteriorConta.Where(s => s.Conta.Id.Equals(idConta))
+            return saldoDiario.Where(s => s.Conta.Id.Equals(idConta))
                                      .Select(s => s.Valor)
-                                     .FirstOrDefault();
+                                     .Sum();
         }
 
         private double GetValor(int idConta, int idItemMovimentacao, int ano, int mes, List<MovimentacaoRealizadaDTO> movimentacaoRealizadaDTOs)

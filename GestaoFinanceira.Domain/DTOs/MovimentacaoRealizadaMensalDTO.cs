@@ -1,67 +1,30 @@
-﻿using GestaoFinanceira.Domain.Models.Enuns;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GestaoFinanceira.Domain.DTOs
 {
     public class MovimentacaoRealizadaMensalDTO
     {
 
-        public MovimentacaoRealizadaMensalDTO(ContaDTO conta, List<ItemMovimentacaoDTO> itemMovimentacaoDTOs, DateTime dataReferencia)
+        public MovimentacaoRealizadaMensalDTO(ContaDTO conta, List<SaldoContaDTO> saldoContaDTOs, List<ItemMovimentacaoDTO> itemMovimentacaoDTOs)
         {
             Conta = conta;
-            SaldosContaDTO = PopulaSaldoContaDTO(dataReferencia);
-            TiposMovimentacao = PopulaTiposMovimentacao(itemMovimentacaoDTOs, dataReferencia);
+            SaldoContaDTOs = saldoContaDTOs;
+            TiposMovimentacao = PopulaTiposMovimentacao(itemMovimentacaoDTOs);
         }
 
 
         public ContaDTO Conta { get; set; }
-        public List<SaldoContaDTO> SaldosContaDTO { get; set; }
+        public List<SaldoContaDTO> SaldoContaDTOs { get; set; }
         public List<TipoMovimentacao> TiposMovimentacao { get; set; }
 
-        public void UpdateSaldo(SaldoContaDTO saldoContaDTO)
+        public void UpdateItemMovimentacao(ItemMovimentacaoDTO itemMovimentacaoDTO, MesItemDTO mesItemDTO)
         {
-            this.SaldosContaDTO.RemoveAll(x => x.Mes.Equals(saldoContaDTO.Mes) && x.Ano.Equals(saldoContaDTO.Ano));
-            this.SaldosContaDTO.Add(saldoContaDTO);                              
+            this.TiposMovimentacao.Find(t => t.Tipo.Equals(itemMovimentacaoDTO.Tipo))
+                                  .ItemDTOs.Find(i => i.ItemMovimentacaoDTO.Id.Equals(itemMovimentacaoDTO.Id)).Meses.Add(mesItemDTO);            
         }
 
-        public void UpdateItemMovimentacao(ItemMovimentacaoDTO itemMovimentacaoDTO, int ano, int mes, double valor)
-        {
-
-        }
-
-        private List<SaldoContaDTO> PopulaSaldoContaDTO(DateTime dataReferencia)
-        {
-            List<SaldoContaDTO> lista = new List<SaldoContaDTO>();
-            var ano = dataReferencia.Year;
-            var mes = dataReferencia.Month;
-            var meses = 13;
-
-            while (meses > 0)
-            {
-                SaldoContaDTO saldoContaDTO = new SaldoContaDTO()
-                {
-                    Mes = mes,
-                    Ano = ano,
-                    SaldoAnterior = 0,
-                    SaldoAtual = 0
-                };
-
-                mes = mes-- == 0 ? 12 : mes--;
-                ano = mes-- == 0 ? ano-- : ano;
-
-                lista.Add(saldoContaDTO);
-
-                meses--;
-            }
-
-            return lista;
-        }
-        private static List<TipoMovimentacao> PopulaTiposMovimentacao(List<ItemMovimentacaoDTO> itemMovimentacaoDTOs, DateTime dataReferencia)
+        private static List<TipoMovimentacao> PopulaTiposMovimentacao(List<ItemMovimentacaoDTO> itemMovimentacaoDTOs)
         {
             List<TipoMovimentacao> tiposMovimentacao = new List<TipoMovimentacao>();
             tiposMovimentacao.Add(new TipoMovimentacao("R"));
@@ -76,7 +39,7 @@ namespace GestaoFinanceira.Domain.DTOs
                 {
                     foreach (var itemMovimentacaoDTO in itensReceita)
                     {
-                        ItemDTO itemDTO = new ItemDTO(itemMovimentacaoDTO, dataReferencia);
+                        ItemDTO itemDTO = new ItemDTO(itemMovimentacaoDTO);
                         tipoMovimentacao.ItemDTOs.Add(itemDTO);
                     }
 
@@ -86,7 +49,7 @@ namespace GestaoFinanceira.Domain.DTOs
                 {
                     foreach (var itemMovimentacaoDTO in itensDespesa)
                     {
-                        ItemDTO itemDTO = new ItemDTO(itemMovimentacaoDTO, dataReferencia);
+                        ItemDTO itemDTO = new ItemDTO(itemMovimentacaoDTO);
                         tipoMovimentacao.ItemDTOs.Add(itemDTO);
                     }
 
@@ -95,7 +58,7 @@ namespace GestaoFinanceira.Domain.DTOs
             return tiposMovimentacao;
         }
 
-               
+
     }
 
     public class SaldoContaDTO
@@ -120,39 +83,13 @@ namespace GestaoFinanceira.Domain.DTOs
 
     public class ItemDTO
     {
-        public ItemDTO(ItemMovimentacaoDTO itemMovimentacaoDTO, DateTime dataReferencia)
+        public ItemDTO(ItemMovimentacaoDTO itemMovimentacaoDTO)
         {
             ItemMovimentacaoDTO = itemMovimentacaoDTO;
-            Meses = PopulaMeses(dataReferencia);
         }
 
         public ItemMovimentacaoDTO ItemMovimentacaoDTO { get; set; }
         public List<MesItemDTO> Meses { get; set; }
-        public List<MesItemDTO> PopulaMeses(DateTime dataReferencia)
-        {
-            List<MesItemDTO> lista = new List<MesItemDTO>();
-            var ano = dataReferencia.Year;
-            var mes = dataReferencia.Month;
-            var meses = 13;
-
-            while (meses > 0)
-            {
-                MesItemDTO mesItemDTO = new MesItemDTO()
-                {
-                    Mes = mes,
-                    Ano = ano,
-                    Valor = 0
-                };
-
-                mes = mes-- == 0 ? 12 : mes--;
-                ano = mes-- == 0 ? ano-- : ano;
-
-                lista.Add(mesItemDTO);
-
-                meses--;
-            }
-            return lista;
-        }
     }
 
     public class MesItemDTO
