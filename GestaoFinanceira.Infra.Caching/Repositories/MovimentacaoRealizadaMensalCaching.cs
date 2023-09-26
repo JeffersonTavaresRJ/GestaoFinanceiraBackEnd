@@ -63,8 +63,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                     {
                         Mes = mes,
                         Ano = ano,
-                        SaldoAnterior = GetSaldo(contaDTO.Id, new DateTime(ano, mes, 1).AddMonths(-1)),
-                        SaldoAtual = GetSaldo(contaDTO.Id, new DateTime(ano, mes, 1))
+                        SaldoAnterior = saldoDiarioCaching.GetSaldoConta(contaDTO.Id, new DateTime(ano, mes, 1).AddMonths(-1)),
+                        SaldoAtual = saldoDiarioCaching.GetSaldoConta(contaDTO.Id, new DateTime(ano, mes, 1))
                     };
 
                     mes++;
@@ -124,14 +124,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return movimentacaoRealizadaMensalDTOs;
         }
 
-        private double GetSaldo(int idConta, DateTime dataReferencia)
-        {
-            List<SaldoDiarioDTO> saldoDiarioDTOs = saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia);
-            return saldoDiarioDTOs.Where(s => s.Conta.Id.Equals(idConta))
-                                  .Select(s => s.Valor)
-                                  .Sum();
-        }
-
+        
         private double GetValor(int idConta, int idItemMovimentacao, int ano, int mes, List<MovimentacaoRealizadaDTO> movimentacaoRealizadaDTOs)
         {
             var dataIni = new DateTime(ano, mes, 1);
