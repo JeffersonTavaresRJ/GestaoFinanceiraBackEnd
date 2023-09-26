@@ -1,15 +1,11 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
-using GestaoFinanceira.Infra.Caching.Context;
-using GestaoFinanceira.Infra.CrossCutting.GenericFunctions;
-using GestaoFinanceira.Infra.CrossCutting.Security;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 
 namespace GestaoFinanceira.Infra.Caching.Repositories
 {
@@ -25,11 +21,10 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         }
 
 
-        public List<MovimentacaoRealizadaMensalDTO> GetByDataMovimentacaoRealizada(DateTime dataReferencia)
+        public List<MovimentacaoRealizadaMensalDTO> GetByMovimentacaoRealizadaMensal(DateTime dataReferencia)
         {
             var ano = dataReferencia.Year;
             var mes = dataReferencia.Month;
-
 
             //Movimentações Realizadas no período..
             List<MovimentacaoRealizadaDTO> movimentacaoRealizadaDTOs = 
@@ -37,7 +32,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             
             //Todas as Contas com movimentações no período..
             List<ContaDTO> contaDTOs = 
-                movimentacaoRealizadaDTOs.Select(mr=>mr.Conta).Distinct().ToList().OrderBy(c=>c.Descricao).ToList();
+                movimentacaoRealizadaDTOs.Where(C=>C.Conta.Id.Equals(2023)).Select(mr=>mr.Conta).Distinct().ToList().OrderBy(c=>c.Descricao).ToList();
 
             //return da function..
             List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs = new List<MovimentacaoRealizadaMensalDTO>();          
@@ -58,9 +53,11 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                 //Calculando Saldos da Conta..
                 List<SaldoContaDTO> saldoContaDTOs = new List<SaldoContaDTO>();
 
-                var meses = 13;
+                var meses = 0;
+                ano = dataReferencia.Year - 1;
+                mes = dataReferencia.Month;
 
-                while (meses > 0)
+                while (meses <= 12)
                 {
                     SaldoContaDTO saldoContaDTO = new SaldoContaDTO()
                     {
@@ -70,15 +67,15 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                         SaldoAtual = GetSaldo(contaDTO.Id, new DateTime(ano, mes, 1))
                     };
 
-                    mes = mes--;
-                    if (mes == 0)
+                    mes++;
+                    if (mes == 13)
                     {
-                        mes = 12;
-                        ano--;
+                        mes = 1;
+                        ano++;
                     }
                     saldoContaDTOs.Add(saldoContaDTO);
 
-                    meses--;
+                    meses++;
                 }
 
 
@@ -86,16 +83,19 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                                                new MovimentacaoRealizadaMensalDTO(contaDTO, saldoContaDTOs, itemMovimentacaoDTOs);
 
 
-                //Populando o valor mensal de cada item.. 
+                //Populando o valor mensal de cada item..
+
                 foreach (TipoMovimentacao tipoMovimentacao in movimentacaoRealizadaMensalDTO.TiposMovimentacao)
                 {
 
                     foreach (ItemDTO item in tipoMovimentacao.ItemDTOs)
                     {
-                        meses = 13;
+                        meses = 0;
+                        ano = dataReferencia.Year-1;
+                        mes = dataReferencia.Month;
                         List<MesItemDTO> mesItemDTOs = new List<MesItemDTO>();
 
-                        while (meses > 0)
+                        while (meses <= 12)
                         {
                             MesItemDTO mesItemDTO = new MesItemDTO()
                             {
@@ -104,14 +104,14 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                                 Valor = GetValor(contaDTO.Id, item.ItemMovimentacaoDTO.Id, ano, mes, movimentacaoRealizadaDTOs)
                             };
 
-                            mes = mes--;
-                            if (mes == 0)
+                            mes++;
+                            if (mes == 13)
                             {
-                                mes = 12;
-                                ano--;
+                                mes = 1;
+                                ano++;
                             }
                             movimentacaoRealizadaMensalDTO.UpdateItemMovimentacao(item.ItemMovimentacaoDTO, mesItemDTO);
-                            meses--;
+                            meses++;
                         }
                         
                     }                    
@@ -126,17 +126,16 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         private double GetSaldo(int idConta, DateTime dataReferencia)
         {
-            List<SaldoDiarioDTO> saldoDiario = saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia);
-
-            return saldoDiario.Where(s => s.Conta.Id.Equals(idConta))
-                                     .Select(s => s.Valor)
-                                     .Sum();
+            List<SaldoDiarioDTO> saldoDiarioDTOs = saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia);
+            return saldoDiarioDTOs.Where(s => s.Conta.Id.Equals(idConta))
+                                  .Select(s => s.Valor)
+                                  .Sum();
         }
 
         private double GetValor(int idConta, int idItemMovimentacao, int ano, int mes, List<MovimentacaoRealizadaDTO> movimentacaoRealizadaDTOs)
         {
             var dataIni = new DateTime(ano, mes, 1);
-            var dataFim = new DateTime(ano, mes+1, 1).AddDays(-1);
+            var dataFim = new DateTime(ano, mes, 1).AddMonths(1).AddDays(-1);
 
             return movimentacaoRealizadaDTOs.Where(mr=>mr.ItemMovimentacao.Id.Equals(idItemMovimentacao) &&
                                                        mr.Conta.Id.Equals(idConta) &&

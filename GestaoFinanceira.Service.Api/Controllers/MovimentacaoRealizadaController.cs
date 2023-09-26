@@ -245,5 +245,19 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpGet("GetByMovimentacaoRealizadaMensal/{dataReferencia}")]
+        public IActionResult GetByMovimentacaoRealizadaMensal(DateTime dataReferencia)
+        {
+            try
+            {
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(movimentacaoRealizadaApplicationService.GetByMovimentacaoRealizadaMensal(dataReferencia));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

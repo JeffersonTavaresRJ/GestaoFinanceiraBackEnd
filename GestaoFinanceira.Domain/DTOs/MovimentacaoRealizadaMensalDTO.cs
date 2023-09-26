@@ -27,34 +27,54 @@ namespace GestaoFinanceira.Domain.DTOs
         private static List<TipoMovimentacao> PopulaTiposMovimentacao(List<ItemMovimentacaoDTO> itemMovimentacaoDTOs)
         {
             List<TipoMovimentacao> tiposMovimentacao = new List<TipoMovimentacao>();
-            tiposMovimentacao.Add(new TipoMovimentacao("R"));
-            tiposMovimentacao.Add(new TipoMovimentacao("D"));
 
             var itensReceita = itemMovimentacaoDTOs.Where(it => it.Tipo.Equals("R")).OrderBy(it => it.Descricao);
             var itensDespesa = itemMovimentacaoDTOs.Where(it => it.Tipo.Equals("D")).OrderBy(it => it.Descricao);
 
+            TipoMovimentacao tipoMovimentacao = new TipoMovimentacao("R");
+            foreach (var itemMovimentacaoDTO in itensReceita)
+            {
+                ItemDTO itemDTO = new ItemDTO(itemMovimentacaoDTO);
+                tipoMovimentacao.ItemDTOs.Add(itemDTO);
+                tiposMovimentacao.Add(tipoMovimentacao);
+            }
+
+            tipoMovimentacao = new TipoMovimentacao("D");
+            foreach (var itemMovimentacaoDTO in itensDespesa)
+            {
+                ItemDTO itemDTO = new ItemDTO(itemMovimentacaoDTO);
+                tipoMovimentacao.ItemDTOs.Add(itemDTO);
+                tiposMovimentacao.Add(tipoMovimentacao);
+            }
+            /*
             foreach (TipoMovimentacao tipoMovimentacao in tiposMovimentacao)
             {
                 if (tipoMovimentacao.Tipo.Equals("R"))
                 {
+                    tipoMovimentacao.ItemDTOs = new List<ItemDTO>();
                     foreach (var itemMovimentacaoDTO in itensReceita)
                     {
                         ItemDTO itemDTO = new ItemDTO(itemMovimentacaoDTO);
                         tipoMovimentacao.ItemDTOs.Add(itemDTO);
+                        tiposMovimentacao.Add(tipoMovimentacao);
                     }
 
                 }
 
                 if (tipoMovimentacao.Tipo.Equals("D"))
                 {
+                    tipoMovimentacao.ItemDTOs = new List<ItemDTO>();
                     foreach (var itemMovimentacaoDTO in itensDespesa)
                     {
                         ItemDTO itemDTO = new ItemDTO(itemMovimentacaoDTO);
                         tipoMovimentacao.ItemDTOs.Add(itemDTO);
+                        tiposMovimentacao.Add(tipoMovimentacao);
                     }
 
                 }
+
             }
+            */
             return tiposMovimentacao;
         }
 
@@ -74,6 +94,7 @@ namespace GestaoFinanceira.Domain.DTOs
         public TipoMovimentacao(string tipo)
         {
             Tipo = tipo;
+            ItemDTOs = new List<ItemDTO>();
         }
 
         public string Tipo { get; set; }
@@ -86,6 +107,7 @@ namespace GestaoFinanceira.Domain.DTOs
         public ItemDTO(ItemMovimentacaoDTO itemMovimentacaoDTO)
         {
             ItemMovimentacaoDTO = itemMovimentacaoDTO;
+            Meses = new List<MesItemDTO>();
         }
 
         public ItemMovimentacaoDTO ItemMovimentacaoDTO { get; set; }

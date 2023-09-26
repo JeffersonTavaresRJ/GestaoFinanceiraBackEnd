@@ -81,7 +81,13 @@ namespace GestaoFinanceira.Application.Services
 
         public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia)
         {
+            List<MovimentacaoRealizadaMensalDTO> lista = movimentacaoRealizadaMensalCaching.GetByMovimentacaoRealizadaMensal(dataReferencia);
             return saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia); 
+        }
+
+        public List<MovimentacaoRealizadaMensalDTO> GetByMovimentacaoRealizadaMensal(DateTime dataReferencia)
+        {
+            return movimentacaoRealizadaMensalCaching.GetByMovimentacaoRealizadaMensal(dataReferencia);
         }
     }
 }
