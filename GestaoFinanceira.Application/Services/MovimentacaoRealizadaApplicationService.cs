@@ -4,6 +4,7 @@ using GestaoFinanceira.Application.Commands.SaldoMensalConta;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
+using GestaoFinanceira.Infra.Reports.Excel;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -85,9 +86,11 @@ namespace GestaoFinanceira.Application.Services
             return saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia); 
         }
 
-        public List<MovimentacaoRealizadaMensalDTO> GetByMovimentacaoRealizadaMensal(DateTime dataReferencia)
+        public byte[] GetByMovimentacaoRealizadaMensal(DateTime dataReferencia)
         {
-            return movimentacaoRealizadaMensalCaching.GetByMovimentacaoRealizadaMensal(dataReferencia);
+            List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs 
+                = movimentacaoRealizadaMensalCaching.GetByMovimentacaoRealizadaMensal(dataReferencia);
+            return ReportMovimentacaoRealizadaMensal.GetAll(movimentacaoRealizadaMensalDTOs);
         }
     }
 }

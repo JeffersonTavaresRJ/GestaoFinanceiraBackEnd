@@ -5,7 +5,6 @@ using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.Xml;
 
 namespace GestaoFinanceira.Infra.Caching.Repositories
 {
@@ -32,7 +31,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             
             //Todas as Contas com movimentações no período..
             List<ContaDTO> contaDTOs = 
-                movimentacaoRealizadaDTOs.Where(C=>C.Conta.Id.Equals(2023)).Select(mr=>mr.Conta).Distinct().ToList().OrderBy(c=>c.Descricao).ToList();
+                movimentacaoRealizadaDTOs.Where(c=>c.Conta.Id.Equals(2015)).Select(mr=>mr.Conta).Distinct().ToList().OrderBy(c=>c.Descricao).ToList();
 
             //return da function..
             List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs = new List<MovimentacaoRealizadaMensalDTO>();          
