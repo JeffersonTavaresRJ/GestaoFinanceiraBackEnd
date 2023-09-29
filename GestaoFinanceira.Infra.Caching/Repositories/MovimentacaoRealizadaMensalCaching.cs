@@ -1,5 +1,6 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
+using GestaoFinanceira.Infra.CrossCutting.GenericFunctions;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
@@ -96,6 +97,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
                         while (meses <= 12)
                         {
+                            
                             MesItemDTO mesItemDTO = new MesItemDTO()
                             {
                                 Mes = mes,
@@ -131,8 +133,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
             return movimentacaoRealizadaDTOs.Where(mr=>mr.ItemMovimentacao.Id.Equals(idItemMovimentacao) &&
                                                        mr.Conta.Id.Equals(idConta) &&
-                                                       mr.DataMovimentacaoRealizada >= dataIni &&
-                                                       mr.DataMovimentacaoRealizada <= dataFim )
+                                                       mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataIni) &&
+                                                       mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataFim))
                                             .Select(mr=>mr.Valor)
                                             .Sum();
         }

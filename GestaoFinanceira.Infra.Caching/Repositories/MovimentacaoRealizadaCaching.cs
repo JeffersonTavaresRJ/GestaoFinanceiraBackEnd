@@ -106,8 +106,12 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             List<ContaDTO> contas = contaCaching.GetAll();
             List<ItemMovimentacaoDTO> itensMovimentacao = itemMovimentacaoCaching.GetAll();
 
-            var query = from fp in formasPagamento
-                        join mr in movimentacoesRealizadas on fp.Id equals mr.FormaPagamento.Id
+            //var query = from fp in formasPagamento
+            //            join mr in movimentacoesRealizadas on fp.Id equals mr.FormaPagamento.Id
+            //            join im in itensMovimentacao on mr.ItemMovimentacao.Id equals im.Id
+            //            join co in contas on mr.Conta.Id equals co.Id
+            var query = from mr in movimentacoesRealizadas
+                        join fp in formasPagamento on mr.FormaPagamento.Id equals fp.Id 
                         join im in itensMovimentacao on mr.ItemMovimentacao.Id equals im.Id
                         join co in contas on mr.Conta.Id equals co.Id
                         select new MovimentacaoRealizadaDTO

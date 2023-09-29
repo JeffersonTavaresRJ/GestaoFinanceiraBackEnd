@@ -15,22 +15,13 @@ namespace GestaoFinanceira.Infra.Reports.Excel
             //definir o tipo de licença..
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            var white = ColorTranslator.FromHtml("#FFFFFF");
-            var antiqueWhite = ColorTranslator.FromHtml("#FAEBD7");
-            var silver = ColorTranslator.FromHtml("#C0C0C0");
-            var darkGrey = ColorTranslator.FromHtml("#363636");
-            var lighGrey = ColorTranslator.FromHtml("#DCDCDC");
-
-            var mediumSeaGreen = ColorTranslator.FromHtml("#3CB371");
-            var red = ColorTranslator.FromHtml("#FF0000");
-            var blue = ColorTranslator.FromHtml("#0000FF");
-
-
-
+            
             //abrindo o conteúdo do arquivo excel..
             using (var excel = new ExcelPackage())
             {
                 string cellRef;
+                int coluna;
+                int linha;
                 ExcelRange cellExc;
 
                 //criando a planilha..
@@ -59,109 +50,14 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 sheet.Column(17).Width = larguraValores;
                 sheet.Column(18).Width = larguraValores;
 
-                List<Totalizador> celsSaldoAntPorConta = new List<Totalizador>()
-                {
-                    new Totalizador(1),
-                    new Totalizador(2),
-                    new Totalizador(3),
-                    new Totalizador(4),
-                    new Totalizador(5),
-                    new Totalizador(6),
-                    new Totalizador(7),
-                    new Totalizador(8),
-                    new Totalizador(9),
-                    new Totalizador(10),
-                    new Totalizador(11),
-                    new Totalizador(12),
-                    new Totalizador(13)
-                };
-
-
-                List<Totalizador> celsSaldoMenPorConta = new List<Totalizador>()
-                {
-                    new Totalizador(1),
-                    new Totalizador(2),
-                    new Totalizador(3),
-                    new Totalizador(4),
-                    new Totalizador(5),
-                    new Totalizador(6),
-                    new Totalizador(7),
-                    new Totalizador(8),
-                    new Totalizador(9),
-                    new Totalizador(10),
-                    new Totalizador(11),
-                    new Totalizador(12),
-                    new Totalizador(13)
-                };
-
-                List<Totalizador> celsRecPorConta = new List<Totalizador>()
-                {
-                    new Totalizador(1),
-                    new Totalizador(2),
-                    new Totalizador(3),
-                    new Totalizador(4),
-                    new Totalizador(5),
-                    new Totalizador(6),
-                    new Totalizador(7),
-                    new Totalizador(8),
-                    new Totalizador(9),
-                    new Totalizador(10),
-                    new Totalizador(11),
-                    new Totalizador(12),
-                    new Totalizador(13)
-                };
-
-                List<Totalizador> celsDesPorConta = new List<Totalizador>()
-                {
-                    new Totalizador(1),
-                    new Totalizador(2),
-                    new Totalizador(3),
-                    new Totalizador(4),
-                    new Totalizador(5),
-                    new Totalizador(6),
-                    new Totalizador(7),
-                    new Totalizador(8),
-                    new Totalizador(9),
-                    new Totalizador(10),
-                    new Totalizador(11),
-                    new Totalizador(12),
-                    new Totalizador(13)
-                };
-
-                List<Totalizador> celsSaldoAntTotal = new List<Totalizador>()
-                {
-                    new Totalizador(1),
-                    new Totalizador(2),
-                    new Totalizador(3),
-                    new Totalizador(4),
-                    new Totalizador(5),
-                    new Totalizador(6),
-                    new Totalizador(7),
-                    new Totalizador(8),
-                    new Totalizador(9),
-                    new Totalizador(10),
-                    new Totalizador(11),
-                    new Totalizador(12),
-                    new Totalizador(13)
-                };
-
-
-                List<Totalizador> celsSaldoMenTotal = new List<Totalizador>()
-                {
-                    new Totalizador(1),
-                    new Totalizador(2),
-                    new Totalizador(3),
-                    new Totalizador(4),
-                    new Totalizador(5),
-                    new Totalizador(6),
-                    new Totalizador(7),
-                    new Totalizador(8),
-                    new Totalizador(9),
-                    new Totalizador(10),
-                    new Totalizador(11),
-                    new Totalizador(12),
-                    new Totalizador(13)
-                };
+                var totalColunas = 13;
+                List<Totalizador> celsSaldoAntPorConta = GetListTotalizador(totalColunas);
+                List<Totalizador> celsSaldoMenPorConta = GetListTotalizador(totalColunas);
+                List<Totalizador> celsRecPorConta   = GetListTotalizador(totalColunas);
+                List<Totalizador> celsDesPorConta   = GetListTotalizador(totalColunas);
+                List<Totalizador> celsSaldoAntTotal = GetListTotalizador(totalColunas); 
+                List<Totalizador> celsSaldoMenTotal = GetListTotalizador(totalColunas);
+                
 
                 sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 sheet.Column(1).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
@@ -178,9 +74,9 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 titulo.Merge = true; //mesclar as celulas..
                 titulo.Style.Font.Size = 16;
                 titulo.Style.Font.Bold = true;
-                titulo.Style.Font.Color.SetColor(white);
+                titulo.Style.Font.Color.SetColor(Color.White);
                 titulo.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                titulo.Style.Fill.BackgroundColor.SetColor(darkGrey);
+                titulo.Style.Fill.BackgroundColor.SetColor(Color.Black);
                 titulo.Style.HorizontalAlignment= ExcelHorizontalAlignment.Center;
 
                 //cabeçalho..
@@ -188,7 +84,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 sheet.Cells["B3"].Value = "TIPO DE MOVIMENTAÇÃO";
                 sheet.Cells["C3"].Value = "MOVIMENTAÇÃO";
 
-                var coluna = 1;
+                coluna = 1;
                 foreach (var item in movimentacaoRealizadaMensalDTOs[0].SaldoContaDTOs)
                 {
                     sheet.Cells[GetCellMesAno(coluna, 3)].Value = ConvertMesAno(item.Ano, item.Mes);
@@ -202,12 +98,12 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 var cabecalho = sheet.Cells["A3:R3"];
                 cabecalho.Style.Font.Size = 10;
                 cabecalho.Style.Font.Bold = true;
-                cabecalho.Style.Font.Color.SetColor(white);
+                cabecalho.Style.Font.Color.SetColor(Color.White);
                 cabecalho.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                cabecalho.Style.Fill.BackgroundColor.SetColor(darkGrey);
+                cabecalho.Style.Fill.BackgroundColor.SetColor(Color.Black);
                 cabecalho.Style.HorizontalAlignment= ExcelHorizontalAlignment.Center;
 
-                var linha = 4;
+                linha = 4;
                 var contaContas = 1;
                 var linhaIniConta = 0;
                 foreach (MovimentacaoRealizadaMensalDTO movimentacaoRealizadaMensal in movimentacaoRealizadaMensalDTOs)
@@ -227,8 +123,9 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     var linhaSaldoAnterior = linha;
                     var saldoAnterior = sheet.Cells[$"C{linhaSaldoAnterior}"];
                     saldoAnterior.Value = "SALDO ANTERIOR";
-                    saldoAnterior.Style.Font.Color.SetColor(mediumSeaGreen);
+                    saldoAnterior.Style.Font.Color.SetColor(Color.DarkGray);
                     saldoAnterior.Style.Font.Italic = true;
+                    saldoAnterior.Style.Font.Bold = true;
                     saldoAnterior.Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
                     var linhaSaldoMensal = linhaSaldoAnterior + totalItensReceitas + totalItensDespesas + 1;
@@ -240,18 +137,21 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     coluna = 1;                    
                     foreach (SaldoContaDTO saldoContaDTO in movimentacaoRealizadaMensal.SaldoContaDTOs)
                     {
+
                         cellRef = GetCellMesAno(coluna, linhaSaldoAnterior);
                         cellExc = sheet.Cells[cellRef];
 
                         cellExc.Value = saldoContaDTO.SaldoAnterior;
-                        SetCellNumberProperties(cellExc, mediumSeaGreen);
+                        SetCellNumberProperties(cellExc, Color.DarkGray);
+                        cellExc.Style.Font.Italic = true;
+                        cellExc.Style.Font.Bold = true;
                         celsSaldoAntPorConta.Find(c => c.Coluna.Equals(coluna)).Celulas += cellRef + "+";
 
                         cellRef = GetCellMesAno(coluna, linhaSaldoMensal);
                         cellExc = sheet.Cells[cellRef];
 
                         cellExc.Value = saldoContaDTO.SaldoAtual;
-                        SetCellNumberProperties(cellExc, darkGrey);
+                        SetCellNumberProperties(cellExc, Color.Black);
                         celsSaldoMenPorConta.Find(c => c.Coluna.Equals(coluna)).Celulas += cellRef + "+";
 
                         cellExc.Style.Font.Bold = true;                                       
@@ -269,14 +169,14 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     tipoReceita.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     tipoReceita.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     tipoReceita.Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                    tipoReceita.Style.Font.Color.SetColor(blue);
+                    tipoReceita.Style.Font.Color.SetColor(Color.Blue);
 
                     List<ItemDTO> itemDTOs = movimentacaoRealizadaMensal.TiposMovimentacao.Where(t => t.Tipo.Equals("R")).FirstOrDefault().ItemDTOs;
 
                     foreach (ItemDTO itemDTO in itemDTOs)
                     {
                         sheet.Cells[$"C{linha}"].Value = itemDTO.ItemMovimentacaoDTO.Descricao;
-                        sheet.Cells[$"C{linha}"].Style.Font.Color.SetColor(blue);
+                        sheet.Cells[$"C{linha}"].Style.Font.Color.SetColor(Color.Blue);
                         sheet.Cells[$"C{linha}"].Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
                         coluna = 1;
@@ -286,7 +186,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                             cellRef   = GetCellMesAno(coluna, linha);
                             cellExc   = sheet.Cells[cellRef];
                             cellExc.Value = mesItemDTO.Valor;
-                            SetCellNumberProperties(cellExc, blue);
+                            SetCellNumberProperties(cellExc, Color.Blue);
                             //Células para cálculo no agrupamento do TOTAL GERAL..
                             celsRecPorConta.Find(c => c.Coluna.Equals(coluna)).Celulas+= cellRef + "+";
                             
@@ -298,7 +198,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
                         cellExc.FormulaR1C1     = GetFormulaSumRow(linha);
                         cellExc.Style.Font.Bold = true;
-                        SetCellNumberProperties(cellExc, blue);
+                        SetCellNumberProperties(cellExc, Color.Blue);
 
                         //MÉDIA POR ITEM..
                         coluna++;
@@ -306,7 +206,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                         cellExc = sheet.Cells[cellRef];
                         cellExc.FormulaR1C1     = GetFormulaMediaRow(linha); 
                         cellExc.Style.Font.Bold = true;
-                        SetCellNumberProperties(cellExc, blue);
+                        SetCellNumberProperties(cellExc, Color.Blue);
 
                         linha++;
                     }
@@ -320,7 +220,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     tipoDespesa.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     tipoDespesa.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     tipoDespesa.Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                    tipoDespesa.Style.Font.Color.SetColor(red);
+                    tipoDespesa.Style.Font.Color.SetColor(Color.Red);
 
                     itemDTOs = movimentacaoRealizadaMensal.TiposMovimentacao.Where(t => t.Tipo.Equals("D")).FirstOrDefault().ItemDTOs;
 
@@ -329,7 +229,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                         cellExc = sheet.Cells[$"C{linha}"];
                         cellExc.Value = itemDTO.ItemMovimentacaoDTO.Descricao;
                         cellExc.Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                        cellExc.Style.Font.Color.SetColor(red);
+                        cellExc.Style.Font.Color.SetColor(Color.Red);
                         coluna = 1;
                         foreach (MesItemDTO mesItemDTO in itemDTO.Meses)
                         {
@@ -337,7 +237,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                             cellExc = sheet.Cells[cellRef];
 
                             cellExc.Value = mesItemDTO.Valor;
-                            SetCellNumberProperties(cellExc, red);
+                            SetCellNumberProperties(cellExc, Color.Red);
 
                             //Células para cálculo no agrupamento do TOTAL GERAL..
                             celsDesPorConta.Find(c => c.Coluna.Equals(coluna)).Celulas+= cellRef + "+";
@@ -350,7 +250,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
                         cellExc.FormulaR1C1     = GetFormulaSumRow(linha);
                         cellExc.Style.Font.Bold = true;
-                        SetCellNumberProperties(cellExc, red);
+                        SetCellNumberProperties(cellExc, Color.Red);
 
                         //MÉDIA POR ITEM..
                         coluna++;
@@ -359,7 +259,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
                         cellExc.FormulaR1C1     = GetFormulaMediaRow(linha);
                         cellExc.Style.Font.Bold = true;
-                        SetCellNumberProperties(cellExc, red);
+                        SetCellNumberProperties(cellExc, Color.Red);
 
                         linha++;
                     }
@@ -368,7 +268,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     {
                         var conteudo = sheet.Cells[$"A{linhaIniConta}:R{linha}"];
                         conteudo.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        conteudo.Style.Fill.BackgroundColor.SetColor(antiqueWhite);
+                        conteudo.Style.Fill.BackgroundColor.SetColor(Color.AntiqueWhite);
                     }
 
                     conta.Merge = true;
@@ -391,20 +291,20 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 sheet.Cells[$"B{linha}"].Value = "SALDO ANTERIOR";
                 var saldoTotalAnterior = sheet.Cells[$"B{linha}:C{linha}"];
                 saldoTotalAnterior.Merge = true;
-                saldoTotalAnterior.Style.Font.Color.SetColor(mediumSeaGreen);
+                saldoTotalAnterior.Style.Font.Color.SetColor(Color.DarkGray);
                 saldoTotalAnterior.Style.Font.Italic = true;
                 saldoTotalAnterior.Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
 
                 coluna = 1;
-                while (coluna <= 13)
+                while (coluna <= totalColunas)
                 {
                     cellRef = GetCellMesAno(coluna, linha);
                     cellExc = sheet.Cells[cellRef];
 
                     string sumCells = celsSaldoAntPorConta.Find(c => c.Coluna.Equals(coluna)).Celulas;
                     cellExc.Formula = sumCells.Substring(0, sumCells.Length - 1);
-                    SetCellNumberProperties(cellExc, mediumSeaGreen);
+                    SetCellNumberProperties(cellExc, Color.DarkGray);
 
                     celsSaldoAntTotal.Find(c => c.Coluna.Equals(coluna)).Celulas = cellRef;
                     
@@ -418,29 +318,31 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 var saldoReceita = sheet.Cells[$"B{linha}:C{linha}"];
                 saldoReceita.Merge = true;
                 saldoReceita.Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                saldoReceita.Style.Font.Color.SetColor(blue);
+                saldoReceita.Style.Font.Color.SetColor(Color.Blue);
 
                 coluna = 1;
-                while (coluna <= 13)
+                while (coluna <= totalColunas)
                 {
                     cellExc = sheet.Cells[GetCellMesAno(coluna, linha)];
                     string sumCells = celsRecPorConta.Find(c => c.Coluna.Equals(coluna)).Celulas;
                     cellExc.Formula = sumCells.Substring(0, sumCells.Length - 1);
-                    SetCellNumberProperties(cellExc, blue);
+                    SetCellNumberProperties(cellExc, Color.Blue);
                     coluna++;
                 }
+
                 //TOTAL RECEITAS..
                 cellExc = sheet.Cells[GetCellMesAno(coluna, linha)];
                 cellExc.FormulaR1C1     = GetFormulaSumRow(linha);
                 cellExc.Style.Font.Bold = true;
-                SetCellNumberProperties(cellExc, blue);
+                SetCellNumberProperties(cellExc, Color.Blue);
 
                 //MÉDIA RECEITAS..
                 coluna++;
                 cellExc = sheet.Cells[GetCellMesAno(coluna, linha)];
                 cellExc.FormulaR1C1     = GetFormulaMediaRow(linha); 
                 cellExc.Style.Font.Bold = true;
-                SetCellNumberProperties(cellExc, blue);
+                SetCellNumberProperties(cellExc, Color.Blue);
+
 
 
 
@@ -450,31 +352,35 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 var saldoDespesa = sheet.Cells[$"B{linha}:C{linha}"];
                 saldoDespesa.Merge = true;
                 saldoDespesa.Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                saldoDespesa.Style.Font.Color.SetColor(red);
+                saldoDespesa.Style.Font.Color.SetColor(Color.Red);
 
                 coluna = 1;
-                while (coluna <= 13)
+                while (coluna <= totalColunas)
                 {
                     cellExc = sheet.Cells[GetCellMesAno(coluna, linha)];
                     string sumCells = celsDesPorConta.Find(c => c.Coluna.Equals(coluna)).Celulas;
                     cellExc.Formula = sumCells.Substring(0, sumCells.Length - 1);
-                    SetCellNumberProperties(cellExc, red);
+                    SetCellNumberProperties(cellExc, Color.Red);
                     coluna++;
                 }
-                //TOTAL RECEITAS..
+
+                //TOTAL DESPESAS..
                 cellExc = sheet.Cells[GetCellMesAno(coluna, linha)];
                 cellExc.FormulaR1C1 = GetFormulaSumRow(linha);
                 cellExc.Style.Font.Bold = true;
-                SetCellNumberProperties(cellExc, red);
+                SetCellNumberProperties(cellExc, Color.Red);
 
-                //MÉDIA RECEITAS..
+                //MÉDIA DESPESAS..
                 coluna++;
                 cellExc = sheet.Cells[GetCellMesAno(coluna, linha)];
                 cellExc.FormulaR1C1 = GetFormulaMediaRow(linha);
                 cellExc.Style.Font.Bold = true;
-                SetCellNumberProperties(cellExc, red);
+                SetCellNumberProperties(cellExc, Color.Red);
 
-                //SALDO DO MÊS..
+
+
+
+                //SALDO MENSAL..
                 linha++;
                 sheet.Cells[$"B{linha}"].Value = "SALDO MENSAL";
                 var saldoMes = sheet.Cells[$"B{linha}:C{linha}"];
@@ -482,14 +388,14 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 saldoMes.Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
                 coluna = 1;
-                while (coluna <= 13)
+                while (coluna <= totalColunas)
                 {
                     string sumCells = celsSaldoMenPorConta.Find(c => c.Coluna.Equals(coluna)).Celulas;
                     cellRef     = GetCellMesAno(coluna, linha);
                     cellExc     = sheet.Cells[cellRef];                    
                     cellExc.Formula = sumCells.Substring(0, sumCells.Length - 1);
                     celsSaldoMenTotal.Find(c => c.Coluna.Equals(coluna)).Celulas = cellRef;
-                    SetCellNumberProperties(cellExc, darkGrey);
+                    SetCellNumberProperties(cellExc, Color.Black);
                     coluna++;
                 }
 
@@ -504,7 +410,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 conteudoTotalizador.Style.Font.Bold = true;
                 conteudoTotalizador.Style.Border.BorderAround(ExcelBorderStyle.Thin);
                 conteudoTotalizador.Style.Border.DiagonalUp = true;
-                conteudoTotalizador.Style.Fill.BackgroundColor.SetColor(silver);
+                conteudoTotalizador.Style.Fill.BackgroundColor.SetColor(Color.Gainsboro);
 
                 //VARIAÇÃO..
                 linha++;
@@ -514,13 +420,26 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 cellVariacaoPercentual.Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
                 coluna = 1;
-                while (coluna <= 13)
+                while (coluna <= totalColunas)
                 {
                     var cellSaldoAntTotal = celsSaldoAntTotal.Find(c => c.Coluna.Equals(coluna)).Celulas;
                     var cellSaldoMenTotal = celsSaldoMenTotal.Find(c => c.Coluna.Equals(coluna)).Celulas;
-                    var cell = sheet.Cells[GetCellMesAno(coluna, linha)];
-                    cell.Formula = $"({cellSaldoMenTotal}-{cellSaldoAntTotal})/{cellSaldoAntTotal}";                    
-                    SetCellPercentProperties(cell);
+                    cellRef = GetCellMesAno(coluna, linha);
+                    cellExc = sheet.Cells[cellRef];
+                    cellExc.Formula = $"({cellSaldoMenTotal}-{cellSaldoAntTotal})/{cellSaldoAntTotal}";                    
+                    SetCellPercentProperties(cellExc);
+
+                    //formatação da célula: percentual > 0..
+                    var condFormat01 = sheet.ConditionalFormatting.AddExpression(cellExc);
+                    condFormat01.Formula = $"{cellRef}>0";
+                    condFormat01.Style.Fill.BackgroundColor.SetColor(Color.LightGreen);
+                    condFormat01.Style.Font.Color.SetColor(Color.DarkGreen);
+
+                    //formatação da célula: percentual < 0..
+                    var condFormat02 = sheet.ConditionalFormatting.AddExpression(cellExc);
+                    condFormat02.Formula = $"{cellRef}<0";
+                    condFormat02.Style.Fill.BackgroundColor.SetColor(Color.LightPink);
+                    condFormat02.Style.Font.Color.SetColor(Color.Red);
                     coluna++;
                 }
 
@@ -532,6 +451,21 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 return excel.GetAsByteArray();
             }           
 
+        }
+
+        private static List<Totalizador> GetListTotalizador(int totalColunas)
+        {
+            List<Totalizador> lista = new List<Totalizador>();
+            var coluna = 1;
+
+            while (totalColunas >= coluna)
+            {
+                Totalizador totalizador = new Totalizador(coluna);
+                lista.Add(totalizador);
+                coluna++;
+            }
+
+            return lista;            
         }
 
         private static string ConvertMesAno(int ano, int mes)
