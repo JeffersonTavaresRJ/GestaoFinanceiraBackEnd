@@ -22,6 +22,6 @@ namespace GestaoFinanceira.Application.Interfaces
         Task<List<SaldoContaMensalDTO>> GetSaldoMensalPorConta(ReaderSaldoMensalPorContaCommand command);
         Task<List<SaldoContaAnualDTO>> GetSaldoAnualPorConta(ReaderSaldoAnualPorContaCommand command);
         Task<List<ItemMovimentacaoMensalDTO>> GetItemMovimentacaoMensal(ReaderItemMovimentacaoMensalCommand command);
-        byte[] GetByMovimentacaoRealizadaMensal(DateTime dataReferencia);
+        byte[] GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia);
     }
 }

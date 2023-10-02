@@ -246,34 +246,20 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-        [HttpGet("GetByMovimentacaoRealizadaMensal/{dataReferencia}")]
-        public IActionResult GetByMovimentacaoRealizadaMensal(DateTime dataReferencia)
+        [HttpPost("GetByMovimentacaoRealizadaMensalReportExcel")]
+        public IActionResult GetByMovimentacaoRealizadaMensalReportExcel(ReaderMovimentacaoMensalPorConta command)
         {
             try
             {
                 UserEntity.SetUsuarioID(this.User);
-                return Ok(movimentacaoRealizadaApplicationService.GetByMovimentacaoRealizadaMensal(dataReferencia));
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
-        }
-
-        [HttpGet("GetByMovimentacaoRealizadaMensalReportExcel/{dataReferencia}")]
-        public IActionResult GetByMovimentacaoRealizadaMensalReportExcel(DateTime dataReferencia)
-        {
-            try
-            {
-                UserEntity.SetUsuarioID(this.User);
-                var file = movimentacaoRealizadaApplicationService.GetByMovimentacaoRealizadaMensal(dataReferencia);
+                var file = movimentacaoRealizadaApplicationService.GetByMovimentacaoRealizadaMensal(command.IdContas, command.DataReferencia);
 
                 if (file != null)
                 {
                     return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
                 }
 
-                return NoContent();
+                return StatusCode(404);
             }
             catch (Exception e)
             {

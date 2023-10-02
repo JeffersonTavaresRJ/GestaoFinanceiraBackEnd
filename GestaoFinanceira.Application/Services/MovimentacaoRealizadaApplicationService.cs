@@ -82,14 +82,13 @@ namespace GestaoFinanceira.Application.Services
 
         public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia)
         {
-            List<MovimentacaoRealizadaMensalDTO> lista = movimentacaoRealizadaMensalCaching.GetByMovimentacaoRealizadaMensal(dataReferencia);
             return saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia); 
         }
 
-        public byte[] GetByMovimentacaoRealizadaMensal(DateTime dataReferencia)
+        public byte[] GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia)
         {
             List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs 
-                = movimentacaoRealizadaMensalCaching.GetByMovimentacaoRealizadaMensal(dataReferencia);
+                = movimentacaoRealizadaMensalCaching.GetByMovimentacaoRealizadaMensal(idsConta, dataReferencia);
             return ReportMovimentacaoRealizadaMensal.GetAll(movimentacaoRealizadaMensalDTOs);
         }
     }

@@ -12,5 +12,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Caching
         List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime dataReferencia);
         List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int idConta, DateTime dataMovReal);
         List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, DateTime dataMovRealIni, DateTime dataMovRealFim);
+        List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(List<int> idContas, DateTime dataMovRealIni, DateTime dataMovRealFim);
     }
 }

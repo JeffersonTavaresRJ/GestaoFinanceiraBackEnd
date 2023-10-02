@@ -6,6 +6,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Caching
 {
     public interface IMovimentacaoRealizadaMensalCaching
     {
-        List<MovimentacaoRealizadaMensalDTO> GetByMovimentacaoRealizadaMensal(DateTime dataReferencia);
+        List<MovimentacaoRealizadaMensalDTO> GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia);
     }
 }

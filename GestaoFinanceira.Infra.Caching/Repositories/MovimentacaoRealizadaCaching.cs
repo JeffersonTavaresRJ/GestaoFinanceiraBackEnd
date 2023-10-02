@@ -3,6 +3,7 @@ using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Infra.Caching.Context;
 using GestaoFinanceira.Infra.CrossCutting.GenericFunctions;
 using GestaoFinanceira.Infra.CrossCutting.Security;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
@@ -74,6 +75,19 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                    && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataMovRealFim)
                    && mr.FormaPagamento.IdUsuario == UserEntity.IdUsuario);
             List<MovimentacaoRealizadaDTO> movimentacoesRealizadas = mongoDBContext.MovimentacoesRealizadas.Find(filter).ToList();
+
+            return Query(movimentacoesRealizadas);
+        }
+
+        public List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(List<int> idContas, DateTime dataMovRealIni, DateTime dataMovRealFim)
+        {
+            var builder = Builders<MovimentacaoRealizadaDTO>.Filter;
+            var filter =  builder.Where(mr => mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataMovRealIni)
+                                           && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataMovRealFim)
+                                           && mr.FormaPagamento.IdUsuario == UserEntity.IdUsuario) &
+                          builder.In(mr => mr.Conta.Id, idContas);
+
+            List < MovimentacaoRealizadaDTO> movimentacoesRealizadas = mongoDBContext.MovimentacoesRealizadas.Find(filter).ToList();
 
             return Query(movimentacoesRealizadas);
         }

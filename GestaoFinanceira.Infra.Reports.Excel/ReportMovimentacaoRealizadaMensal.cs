@@ -10,12 +10,17 @@ namespace GestaoFinanceira.Infra.Reports.Excel
     public class ReportMovimentacaoRealizadaMensal
     {
         
-        public static byte[] GetAll(List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs) {
+        public static byte[]? GetAll(List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs) {
+
+            if(movimentacaoRealizadaMensalDTOs.Count == 0)
+            {
+                return null;
+            }
 
             //definir o tipo de licença..
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            
+                
             //abrindo o conteúdo do arquivo excel..
             using (var excel = new ExcelPackage())
             {
@@ -83,7 +88,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 sheet.Cells["A3"].Value = "CONTA";
                 sheet.Cells["B3"].Value = "TIPO DE MOVIMENTAÇÃO";
                 sheet.Cells["C3"].Value = "MOVIMENTAÇÃO";
-
+                
                 coluna = 1;
                 foreach (var item in movimentacaoRealizadaMensalDTOs[0].SaldoContaDTOs)
                 {
@@ -264,9 +269,12 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                         linha++;
                     }
 
+
+                    var conteudo = sheet.Cells[$"A{linhaIniConta}:R{linha}"];
+                    conteudo.Style.Border.BorderAround(ExcelBorderStyle.Thin);
+
                     if (contaContas % 2 == 0)
                     {
-                        var conteudo = sheet.Cells[$"A{linhaIniConta}:R{linha}"];
                         conteudo.Style.Fill.PatternType = ExcelFillStyle.Solid;
                         conteudo.Style.Fill.BackgroundColor.SetColor(Color.AntiqueWhite);
                     }
@@ -274,12 +282,12 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     conta.Merge = true;
                     conta.Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
+                    linha++;
                     contaContas++;
                 }
 
                 //===============TOTAL GERAL===============/
 
-                linha++;
                 var linhaIniTotalizador = linha;
                 sheet.Cells[$"A{linha}"].Value = "TOTAL GERAL";
                 var totalGeral = sheet.Cells[$"A{linha}:A{linha + 3}"];

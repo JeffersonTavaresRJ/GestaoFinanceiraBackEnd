@@ -21,18 +21,18 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         }
 
 
-        public List<MovimentacaoRealizadaMensalDTO> GetByMovimentacaoRealizadaMensal(DateTime dataReferencia)
+        public List<MovimentacaoRealizadaMensalDTO> GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia)
         {
             var ano = dataReferencia.Year;
             var mes = dataReferencia.Month;
 
             //Movimentações Realizadas no período..
             List<MovimentacaoRealizadaDTO> movimentacaoRealizadaDTOs = 
-                this.movimentacaoRealizadaCaching.GetByDataMovimentacaoRealizada(null, new DateTime(ano-1, mes, 1), new DateTime(ano, mes+1, 1).AddDays(-1));
+                this.movimentacaoRealizadaCaching.GetByDataMovimentacaoRealizada(idsConta, new DateTime(ano-1, mes, 1), new DateTime(ano, mes+1, 1).AddDays(-1));
             
             //Todas as Contas com movimentações no período..
             List<ContaDTO> contaDTOs = 
-                movimentacaoRealizadaDTOs.Where(c=>c.Conta.Id.Equals(2015)).Select(mr=>mr.Conta).Distinct().ToList().OrderBy(c=>c.Descricao).ToList();
+                movimentacaoRealizadaDTOs.Select(mr=>mr.Conta).Distinct().ToList().OrderBy(c=>c.Descricao).ToList();
 
             //return da function..
             List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs = new List<MovimentacaoRealizadaMensalDTO>();          
