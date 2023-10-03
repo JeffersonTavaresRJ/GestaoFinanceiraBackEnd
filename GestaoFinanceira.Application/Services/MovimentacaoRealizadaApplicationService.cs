@@ -4,6 +4,7 @@ using GestaoFinanceira.Application.Commands.SaldoMensalConta;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
+using GestaoFinanceira.Infra.Reports.Excel;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,17 @@ namespace GestaoFinanceira.Application.Services
     {
         private readonly IMediator mediator;
         private readonly IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching;
+        private readonly IMovimentacaoRealizadaMensalCaching movimentacaoRealizadaMensalCaching;
         private readonly ISaldoDiarioCaching saldoDiarioCaching;
 
         public MovimentacaoRealizadaApplicationService(IMediator mediator, 
-                                                       IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching, 
+                                                       IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching,
+                                                       IMovimentacaoRealizadaMensalCaching movimentacaoRealizadaMensalCaching,
                                                        ISaldoDiarioCaching saldoDiarioCaching)
         {
             this.mediator = mediator;
             this.movimentacaoRealizadaCaching = movimentacaoRealizadaCaching;
+            this.movimentacaoRealizadaMensalCaching = movimentacaoRealizadaMensalCaching;
             this.saldoDiarioCaching = saldoDiarioCaching;
         }
 
@@ -79,6 +83,13 @@ namespace GestaoFinanceira.Application.Services
         public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia)
         {
             return saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia); 
+        }
+
+        public byte[] GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia)
+        {
+            List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs 
+                = movimentacaoRealizadaMensalCaching.GetByMovimentacaoRealizadaMensal(idsConta, dataReferencia);
+            return ReportMovimentacaoRealizadaMensal.GetAll(movimentacaoRealizadaMensalDTOs);
         }
     }
 }

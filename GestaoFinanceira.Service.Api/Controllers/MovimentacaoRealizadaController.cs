@@ -245,5 +245,26 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpPost("GetByMovimentacaoRealizadaMensalReportExcel")]
+        public IActionResult GetByMovimentacaoRealizadaMensalReportExcel(ReaderMovimentacaoMensalPorConta command)
+        {
+            try
+            {
+                UserEntity.SetUsuarioID(this.User);
+                var file = movimentacaoRealizadaApplicationService.GetByMovimentacaoRealizadaMensal(command.IdContas, command.DataReferencia);
+
+                if (file != null)
+                {
+                    return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                }
+
+                return StatusCode(404);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

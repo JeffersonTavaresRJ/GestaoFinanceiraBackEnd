@@ -41,20 +41,12 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             mongoDBContext.SaldosDiario.DeleteOne(filter);
         }
 
-        public List<SaldoDiarioDTO> GetBySaldosDiario(int idConta, DateTime dataSaldo)
-        {
-            var filter = Builders<SaldoDiarioDTO>.Filter
-               .Where(sa => (sa.Conta.Id == idConta ) &&
-                      sa.DataSaldo >= DateTimeClass.DataHoraIni(dataSaldo) &&
-                      sa.DataSaldo <= DateTimeClass.DataHoraFim(dataSaldo));
-            return mongoDBContext.SaldosDiario.Find(filter).ToList();
-        }
-
         public List<SaldoDiarioDTO> GetBySaldosDiario( DateTime dataSaldoIni, DateTime dataSaldoFim)
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
-               .Where(sa => sa.DataSaldo >= DateTimeClass.DataHoraIni(dataSaldoIni) && 
-                            sa.DataSaldo <= DateTimeClass.DataHoraFim(dataSaldoFim));
+               .Where(sa => (sa.Conta.IdUsuario == UserEntity.IdUsuario) &&
+                             sa.DataSaldo >= DateTimeClass.DataHoraIni(dataSaldoIni) && 
+                             sa.DataSaldo <= DateTimeClass.DataHoraFim(dataSaldoFim));
             return mongoDBContext.SaldosDiario.Find(filter).ToList();
         }
 
@@ -98,6 +90,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                                                               .Select(x => x.DataSaldo)
                                                               .FirstOrDefault()
                                     }).ToList();
+
             saldosDiario.Clear();
 
             foreach (var item in listGroupConta)
@@ -107,6 +100,35 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                 saldosDiario.Add(saldoDiarioDTO);
             }
             return saldosDiario;
+        }
+
+        public double GetSaldoConta(int idConta, DateTime dataReferencia)
+        {
+            var dataIni = new DateTime(dataReferencia.Year, dataReferencia.Month, 1);
+            var dataFim = new DateTime(dataReferencia.Year, dataReferencia.Month, DateTime.DaysInMonth(dataReferencia.Year, dataReferencia.Month));
+
+            List<SaldoDiarioDTO> saldosDiarioDTO = GetBySaldosDiario(idConta, dataIni, dataFim).ToList();
+
+            if(saldosDiarioDTO.Count > 0)
+            {
+                DateTime dataSaldoMax = saldosDiarioDTO.Select(s => s.DataSaldo).Max();
+
+                return GetByKey(idConta, dataSaldoMax).Valor;
+            }
+            else
+            {
+                return 0;
+            }         
+            
+        }
+
+        private List<SaldoDiarioDTO> GetBySaldosDiario(int idConta, DateTime dataIni, DateTime dataFim)
+        {
+            var filter = Builders<SaldoDiarioDTO>.Filter
+               .Where(sa => (sa.Conta.Id == idConta) &&
+                      sa.DataSaldo >= DateTimeClass.DataHoraIni(dataIni) &&
+                      sa.DataSaldo <= DateTimeClass.DataHoraFim(dataFim));
+            return mongoDBContext.SaldosDiario.Find(filter).ToList();
         }
     }
 }

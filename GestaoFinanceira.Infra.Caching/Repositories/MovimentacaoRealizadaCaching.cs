@@ -3,6 +3,7 @@ using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Infra.Caching.Context;
 using GestaoFinanceira.Infra.CrossCutting.GenericFunctions;
 using GestaoFinanceira.Infra.CrossCutting.Security;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
@@ -11,7 +12,7 @@ using System.Linq;
 
 namespace GestaoFinanceira.Infra.Caching.Repositories
 {
-    public class MovimentacaoRealizadaCaching : IMovimentacaoRealizadaCaching
+    public class MovimentacaoRealizadaCaching :IMovimentacaoRealizadaCaching
     {
         private readonly MongoDBContext mongoDBContext;
         private readonly IFormaPagamentoCaching formaPagamentoCaching;
@@ -78,6 +79,19 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return Query(movimentacoesRealizadas);
         }
 
+        public List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(List<int> idContas, DateTime dataMovRealIni, DateTime dataMovRealFim)
+        {
+            var builder = Builders<MovimentacaoRealizadaDTO>.Filter;
+            var filter =  builder.Where(mr => mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataMovRealIni)
+                                           && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataMovRealFim)
+                                           && mr.FormaPagamento.IdUsuario == UserEntity.IdUsuario) &
+                          builder.In(mr => mr.Conta.Id, idContas);
+
+            List < MovimentacaoRealizadaDTO> movimentacoesRealizadas = mongoDBContext.MovimentacoesRealizadas.Find(filter).ToList();
+
+            return Query(movimentacoesRealizadas);
+        }
+
         public List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada( int idConta, DateTime dataMovReal)
         {
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter
@@ -106,8 +120,12 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             List<ContaDTO> contas = contaCaching.GetAll();
             List<ItemMovimentacaoDTO> itensMovimentacao = itemMovimentacaoCaching.GetAll();
 
-            var query = from fp in formasPagamento
-                        join mr in movimentacoesRealizadas on fp.Id equals mr.FormaPagamento.Id
+            //var query = from fp in formasPagamento
+            //            join mr in movimentacoesRealizadas on fp.Id equals mr.FormaPagamento.Id
+            //            join im in itensMovimentacao on mr.ItemMovimentacao.Id equals im.Id
+            //            join co in contas on mr.Conta.Id equals co.Id
+            var query = from mr in movimentacoesRealizadas
+                        join fp in formasPagamento on mr.FormaPagamento.Id equals fp.Id 
                         join im in itensMovimentacao on mr.ItemMovimentacao.Id equals im.Id
                         join co in contas on mr.Conta.Id equals co.Id
                         select new MovimentacaoRealizadaDTO
