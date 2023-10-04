@@ -18,8 +18,8 @@ namespace GestaoFinanceira.Domain.Validations
 
             RuleFor(mp => mp.Valor)
                 .Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
-                .NotEmpty().WithMessage("O valor é obrigatório")
-                .GreaterThanOrEqualTo(1).WithMessage("O Valor deve ser igual ou maior do que 1");
+                .NotEmpty().WithMessage("O valor é obrigatório. ")
+                .GreaterThan(0).WithMessage("O Valor deve ser maior do que zero. ");
 
             RuleFor(mp => mp.NrParcela)
                 .Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
