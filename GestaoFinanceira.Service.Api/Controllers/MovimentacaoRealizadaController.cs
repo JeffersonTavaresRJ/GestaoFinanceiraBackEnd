@@ -39,12 +39,12 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
             catch (MovRealSucessoException e )
             {
-                return Ok(new { message = e.Message, id = e.Id });
+                return Ok(new { message = e.Message/*, id = e.id*/ });
             }
 
             catch (MovPrevAlteraStatus e)
             {
-                return Ok(new { message = e.Message, id = e.Id });
+                return Ok(new { message = e.Message/*, id = e.Id*/ });
             }
             catch (ValidationException e)
             {

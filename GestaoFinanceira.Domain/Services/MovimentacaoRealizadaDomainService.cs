@@ -23,7 +23,7 @@ namespace GestaoFinanceira.Domain.Services
             try
             {
                 unitOfWork.BeginTransaction();
-                Movimentacao movimentacao = null;               
+                Movimentacao movimentacao = null;
                 movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoRealizada.IdItemMovimentacao,
                                                                            movimentacaoRealizada.DataReferencia);
 
@@ -42,25 +42,9 @@ namespace GestaoFinanceira.Domain.Services
                 var id = unitOfWork.IMovimentacaoRealizadaRepository.Add(movimentacaoRealizada);
                 movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(id);
 
-                if (movimentacao != null &&
-                    movimentacao.MovimentacaoPrevista != null &&
-                    movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.A)
-                {
-                    //pegando o valor total de lançamentos realizados..
-                    double valorTotalMovReal = unitOfWork.IMovimentacaoRealizadaRepository.GetByDataReferencia(movimentacaoRealizada.IdItemMovimentacao,
-                                                                                                               movimentacaoRealizada.DataReferencia)
-                                                                                          .Sum(more => more.Valor);
+                _movimentacaoPrevista = AtualizaStatusMovimentacaoPrevista(movimentacaoRealizada, movimentacao);
 
-                    //se o valor total de lançamentos realizados for maior ou igual ao valor previsto, quitar movimentação prevista..
-                    if (valorTotalMovReal >= movimentacao.MovimentacaoPrevista.Valor)
-                    {
-                        movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
-                        unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
-                        _movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
-                    }
-                }
-
-                unitOfWork.Commit();                
+                unitOfWork.Commit();
 
             }
             catch (Exception e)
@@ -183,6 +167,36 @@ namespace GestaoFinanceira.Domain.Services
             {
                 throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
             }
+        }
+
+        private MovimentacaoPrevista AtualizaStatusMovimentacaoPrevista(MovimentacaoRealizada movimentacaoRealizada, Movimentacao movimentacao)
+        {
+            MovimentacaoPrevista movimentacaoPrevista = new MovimentacaoPrevista();
+
+            if (movimentacao != null &&
+                                movimentacao.MovimentacaoPrevista != null &&
+                                movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.A)
+            {
+                //pegando o valor total de lançamentos realizados..
+                double valorTotalMovReal = unitOfWork.IMovimentacaoRealizadaRepository.GetByDataReferencia(movimentacaoRealizada.IdItemMovimentacao,
+                                                                                                           movimentacaoRealizada.DataReferencia)
+                                                                                      .Sum(more => more.Valor);
+
+                //se o valor total de lançamentos realizados for maior ou igual ao valor previsto, quitar movimentação prevista..
+                if (valorTotalMovReal >= movimentacao.MovimentacaoPrevista.Valor)
+                {
+                    movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
+                    unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
+                    movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
+                }
+            }
+
+            return movimentacaoPrevista;
+        }
+
+        public List<MovimentacaoRealizada> Executar(TransferenciaContas transferenciaConta)
+        {
+            throw new NotImplementedException();
         }
     }
 }
