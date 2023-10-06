@@ -4,6 +4,7 @@ using GestaoFinanceira.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace GestaoFinanceira.Domain.Services
 {
@@ -196,7 +197,28 @@ namespace GestaoFinanceira.Domain.Services
 
         public List<MovimentacaoRealizada> Executar(TransferenciaContas transferenciaConta)
         {
-            throw new NotImplementedException();
+            List<MovimentacaoRealizada> movimentacoesRealizadas = new List<MovimentacaoRealizada>();
+            try
+            {
+                unitOfWork.BeginTransaction();
+
+                List<int> ids =  unitOfWork.ITransferenciaContasRepository.Executar(transferenciaConta).ToList();
+
+                foreach (int id in ids) {
+                    MovimentacaoRealizada movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(id);
+                    movimentacoesRealizadas.Add(movimentacaoRealizada);
+                }
+
+                unitOfWork.Commit();
+
+                return movimentacoesRealizadas;
+            }
+            catch (Exception e)
+            {
+                unitOfWork.Rollback();
+                throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
+            }
+            
         }
     }
 }

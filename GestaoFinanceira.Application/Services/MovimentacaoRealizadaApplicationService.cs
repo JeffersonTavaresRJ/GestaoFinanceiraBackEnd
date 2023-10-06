@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Application.Commands.ItemMovimentacao;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
 using GestaoFinanceira.Application.Commands.SaldoMensalConta;
+using GestaoFinanceira.Application.Commands.TransferenciaConta;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
@@ -41,6 +42,11 @@ namespace GestaoFinanceira.Application.Services
         }
 
         public Task Delete(DeleteMovimentacaoRealizadaCommand command)
+        {
+            return mediator.Send(command);
+        }
+
+        public Task Transfere(TransferenciaContaCommand command)
         {
             return mediator.Send(command);
         }

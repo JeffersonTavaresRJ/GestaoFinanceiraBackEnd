@@ -18,7 +18,6 @@ namespace GestaoFinanceira.Infra.Data.Context
         public DbSet<MovimentacaoPrevista> MovimentacoesPrevistas { get; set; }
         public DbSet<MovimentacaoRealizada> MovimentacoesRealizadas { get; set; }
         public DbSet<SaldoDiario> SaldosDiario { get; set; }
-        //public DbSet<SaldoMensalConta> SaldosAnuais{ get; set; }
 
 
         public SqlContext(DbContextOptions<SqlContext> options) : base(options)

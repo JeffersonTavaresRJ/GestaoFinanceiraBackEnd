@@ -21,7 +21,7 @@ namespace GestaoFinanceira.Application.RequestHandler
     public class MovimentacaoRealizadaRequestHandler : IRequestHandler<CreateMovimentacaoRealizadaCommand>,
                                                        IRequestHandler<UpdateMovimentacaoRealizadaCommand>,
                                                        IRequestHandler<DeleteMovimentacaoRealizadaCommand>,
-                                                       IRequest<TransferenciaContaCommand>
+                                                       IRequestHandler<TransferenciaContaCommand>
     {
         private readonly IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService;
         private readonly ISaldoDiarioDomainService saldoDiarioDomainService;

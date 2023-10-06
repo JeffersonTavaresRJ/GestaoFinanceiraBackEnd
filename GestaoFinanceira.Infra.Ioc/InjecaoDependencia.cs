@@ -64,6 +64,8 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IFechamentoRepository, FechamentoRepository>();
             services.AddTransient<ISaldoContaMensalRepository, SaldoContaMensalRepository>();
             services.AddTransient<IItemMovimentacaoMensalRepository, ItemMovimentacaoMensalRepository>();
+            services.AddTransient<ITransferenciaContasRepository, TransferenciaContasRepository>();
+            
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             #endregion

@@ -2,6 +2,7 @@
 using GestaoFinanceira.Application.Commands.ItemMovimentacao;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
 using GestaoFinanceira.Application.Commands.SaldoMensalConta;
+using GestaoFinanceira.Application.Commands.TransferenciaConta;
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
@@ -45,6 +46,26 @@ namespace GestaoFinanceira.Service.Api.Controllers
             catch (MovPrevAlteraStatus e)
             {
                 return Ok(new { message = e.Message/*, id = e.Id*/ });
+            }
+            catch (ValidationException e)
+            {
+                return BadRequest(ValidationAdapter.Parse(e.Errors));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+        }
+
+        [HttpPost("TransferenciaContas")]
+        public async Task<IActionResult> TransferenciaContas(TransferenciaContaCommand command)
+        {
+            try
+            {
+                UserEntity.SetUsuarioID(this.User);
+                await movimentacaoRealizadaApplicationService.Transfere(command);
+                return Ok(new { message = "Transferência realizada com sucesso!" });
             }
             catch (ValidationException e)
             {
