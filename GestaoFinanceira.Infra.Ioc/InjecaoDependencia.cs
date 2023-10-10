@@ -8,13 +8,16 @@ using GestaoFinanceira.Domain.Services;
 using GestaoFinanceira.Infra.Caching.Repositories;
 using GestaoFinanceira.Infra.CrossCutting.Cryptography;
 using GestaoFinanceira.Infra.Data.Repositories;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Data;
 
 namespace GestaoFinanceira.Infra.IoC
 {
     public static class InjecaoDependencia
     {
-        public static void Registrar(IServiceCollection services)
+        public static void Registrar(IServiceCollection services, IConfiguration configuration)
         {
             //TODO: Injecao de Dependencia - tratamento para instanciar automaticamente os objetos
 
@@ -65,7 +68,13 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<ISaldoContaMensalRepository, SaldoContaMensalRepository>();
             services.AddTransient<IItemMovimentacaoMensalRepository, ItemMovimentacaoMensalRepository>();
             services.AddTransient<ITransferenciaContasRepository, TransferenciaContasRepository>();
-            
+
+
+            #region Dapper
+            services.AddTransient<IDbConnection>(c => new SqlConnection(configuration.GetConnectionString("GestaoFinanceira")));
+            services.AddTransient<TransferenciaContasRepository>();
+            #endregion
+
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             #endregion

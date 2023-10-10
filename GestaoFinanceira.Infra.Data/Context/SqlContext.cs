@@ -2,7 +2,9 @@
 using GestaoFinanceira.Domain.Models.Enuns;
 using GestaoFinanceira.Infra.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
+using System.Collections.Generic;
 
 namespace GestaoFinanceira.Infra.Data.Context
 {
@@ -61,5 +63,6 @@ namespace GestaoFinanceira.Infra.Data.Context
 
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }

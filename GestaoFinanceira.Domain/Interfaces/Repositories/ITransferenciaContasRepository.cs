@@ -8,6 +8,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
 {
     public interface ITransferenciaContasRepository
     {
-        IEnumerable<int> Executar(TransferenciaContas transfereConta);
+        IEnumerable<dynamic> Executar(TransferenciaContas transfereConta);
     }
 }

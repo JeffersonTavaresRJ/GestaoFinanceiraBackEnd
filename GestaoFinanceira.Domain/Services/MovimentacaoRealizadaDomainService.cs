@@ -11,10 +11,12 @@ namespace GestaoFinanceira.Domain.Services
     public class MovimentacaoRealizadaDomainService : IMovimentacaoRealizadaDomainService
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly ITransferenciaContasRepository transferenciaContasRepository;
 
-        public MovimentacaoRealizadaDomainService(IUnitOfWork unitOfWork)
+        public MovimentacaoRealizadaDomainService(IUnitOfWork unitOfWork, ITransferenciaContasRepository transferenciaContasRepository)
         {
             this.unitOfWork = unitOfWork;
+            this.transferenciaContasRepository = transferenciaContasRepository;
         }
 
         public MovimentacaoRealizada Add(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista)
@@ -202,14 +204,13 @@ namespace GestaoFinanceira.Domain.Services
             {
                 unitOfWork.BeginTransaction();
 
-                List<int> ids =  unitOfWork.ITransferenciaContasRepository.Executar(transferenciaConta).ToList();
+                var ids = transferenciaContasRepository.Executar(transferenciaConta);
 
-                foreach (int id in ids) {
-                    MovimentacaoRealizada movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(id);
+                foreach (var item in ids)
+                {
+                    MovimentacaoRealizada movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(item.ID);
                     movimentacoesRealizadas.Add(movimentacaoRealizada);
                 }
-
-                unitOfWork.Commit();
 
                 return movimentacoesRealizadas;
             }

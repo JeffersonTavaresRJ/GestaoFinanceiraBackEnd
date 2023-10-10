@@ -1,43 +1,47 @@
-﻿using GestaoFinanceira.Domain.Interfaces.Repositories;
+﻿using Dapper;
+using GestaoFinanceira.Domain.Interfaces.Repositories;
 using GestaoFinanceira.Domain.Models;
-using GestaoFinanceira.Infra.Data.Context;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data;
 
 namespace GestaoFinanceira.Infra.Data.Repositories
 {
     public class TransferenciaContasRepository: ITransferenciaContasRepository
     {
-        protected SqlContext context;
-        protected DbSet<IQueryable<int>> dbset;
+        protected IDbConnection connection;
 
-        public TransferenciaContasRepository(SqlContext context)
+        public TransferenciaContasRepository(IDbConnection connection)
         {
-            this.context = context;
-            dbset = this.context.Set<IQueryable<int>>();
+            this.connection = connection;
+
         }
 
-        public IEnumerable<int> Executar(TransferenciaContas transferenciaContas)
+        public IEnumerable<dynamic> Executar(TransferenciaContas transferenciaContas)
         {
-
+            
             try
             {
-                return (IEnumerable<int>)this.context.Set<IEnumerable<int>>()
-                    .FromSqlRaw($" EXECUTE PRC_TRANSFERENCIA_ENTRE_CONTAS @pIdCont, @pIdContDestino, @pDataMore, @pValorMore, @pObservacao",
-                new SqlParameter("@pIdCont", transferenciaContas.IdConta), 
-                new SqlParameter("@pIdContDestino", transferenciaContas.IdContaDestino), 
-                new SqlParameter("@pDataMore", transferenciaContas.DataMovimentacaoRealizada),
-                new SqlParameter("@pValorMore", transferenciaContas.Valor),
-                new SqlParameter("@pObservacao", transferenciaContas.Observacao)).ToList();
+
+                var sqlText = "PRC_TRANSFERENCIA_ENTRE_CONTAS";
+                var sqlParams = new {@Id_Cont =  transferenciaContas.IdConta,
+                                     @Id_Cont_Destino= transferenciaContas.IdContaDestino,
+                                     @Data_More = transferenciaContas.DataMovimentacaoRealizada,
+                                     @Valor_More= transferenciaContas.Valor};
+
+                var result = connection.Query(sqlText, sqlParams, commandType: CommandType.StoredProcedure);               
+
+                return result;
 
             }
             catch (Exception e)
             {
-
                 throw new Exception(e.Message);
+
+            }
+            finally 
+            { 
+                connection.Close(); 
             }
             
         }

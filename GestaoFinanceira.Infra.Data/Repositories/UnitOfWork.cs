@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data;
+using System.Data.Common;
 
 namespace GestaoFinanceira.Infra.Data.Repositories
 {
@@ -56,9 +58,6 @@ namespace GestaoFinanceira.Infra.Data.Repositories
 
         public IItemMovimentacaoMensalRepository IItemMovimentacaoMensalRepository => new ItemMovimentacaoMensalRepository(context);
 
-        public ITransferenciaContasRepository ITransferenciaContasRepository => new TransferenciaContasRepository(context);
-
-         
         public void Dispose()
         {
             //context.Dispose();

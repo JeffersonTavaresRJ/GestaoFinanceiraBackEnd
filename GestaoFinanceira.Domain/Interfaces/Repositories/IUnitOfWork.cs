@@ -22,7 +22,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories
         IFechamentoRepository IFechamentoRepository { get; }
         ISaldoContaMensalRepository ISaldoMensalContaRepository { get; }
         IItemMovimentacaoMensalRepository IItemMovimentacaoMensalRepository { get; }
-        ITransferenciaContasRepository ITransferenciaContasRepository { get; }
 
     }
 }
