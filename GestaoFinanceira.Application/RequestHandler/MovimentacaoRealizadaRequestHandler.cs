@@ -250,7 +250,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             }
             
             /*adicionando no banco de dados..*/
-            movimentacoesRealizadas = movimentacaoRealizadaDomainService.Executar(transferenciaConta);
+            movimentacoesRealizadas = movimentacaoRealizadaDomainService.ExecutarTransferencia(transferenciaConta);
 
 
             /*adicionando no mongoDB..*/

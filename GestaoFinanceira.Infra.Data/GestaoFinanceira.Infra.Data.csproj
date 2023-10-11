@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Mappings\MovimentacaoParceladaMap.cs" />
-    <Compile Remove="Repositories\MovimentacaoParceladaRepository.cs" />
+    <Compile Remove="Repositories\EntityFramework\Mappings\MovimentacaoParceladaMap.cs" />
+    <Compile Remove="Repositories\EntityFramework\Repositories\MovimentacaoParceladaRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

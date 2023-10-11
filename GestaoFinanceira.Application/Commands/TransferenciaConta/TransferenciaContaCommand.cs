@@ -9,7 +9,6 @@ namespace GestaoFinanceira.Application.Commands.TransferenciaConta
         public int IdContaDestino { get; set; }
         public DateTime DataMovimentacaoRealizada { get; set; }
         public double Valor { get; set; }
-        public string Observacao { get; set; }
 
     }
 

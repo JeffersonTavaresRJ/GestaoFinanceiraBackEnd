@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using GestaoFinanceira.Infra.Data.Context;
+using GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Context;
 
 namespace GestaoFinanceira.Service.Api.Configurations
 {

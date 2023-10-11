@@ -3,11 +3,13 @@ using GestaoFinanceira.Application.Services;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Domain.Interfaces.Cryptography;
 using GestaoFinanceira.Domain.Interfaces.Repositories;
+using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Services;
 using GestaoFinanceira.Infra.Caching.Repositories;
 using GestaoFinanceira.Infra.CrossCutting.Cryptography;
-using GestaoFinanceira.Infra.Data.Repositories;
+using GestaoFinanceira.Infra.Data.Repositories.Dapper;
+using GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,7 +56,7 @@ namespace GestaoFinanceira.Infra.IoC
 
             #endregion
 
-            #region InfraData
+            #region InfraDataEF
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<IContaRepository, ContaRepository>();
@@ -66,17 +68,13 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<ISaldoDiarioRepository, SaldoDiarioRepository>();
             services.AddTransient<IFechamentoRepository, FechamentoRepository>();
             services.AddTransient<ISaldoContaMensalRepository, SaldoContaMensalRepository>();
-            services.AddTransient<IItemMovimentacaoMensalRepository, ItemMovimentacaoMensalRepository>();
-            services.AddTransient<ITransferenciaContasRepository, TransferenciaContasRepository>();
-
-
-            #region Dapper
-            services.AddTransient<IDbConnection>(c => new SqlConnection(configuration.GetConnectionString("GestaoFinanceira")));
-            services.AddTransient<TransferenciaContasRepository>();
+            services.AddTransient<IItemMovimentacaoMensalRepository, ItemMovimentacaoMensalRepository>();            
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             #endregion
 
-
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            #region InfraDataDapper
+            services.AddTransient<IDbConnection>(c => new SqlConnection(configuration.GetConnectionString("GestaoFinanceira")));
+            services.AddTransient<ITransferenciaContasRepository, TransferenciaContasRepository>();
             #endregion
 
             #region InfraCaching

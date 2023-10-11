@@ -13,6 +13,9 @@ namespace GestaoFinanceira.Domain.Validations
             RuleFor(tc => tc.IdContaDestino)
                 .NotEmpty().WithMessage("A conta de destino é obrigatório");
 
+            RuleFor(tc => (tc.IdConta == tc.IdContaDestino)).Equal(true)
+                .WithMessage("A conta de origem deve ser diferente da conta de destino");
+
             RuleFor(mr => mr.DataMovimentacaoRealizada)
                 .NotEmpty().WithMessage("A data de movimentação é obrigatória");
 

@@ -1,4 +1,4 @@
-﻿using GestaoFinanceira.Domain.Interfaces.Repositories;
+﻿using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using System;
@@ -172,6 +172,31 @@ namespace GestaoFinanceira.Domain.Services
             }
         }
 
+        public List<MovimentacaoRealizada> ExecutarTransferencia(TransferenciaContas transferenciaConta)
+        {
+            List<MovimentacaoRealizada> movimentacoesRealizadas = new List<MovimentacaoRealizada>();
+            try
+            {
+                unitOfWork.BeginTransaction();
+
+                var ids = transferenciaContasRepository.Execute(transferenciaConta);
+
+                foreach (var item in ids)
+                {
+                    MovimentacaoRealizada movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(item.ID);
+                    movimentacoesRealizadas.Add(movimentacaoRealizada);
+                }
+
+                return movimentacoesRealizadas;
+            }
+            catch (Exception e)
+            {
+                unitOfWork.Rollback();
+                throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
+            }
+            
+        }
+
         private MovimentacaoPrevista AtualizaStatusMovimentacaoPrevista(MovimentacaoRealizada movimentacaoRealizada, Movimentacao movimentacao)
         {
             MovimentacaoPrevista movimentacaoPrevista = new MovimentacaoPrevista();
@@ -195,31 +220,6 @@ namespace GestaoFinanceira.Domain.Services
             }
 
             return movimentacaoPrevista;
-        }
-
-        public List<MovimentacaoRealizada> Executar(TransferenciaContas transferenciaConta)
-        {
-            List<MovimentacaoRealizada> movimentacoesRealizadas = new List<MovimentacaoRealizada>();
-            try
-            {
-                unitOfWork.BeginTransaction();
-
-                var ids = transferenciaContasRepository.Executar(transferenciaConta);
-
-                foreach (var item in ids)
-                {
-                    MovimentacaoRealizada movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(item.ID);
-                    movimentacoesRealizadas.Add(movimentacaoRealizada);
-                }
-
-                return movimentacoesRealizadas;
-            }
-            catch (Exception e)
-            {
-                unitOfWork.Rollback();
-                throw new Exception(e.InnerException != null ? e.InnerException.Message : e.Message);
-            }
-            
         }
     }
 }
