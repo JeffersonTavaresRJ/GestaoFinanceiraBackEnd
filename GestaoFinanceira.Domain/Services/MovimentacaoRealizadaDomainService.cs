@@ -4,7 +4,6 @@ using GestaoFinanceira.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace GestaoFinanceira.Domain.Services
 {
@@ -199,7 +198,7 @@ namespace GestaoFinanceira.Domain.Services
 
         private MovimentacaoPrevista AtualizaStatusMovimentacaoPrevista(MovimentacaoRealizada movimentacaoRealizada, Movimentacao movimentacao)
         {
-            MovimentacaoPrevista movimentacaoPrevista = new MovimentacaoPrevista();
+            MovimentacaoPrevista movimentacaoPrevista = null;
 
             if (movimentacao != null &&
                                 movimentacao.MovimentacaoPrevista != null &&
