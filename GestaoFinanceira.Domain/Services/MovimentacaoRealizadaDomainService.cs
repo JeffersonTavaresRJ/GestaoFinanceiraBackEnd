@@ -199,7 +199,7 @@ namespace GestaoFinanceira.Domain.Services
 
         private MovimentacaoPrevista AtualizaStatusMovimentacaoPrevista(MovimentacaoRealizada movimentacaoRealizada, Movimentacao movimentacao)
         {
-            MovimentacaoPrevista movimentacaoPrevista = new MovimentacaoPrevista();
+            MovimentacaoPrevista movimentacaoPrevista = null;
 
             if (movimentacao != null &&
                                 movimentacao.MovimentacaoPrevista != null &&
