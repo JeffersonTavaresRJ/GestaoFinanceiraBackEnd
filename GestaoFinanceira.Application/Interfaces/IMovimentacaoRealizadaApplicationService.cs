@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Application.Commands.ItemMovimentacao;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
 using GestaoFinanceira.Application.Commands.SaldoMensalConta;
+using GestaoFinanceira.Application.Commands.TransferenciaConta;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Models;
 using System;
@@ -9,11 +10,13 @@ using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Application.Interfaces
 {
+    
     public interface IMovimentacaoRealizadaApplicationService
     {
         Task Add(CreateMovimentacaoRealizadaCommand command);
         Task Update(UpdateMovimentacaoRealizadaCommand command);
-        Task Delete(DeleteMovimentacaoRealizadaCommand command);   
+        Task Delete(DeleteMovimentacaoRealizadaCommand command);
+        Task Transfere(TransferenciaContaCommand command);
         MovimentacaoRealizadaDTO GetId(int id);
         List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime dataReferencia);
         List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, DateTime dataMovRealIni, DateTime dataMovRealFim);

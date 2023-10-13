@@ -30,7 +30,7 @@ namespace GestaoFinanceira.Service.Api
             //setup para configuração do EntityFramework..
             EntityFrameworkSetup.AddEntityFrameworkSetup(services, Configuration);
             //setup para configuração de injeção de dependencia..
-            InjecaoDependencia.Registrar(services);
+            InjecaoDependencia.Registrar(services, Configuration);
             //setup para JWT Bearer..
             JwtBearerSetup.AddJwtBearerSetup(services, Configuration);
             //setup para MongoDB..

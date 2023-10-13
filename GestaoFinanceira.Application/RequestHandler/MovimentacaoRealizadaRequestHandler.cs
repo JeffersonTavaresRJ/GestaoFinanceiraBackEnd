@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
-using GestaoFinanceira.Application.Commands.SaldoMensalConta;
+using GestaoFinanceira.Application.Commands.TransferenciaConta;
 using GestaoFinanceira.Application.Notifications;
-using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoPrevista;
 using GestaoFinanceira.Domain.Exceptions.MovimentacaoRealizada;
-using GestaoFinanceira.Domain.Interfaces.Repositories;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Validations;
@@ -22,7 +20,8 @@ namespace GestaoFinanceira.Application.RequestHandler
 
     public class MovimentacaoRealizadaRequestHandler : IRequestHandler<CreateMovimentacaoRealizadaCommand>,
                                                        IRequestHandler<UpdateMovimentacaoRealizadaCommand>,
-                                                       IRequestHandler<DeleteMovimentacaoRealizadaCommand>
+                                                       IRequestHandler<DeleteMovimentacaoRealizadaCommand>,
+                                                       IRequestHandler<TransferenciaContaCommand>
     {
         private readonly IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService;
         private readonly ISaldoDiarioDomainService saldoDiarioDomainService;
@@ -100,12 +99,12 @@ namespace GestaoFinanceira.Application.RequestHandler
 
                 throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
                                               movimentacaoPrevista.DataReferencia,
-                                              movimentacaoPrevista.Status,
-                                              movimentacaoRealizada.Id);
+                                              movimentacaoPrevista.Status/*,
+                                              movimentacaoRealizada.Id*/);
             }
             else
             {
-                throw new MovRealSucessoException(movimentacaoRealizada.Id);
+                throw new MovRealSucessoException(/*movimentacaoRealizada.Id*/);
             }
         }
 
@@ -179,7 +178,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
                 throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
                                                      movimentacaoPrevista.DataReferencia,
-                                                     movimentacaoPrevista.Status, null);
+                                                     movimentacaoPrevista.Status/*, null*/);
             }
 
             return Unit.Value;
@@ -234,9 +233,54 @@ namespace GestaoFinanceira.Application.RequestHandler
 
                 throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
                                                      movimentacaoPrevista.DataReferencia,
-                                                     movimentacaoPrevista.Status, null);
+                                                     movimentacaoPrevista.Status/*, null*/);
             }
 
+            return Unit.Value;
+        }
+
+        public async Task<Unit> Handle(TransferenciaContaCommand request, CancellationToken cancellationToken)
+        {
+            TransferenciaContas transferenciaConta = mapper.Map<TransferenciaContas>(request);
+
+            var validate = new TransferenciaContaValidation().Validate(transferenciaConta);
+            if (!validate.IsValid)
+            {
+                throw new ValidationException(validate.Errors);
+            }
+            
+            /*adicionando no banco de dados..*/
+            movimentacoesRealizadas = movimentacaoRealizadaDomainService.ExecutarTransferencia(transferenciaConta);
+
+
+            /*adicionando no mongoDB..*/
+            await mediator.Publish(new MovimentacaoRealizadaNotification
+            {
+                MovimentacoesRealizadas = movimentacoesRealizadas,
+                Action = ActionNotification.Criar
+            });
+
+
+            /*==Atualização do Saldo Diário no MongoDB==*/
+
+            foreach (MovimentacaoRealizada movimentacaoRealizada in movimentacoesRealizadas)
+            {
+                /*Lista todos os Saldos Diários da conta, com data >= à data de movimentação */
+                foreach (var item in saldoDiarioDomainService.GetBySaldosDiario(movimentacaoRealizada.IdConta, movimentacaoRealizada.DataMovimentacaoRealizada))
+                {
+                    saldosDiario.Add(item);
+                }
+
+
+                /*adicionando no mongoDB..*/
+                await mediator.Publish(new SaldoDiarioNotification
+                {
+                    SaldosDiario = saldosDiario,
+                    Action = ActionNotification.Atualizar
+                });               
+
+            }
+            
             return Unit.Value;
         }
 

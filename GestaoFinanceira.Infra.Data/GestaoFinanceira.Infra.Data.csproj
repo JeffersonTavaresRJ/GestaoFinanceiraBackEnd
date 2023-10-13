@@ -5,11 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Mappings\MovimentacaoParceladaMap.cs" />
-    <Compile Remove="Repositories\MovimentacaoParceladaRepository.cs" />
+    <Compile Remove="Repositories\EntityFramework\Mappings\MovimentacaoParceladaMap.cs" />
+    <Compile Remove="Repositories\EntityFramework\Repositories\MovimentacaoParceladaRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.16">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

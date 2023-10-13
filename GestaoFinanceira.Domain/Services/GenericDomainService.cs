@@ -1,4 +1,4 @@
-﻿using GestaoFinanceira.Domain.Interfaces.Repositories;
+﻿using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;

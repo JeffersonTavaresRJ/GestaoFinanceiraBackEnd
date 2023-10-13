@@ -5,6 +5,7 @@ using GestaoFinanceira.Application.Commands.FormaPagamento;
 using GestaoFinanceira.Application.Commands.ItemMovimentacao;
 using GestaoFinanceira.Application.Commands.MovimentacaoPrevista;
 using GestaoFinanceira.Application.Commands.MovimentacaoRealizada;
+using GestaoFinanceira.Application.Commands.TransferenciaConta;
 using GestaoFinanceira.Application.Commands.Usuario;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Models.Enuns;
@@ -120,6 +121,10 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((src, dest) => dest.Movimentacao.TipoPrioridade = (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), src.TipoPrioridade))
                 .AfterMap((src, dest) => dest.DataReferencia = new DateTime(src.DataReferencia.Year, src.DataReferencia.Month, src.DataReferencia.Day,0,0,0))
                 .AfterMap((src, dest) => dest.DataMovimentacaoRealizada = new DateTime(src.DataMovimentacaoRealizada.Year, src.DataMovimentacaoRealizada.Month, src.DataMovimentacaoRealizada.Day,0,0,0));
+            #endregion
+
+            #region TransferênciaConta
+            CreateMap<TransferenciaContaCommand, TransferenciaContas>();
             #endregion
 
         }
