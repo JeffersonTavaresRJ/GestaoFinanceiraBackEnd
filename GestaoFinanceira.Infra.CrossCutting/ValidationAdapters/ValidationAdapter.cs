@@ -26,8 +26,8 @@ namespace GestaoFinanceira.Infra.CrossCutting.ValidationAdapters
                     Errors = s.Select(m => m.Errors).ToList()
                 })
                 .ToList();
-
             return result;
+
         }
     }
 }
