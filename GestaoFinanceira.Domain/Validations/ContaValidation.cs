@@ -10,10 +10,17 @@ namespace GestaoFinanceira.Domain.Validations
     {
         public ContaValidation()
         {
-            RuleFor(c => c.IdUsuario).NotEmpty().WithMessage("O Id do usuário da conta é obrigatório");
+            RuleFor(c => c.IdUsuario)
+                .NotEmpty()
+                .OverridePropertyName("Usuário:")
+                .WithMessage("O usuário da conta é obrigatório");
 
-            RuleFor(c => c.Descricao).NotEmpty().WithMessage("A descrição da conta é obrigatório")
-                .Length(5, 50).WithMessage("A descrição da conta deve ter entre 5 a 50 caracteres");
+            RuleFor(c => c.Descricao)
+                .NotEmpty()
+                .OverridePropertyName("Descrição:")
+                .WithMessage("A descrição da conta é obrigatório")
+                .Length(5, 50)
+                .WithMessage("A descrição da conta deve ter entre 5 a 50 caracteres");
            
         }
     }

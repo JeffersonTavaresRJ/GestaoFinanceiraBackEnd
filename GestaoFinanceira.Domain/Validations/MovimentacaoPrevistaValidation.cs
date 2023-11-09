@@ -23,7 +23,7 @@ namespace GestaoFinanceira.Domain.Validations
                 .WithMessage("A data de vencimento é obrigatória");
 
             RuleFor(mp => mp.Valor)
-                //.Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
+                .Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
                 .NotEmpty()
                 .OverridePropertyName("Valor:")
                 .WithMessage("O valor é obrigatório.")
@@ -32,7 +32,7 @@ namespace GestaoFinanceira.Domain.Validations
                 .WithMessage("O valor deve ser maior do que zero.");
 
             RuleFor(mp => mp.NrParcela)
-               //.Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
+               .Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
                 .NotEmpty()
                 .OverridePropertyName("Parcela:")
                 .WithMessage("O número da parcela é obrigatório.")
@@ -41,7 +41,7 @@ namespace GestaoFinanceira.Domain.Validations
                 .WithMessage("O número da parcela deve ser igual ou maior do que 1.");
 
             RuleFor(mp => mp.NrParcelaTotal)
-               //.Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
+               .Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
                 .NotEmpty()
                 .OverridePropertyName("Total de Parcelas:")
                 .WithMessage("O número total de parcelas é obrigatório.")

@@ -8,23 +8,37 @@ namespace GestaoFinanceira.Domain.Validations
         public MovimentacaoRealizadaValidation()
         {
             RuleFor(mr => mr.IdItemMovimentacao)
-                .NotEmpty().WithMessage("O item de movimentação é obrigatório");
+                .NotEmpty()
+                .OverridePropertyName("Item de Movimentação:")
+                .WithMessage("O item de movimentação é obrigatório");
 
             RuleFor(mr => mr.DataReferencia)
-                .NotEmpty().WithMessage("A data de referência é obrigatória");
+                .NotEmpty()
+                .OverridePropertyName("Data de Referência:")
+                .WithMessage("A data de referência é obrigatória");
 
             RuleFor(mr => mr.DataMovimentacaoRealizada)
-                .NotEmpty().WithMessage("A data de movimentação é obrigatória");
+                .NotEmpty()
+                .OverridePropertyName("Data de Movimentação:")
+                .WithMessage("A data de movimentação é obrigatória");
 
             RuleFor(mr => mr.Valor)
-                .NotEmpty().WithMessage("O valor é obrigatório. ")
-                .GreaterThan(0).WithMessage("O valor deve ser maior do que zero. ");
+                .Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
+                .NotEmpty()
+                .OverridePropertyName("Valor:")
+                .WithMessage("O valor é obrigatório. ")
+                .GreaterThan(0)
+                .WithMessage("O valor deve ser maior do que zero. ");
 
             RuleFor(mr => mr.IdFormaPagamento)
-                .NotEmpty().WithMessage("A forma de pagamento é obrigatória");
+                .NotEmpty()
+                .OverridePropertyName("Forma de Pagamento:")
+                .WithMessage("A forma de pagamento é obrigatória");
 
             RuleFor(mr => mr.IdConta)
-                .NotEmpty().WithMessage("A conta é obrigatória");
+                .NotEmpty()
+                .OverridePropertyName("Conta:")
+                .WithMessage("A conta é obrigatória");
         }
     }
 }

@@ -24,6 +24,7 @@ namespace GestaoFinanceira.Domain.Validations
                 .OverridePropertyName("Data da Movimentação:").WithMessage("A data de movimentação é obrigatória");
 
             RuleFor(mr => mr.Valor)
+                .Cascade(CascadeMode.Stop)//tratamento para encadear a execução das validações..
                 .NotEmpty()
                 .OverridePropertyName("Valor:")
                 .WithMessage("O valor é obrigatório. ")
