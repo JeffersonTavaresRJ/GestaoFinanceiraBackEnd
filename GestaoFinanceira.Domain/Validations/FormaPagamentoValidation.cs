@@ -11,11 +11,16 @@ namespace GestaoFinanceira.Domain.Validations
         public FormaPagamentoValidation()
         {
             RuleFor(f => f.Descricao)
-                .NotEmpty().WithMessage("A descrição é obrigatória")
-                .Length(4, 50).WithMessage("A descrição deve ter entre 4 a 50 caracteres");
+                .NotEmpty()
+                .OverridePropertyName("Descrição:")
+                .WithMessage("A descrição é obrigatória")
+                .Length(4, 50)
+                .WithMessage("A descrição deve ter entre 4 a 50 caracteres");
 
             RuleFor(f => f.IdUsuario)
-                .NotEmpty().WithMessage("O Id do usuário é obrigatório");
+                .NotEmpty()
+                .OverridePropertyName("Usuário:")
+                .WithMessage("O Id do usuário é obrigatório");
             
         }
     }
