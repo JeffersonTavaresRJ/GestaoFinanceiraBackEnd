@@ -81,6 +81,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         public List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(List<int> idContas, DateTime dataMovRealIni, DateTime dataMovRealFim)
         {
+            if (idContas.Count == 0) { throw new Exception("Conta é campo obrigatório"); };
+            
             var builder = Builders<MovimentacaoRealizadaDTO>.Filter;
             var filter =  builder.Where(mr => mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataMovRealIni)
                                            && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataMovRealFim)

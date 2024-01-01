@@ -23,8 +23,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         public List<MovimentacaoRealizadaMensalDTO> GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia)
         {
-            var ano = dataReferencia.Year;
-            var mes = dataReferencia.Month;
+            var ano = dataReferencia.Month == 12 ? dataReferencia.Year+1 : dataReferencia.Year;
+            var mes = dataReferencia.Month == 12 ? 1 : dataReferencia.Month;
 
             //Movimentações Realizadas no período..
             List<MovimentacaoRealizadaDTO> movimentacaoRealizadaDTOs = 
