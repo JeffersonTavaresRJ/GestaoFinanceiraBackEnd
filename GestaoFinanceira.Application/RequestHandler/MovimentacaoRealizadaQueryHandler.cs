@@ -18,12 +18,12 @@ namespace GestaoFinanceira.Application.RequestHandler
                                                        IRequestHandler<ReaderSaldoAnualPorContaCommand, List<SaldoContaAnualDTO>>,
                                                        IRequestHandler<ReaderItemMovimentacaoMensalCommand, List<ItemMovimentacaoMensalDTO>>
     {
-        private readonly ISaldoContaMensalDomainService saldoContaMensalDomainService;
+        private readonly ISaldoContaDomainService saldoContaMensalDomainService;
         private readonly IItemMovimentacaoMensalDomainService itemMovimentacaoMensalDomainService;
         private readonly IMapper mapper;
 
 
-        public MovimentacaoRealizadaQueryHandler(  ISaldoContaMensalDomainService saldoContaMensalDomainService,
+        public MovimentacaoRealizadaQueryHandler(  ISaldoContaDomainService saldoContaMensalDomainService,
                                                    IItemMovimentacaoMensalDomainService itemMovimentacaoMensalDomainService,
                                                    IMapper mapper)
         {
@@ -47,10 +47,10 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<List<SaldoContaAnualDTO>> Handle(ReaderSaldoAnualPorContaCommand request, CancellationToken cancellationToken)
         {
-            List<SaldoContaMensal> lista    = (List<SaldoContaMensal>) await saldoContaMensalDomainService.GetSaldoMensalConta(request.IdUsuario, request.AnoInicial, request.AnoFinal);
+            List<SaldoContaAnual> lista    = (List<SaldoContaAnual>) await saldoContaMensalDomainService.GetSaldoAnualConta(request.IdUsuario, request.AnoInicial, request.AnoFinal);
             List<SaldoContaAnualDTO> result = new List<SaldoContaAnualDTO>();
 
-            foreach (SaldoContaMensal item in lista)
+            foreach (SaldoContaAnual item in lista)
             {
                 result.Add(mapper.Map<SaldoContaAnualDTO>(item));
             }

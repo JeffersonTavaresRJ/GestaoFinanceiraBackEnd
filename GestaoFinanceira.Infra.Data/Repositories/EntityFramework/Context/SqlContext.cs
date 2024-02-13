@@ -55,6 +55,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Context
 
             modelBuilder.ApplyConfiguration(new SaldoContaMensalMap());
 
+            modelBuilder.ApplyConfiguration(new SaldoContaAnualMap());
+
             modelBuilder.ApplyConfiguration(new ItemMovimentacaoMensalMap());
 
             base.OnModelCreating(modelBuilder);

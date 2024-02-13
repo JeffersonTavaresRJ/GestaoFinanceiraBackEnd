@@ -49,7 +49,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
 
         public IFechamentoRepository IFechamentoRepository => new FechamentoRepository(context);
 
-        public ISaldoContaMensalRepository ISaldoMensalContaRepository => new SaldoContaMensalRepository(context);
+        public ISaldoContaRepository ISaldoContaRepository => new SaldoContaRepository(context);
 
         public IItemMovimentacaoMensalRepository IItemMovimentacaoMensalRepository => new ItemMovimentacaoMensalRepository(context);
 

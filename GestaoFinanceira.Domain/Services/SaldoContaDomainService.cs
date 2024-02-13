@@ -10,18 +10,23 @@ using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Domain.Services
 {
-    public class SaldoContaMensalDomainService : ISaldoContaMensalDomainService
+    public class SaldoContaDomainService : ISaldoContaDomainService
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public SaldoContaMensalDomainService(IUnitOfWork unitOfWork)
+        public SaldoContaDomainService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
+        public async Task<IEnumerable<SaldoContaAnual>> GetSaldoAnualConta(int idUsuario, int anoInicial, int anoFinal)
+        {
+            return await unitOfWork.ISaldoContaRepository.GetSaldoAnualConta(idUsuario, anoInicial, anoFinal);
+        }
+
         public  async Task<IEnumerable<SaldoContaMensal>> GetSaldoMensalConta(int idUsuario, int anoInicial, int anoFinal)
         {
-            return await unitOfWork.ISaldoMensalContaRepository.GetSaldoMensalConta(idUsuario, anoInicial, anoFinal);
+            return await unitOfWork.ISaldoContaRepository.GetSaldoMensalConta(idUsuario, anoInicial, anoFinal);
 
         }
 
