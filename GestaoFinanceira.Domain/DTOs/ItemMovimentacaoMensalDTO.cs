@@ -7,6 +7,8 @@ namespace GestaoFinanceira.Domain.DTOs
     public class ItemMovimentacaoMensalDTO
     {
         public DateTime DataReferencia { get; set; }
+        public int IdConta { get; set; }
+        public string DescricaoConta { get; set; }
         public int IdCategoria { get; set; }
         public string DescricaoCategoria { get; set; }
         public int IdItemMovimentacao { get; set; }

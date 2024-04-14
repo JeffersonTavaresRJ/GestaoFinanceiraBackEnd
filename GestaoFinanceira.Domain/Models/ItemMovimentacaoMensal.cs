@@ -7,6 +7,8 @@ namespace GestaoFinanceira.Domain.Models
     public class ItemMovimentacaoMensal
     {
         public int IdUsuario { get; set; }
+        public int IdConta { get; set; }
+        public string DescricaoConta { get; set; }
         public DateTime DataReferencia { get; set; }
         public int IdCategoria { get; set; }
         public string DescricaoCategoria { get; set; }

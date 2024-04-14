@@ -10,11 +10,20 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
         {
             builder.ToView("VW_MOME_ITMO");
 
-            builder.HasKey(s => new { s.IdUsuario, s.DataReferencia, s.IdCategoria, s.IdItemMovimentacao });
+            builder.HasKey(s => new { s.IdUsuario, s.DataReferencia, s.IdConta, s.IdCategoria, s.IdItemMovimentacao });
 
             builder.Property(s => s.IdUsuario)
                 .HasColumnName("ID_USUA")
                 .HasColumnType("INT");
+
+            builder.Property(s => s.IdConta)
+                .HasColumnName("ID_CONT")
+                .HasColumnType("INT");
+
+            builder.Property(s => s.DescricaoConta)
+                .HasColumnName("DESCRICAO_CONT")
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50);
 
             builder.Property(s => s.DataReferencia)
                 .HasColumnName("DATA_REFERENCIA_MOVI")
