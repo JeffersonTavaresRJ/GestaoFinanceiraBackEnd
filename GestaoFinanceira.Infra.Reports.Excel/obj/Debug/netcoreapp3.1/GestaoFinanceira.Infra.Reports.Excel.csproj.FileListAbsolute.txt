@@ -8,6 +8,7 @@ C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.E
 C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\bin\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.pdb
 C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\bin\Debug\netcoreapp3.1\GestaoFinanceira.Domain.dll
 C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\bin\Debug\netcoreapp3.1\GestaoFinanceira.Domain.pdb
-C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.csproj.CopyComplete
 C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.dll
 C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.pdb
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFinanceira.Infra.Reports.Excel.sourcelink.json
+C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\netcoreapp3.1\GestaoFi.2DE5A4C2.Up2Date

@@ -1,3 +1,5 @@
 is_global = true
 build_property.RootNamespace = GestaoFinanceira.Infra.Reports.Excel
 build_property.ProjectDir = C:\Users\Public\GestaoFinanceira\Fontes\backend\GestaoFinanceira.Infra.Reports.Excel\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

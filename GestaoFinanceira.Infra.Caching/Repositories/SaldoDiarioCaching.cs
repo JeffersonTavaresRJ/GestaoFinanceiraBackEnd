@@ -72,8 +72,11 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                .Where(sa => (sa.Conta.IdUsuario == UserEntity.IdUsuario)
                    && sa.DataSaldo >= DateTimeClass.DataHoraIni(dataIni)
                    && sa.DataSaldo <= DateTimeClass.DataHoraFim(dataFim));
-            return mongoDBContext.SaldosDiario.Find(filter).ToList().OrderByDescending(sd => sd.DataSaldo).ToList();
+            var saldosDiariosDTO = mongoDBContext.SaldosDiario.Find(filter).ToList().OrderByDescending(sd => sd.DataSaldo).ToList();
+
+            return saldosDiariosDTO;
         }
+
 
         public List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia)
         {

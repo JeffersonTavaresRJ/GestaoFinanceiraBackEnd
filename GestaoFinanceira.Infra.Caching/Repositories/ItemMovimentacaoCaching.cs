@@ -11,12 +11,10 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
     public class ItemMovimentacaoCaching : IItemMovimentacaoCaching
     {
         private readonly MongoDBContext mongoDBContext;
-        private readonly ICategoriaCaching categoriaCaching;
 
-        public ItemMovimentacaoCaching(MongoDBContext mongoDBContext, ICategoriaCaching categoriaCaching)
+        public ItemMovimentacaoCaching(MongoDBContext mongoDBContext)
         {
             this.mongoDBContext = mongoDBContext;
-            this.categoriaCaching = categoriaCaching;
         }
 
         public void Add(ItemMovimentacaoDTO obj)
@@ -38,42 +36,15 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         public ItemMovimentacaoDTO GetId(int id)
         {
-            List<ItemMovimentacaoDTO> itemMovimentacao = GetListItemMovimentacao(id, UserEntity.IdUsuario);
-            List<CategoriaDTO> categorias = categoriaCaching.GetAll();
-
-            return Query(itemMovimentacao, categorias).FirstOrDefault();
+            var filter = Builders<ItemMovimentacaoDTO>.Filter.Eq(i => i.Id, id);
+            return mongoDBContext.VwItensMovimentacao.Find(filter).First();
         }
 
         public List<ItemMovimentacaoDTO> GetAll()
         {
-            List<ItemMovimentacaoDTO> itensMovimentacao = GetListItemMovimentacao(null, UserEntity.IdUsuario);
-            List<CategoriaDTO> categorias = categoriaCaching.GetAll();
-
-            return Query(itensMovimentacao, categorias);
-        }
+            var filter = Builders<ItemMovimentacaoDTO>.Filter.Eq(i => i.Categoria.IdUsuario, UserEntity.IdUsuario);
+            return mongoDBContext.VwItensMovimentacao.Find(filter).ToList().OrderBy(c => c.Descricao).ToList();
+        }        
         
-        private List<ItemMovimentacaoDTO> GetListItemMovimentacao(int? id, int idUsuario)
-        {
-            var filter = Builders<ItemMovimentacaoDTO>.Filter.Where(i => (i.Id == id || id==null) && i.Categoria.IdUsuario==idUsuario);
-            return mongoDBContext.ItensMovimentacao.Find(filter).ToList().OrderBy(i=>i.Descricao).ToList();
-        }
-
-        private List<ItemMovimentacaoDTO> Query(List<ItemMovimentacaoDTO> itensMovimentacao, List<CategoriaDTO> categorias)
-        {
-            var query = from c in categorias
-                        join i in itensMovimentacao on c.Id equals i.Categoria.Id
-                        select new ItemMovimentacaoDTO
-                        {
-                            Id = i.Id,
-                            Descricao = i.Descricao,
-                            Status = i.Status,
-                            Tipo = i.Tipo,
-                            TipoDescricao = i.TipoDescricao,
-                            TipoOperacao = i.TipoOperacao,
-                            Categoria = c
-                        };
-
-            return query.ToList().OrderBy(i=>i.Descricao).ToList();
-        }
     }
 }
