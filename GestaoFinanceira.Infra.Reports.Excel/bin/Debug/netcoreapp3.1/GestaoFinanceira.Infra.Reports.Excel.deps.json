@@ -8,27 +8,28 @@
     ".NETCoreApp,Version=v3.1": {
       "GestaoFinanceira.Infra.Reports.Excel/1.0.0": {
         "dependencies": {
-          "EPPlus": "6.2.9",
+          "EPPlus": "7.1.1",
           "GestaoFinanceira.Domain": "1.0.0"
         },
         "runtime": {
           "GestaoFinanceira.Infra.Reports.Excel.dll": {}
         }
       },
-      "EPPlus/6.2.9": {
+      "EPPlus/7.1.1": {
         "dependencies": {
           "EPPlus.Interfaces": "6.1.1",
           "EPPlus.System.Drawing": "6.1.1",
-          "Microsoft.Extensions.Configuration.Json": "3.1.30",
-          "Microsoft.IO.RecyclableMemoryStream": "2.2.1",
+          "Microsoft.Extensions.Configuration.Json": "3.1.32",
+          "Microsoft.IO.RecyclableMemoryStream": "3.0.0",
+          "System.ComponentModel.Annotations": "5.0.0",
           "System.Drawing.Primitives": "4.3.0",
           "System.Security.Cryptography.Pkcs": "4.7.0",
           "System.Text.Encoding.CodePages": "4.7.1"
         },
         "runtime": {
           "lib/netstandard2.1/EPPlus.dll": {
-            "assemblyVersion": "6.2.9.0",
-            "fileVersion": "6.2.9.0"
+            "assemblyVersion": "7.1.1.0",
+            "fileVersion": "7.1.1.0"
           }
         }
       },
@@ -52,104 +53,104 @@
           }
         }
       },
-      "FluentValidation/9.4.0": {
+      "FluentValidation/11.9.0": {
         "runtime": {
-          "lib/netstandard2.0/FluentValidation.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.4.0.0"
+          "lib/netstandard2.1/FluentValidation.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.9.0.0"
           }
         }
       },
-      "Microsoft.Extensions.Configuration/3.1.30": {
+      "Microsoft.Extensions.Configuration/3.1.32": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "3.1.30"
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.32"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.dll": {
-            "assemblyVersion": "3.1.30.0",
-            "fileVersion": "3.100.3022.47602"
+            "assemblyVersion": "3.1.32.0",
+            "fileVersion": "3.100.3222.56602"
           }
         }
       },
-      "Microsoft.Extensions.Configuration.Abstractions/3.1.30": {
+      "Microsoft.Extensions.Configuration.Abstractions/3.1.32": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.1.30"
+          "Microsoft.Extensions.Primitives": "3.1.32"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {
-            "assemblyVersion": "3.1.30.0",
-            "fileVersion": "3.100.3022.47602"
+            "assemblyVersion": "3.1.32.0",
+            "fileVersion": "3.100.3222.56602"
           }
         }
       },
-      "Microsoft.Extensions.Configuration.FileExtensions/3.1.30": {
+      "Microsoft.Extensions.Configuration.FileExtensions/3.1.32": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "3.1.30",
-          "Microsoft.Extensions.FileProviders.Physical": "3.1.30"
+          "Microsoft.Extensions.Configuration": "3.1.32",
+          "Microsoft.Extensions.FileProviders.Physical": "3.1.32"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.FileExtensions.dll": {
-            "assemblyVersion": "3.1.30.0",
-            "fileVersion": "3.100.3022.47602"
+            "assemblyVersion": "3.1.32.0",
+            "fileVersion": "3.100.3222.56602"
           }
         }
       },
-      "Microsoft.Extensions.Configuration.Json/3.1.30": {
+      "Microsoft.Extensions.Configuration.Json/3.1.32": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "3.1.30",
-          "Microsoft.Extensions.Configuration.FileExtensions": "3.1.30"
+          "Microsoft.Extensions.Configuration": "3.1.32",
+          "Microsoft.Extensions.Configuration.FileExtensions": "3.1.32"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Json.dll": {
-            "assemblyVersion": "3.1.30.0",
-            "fileVersion": "3.100.3022.47602"
+            "assemblyVersion": "3.1.32.0",
+            "fileVersion": "3.100.3222.56602"
           }
         }
       },
-      "Microsoft.Extensions.FileProviders.Abstractions/3.1.30": {
+      "Microsoft.Extensions.FileProviders.Abstractions/3.1.32": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.1.30"
+          "Microsoft.Extensions.Primitives": "3.1.32"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll": {
-            "assemblyVersion": "3.1.30.0",
-            "fileVersion": "3.100.3022.47602"
+            "assemblyVersion": "3.1.32.0",
+            "fileVersion": "3.100.3222.56602"
           }
         }
       },
-      "Microsoft.Extensions.FileProviders.Physical/3.1.30": {
+      "Microsoft.Extensions.FileProviders.Physical/3.1.32": {
         "dependencies": {
-          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.30",
-          "Microsoft.Extensions.FileSystemGlobbing": "3.1.30"
+          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.32",
+          "Microsoft.Extensions.FileSystemGlobbing": "3.1.32"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Physical.dll": {
-            "assemblyVersion": "3.1.30.0",
-            "fileVersion": "3.100.3022.47602"
+            "assemblyVersion": "3.1.32.0",
+            "fileVersion": "3.100.3222.56602"
           }
         }
       },
-      "Microsoft.Extensions.FileSystemGlobbing/3.1.30": {
+      "Microsoft.Extensions.FileSystemGlobbing/3.1.32": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.FileSystemGlobbing.dll": {
-            "assemblyVersion": "3.1.30.0",
-            "fileVersion": "3.100.3022.47602"
+            "assemblyVersion": "3.1.32.0",
+            "fileVersion": "3.100.3222.56602"
           }
         }
       },
-      "Microsoft.Extensions.Primitives/3.1.30": {
+      "Microsoft.Extensions.Primitives/3.1.32": {
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {
-            "assemblyVersion": "3.1.30.0",
-            "fileVersion": "3.100.3022.47602"
+            "assemblyVersion": "3.1.32.0",
+            "fileVersion": "3.100.3222.56602"
           }
         }
       },
-      "Microsoft.IO.RecyclableMemoryStream/2.2.1": {
+      "Microsoft.IO.RecyclableMemoryStream/3.0.0": {
         "runtime": {
-          "lib/netcoreapp2.1/Microsoft.IO.RecyclableMemoryStream.dll": {
-            "assemblyVersion": "2.2.1.0",
-            "fileVersion": "2.2.1.0"
+          "lib/netstandard2.1/Microsoft.IO.RecyclableMemoryStream.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
           }
         }
       },
@@ -174,14 +175,23 @@
           }
         }
       },
-      "MongoDB.Bson/2.12.4": {
+      "MongoDB.Bson/2.25.0": {
         "dependencies": {
+          "System.Memory": "4.5.5",
           "System.Runtime.CompilerServices.Unsafe": "5.0.0"
         },
         "runtime": {
           "lib/netstandard2.1/MongoDB.Bson.dll": {
-            "assemblyVersion": "2.12.4.0",
-            "fileVersion": "2.12.4.0"
+            "assemblyVersion": "2.25.0.0",
+            "fileVersion": "2.25.0.0"
+          }
+        }
+      },
+      "System.ComponentModel.Annotations/5.0.0": {
+        "runtime": {
+          "lib/netstandard2.1/System.ComponentModel.Annotations.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
           }
         }
       },
@@ -217,6 +227,7 @@
           "System.Runtime.Extensions": "4.3.0"
         }
       },
+      "System.Memory/4.5.5": {},
       "System.Runtime/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.9",
@@ -279,8 +290,8 @@
       },
       "GestaoFinanceira.Domain/1.0.0": {
         "dependencies": {
-          "FluentValidation": "9.4.0",
-          "MongoDB.Bson": "2.12.4"
+          "FluentValidation": "11.9.0",
+          "MongoDB.Bson": "2.25.0"
         },
         "runtime": {
           "GestaoFinanceira.Domain.dll": {}
@@ -294,12 +305,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "EPPlus/6.2.9": {
+    "EPPlus/7.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-XDdpsCtcz8Rkz5a69xC6/oBVah8jwKnabvvlJdlR8S8hpJAUx9D5JuzlFmgrk2mUIKYMXLVUwiRmnv6Y7iZHfQ==",
-      "path": "epplus/6.2.9",
-      "hashPath": "epplus.6.2.9.nupkg.sha512"
+      "sha512": "sha512-0iA0gIf1BYNVXWloj4sKQXGc7yBTm41fh5zu7XNq0CXMB1zHC3KwBggGPyy8AEQJqHZnedRRCbOe1ITEo2LOcA==",
+      "path": "epplus/7.1.1",
+      "hashPath": "epplus.7.1.1.nupkg.sha512"
     },
     "EPPlus.Interfaces/6.1.1": {
       "type": "package",
@@ -315,75 +326,75 @@
       "path": "epplus.system.drawing/6.1.1",
       "hashPath": "epplus.system.drawing.6.1.1.nupkg.sha512"
     },
-    "FluentValidation/9.4.0": {
+    "FluentValidation/11.9.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-MfOKZJoGX2B7sh0tEB8BU6pRL/ECvSKiNcrK9QsZ3aQYTVQKL9Fw0FR8qh4Wy9+DIQz9didDiMm0HfCOt6S62A==",
-      "path": "fluentvalidation/9.4.0",
-      "hashPath": "fluentvalidation.9.4.0.nupkg.sha512"
+      "sha512": "sha512-VneVlTvwYDkfHV5av3QrQ0amALgrLX6LV94wlYyEsh0B/klJBW7C8y2eAtj5tOZ3jH6CAVpr4s1ZGgew/QWyig==",
+      "path": "fluentvalidation/11.9.0",
+      "hashPath": "fluentvalidation.11.9.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration/3.1.30": {
+    "Microsoft.Extensions.Configuration/3.1.32": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-IDvwPfQAAouJWTOezYRLEq7IjcoqTVMM6Ql/jR5KmnK3OcX74DoBrO9GrFl70ujyYyL6FWJSnZnZ1MyT3B54qQ==",
-      "path": "microsoft.extensions.configuration/3.1.30",
-      "hashPath": "microsoft.extensions.configuration.3.1.30.nupkg.sha512"
+      "sha512": "sha512-WuOHTU9FB1yHaIU+/Ar1s5swHshH+7YjU7eA9Lmv0kO+rta7xOrR5Xu68srdxNpE9HjqjzxGZhPJFLxpP3J1Og==",
+      "path": "microsoft.extensions.configuration/3.1.32",
+      "hashPath": "microsoft.extensions.configuration.3.1.32.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration.Abstractions/3.1.30": {
+    "Microsoft.Extensions.Configuration.Abstractions/3.1.32": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-tFGyCZeCC934bWWCgRgUi4Bb1XCCvjU6mMlIOViXJHvT8ZbNpsQrgdPcnXv2NJ4WFh2K/NQ9wE2wseTYLc2bwA==",
-      "path": "microsoft.extensions.configuration.abstractions/3.1.30",
-      "hashPath": "microsoft.extensions.configuration.abstractions.3.1.30.nupkg.sha512"
+      "sha512": "sha512-w8WEwVFYbTkoDQ/eJgGUPiL4SqZOiIVBkGxbkmnJAWnFxRigFk4WZla/3MDkN9fGSis6JwJfc57YgnleTw48AA==",
+      "path": "microsoft.extensions.configuration.abstractions/3.1.32",
+      "hashPath": "microsoft.extensions.configuration.abstractions.3.1.32.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration.FileExtensions/3.1.30": {
+    "Microsoft.Extensions.Configuration.FileExtensions/3.1.32": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-P1jMakV2jIOHLnt3rRAglEChR0QYsy+YocAOUoZJjr9B/EJdrMNdKwe7nLbvVo/BqAiG82cEjyVODrJbZvDgsw==",
-      "path": "microsoft.extensions.configuration.fileextensions/3.1.30",
-      "hashPath": "microsoft.extensions.configuration.fileextensions.3.1.30.nupkg.sha512"
+      "sha512": "sha512-ckZNYSlqB62D4m432GyLqFX+yd3RtnrSYu9S1816AXVywA5CUs8rxHyWD6wzJ+jL3/zv94F02rGA3lU+g5xfsA==",
+      "path": "microsoft.extensions.configuration.fileextensions/3.1.32",
+      "hashPath": "microsoft.extensions.configuration.fileextensions.3.1.32.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration.Json/3.1.30": {
+    "Microsoft.Extensions.Configuration.Json/3.1.32": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-sF0NMpfHhvwynq3XlkHoiZcmutcLogrmWrioEpC7j9rYoI1zo7TeVUamLAfQhlIEFCljZbAuCgTIzP9OT4G8Fw==",
-      "path": "microsoft.extensions.configuration.json/3.1.30",
-      "hashPath": "microsoft.extensions.configuration.json.3.1.30.nupkg.sha512"
+      "sha512": "sha512-lCZbMIu6iTmLcY9gqSlmsn4wmUGE6AJZYYLlioWhGwkYF3bY92iUIg1wROoiP3vqNwSvGzofpBWh9d8y2XhgtA==",
+      "path": "microsoft.extensions.configuration.json/3.1.32",
+      "hashPath": "microsoft.extensions.configuration.json.3.1.32.nupkg.sha512"
     },
-    "Microsoft.Extensions.FileProviders.Abstractions/3.1.30": {
+    "Microsoft.Extensions.FileProviders.Abstractions/3.1.32": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rSQFZTMP4d8Fg+tFe0ifCE7/jzl/bye9vaD/LLvG3lpn1bmBIQysIRK3+pAoZaFnj/kLh4JNvFDJsfOdNRtTZw==",
-      "path": "microsoft.extensions.fileproviders.abstractions/3.1.30",
-      "hashPath": "microsoft.extensions.fileproviders.abstractions.3.1.30.nupkg.sha512"
+      "sha512": "sha512-sS+U28IfgZSQUS2b3MayPdYGBJlHOWwgnfAZ77bZLkgU0z+lJz7lgzrKQUm9SgKF+OAc5B9kWJV5PB6l7mWWZA==",
+      "path": "microsoft.extensions.fileproviders.abstractions/3.1.32",
+      "hashPath": "microsoft.extensions.fileproviders.abstractions.3.1.32.nupkg.sha512"
     },
-    "Microsoft.Extensions.FileProviders.Physical/3.1.30": {
+    "Microsoft.Extensions.FileProviders.Physical/3.1.32": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/5sOVDw9jVSe7ykRaJAo/pIpwuVrEfJe6TQrlkQYGKY7QCvwMbntfRSCy3it0GwfYvYiFDJsgP7HmK2L2yLjzQ==",
-      "path": "microsoft.extensions.fileproviders.physical/3.1.30",
-      "hashPath": "microsoft.extensions.fileproviders.physical.3.1.30.nupkg.sha512"
+      "sha512": "sha512-I+N5RGDfeG+1HVF6VugJpX1uYZErvAz40EaWZ45DmkAc3qXEFTXzNXWaPmJcIrOvz4eKS1jL5VxZxVH+7re7gg==",
+      "path": "microsoft.extensions.fileproviders.physical/3.1.32",
+      "hashPath": "microsoft.extensions.fileproviders.physical.3.1.32.nupkg.sha512"
     },
-    "Microsoft.Extensions.FileSystemGlobbing/3.1.30": {
+    "Microsoft.Extensions.FileSystemGlobbing/3.1.32": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-JnTqP+vjnbtJatCp29xUOyBYOvxYVQP7HMcbbO912AL7Ovn62o/Ikgwnsk0k157L7zAAOvRQuH4JvyMLlf2ZDA==",
-      "path": "microsoft.extensions.filesystemglobbing/3.1.30",
-      "hashPath": "microsoft.extensions.filesystemglobbing.3.1.30.nupkg.sha512"
+      "sha512": "sha512-MnccV+5jJkc69IlI/1+Hzak8w5a2wQzOgaooq0iDcd5MBA1vudkE/iHuT97+cQCyauNmXnAdPWQ7e4Y1q93sbg==",
+      "path": "microsoft.extensions.filesystemglobbing/3.1.32",
+      "hashPath": "microsoft.extensions.filesystemglobbing.3.1.32.nupkg.sha512"
     },
-    "Microsoft.Extensions.Primitives/3.1.30": {
+    "Microsoft.Extensions.Primitives/3.1.32": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-JI/dGdfbEodhiVtCBnHoN7FUldXNSTzF+eOTLml9Z3le75XSV6f86EgLw1Y/8uHzZIVEkB55i3t0L6GEljFCyw==",
-      "path": "microsoft.extensions.primitives/3.1.30",
-      "hashPath": "microsoft.extensions.primitives.3.1.30.nupkg.sha512"
+      "sha512": "sha512-N8lTVwdjR+df9Sx3VdHfrecV6zl8KQoAx7kQXJ3rYwQBEw2vuZM0LKVAqjnaA/TBC8ZKnt99ptwH5iaEOxBuYQ==",
+      "path": "microsoft.extensions.primitives/3.1.32",
+      "hashPath": "microsoft.extensions.primitives.3.1.32.nupkg.sha512"
     },
-    "Microsoft.IO.RecyclableMemoryStream/2.2.1": {
+    "Microsoft.IO.RecyclableMemoryStream/3.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-T5ahjOqWFMTSb9wFHKFNAcGXm35BxbUbwARtAPLSSPPFehcLz5mwDsKO1RR9R2aZ2Lk1BNQC7Ja63onOBE6rpA==",
-      "path": "microsoft.io.recyclablememorystream/2.2.1",
-      "hashPath": "microsoft.io.recyclablememorystream.2.2.1.nupkg.sha512"
+      "sha512": "sha512-irv0HuqoH8Ig5i2fO+8dmDNdFdsrO+DoQcedwIlb810qpZHBNQHZLW7C/AHBQDgLLpw2T96vmMAy/aE4Yj55Sg==",
+      "path": "microsoft.io.recyclablememorystream/3.0.0",
+      "hashPath": "microsoft.io.recyclablememorystream.3.0.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/3.1.9": {
       "type": "package",
@@ -406,12 +417,19 @@
       "path": "microsoft.win32.systemevents/4.7.0",
       "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
     },
-    "MongoDB.Bson/2.12.4": {
+    "MongoDB.Bson/2.25.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cQ0DTdKIpPzqDWnu1lTbW7TU8zQkMZ6YkbICcA1x3zDQefPYi0T0WYA/t3VJbowiEH3IKNHsJ4DIFfCt9AOG7A==",
-      "path": "mongodb.bson/2.12.4",
-      "hashPath": "mongodb.bson.2.12.4.nupkg.sha512"
+      "sha512": "sha512-xQx/qtC2nu9oGiyNqAwfiDpUMweLi0nID677cyKykpwmj5AVMrnd//UwmcmuX95178DeY6rf7cjmA613TQXPiA==",
+      "path": "mongodb.bson/2.25.0",
+      "hashPath": "mongodb.bson.2.25.0.nupkg.sha512"
+    },
+    "System.ComponentModel.Annotations/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dMkqfy2el8A8/I76n2Hi1oBFEbG1SfxD2l5nhwXV3XjlnOmwxJlQbYpJH4W51odnU9sARCSAgv7S3CyAFMkpYg==",
+      "path": "system.componentmodel.annotations/5.0.0",
+      "hashPath": "system.componentmodel.annotations.5.0.0.nupkg.sha512"
     },
     "System.Drawing.Common/4.7.3": {
       "type": "package",
@@ -426,6 +444,13 @@
       "sha512": "sha512-1QU/c35gwdhvj77fkScXQQbjiVAqIL3fEYn/19NE0CV/ic5TN5PyWAft8HsrbRd4SBLEoErNCkWSzMDc0MmbRw==",
       "path": "system.drawing.primitives/4.3.0",
       "hashPath": "system.drawing.primitives.4.3.0.nupkg.sha512"
+    },
+    "System.Memory/4.5.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
+      "path": "system.memory/4.5.5",
+      "hashPath": "system.memory.4.5.5.nupkg.sha512"
     },
     "System.Runtime/4.3.0": {
       "type": "package",

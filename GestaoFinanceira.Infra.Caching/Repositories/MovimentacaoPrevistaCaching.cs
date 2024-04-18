@@ -14,15 +14,11 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
     {
 
         private readonly MongoDBContext mongoDBContext;
-        private readonly IItemMovimentacaoCaching itemMovimentacaoCaching;
-        private readonly IFormaPagamentoCaching formaPagamentoCaching;
         private readonly ISaldoDiarioCaching saldoDiarioCaching;
 
-        public MovimentacaoPrevistaCaching(MongoDBContext mongoDBContext, IItemMovimentacaoCaching itemMovimentacaoCaching, IFormaPagamentoCaching formaPagamentoCaching, ISaldoDiarioCaching saldoDiarioCaching)
+        public MovimentacaoPrevistaCaching(MongoDBContext mongoDBContext, ISaldoDiarioCaching saldoDiarioCaching)
         {
             this.mongoDBContext = mongoDBContext;
-            this.itemMovimentacaoCaching = itemMovimentacaoCaching;
-            this.formaPagamentoCaching = formaPagamentoCaching;
             this.saldoDiarioCaching = saldoDiarioCaching;
         }
 
@@ -57,9 +53,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                 .Where(mp => mp.DataVencimento >= dataIni &&
                              mp.DataVencimento <= dataFim &&
                              mp.FormaPagamento.IdUsuario == UserEntity.IdUsuario);
-            List<MovimentacaoPrevistaDTO>  movimentacoesPrevistas = mongoDBContext.MovimentacoesPrevistas.Find(filter).ToList();            
-
-            return Query(movimentacoesPrevistas);
+            return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).ToList();
         }
 
         public MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia)
@@ -69,9 +63,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                        mp.DataReferencia >= DateTimeClass.DataHoraIni(dataReferencia.Date) &&
                        mp.DataReferencia <= DateTimeClass.DataHoraFim(dataReferencia.Date) &&
                        mp.FormaPagamento.IdUsuario == UserEntity.IdUsuario);
-            List<MovimentacaoPrevistaDTO> movimentacoesPrevistas = mongoDBContext.MovimentacoesPrevistas.Find(filter).ToList();
-            
-            return Query(movimentacoesPrevistas).FirstOrDefault();
+            return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).FirstOrDefault();
         }
 
         public List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao)
@@ -92,35 +84,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                              mp.DataVencimento <= dataFim.Date &&
                              mp.FormaPagamento.IdUsuario== UserEntity.IdUsuario &&
                             (mp.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null) );
-            List<MovimentacaoPrevistaDTO> movimentacoesPrevistas = mongoDBContext.MovimentacoesPrevistas.Find(filter).ToList();
-            
-            return Query(movimentacoesPrevistas);            
-        }
-
-        private List<MovimentacaoPrevistaDTO> Query(List<MovimentacaoPrevistaDTO> movimentacoesPrevistas)
-        {
-            List<FormaPagamentoDTO> formasPagamento = formaPagamentoCaching.GetAll();
-            List<ItemMovimentacaoDTO> itensMovimentacao = itemMovimentacaoCaching.GetAll();
-
-            var query = from fp in formasPagamento
-                        join mp in movimentacoesPrevistas on fp.Id equals mp.FormaPagamento.Id
-                        join im in itensMovimentacao on mp.ItemMovimentacao.Id equals im.Id
-                        select new MovimentacaoPrevistaDTO
-                        {
-                            DataReferencia = mp.DataReferencia,
-                            DataVencimento = mp.DataVencimento,
-                            FormaPagamento = fp,
-                            ItemMovimentacao= im,          
-                            Observacao = mp.Observacao,
-                            Parcela = mp.Parcela,
-                            Status = mp.Status,
-                            StatusDescricao = mp.StatusDescricao,
-                            TipoPrioridade = mp.TipoPrioridade,
-                            TipoPrioridadeDescricao = mp.TipoPrioridadeDescricao,
-                            Valor = mp.Valor
-                        };
-
-            return query.ToList();
-        }
+            return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).ToList();
+        }        
     }
 }

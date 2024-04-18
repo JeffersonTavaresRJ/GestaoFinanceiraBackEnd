@@ -59,6 +59,11 @@ namespace GestaoFinanceira.Infra.Caching.Context
             get { return mongoDataBase.GetCollection<MovimentacaoPrevistaDTO>("MovimentacoesPrevistas"); }
         }
 
+        public IMongoCollection<MovimentacaoPrevistaDTO> VwMovimentacoesPrevistas
+        {
+            get { return mongoDataBase.GetCollection<MovimentacaoPrevistaDTO>("VW_MovimentacoesPrevistas"); }
+        }
+
         public IMongoCollection<MovimentacaoRealizadaDTO> MovimentacoesRealizadas
         {
             get { return mongoDataBase.GetCollection<MovimentacaoRealizadaDTO>("MovimentacoesRealizadas"); }
