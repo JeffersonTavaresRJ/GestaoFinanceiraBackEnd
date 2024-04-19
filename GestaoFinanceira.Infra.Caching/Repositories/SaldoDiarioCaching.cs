@@ -63,8 +63,11 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                sa.DataSaldo <= DateTimeClass.DataHoraFim(dataSaldo));
             var saldoDiarioDTO =  mongoDBContext.VwSaldosDiario.Find(filter).FirstOrDefault<SaldoDiarioDTO>();
 
-            saldoDiarioDTO.MovimentacoesRealizadas = movimentacaoRealizadaCaching
+            if(saldoDiarioDTO != null)
+            {
+                saldoDiarioDTO.MovimentacoesRealizadas = movimentacaoRealizadaCaching
                 .GetByDataMovimentacaoRealizada(saldoDiarioDTO.Conta.Id, saldoDiarioDTO.DataSaldo);
+            }           
 
             return saldoDiarioDTO;
         }
