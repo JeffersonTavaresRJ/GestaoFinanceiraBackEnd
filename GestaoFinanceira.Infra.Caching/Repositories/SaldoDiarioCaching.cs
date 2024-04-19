@@ -1,5 +1,6 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
+using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Infra.Caching.Context;
 using GestaoFinanceira.Infra.CrossCutting.GenericFunctions;
 using GestaoFinanceira.Infra.CrossCutting.Security;
@@ -13,10 +14,12 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
     public class SaldoDiarioCaching : ISaldoDiarioCaching
     {
         private readonly MongoDBContext mongoDBContext;
+        private readonly IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching;
 
-        public SaldoDiarioCaching(MongoDBContext mongoDBContext)
+        public SaldoDiarioCaching(MongoDBContext mongoDBContext, IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching)
         {
             this.mongoDBContext = mongoDBContext;
+            this.movimentacaoRealizadaCaching = movimentacaoRealizadaCaching;
         }
 
         public void Add(SaldoDiarioDTO obj)
@@ -47,7 +50,9 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                .Where(sa => (sa.Conta.IdUsuario == UserEntity.IdUsuario) &&
                              sa.DataSaldo >= DateTimeClass.DataHoraIni(dataSaldoIni) && 
                              sa.DataSaldo <= DateTimeClass.DataHoraFim(dataSaldoFim));
-            return mongoDBContext.SaldosDiario.Find(filter).ToList();
+            var saldosDiarioDTO =  mongoDBContext.VwSaldosDiario.Find(filter).ToList();
+
+            return SetMovimentacoesRealizadas(saldosDiarioDTO);
         }
 
         public SaldoDiarioDTO GetByKey(int idConta, DateTime dataSaldo)
@@ -56,14 +61,21 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                .Where(sa => sa.Conta.Id == idConta && 
                sa.DataSaldo >= DateTimeClass.DataHoraIni(dataSaldo) &&
                sa.DataSaldo <= DateTimeClass.DataHoraFim(dataSaldo));
-            return mongoDBContext.SaldosDiario.Find(filter).FirstOrDefault<SaldoDiarioDTO>();
+            var saldoDiarioDTO =  mongoDBContext.VwSaldosDiario.Find(filter).FirstOrDefault<SaldoDiarioDTO>();
+
+            saldoDiarioDTO.MovimentacoesRealizadas = movimentacaoRealizadaCaching
+                .GetByDataMovimentacaoRealizada(saldoDiarioDTO.Conta.Id, saldoDiarioDTO.DataSaldo);
+
+            return saldoDiarioDTO;
         }
 
         public List<SaldoDiarioDTO> GetAll()
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
                .Where(sa => sa.Conta.IdUsuario == UserEntity.IdUsuario);
-            return mongoDBContext.SaldosDiario.Find(filter).ToList();
+            var saldosDiarioDTO = mongoDBContext.VwSaldosDiario.Find(filter).ToList();
+
+            return SetMovimentacoesRealizadas(saldosDiarioDTO);
         }
 
         public List<SaldoDiarioDTO> GetGroupBySaldoDiario(DateTime dataIni, DateTime dataFim)
@@ -72,9 +84,11 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                .Where(sa => (sa.Conta.IdUsuario == UserEntity.IdUsuario)
                    && sa.DataSaldo >= DateTimeClass.DataHoraIni(dataIni)
                    && sa.DataSaldo <= DateTimeClass.DataHoraFim(dataFim));
-            var saldosDiariosDTO = mongoDBContext.SaldosDiario.Find(filter).ToList().OrderByDescending(sd => sd.DataSaldo).ToList();
+            var saldosDiariosDTO = mongoDBContext.VwSaldosDiario.Find(filter).ToList();
 
-            return saldosDiariosDTO;
+            saldosDiariosDTO = SetMovimentacoesRealizadas(saldosDiariosDTO);
+
+            return saldosDiariosDTO.ToList().OrderByDescending(sd => sd.DataSaldo).ToList();
         }
 
 
@@ -131,7 +145,20 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                .Where(sa => (sa.Conta.Id == idConta) &&
                       sa.DataSaldo >= DateTimeClass.DataHoraIni(dataIni) &&
                       sa.DataSaldo <= DateTimeClass.DataHoraFim(dataFim));
-            return mongoDBContext.SaldosDiario.Find(filter).ToList();
+
+            return mongoDBContext.VwSaldosDiario.Find(filter).ToList();
+        }
+
+        private List<SaldoDiarioDTO> SetMovimentacoesRealizadas(List<SaldoDiarioDTO> saldosDiarioDTO)
+        {
+            List<SaldoDiarioDTO> result = new List<SaldoDiarioDTO>();  
+            foreach (var item in saldosDiarioDTO)
+            {
+                item.MovimentacoesRealizadas = movimentacaoRealizadaCaching.GetByDataMovimentacaoRealizada(item.Conta.Id, item.DataSaldo);
+                result.Add(item);
+            }
+
+            return result;
         }
     }
 }

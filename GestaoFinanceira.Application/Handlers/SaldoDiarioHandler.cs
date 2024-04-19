@@ -35,7 +35,7 @@ namespace GestaoFinanceira.Application.Handlers
                     case ActionNotification.Criar:
                         foreach (SaldoDiario saldoDiario in notification.SaldosDiario)
                         {
-                            SaldoDiarioDTO saldoDiarioDTO = Convert(saldoDiario);
+                            SaldoDiarioDTO saldoDiarioDTO = mapper.Map<SaldoDiarioDTO>(saldoDiario);
 
                             var saldo = saldoDiarioCaching.GetByKey(saldoDiario.IdConta, saldoDiario.DataSaldo);
                             if (saldo == null)
@@ -61,7 +61,7 @@ namespace GestaoFinanceira.Application.Handlers
                             }
                             else
                             {
-                                SaldoDiarioDTO saldoDiarioDTO = Convert(saldoDiario);
+                                SaldoDiarioDTO saldoDiarioDTO = mapper.Map<SaldoDiarioDTO>(saldoDiario);
 
                                 var saldo = saldoDiarioCaching.GetByKey(saldoDiario.IdConta, saldoDiario.DataSaldo);
                                 if (saldo == null)
@@ -89,7 +89,7 @@ namespace GestaoFinanceira.Application.Handlers
                             else
                             {
                                 /*se já existe, atualiza..*/
-                                SaldoDiarioDTO saldoDiarioDTO = Convert(saldoDiario);
+                                SaldoDiarioDTO saldoDiarioDTO = mapper.Map<SaldoDiarioDTO>(saldoDiario);
                                 saldoDiarioCaching.Update(saldoDiarioDTO);
 
                             }
@@ -97,14 +97,6 @@ namespace GestaoFinanceira.Application.Handlers
                         break;
                 }
             });
-        }
-
-        private SaldoDiarioDTO Convert(SaldoDiario saldoDiario)
-        {
-            SaldoDiarioDTO saldoDiarioDTO = mapper.Map<SaldoDiarioDTO>(saldoDiario);
-            saldoDiarioDTO.Conta = contaCaching.GetId(saldoDiario.IdConta);
-            saldoDiarioDTO.MovimentacoesRealizadas = movimentacaoRealizadaCaching.GetByDataMovimentacaoRealizada(saldoDiario.IdConta, saldoDiario.DataSaldo);
-            return saldoDiarioDTO;
         }
     }
 }
