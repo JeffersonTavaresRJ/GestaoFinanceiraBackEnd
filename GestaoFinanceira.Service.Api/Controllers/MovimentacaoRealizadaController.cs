@@ -143,7 +143,6 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
-
         [HttpGet("GetByDataReferencia/{dataReferencia}/{idItemMovimentacao?}")]
         public IActionResult GetByDataReferencia(DateTime dataReferencia, int? idItemMovimentacao)
         {
@@ -272,8 +271,13 @@ namespace GestaoFinanceira.Service.Api.Controllers
         {
             try
             {
+                if(command.totalMeses <= 1 && command.totalMeses > 12)
+                {
+                    return StatusCode(418, "O range do período de meses deve ser entre 2 a 12 meses");
+                }
+
                 UserEntity.SetUsuarioID(this.User);
-                var file = movimentacaoRealizadaApplicationService.GetByMovimentacaoRealizadaMensal(command.IdContas, command.DataReferencia);
+                var file = movimentacaoRealizadaApplicationService.GetByMovimentacaoRealizadaMensal(command.IdContas, command.DataReferencia, command.totalMeses);
 
                 if (file != null)
                 {

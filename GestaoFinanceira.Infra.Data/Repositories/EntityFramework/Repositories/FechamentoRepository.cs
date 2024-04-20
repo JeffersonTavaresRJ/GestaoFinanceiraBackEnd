@@ -1,16 +1,18 @@
-﻿using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
+﻿using GestaoFinanceira.Domain.DTOs;
+using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
 using GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Context;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 
 namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
 {
-    public class FechamentoRepository : IFechamentoRepository
+    public class FechamentoRepositoryEF : IFechamentoRepository
     {
         protected SqlContext context;
 
-        public FechamentoRepository(SqlContext context)
+        public FechamentoRepositoryEF(SqlContext context)
         {
             this.context = context;
         }
@@ -28,6 +30,11 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
                 throw new Exception(e.Message);
             }
 
+        }
+
+        public List<FechamentoMensalDTO> GetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -45,20 +45,19 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     var larguraValores = 15;
 
                     var i = linhaIniRangeMeses;
-                    var totalColunas = totalMeses+5;
-
-                    while (totalColunas >= i)
+       
+                    while ((totalMeses + 5) >= i)
                     {
                         sheet.Column(i).Width = larguraValores;
                         i++;
                     }
                     
-                    List<Totalizador> celsSaldoAntPorConta = GetListTotalizador(totalColunas);
-                    List<Totalizador> celsSaldoMenPorConta = GetListTotalizador(totalColunas);
-                    List<Totalizador> celsRecPorConta = GetListTotalizador(totalColunas);
-                    List<Totalizador> celsDesPorConta = GetListTotalizador(totalColunas);
-                    List<Totalizador> celsSaldoAntTotal = GetListTotalizador(totalColunas);
-                    List<Totalizador> celsSaldoMenTotal = GetListTotalizador(totalColunas);
+                    List<Totalizador> celsSaldoAntPorConta = GetListTotalizador(totalMeses);
+                    List<Totalizador> celsSaldoMenPorConta = GetListTotalizador(totalMeses);
+                    List<Totalizador> celsRecPorConta = GetListTotalizador(totalMeses);
+                    List<Totalizador> celsDesPorConta = GetListTotalizador(totalMeses);
+                    List<Totalizador> celsSaldoAntTotal = GetListTotalizador(totalMeses);
+                    List<Totalizador> celsSaldoMenTotal = GetListTotalizador(totalMeses);
 
 
                     sheet.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -72,14 +71,14 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     //título do relátório
                     sheet.Cells["A1"].Value = title;
 
-                    var titulo = sheet.Cells["A1:R1"];
+                    var titulo = sheet.Cells[$"A1:{GetCellFinish("T", totalMeses, 1)}"];
                     titulo.Merge = true; //mesclar as celulas..
                     titulo.Style.Font.Size = 16;
                     titulo.Style.Font.Bold = true;
                     titulo.Style.Font.Color.SetColor(Color.White);
                     titulo.Style.Fill.PatternType = ExcelFillStyle.Solid;
                     titulo.Style.Fill.BackgroundColor.SetColor(Color.Black);
-                    titulo.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    titulo.Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
 
                     //cabeçalho..
                     sheet.Cells["A3"].Value = "CONTA";
@@ -97,7 +96,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     coluna++;
                     sheet.Cells[GetCellMesAno(coluna, 3)].Value = "MÉDIA";
 
-                    var cabecalho = sheet.Cells["A3:R3"];
+                    var cabecalho = sheet.Cells[$"A3:{GetCellFinish("T", totalMeses, 3)}"];
                     cabecalho.Style.Font.Size = 10;
                     cabecalho.Style.Font.Bold = true;
                     cabecalho.Style.Font.Color.SetColor(Color.White);
@@ -166,13 +165,13 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
 
                         //ITENS DE MOVIMENTAÇÃO POR CONTA (RECEITA E DESPESA)..
-                        linha = PopulateItensMovimentacao(movimentacaoRealizadaMensal, "R", sheet, celsRecPorConta, linha, totalColunas);
-                        linha = PopulateItensMovimentacao(movimentacaoRealizadaMensal, "D", sheet, celsDesPorConta, linha, totalColunas);
+                        linha = PopulateItensMovimentacao(movimentacaoRealizadaMensal, "R", sheet, celsRecPorConta, linha, totalMeses);
+                        linha = PopulateItensMovimentacao(movimentacaoRealizadaMensal, "D", sheet, celsDesPorConta, linha, totalMeses);
 
 
                         //FORMATAÇÃO DO CONTEÚDO POR CONTA..
                         linha++;
-                        var conteudo = sheet.Cells[$"A{linhaIniConta}:R{linha}"];
+                        var conteudo = sheet.Cells[$"A{linhaIniConta}:{GetCellFinish("T", totalMeses, linha)}"];
                         conteudo.Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
                         if (contaContas % 2 == 0)
@@ -201,23 +200,23 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
 
                     //SALDO ANTERIOR..
-                    PopulateTotalizadorSaldo("SA", sheet, celsSaldoAntPorConta, celsSaldoAntTotal, linha, totalColunas);
+                    PopulateTotalizadorSaldo("SA", sheet, celsSaldoAntPorConta, celsSaldoAntTotal, linha, totalMeses);
 
                     //RECEITA E DESPESA..
-                    linha = PopulateTotalizadorTipo("R", sheet, celsRecPorConta, linha, totalColunas);
-                    linha = PopulateTotalizadorTipo("D", sheet, celsDesPorConta, linha, totalColunas);
+                    linha = PopulateTotalizadorTipo("R", sheet, celsRecPorConta, linha, totalMeses);
+                    linha = PopulateTotalizadorTipo("D", sheet, celsDesPorConta, linha, totalMeses);
 
                     //SALDO MENSAL..
                     linha++;
-                    PopulateTotalizadorSaldo("SM", sheet, celsSaldoMenPorConta, celsSaldoMenTotal, linha, totalColunas);
+                    PopulateTotalizadorSaldo("SM", sheet, celsSaldoMenPorConta, celsSaldoMenTotal, linha, totalMeses);
 
 
                     //FORMATAÇÃO DO CONTEÚDO DO TOTAL GERAL..
                     totalGeral.Merge = true;
                     totalGeral.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     totalGeral.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-
-                    var conteudoTotalizador = sheet.Cells[$"A{linhaIniTotalizador}:R{linha}"];
+                    //FINAL DA TABELA
+                    var conteudoTotalizador = sheet.Cells[$"A{linhaIniTotalizador}:{GetCellFinish("T", totalMeses, linha)}"];
                     conteudoTotalizador.Style.Fill.PatternType = ExcelFillStyle.Solid;
                     conteudoTotalizador.Style.Font.Bold = true;
                     conteudoTotalizador.Style.Border.BorderAround(ExcelBorderStyle.Thin);
@@ -235,7 +234,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     cellVariacaoPercentual.Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
                     coluna = 1;
-                    while (coluna <= totalColunas)
+                    while (coluna <= totalMeses)
                     {
                         var cellSaldoAntTotal = celsSaldoAntTotal.Find(c => c.Coluna.Equals(coluna)).Celulas;
                         var cellSaldoMenTotal = celsSaldoMenTotal.Find(c => c.Coluna.Equals(coluna)).Celulas;
@@ -260,7 +259,8 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
 
                     sheet.View.FreezePanes(4, 4);
-                    var tabela = sheet.Cells[$"A3:R{linha}"];
+                    //FINAL DA TABELA
+                    var tabela = sheet.Cells[$"A3:{GetCellFinish("T",totalMeses,linha)}"];
                     tabela.Style.Border.BorderAround(ExcelBorderStyle.Medium);
 
                     return excel.GetAsByteArray();
@@ -275,12 +275,12 @@ namespace GestaoFinanceira.Infra.Reports.Excel
             
         }
 
-        private static List<Totalizador> GetListTotalizador(int totalColunas)
+        private static List<Totalizador> GetListTotalizador(int totalMeses)
         {
             List<Totalizador> lista = new List<Totalizador>();
             var coluna = 1;
 
-            while (totalColunas >= coluna)
+            while (totalMeses >= coluna)
             {
                 Totalizador totalizador = new Totalizador(coluna);
                 lista.Add(totalizador);
@@ -288,6 +288,25 @@ namespace GestaoFinanceira.Infra.Reports.Excel
             }
 
             return lista;            
+        }
+
+        private static string GetCellFinish(string tipo, int totalMeses, int linha)
+        {
+            switch(totalMeses)
+            {
+                case 2: return tipo == "F" ? $"E{linha}" : $"G{linha}";
+                case 3: return tipo == "F" ? $"F{linha}" : $"H{linha}";
+                case 4: return tipo == "F" ? $"G{linha}" : $"I{linha}";
+                case 5: return tipo == "F" ? $"H{linha}" : $"J{linha}";
+                case 6: return tipo == "F" ? $"I{linha}" : $"K{linha}";
+                case 7: return tipo == "F" ? $"J{linha}" : $"L{linha}";
+                case 8: return tipo == "F" ? $"K{linha}" : $"M{linha}";
+                case 9: return tipo == "F" ? $"L{linha}" : $"N{linha}";
+                case 10: return tipo == "F" ? $"M{linha}" : $"0{linha}";
+                case 11: return tipo == "F" ? $"N{linha}" : $"P{linha}";
+                case 12: return tipo == "F" ? $"O{linha}" : $"Q{linha}";
+                default: return "";
+            }
         }
 
         private static string ConvertMesAno(int ano, int mes)
@@ -333,14 +352,14 @@ namespace GestaoFinanceira.Infra.Reports.Excel
             }
         }
 
-        private static string GetFormulaSumRow(int linha)
+        private static string GetFormulaSumRow(int totalMeses, int linha)
         {
-            return $"=SUM(D{linha}:P{linha})";
+            return $"=SUM(D{linha}:{GetCellFinish("F", totalMeses, linha)})";
         }
 
-        private static string GetFormulaMediaRow(int linha)
+        private static string GetFormulaMediaRow(int totalMeses, int linha)
         {
-            return $"=SUM(D{linha}:P{linha})/COUNTIF(D{linha}:P{linha},\">0\")";
+            return $"=SUM(D{linha}:{GetCellFinish("F", totalMeses, linha)})/COUNTIF(D{linha}:{GetCellFinish("F", totalMeses, linha)},\">0\")";
         }
 
         private static void SetCellNumberProperties(ExcelRange cell, Color fontColor)
@@ -357,7 +376,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
             cell.Style.Font.Bold = true;
         }
 
-        private static int PopulateItensMovimentacao(MovimentacaoRealizadaMensalDTO movimentacaoRealizadaMensal, string tipo, ExcelWorksheet sheet, List<Totalizador> cellsTotalizador, int linha, int totalColunas)
+        private static int PopulateItensMovimentacao(MovimentacaoRealizadaMensalDTO movimentacaoRealizadaMensal, string tipo, ExcelWorksheet sheet, List<Totalizador> cellsTotalizador, int linha, int totalMeses)
         {
             //ERRO AQUI: 56 MESES PARA A CONTA MAXIME DI..
             List<ItemDTO> itemDTOs = movimentacaoRealizadaMensal.TiposMovimentacao.Where(t => t.Tipo.Equals(tipo)).FirstOrDefault().ItemDTOs;
@@ -410,7 +429,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     cellRef = GetCellMesAno(coluna, linha);
                     cellExc = sheet.Cells[cellRef];
 
-                    cellExc.FormulaR1C1 = GetFormulaSumRow(linha);
+                    cellExc.FormulaR1C1 = GetFormulaSumRow(totalMeses, linha);
                     cellExc.Style.Font.Bold = true;
                     SetCellNumberProperties(cellExc, color);
 
@@ -418,7 +437,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     coluna++;
                     cellRef = GetCellMesAno(coluna, linha);
                     cellExc = sheet.Cells[cellRef];
-                    cellExc.FormulaR1C1 = GetFormulaMediaRow(linha);
+                    cellExc.FormulaR1C1 = GetFormulaMediaRow(totalMeses, linha);
                     cellExc.Style.Font.Bold = true;
                     SetCellNumberProperties(cellExc, color);
 
@@ -429,7 +448,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
             return linha;
         }
 
-        private static int PopulateTotalizadorTipo(string tipo, ExcelWorksheet sheet, List<Totalizador> cellsTotalizador, int linha, int totalColunas)
+        private static int PopulateTotalizadorTipo(string tipo, ExcelWorksheet sheet, List<Totalizador> cellsTotalizador, int linha, int totalMeses)
         {
 
             if (cellsTotalizador[0].Celulas != null)
@@ -456,7 +475,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 var coluna = 1;
                 string cellRef;
                 ExcelRange cellExc;
-                while (coluna <= totalColunas)
+                while (coluna <= totalMeses)
                 {
                     cellRef = GetCellMesAno(coluna, linha);
                     cellExc = sheet.Cells[cellRef];
@@ -469,14 +488,14 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 //TOTAL..
                 cellRef = GetCellMesAno(coluna, linha);
                 cellExc = sheet.Cells[cellRef];
-                cellExc.FormulaR1C1 = GetFormulaSumRow(linha);
+                cellExc.FormulaR1C1 = GetFormulaSumRow(totalMeses, linha);
                 cellExc.Style.Font.Bold = true;
                 SetCellNumberProperties(cellExc, color);
 
                 //MÉDIA..
                 coluna++;
                 cellExc = sheet.Cells[GetCellMesAno(coluna, linha)];
-                cellExc.FormulaR1C1 = GetFormulaMediaRow(linha);
+                cellExc.FormulaR1C1 = GetFormulaMediaRow(totalMeses, linha);
                 cellExc.Style.Font.Bold = true;
                 SetCellNumberProperties(cellExc, color);
 
@@ -484,7 +503,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
             return linha;
         }
 
-        private static void PopulateTotalizadorSaldo(string tipo, ExcelWorksheet sheet, List<Totalizador> cellsTotalizador, List<Totalizador> cellVariacao, int linha, int totalColunas)
+        private static void PopulateTotalizadorSaldo(string tipo, ExcelWorksheet sheet, List<Totalizador> cellsTotalizador, List<Totalizador> cellVariacao, int linha, int totalMeses)
         {
             Color color;
             var saldoConteudo = sheet.Cells[$"B{linha}:C{linha}"];
@@ -507,7 +526,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
             var coluna = 1;
             string cellRef;
             ExcelRange cellExc;
-            while (coluna <= totalColunas)
+            while (coluna <= totalMeses)
             {
                 cellRef = GetCellMesAno(coluna, linha);
                 cellExc = sheet.Cells[cellRef];
@@ -521,9 +540,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 coluna++;
             }
         }
-    }
-
-    
+    }    
 
     public class Totalizador
     {

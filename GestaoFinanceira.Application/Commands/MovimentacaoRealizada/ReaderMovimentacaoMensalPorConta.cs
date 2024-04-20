@@ -8,5 +8,6 @@ namespace GestaoFinanceira.Application.Commands.MovimentacaoRealizada
     {
         public List<int> IdContas { get; set; }
         public DateTime DataReferencia { get; set; }
+        public int totalMeses { get; set; }
     }
 }

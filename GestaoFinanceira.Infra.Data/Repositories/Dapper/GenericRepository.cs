@@ -7,7 +7,7 @@ using System.Data;
 
 namespace GestaoFinanceira.Infra.Data.Repositories.Dapper
 {
-    public abstract class GenericRepository : IGenericRepository
+    public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity>
     {
         protected IDbConnection connection;
         private CommandType commandType;
@@ -18,7 +18,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.Dapper
             commandType = CommandType.Text;
         }
 
-        public IEnumerable<dynamic> Execute(string sqlText, object parameters, TipoExecucao? tipo)
+        public IEnumerable<TEntity> Execute(string sqlText, object parameters, TipoExecucao? tipo)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.Dapper
                     commandType = CommandType.StoredProcedure;
                 }
 
-                var result = connection.Query(sqlText, parameters, commandType: commandType);
+                var result = connection.Query<TEntity>(sqlText, parameters, commandType: commandType);
                 return result;
             }
             catch (Exception e)

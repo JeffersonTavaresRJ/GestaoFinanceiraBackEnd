@@ -66,7 +66,7 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IMovimentacaoPrevistaRepository, MovimentacaoPrevistaRepository>();
             services.AddTransient<IMovimentacaoRealizadaRepository, MovimentacaoRealizadaRepository>();
             services.AddTransient<ISaldoDiarioRepository, SaldoDiarioRepository>();
-            services.AddTransient<IFechamentoRepository, FechamentoRepository>();
+            //services.AddTransient<IFechamentoRepository, FechamentoRepository>();
             services.AddTransient<ISaldoContaRepository, SaldoContaRepository>();
             services.AddTransient<IItemMovimentacaoMensalRepository, ItemMovimentacaoMensalRepository>();            
             services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -75,6 +75,7 @@ namespace GestaoFinanceira.Infra.IoC
             #region InfraDataDapper
             services.AddTransient<IDbConnection>(c => new SqlConnection(configuration.GetConnectionString("GestaoFinanceira")));
             services.AddTransient<ITransferenciaContasRepository, TransferenciaContasRepository>();
+            services.AddTransient<IFechamentoRepository, FechamentoRepository>();
             #endregion
 
             #region InfraCaching

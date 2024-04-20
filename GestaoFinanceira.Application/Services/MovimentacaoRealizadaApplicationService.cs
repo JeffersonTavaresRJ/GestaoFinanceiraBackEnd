@@ -91,9 +91,8 @@ namespace GestaoFinanceira.Application.Services
             return saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia); 
         }
 
-        public byte[] GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia)
+        public byte[] GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia, int totalMeses)
         {
-            var totalMeses = 6;
             List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs 
                 = movimentacaoRealizadaMensalCaching.GetByMovimentacaoRealizadaMensal(idsConta, dataReferencia, totalMeses);
             return ReportMovimentacaoRealizadaMensal.GetAll(movimentacaoRealizadaMensalDTOs, totalMeses);

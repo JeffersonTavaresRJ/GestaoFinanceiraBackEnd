@@ -47,7 +47,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
 
         public ISaldoDiarioRepository ISaldoDiarioRepository => new SaldoDiarioRepository(context);
 
-        public IFechamentoRepository IFechamentoRepository => new FechamentoRepository(context);
+        //public IFechamentoRepository IFechamentoRepository => new FechamentoRepository(context);
 
         public ISaldoContaRepository ISaldoContaRepository => new SaldoContaRepository(context);
 

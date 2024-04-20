@@ -5,8 +5,8 @@ using System.Text;
 
 namespace GestaoFinanceira.Infra.Data.Dapper.Repositories
 {
-    public interface IGenericRepository
+    public interface IGenericRepository<TEntity>
     {
-        public IEnumerable<dynamic> Execute( string sqlText, object parameters, TipoExecucao? tipo);        
+        public IEnumerable<TEntity> Execute( string sqlText, object parameters, TipoExecucao? tipo);
     }
 }

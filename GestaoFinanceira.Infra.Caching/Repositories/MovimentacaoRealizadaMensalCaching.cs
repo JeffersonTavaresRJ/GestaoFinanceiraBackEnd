@@ -56,6 +56,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                                          .OrderBy(c => c.Descricao)
                                          .ToList();
 
+                itemMovimentacaoDTOs = itemMovimentacaoDTOs.GroupBy(i=>i.Id).Select(i=>i.First()).ToList();
+
                 //Calculando Saldos da Conta..
                 List<SaldoContaDTO> saldoContaDTOs = new List<SaldoContaDTO>();
 
@@ -63,7 +65,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                 ano = dataIni.Year;
                 mes = dataIni.Month;
 
-                while (meses <= totalMeses)
+                while (meses < totalMeses)
                 {
                     SaldoContaDTO saldoContaDTO = new SaldoContaDTO()
                     {
@@ -90,7 +92,6 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
 
                 //Populando o valor mensal de cada item..
-
                 foreach (TipoMovimentacao tipoMovimentacao in movimentacaoRealizadaMensalDTO.TiposMovimentacao)
                 {
 
@@ -101,7 +102,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                         mes = dataIni.Month;
                         List<MesItemDTO> mesItemDTOs = new List<MesItemDTO>();
 
-                        while (meses <= totalMeses)
+                        while (meses < totalMeses)
                         {
                             
                             MesItemDTO mesItemDTO = new MesItemDTO()

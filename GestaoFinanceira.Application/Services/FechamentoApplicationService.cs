@@ -2,6 +2,7 @@
 using GestaoFinanceira.Application.Interfaces;
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
+using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Infra.CrossCutting.Security;
 using MediatR;
 using MongoDB.Bson;
@@ -16,11 +17,13 @@ namespace GestaoFinanceira.Application.Services
     {
         private readonly IMediator mediator;
         private readonly ISaldoDiarioCaching saldoDiarioCaching;
+        private readonly IFechamentoDomainService fechamentoDomainService;
 
-        public FechamentoApplicationService(IMediator mediator, ISaldoDiarioCaching saldoDiarioCaching)
+        public FechamentoApplicationService(IMediator mediator, ISaldoDiarioCaching saldoDiarioCaching, IFechamentoDomainService fechamentoDomainService)
         {
             this.mediator = mediator;
             this.saldoDiarioCaching = saldoDiarioCaching;
+            this.fechamentoDomainService = fechamentoDomainService;
         }
 
         public async Task Executar(CreateFechamentoCommand fechamentoCreateCommand)
@@ -30,22 +33,8 @@ namespace GestaoFinanceira.Application.Services
 
         public List<FechamentoMensalDTO> GetAll()
         {
-            List<SaldoDiarioDTO> saldosDiariosDTO = saldoDiarioCaching.GetAll().OrderByDescending(x => x.DataSaldo).ToList();
-            List<FechamentoMensalDTO> fechamentosmensais = new List<FechamentoMensalDTO>();
-
-            foreach (var item in saldosDiariosDTO)
-            {
-                if (!fechamentosmensais.Exists(f => f.MesAno.Equals(item.DataSaldo.ToString("MM/yyyy")))){
-                    fechamentosmensais.Add(new FechamentoMensalDTO
-                    {
-                        MesAno = item.DataSaldo.ToString("MM/yyyy"),
-                        DataReferencia = new DateTime(item.DataSaldo.Year, item.DataSaldo.Month, DateTime.DaysInMonth(item.DataSaldo.Year, item.DataSaldo.Month)),
-                        Status = item.Status,
-                        DescricaoStatus = item.Status == "A" ? "Aberto" : "Fechado"
-                    }); 
-                }
-            }
-            return fechamentosmensais;
+            
+            return this.fechamentoDomainService.GetAll();
 
         }
     }

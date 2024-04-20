@@ -7,7 +7,7 @@ using System.Data;
 
 namespace GestaoFinanceira.Infra.Data.Repositories.Dapper
 {
-    public class TransferenciaContasRepository : GenericRepository, ITransferenciaContasRepository
+    public class TransferenciaContasRepository : GenericRepository<>, ITransferenciaContasRepository
     {
 
         public TransferenciaContasRepository(IDbConnection connection) : base(connection)

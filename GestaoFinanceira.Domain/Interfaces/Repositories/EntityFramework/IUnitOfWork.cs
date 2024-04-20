@@ -19,7 +19,7 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework
         IMovimentacaoPrevistaRepository IMovimentacaoPrevistaRepository { get; }
         IMovimentacaoRealizadaRepository IMovimentacaoRealizadaRepository { get; }
         ISaldoDiarioRepository ISaldoDiarioRepository { get; }
-        IFechamentoRepository IFechamentoRepository { get; }
+        //IFechamentoRepository IFechamentoRepository { get; }
         ISaldoContaRepository ISaldoContaRepository { get; }
         IItemMovimentacaoMensalRepository IItemMovimentacaoMensalRepository { get; }
 
