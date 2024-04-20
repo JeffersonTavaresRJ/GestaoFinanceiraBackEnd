@@ -53,10 +53,10 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada(int? idItemMovimentacao, DateTime dataMovRealIni, DateTime dataMovRealFim)
         {
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter
-               .Where(mr => (mr.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null)
-                   && mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataMovRealIni)
-                   && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataMovRealFim)
-                   && mr.FormaPagamento.IdUsuario == UserEntity.IdUsuario);
+               .Where(mr => mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataMovRealIni)
+                         && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataMovRealFim)
+                         && mr.FormaPagamento.IdUsuario == UserEntity.IdUsuario
+                         && (mr.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null));
 
             return mongoDBContext.VwMovimentacoesRealizadas.Find(filter).ToList();
         }
@@ -77,9 +77,9 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public List<MovimentacaoRealizadaDTO> GetByDataMovimentacaoRealizada( int idConta, DateTime dataMovReal)
         {
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter
-               .Where(mr => (mr.Conta.Id == idConta)
-                   && mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataMovReal)
-                   && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataMovReal));
+               .Where(mr=> mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataMovReal)
+                        && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataMovReal)
+                        && (mr.Conta.Id == idConta));
 
             return mongoDBContext.VwMovimentacoesRealizadas.Find(filter).ToList();
          }
@@ -87,9 +87,9 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public List<MovimentacaoRealizadaDTO> GetByDataReferencia(int? idItemMovimentacao, DateTime dataReferencia)
         {
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter
-               .Where(mr => (mr.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null) && 
-               mr.DataReferencia >= DateTimeClass.DataHoraIni(dataReferencia) &&
-               mr.DataReferencia <= DateTimeClass.DataHoraFim(dataReferencia));
+               .Where(mr => mr.DataReferencia >= DateTimeClass.DataHoraIni(dataReferencia) &&
+                            mr.DataReferencia <= DateTimeClass.DataHoraFim(dataReferencia) &&
+                            (mr.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null));
 
             return mongoDBContext.VwMovimentacoesRealizadas.Find(filter).ToList();
         }

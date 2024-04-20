@@ -21,18 +21,24 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         }
 
 
-        public List<MovimentacaoRealizadaMensalDTO> GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia)
+        public List<MovimentacaoRealizadaMensalDTO> GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia, int totalMeses)
         {
+
             var ano = dataReferencia.Month == 12 ? dataReferencia.Year+1 : dataReferencia.Year;
             var mes = dataReferencia.Month == 12 ? 1 : dataReferencia.Month;
 
+            var dataIni = dataReferencia.AddDays(1).AddMonths(-totalMeses);
+            var dataFim = dataReferencia;
+
             //Movimentações Realizadas no período..
             List<MovimentacaoRealizadaDTO> movimentacaoRealizadaDTOs = 
-                this.movimentacaoRealizadaCaching.GetByDataMovimentacaoRealizada(idsConta, new DateTime(ano-1, mes, 1), new DateTime(ano, mes+1, 1).AddDays(-1));
+                this.movimentacaoRealizadaCaching.GetByDataMovimentacaoRealizada(idsConta, dataIni, dataFim);
             
             //Todas as Contas com movimentações no período..
             List<ContaDTO> contaDTOs = 
-                movimentacaoRealizadaDTOs.Select(mr=>mr.Conta).Distinct().ToList().OrderBy(c=>c.Descricao).ToList();
+                movimentacaoRealizadaDTOs.Select(mr=>mr.Conta).ToList().OrderBy(c=>c.Descricao).ToList();
+
+            contaDTOs = contaDTOs.GroupBy(c=>c.Id).Select(c=>c.First()).ToList();
 
             //return da function..
             List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs = new List<MovimentacaoRealizadaMensalDTO>();          
@@ -54,10 +60,10 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                 List<SaldoContaDTO> saldoContaDTOs = new List<SaldoContaDTO>();
 
                 var meses = 0;
-                ano = dataReferencia.Year - 1;
-                mes = dataReferencia.Month;
+                ano = dataIni.Year;
+                mes = dataIni.Month;
 
-                while (meses <= 12)
+                while (meses <= totalMeses)
                 {
                     SaldoContaDTO saldoContaDTO = new SaldoContaDTO()
                     {
@@ -91,18 +97,18 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                     foreach (ItemDTO item in tipoMovimentacao.ItemDTOs)
                     {
                         meses = 0;
-                        ano = dataReferencia.Year-1;
-                        mes = dataReferencia.Month;
+                        ano = dataIni.Year;
+                        mes = dataIni.Month;
                         List<MesItemDTO> mesItemDTOs = new List<MesItemDTO>();
 
-                        while (meses <= 12)
+                        while (meses <= totalMeses)
                         {
                             
                             MesItemDTO mesItemDTO = new MesItemDTO()
                             {
                                 Mes = mes,
                                 Ano = ano,
-                                Valor = GetValor(contaDTO.Id, item.ItemMovimentacaoDTO.Id, ano, mes, movimentacaoRealizadaDTOs)
+                                Valor = GetValorMensal(contaDTO.Id, item.ItemMovimentacaoDTO.Id, ano, mes, movimentacaoRealizadaDTOs)
                             };
 
                             mes++;
@@ -126,15 +132,15 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         }
 
         
-        private double GetValor(int idConta, int idItemMovimentacao, int ano, int mes, List<MovimentacaoRealizadaDTO> movimentacaoRealizadaDTOs)
+        private double GetValorMensal(int idConta, int idItemMovimentacao, int ano, int mes, List<MovimentacaoRealizadaDTO> movimentacaoRealizadaDTOs)
         {
             var dataIni = new DateTime(ano, mes, 1);
             var dataFim = new DateTime(ano, mes, 1).AddMonths(1).AddDays(-1);
 
-            return movimentacaoRealizadaDTOs.Where(mr=>mr.ItemMovimentacao.Id.Equals(idItemMovimentacao) &&
-                                                       mr.Conta.Id.Equals(idConta) &&
-                                                       mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataIni) &&
-                                                       mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataFim))
+            return movimentacaoRealizadaDTOs.Where(mr=>mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIni(dataIni) &&
+                                                       mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFim(dataFim) &&
+                                                       mr.ItemMovimentacao.Id.Equals(idItemMovimentacao) &&
+                                                       mr.Conta.Id.Equals(idConta))
                                             .Select(mr=>mr.Valor)
                                             .Sum();
         }

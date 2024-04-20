@@ -11,7 +11,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
     public class ReportMovimentacaoRealizadaMensal
     {
         
-        public static byte[]? GetAll(List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs) {
+        public static byte[]? GetAll(List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs, int totalMeses) {
 
             try
             {
@@ -30,6 +30,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     string cellRef;
                     int coluna;
                     int linha;
+                    int linhaIniRangeMeses = 4;
                     ExcelRange cellExc;
 
                     //criando a planilha..
@@ -42,23 +43,16 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     sheet.Column(3).Width = 34;
 
                     var larguraValores = 15;
-                    sheet.Column(4).Width = larguraValores;
-                    sheet.Column(5).Width = larguraValores;
-                    sheet.Column(6).Width = larguraValores;
-                    sheet.Column(7).Width = larguraValores;
-                    sheet.Column(8).Width = larguraValores;
-                    sheet.Column(9).Width = larguraValores;
-                    sheet.Column(10).Width = larguraValores;
-                    sheet.Column(11).Width = larguraValores;
-                    sheet.Column(12).Width = larguraValores;
-                    sheet.Column(13).Width = larguraValores;
-                    sheet.Column(14).Width = larguraValores;
-                    sheet.Column(15).Width = larguraValores;
-                    sheet.Column(16).Width = larguraValores;
-                    sheet.Column(17).Width = larguraValores;
-                    sheet.Column(18).Width = larguraValores;
 
-                    var totalColunas = 13;
+                    var i = linhaIniRangeMeses;
+                    var totalColunas = totalMeses+5;
+
+                    while (totalColunas >= i)
+                    {
+                        sheet.Column(i).Width = larguraValores;
+                        i++;
+                    }
+                    
                     List<Totalizador> celsSaldoAntPorConta = GetListTotalizador(totalColunas);
                     List<Totalizador> celsSaldoMenPorConta = GetListTotalizador(totalColunas);
                     List<Totalizador> celsRecPorConta = GetListTotalizador(totalColunas);
@@ -116,7 +110,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
                     //================POPULATE CONTA================
 
-                    linha = 4;
+                    linha = linhaIniRangeMeses;
                     var contaContas = 1;
                     var linhaIniConta = 0;
                     foreach (MovimentacaoRealizadaMensalDTO movimentacaoRealizadaMensal in movimentacaoRealizadaMensalDTOs)
@@ -365,7 +359,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
         private static int PopulateItensMovimentacao(MovimentacaoRealizadaMensalDTO movimentacaoRealizadaMensal, string tipo, ExcelWorksheet sheet, List<Totalizador> cellsTotalizador, int linha, int totalColunas)
         {
-
+            //ERRO AQUI: 56 MESES PARA A CONTA MAXIME DI..
             List<ItemDTO> itemDTOs = movimentacaoRealizadaMensal.TiposMovimentacao.Where(t => t.Tipo.Equals(tipo)).FirstOrDefault().ItemDTOs;
             
             
