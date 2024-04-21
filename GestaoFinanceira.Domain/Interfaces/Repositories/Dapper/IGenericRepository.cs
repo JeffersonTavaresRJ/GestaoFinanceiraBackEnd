@@ -7,6 +7,7 @@ namespace GestaoFinanceira.Infra.Data.Dapper.Repositories
 {
     public interface IGenericRepository<TEntity>
     {
-        public IEnumerable<TEntity> Execute( string sqlText, object parameters, TipoExecucao? tipo);
+        public IEnumerable<dynamic> ExecuteStoredProcedure( string nmStoredProcedure, object parameters);
+        public IEnumerable<TEntity> ExecuteQuery(string sqlText, object parameters);
     }
 }

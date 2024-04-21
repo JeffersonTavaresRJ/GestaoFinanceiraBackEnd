@@ -1,10 +1,7 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
-using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
-using GestaoFinanceira.Domain.Models.Enuns;
-using GestaoFinanceira.Domain.Models;
+using GestaoFinanceira.Domain.Interfaces.Repositories.Dapper;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data;
 using System.Linq;
 
@@ -30,7 +27,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.Dapper
                     @Status = status
                 };
 
-                Execute(sqlText, sqlParams, TipoExecucao.StoredProcedure);
+                ExecuteStoredProcedure(sqlText, sqlParams);
 
             }
             catch (Exception e)
@@ -44,12 +41,14 @@ namespace GestaoFinanceira.Infra.Data.Repositories.Dapper
         {
             try
             {
+                var sqlText =  "SELECT " +
+                               "MES_ANO as MesAno," +
+                               "DATA_REFERENCIA as DataReferencia," +
+                               "STATUS_SADI as Status," +
+                               "DESCRICAO_STATUS as DescricaoStatus " +
+                               "FROM VW_SADI_FECH";
 
-                var sqlText = "SELECT * FROM VW_SADI_FECH";
-
-                object sqlParams = null;
-
-                return Execute(sqlText, sqlParams, TipoExecucao.CommandTex).ToList();
+                return ExecuteQuery(sqlText, null).ToList();
 
             }
             catch (Exception e)

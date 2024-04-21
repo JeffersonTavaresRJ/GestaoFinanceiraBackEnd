@@ -1,9 +1,9 @@
 ﻿using Dapper;
-using GestaoFinanceira.Domain.Models.Enuns;
 using GestaoFinanceira.Infra.Data.Dapper.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Xml;
 
 namespace GestaoFinanceira.Infra.Data.Repositories.Dapper
 {
@@ -18,22 +18,47 @@ namespace GestaoFinanceira.Infra.Data.Repositories.Dapper
             commandType = CommandType.Text;
         }
 
-        public IEnumerable<TEntity> Execute(string sqlText, object parameters, TipoExecucao? tipo)
+        public IEnumerable<TEntity> ExecuteQuery(string sqlText, object parameters)
         {
             try
             {
-                if (tipo.Equals(TipoExecucao.StoredProcedure))
-                {
-                    commandType = CommandType.StoredProcedure;
-                }
+                commandType = CommandType.Text;
 
-                var result = connection.Query<TEntity>(sqlText, parameters, commandType: commandType);
-                return result;
+                if(parameters != null)
+                {
+                    return connection.Query<TEntity>(sqlText, parameters, commandType: commandType);
+                }
+                else
+                {
+                    return connection.Query<TEntity>(sqlText, commandType: commandType);
+                }
+                
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
         }
+
+        public IEnumerable<dynamic> ExecuteStoredProcedure(string nmStoredProcedure, object parameters)
+        {
+            try
+            {
+                commandType = CommandType.StoredProcedure;
+                if (parameters != null)
+                {
+                    return connection.Query(nmStoredProcedure, parameters, commandType: commandType);
+                }
+                else
+                {
+                    return connection.Query(nmStoredProcedure, commandType: commandType);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+      
     }
 }

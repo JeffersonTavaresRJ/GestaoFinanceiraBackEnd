@@ -3,6 +3,7 @@ using GestaoFinanceira.Application.Services;
 using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Domain.Interfaces.Cryptography;
 using GestaoFinanceira.Domain.Interfaces.Repositories;
+using GestaoFinanceira.Domain.Interfaces.Repositories.Dapper;
 using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Services;
@@ -66,7 +67,6 @@ namespace GestaoFinanceira.Infra.IoC
             services.AddTransient<IMovimentacaoPrevistaRepository, MovimentacaoPrevistaRepository>();
             services.AddTransient<IMovimentacaoRealizadaRepository, MovimentacaoRealizadaRepository>();
             services.AddTransient<ISaldoDiarioRepository, SaldoDiarioRepository>();
-            //services.AddTransient<IFechamentoRepository, FechamentoRepository>();
             services.AddTransient<ISaldoContaRepository, SaldoContaRepository>();
             services.AddTransient<IItemMovimentacaoMensalRepository, ItemMovimentacaoMensalRepository>();            
             services.AddTransient<IUnitOfWork, UnitOfWork>();

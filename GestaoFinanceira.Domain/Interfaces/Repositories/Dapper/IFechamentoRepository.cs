@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework
+namespace GestaoFinanceira.Domain.Interfaces.Repositories.Dapper
 {
     public interface IFechamentoRepository
     {

@@ -1,4 +1,4 @@
-﻿using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
+﻿using GestaoFinanceira.Domain.Interfaces.Repositories.Dapper;
 using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Domain.Models.Enuns;
 using System;
@@ -7,7 +7,7 @@ using System.Data;
 
 namespace GestaoFinanceira.Infra.Data.Repositories.Dapper
 {
-    public class TransferenciaContasRepository : GenericRepository<>, ITransferenciaContasRepository
+    public class TransferenciaContasRepository : GenericRepository<TransferenciaContas>, ITransferenciaContasRepository
     {
 
         public TransferenciaContasRepository(IDbConnection connection) : base(connection)
@@ -30,7 +30,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.Dapper
                     @Valor_More = transferenciaContas.Valor
                 };
 
-                return Execute(sqlText, sqlParams, TipoExecucao.StoredProcedure);
+                return ExecuteStoredProcedure(sqlText, sqlParams);
 
             }
             catch (Exception e)

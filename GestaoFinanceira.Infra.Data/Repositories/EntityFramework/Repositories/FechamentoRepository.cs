@@ -1,5 +1,5 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
-using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
+using GestaoFinanceira.Domain.Interfaces.Repositories.Dapper;
 using GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Context;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
