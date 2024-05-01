@@ -39,7 +39,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             List<MovimentacaoPrevista> movimentacoesPrevistas =
                 movimentacaoPrevistaDomainService.GetByDataReferencia(idUsuario, null, dataIni, dataFim);
-            
+
             _ = mediator.Publish(new MovimentacaoPrevistaNotification
             {
                 MovimentacoesPrevistas = movimentacoesPrevistas,

@@ -4,6 +4,8 @@ using GestaoFinanceira.Services.Api.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,10 @@ namespace GestaoFinanceira.Service.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews(options =>
+                 options.ModelBinderProviders.RemoveType<DateTimeModelBinderProvider>());
+            //services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddControllers();
             //setup para configuração Swagger..
             SwaggerSetup.AddSwaggerSetup(services);
@@ -49,6 +55,7 @@ namespace GestaoFinanceira.Service.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //app.UseMigrationsEndPoint();
                 IdentityModelEventSource.ShowPII = true; //capturar erros PII (expiração token)
             }
 

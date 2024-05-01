@@ -41,8 +41,8 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             await mediator.Publish(new ContaNotification
             {
-                 Conta = conta,
-                 Action = ActionNotification.Criar
+                Conta = conta,
+                Action = ActionNotification.Criar
             });
 
             return Unit.Value;

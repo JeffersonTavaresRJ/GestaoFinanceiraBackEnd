@@ -35,13 +35,13 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public MovimentacaoRealizadaRequestHandler(IMovimentacaoRealizadaDomainService movimentacaoRealizadaDomainService,
                                                    ISaldoDiarioDomainService saldoDiarioDomainService,
-                                                   IMediator mediator, 
+                                                   IMediator mediator,
                                                    IMapper mapper)
         {
             this.movimentacaoRealizadaDomainService = movimentacaoRealizadaDomainService;
             this.saldoDiarioDomainService = saldoDiarioDomainService;
             this.mediator = mediator;
-            this.mapper = mapper; 
+            this.mapper = mapper;
         }
 
         public async Task<Unit> Handle(CreateMovimentacaoRealizadaCommand request, CancellationToken cancellationToken)
@@ -53,10 +53,10 @@ namespace GestaoFinanceira.Application.RequestHandler
             var validate = new MovimentacaoRealizadaValidation().Validate(movimentacaoRealizada);
             if (!validate.IsValid)
             {
-                 throw new ValidationException(validate.Errors);
+                throw new ValidationException(validate.Errors);
             }
 
-            
+
             /*adicionando no banco de dados..*/
             movimentacaoRealizada = movimentacaoRealizadaDomainService.Add(movimentacaoRealizada, out movimentacaoPrevista);
             movimentacoesRealizadas.Add(movimentacaoRealizada);
@@ -110,16 +110,16 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(UpdateMovimentacaoRealizadaCommand request, CancellationToken cancellationToken)
         {
-            MovimentacaoRealizada movimentacaoRealizada    = mapper.Map<MovimentacaoRealizada>(request);
+            MovimentacaoRealizada movimentacaoRealizada = mapper.Map<MovimentacaoRealizada>(request);
             MovimentacaoRealizada movimentacaoRealizadaOld = movimentacaoRealizadaDomainService.GetId(movimentacaoRealizada.Id);
-            
+
 
             var validate = new MovimentacaoRealizadaValidation().Validate(movimentacaoRealizada);
             if (!validate.IsValid)
             {
                 throw new ValidationException(validate.Errors);
             }
-            
+
             movimentacaoRealizadaDomainService.Update(movimentacaoRealizada, out movimentacaoPrevista);
             movimentacoesRealizadas.Add(movimentacaoRealizada);
 
@@ -161,10 +161,10 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             /*adicionando no mongoDB..*/
             await mediator.Publish(new SaldoDiarioNotification
-             {
-                 SaldosDiario = saldosDiario,
-                 Action = ActionNotification.Atualizar
-             });
+            {
+                SaldosDiario = saldosDiario,
+                Action = ActionNotification.Atualizar
+            });
 
             /*==Atualização do Status das Movimentações Previstas no MongoDB==*/
             if (movimentacaoPrevista != null)
@@ -214,10 +214,10 @@ namespace GestaoFinanceira.Application.RequestHandler
             }
 
             await mediator.Publish(new SaldoDiarioNotification
-             {
+            {
                 SaldosDiario = saldosDiario,
                 Action = ActionNotification.Excluir
-             });
+            });
 
 
 
@@ -248,7 +248,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             {
                 throw new ValidationException(validate.Errors);
             }
-            
+
             /*adicionando no banco de dados..*/
             movimentacoesRealizadas = movimentacaoRealizadaDomainService.ExecutarTransferencia(transferenciaConta);
 
@@ -277,10 +277,10 @@ namespace GestaoFinanceira.Application.RequestHandler
                 {
                     SaldosDiario = saldosDiario,
                     Action = ActionNotification.Atualizar
-                });               
+                });
 
             }
-            
+
             return Unit.Value;
         }
 

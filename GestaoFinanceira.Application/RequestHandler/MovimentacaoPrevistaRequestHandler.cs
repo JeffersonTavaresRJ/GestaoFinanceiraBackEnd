@@ -27,7 +27,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public MovimentacaoPrevistaRequestHandler(IMovimentacaoPrevistaDomainService movimentacaoPrevistaDomainService,
                                                   IMovimentacaoDomainService movimentacaoDomainService,
-                                                  IMediator mediator, 
+                                                  IMediator mediator,
                                                   IMapper mapper)
         {
             this.movimentacaoPrevistaDomainService = movimentacaoPrevistaDomainService;
@@ -44,8 +44,9 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             foreach (MovimentacaoPrevistaCommand item in request.MovimentacaoPrevistaCommand)
             {
-                if (item.TipoPrioridade == null)                {
-                    
+                if (item.TipoPrioridade == null)
+                {
+
                     errors.Add(new ValidationFailure("TipoPrioridade", "A Prioridade é obrigatória"));
                     throw new ValidationException(errors);
                 }
@@ -82,7 +83,7 @@ namespace GestaoFinanceira.Application.RequestHandler
         public async Task<Unit> Handle(UpdateMovimentacaoPrevistaCommand request, CancellationToken cancellationToken)
         {
 
-            if(request.DataVencimento.Year != request.DataReferencia.Year ||
+            if (request.DataVencimento.Year != request.DataReferencia.Year ||
                request.DataVencimento.Month != request.DataReferencia.Month)
             {
                 throw new MovDataReferenciaException("Data de Vencimento", request.DataVencimento, request.DataReferencia);
@@ -96,7 +97,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             }
 
             MovimentacaoPrevista movimentacaoPrevista = mapper.Map<MovimentacaoPrevista>(request);
-                        
+
             var validate = new MovimentacaoPrevistaValidation().Validate(movimentacaoPrevista);
             if (!validate.IsValid)
             {
@@ -108,8 +109,8 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             if (movimentacao.MovimentacoesRealizadas.Count > 0 && !movimentacaoPrevista.Status.Equals(StatusMovimentacaoPrevista.Q))
             {
-                throw new MovPrevStatusInvalidoException(movimentacao.ItemMovimentacao.Descricao, 
-                                                              movimentacao.DataReferencia, 
+                throw new MovPrevStatusInvalidoException(movimentacao.ItemMovimentacao.Descricao,
+                                                              movimentacao.DataReferencia,
                                                               StatusMovimentacaoPrevista.Q);
             }
 
@@ -131,7 +132,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             var listaUpdate = new List<MovimentacaoPrevista>();
             listaUpdate.Add(movimentacaoPrevista);
-            
+
             await mediator.Publish(new MovimentacaoPrevistaNotification
             {
                 MovimentacoesPrevistas = listaUpdate,
@@ -146,8 +147,8 @@ namespace GestaoFinanceira.Application.RequestHandler
             MovimentacaoPrevista movimentacaoPrevista = movimentacaoPrevistaDomainService.GetByKey(request.IdItemMovimentacao, request.DataReferencia);
             var listaDelete = new List<MovimentacaoPrevista>();
             listaDelete.Add(movimentacaoPrevista);
-            ;           
-            if ( !(movimentacaoPrevista.NrParcela == 1 || movimentacaoPrevista.NrParcela == movimentacaoPrevista.NrParcelaTotal))
+            ;
+            if (!(movimentacaoPrevista.NrParcela == 1 || movimentacaoPrevista.NrParcela == movimentacaoPrevista.NrParcelaTotal))
             {
                 throw new MovPrevParcelaInvalidaExclusaoException(movimentacaoPrevista.NrParcela, movimentacaoPrevista.NrParcelaTotal);
             }
@@ -156,7 +157,7 @@ namespace GestaoFinanceira.Application.RequestHandler
             movimentacaoPrevistaDomainService.Delete(movimentacaoPrevista, out listaUpdate);
 
             //exclui a previsão no mongo db..
-            _= mediator.Publish(new MovimentacaoPrevistaNotification
+            _ = mediator.Publish(new MovimentacaoPrevistaNotification
             {
                 MovimentacoesPrevistas = listaDelete,
                 Action = ActionNotification.Excluir
@@ -168,7 +169,7 @@ namespace GestaoFinanceira.Application.RequestHandler
                 MovimentacoesPrevistas = listaUpdate,
                 Action = ActionNotification.Atualizar
             });
-            
+
             return Unit.Value;
         }
         /*
@@ -214,6 +215,6 @@ namespace GestaoFinanceira.Application.RequestHandler
             return lista;
 
         }
-        */       
+        */
     }
 }

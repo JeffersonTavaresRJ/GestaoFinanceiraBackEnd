@@ -22,7 +22,7 @@ namespace GestaoFinanceira.Application.RequestHandler
         private readonly IMediator mediator;
         private readonly IMapper mapper;
 
-       public FormaPagamentoRequestHandler(IFormaPagamentoDomainService formaPagamentoDomainService, IMediator mediator, IMapper mapper)
+        public FormaPagamentoRequestHandler(IFormaPagamentoDomainService formaPagamentoDomainService, IMediator mediator, IMapper mapper)
         {
             this.formaPagamentoDomainService = formaPagamentoDomainService;
             this.mediator = mediator;
@@ -73,7 +73,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(DeleteFormaPagamentoCommand request, CancellationToken cancellationToken)
         {
-            var formaPagamento = mapper.Map<FormaPagamento>(request);                       
+            var formaPagamento = mapper.Map<FormaPagamento>(request);
 
             formaPagamentoDomainService.Delete(formaPagamento);
 
