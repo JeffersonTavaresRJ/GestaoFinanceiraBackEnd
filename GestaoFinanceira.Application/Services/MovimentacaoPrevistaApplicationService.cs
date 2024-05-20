@@ -5,7 +5,6 @@ using GestaoFinanceira.Domain.Interfaces.Caching;
 using GestaoFinanceira.Domain.Models.Enuns;
 using MediatR;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -48,17 +47,17 @@ namespace GestaoFinanceira.Application.Services
             return movimentacaoPrevistaCaching.GetByDataVencimento(dataVencIni, dataVencFim, idItemMovimentacao);
         }
 
-        public IList GetAllStatus()
+        public List<GenericEnum> GetAllStatus()
         {
             return ExtensionEnum.Listar(typeof(StatusMovimentacaoPrevista));
         }
 
-        public IList GetAllPrioridades()
+        public List<GenericEnum> GetAllPrioridades()
         {
             return ExtensionEnum.Listar(typeof(TipoPrioridade));
         }
 
-        public IList GetAllTipoRecorrencias()
+        public List<GenericEnum> GetAllTipoRecorrencias()
         {
             return ExtensionEnum.Listar(typeof(TipoRecorrencia));
         }

@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace GestaoFinanceira.Domain.Models.Enuns
 {
     public static class ExtensionEnum
     {
-
         private static T ObterAtributoDoTipo<T>(this Enum valorEnum) where T : System.Attribute
         {
             var type = valorEnum.GetType();
@@ -21,9 +21,9 @@ namespace GestaoFinanceira.Domain.Models.Enuns
             return valorEnum.ObterAtributoDoTipo<DescriptionAttribute>().Description;
         }
 
-        public static IList Listar(Type tipo)
+        public static List<GenericEnum> Listar(Type tipo)
         {
-            ArrayList lista = new ArrayList();
+            List<GenericEnum> lista = new List<GenericEnum>();
 
             if (tipo != null)
             {
@@ -32,7 +32,9 @@ namespace GestaoFinanceira.Domain.Models.Enuns
                 {
                     //valor=Id
                     //ObterDescricao=Descrição
-                    lista.Add(new KeyValuePair<string, string>(valor.ToString(), ObterDescricao(valor)));
+                    lista.Add(new GenericEnum(valor.ToString(), ObterDescricao(valor)));
+
+                    //lista.Add(new KeyValuePair<string, string>(valor.ToString(), ObterDescricao(valor)));
                 }
             }
 

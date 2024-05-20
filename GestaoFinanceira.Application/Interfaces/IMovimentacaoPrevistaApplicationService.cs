@@ -1,5 +1,6 @@
 ﻿using GestaoFinanceira.Application.Commands.MovimentacaoPrevista;
 using GestaoFinanceira.Domain.DTOs;
+using GestaoFinanceira.Domain.Models.Enuns;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,9 +15,9 @@ namespace GestaoFinanceira.Application.Interfaces
         Task Delete(DeleteMovimentacaoPrevistaCommand command);
         MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia);
         List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao);
-        IList GetAllStatus();
-        IList GetAllPrioridades();
-        IList GetAllTipoRecorrencias();
+        List<GenericEnum> GetAllStatus();
+        List<GenericEnum> GetAllPrioridades();
+        List<GenericEnum> GetAllTipoRecorrencias();
 
     }
 }
