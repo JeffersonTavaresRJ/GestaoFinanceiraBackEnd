@@ -1,0 +1,15 @@
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Release\net6.0\GestaoFinanceira.Infra.Reports.Excel.dll
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Release\net6.0\refint\GestaoFinanceira.Infra.Reports.Excel.dll
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Release\net6.0\GestaoFinanceira.Infra.Reports.Excel.pdb
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\bin\Release\net6.0\GestaoFinanceira.Infra.Reports.Excel.deps.json
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\bin\Release\net6.0\GestaoFinanceira.Infra.Reports.Excel.dll
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\bin\Release\net6.0\GestaoFinanceira.Infra.Reports.Excel.pdb
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\bin\Release\net6.0\GestaoFinanceira.Domain.dll
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\bin\Release\net6.0\GestaoFinanceira.Domain.pdb
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Release\net6.0\GestaoFinanceira.Infra.Reports.Excel.csproj.AssemblyReference.cache
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Release\net6.0\GestaoFinanceira.Infra.Reports.Excel.GeneratedMSBuildEditorConfig.editorconfig
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Release\net6.0\GestaoFinanceira.Infra.Reports.Excel.AssemblyInfoInputs.cache
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Release\net6.0\GestaoFinanceira.Infra.Reports.Excel.AssemblyInfo.cs
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Release\net6.0\GestaoFinanceira.Infra.Reports.Excel.csproj.CoreCompileInputs.cache
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Release\net6.0\GestaoFinanceira.Infra.Reports.Excel.csproj.CopyComplete
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Release\net6.0\ref\GestaoFinanceira.Infra.Reports.Excel.dll
