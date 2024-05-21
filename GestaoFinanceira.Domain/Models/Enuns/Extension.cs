@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 
 namespace GestaoFinanceira.Domain.Models.Enuns
 {
@@ -32,7 +30,8 @@ namespace GestaoFinanceira.Domain.Models.Enuns
                 {
                     //valor=Id
                     //ObterDescricao=Descrição
-                    lista.Add(new GenericEnum(valor.ToString(), ObterDescricao(valor)));
+                    var e = new GenericEnum(valor.ToString(), ObterDescricao(valor));
+                    lista.Add(e);
 
                     //lista.Add(new KeyValuePair<string, string>(valor.ToString(), ObterDescricao(valor)));
                 }

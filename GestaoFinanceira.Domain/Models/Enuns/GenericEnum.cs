@@ -8,13 +8,13 @@ namespace GestaoFinanceira.Domain.Models.Enuns
 {
     public class GenericEnum
     {
-        public GenericEnum(string id, string descricao)
+        public GenericEnum(string key, string value)
         {
-            this.id = id;
-            this.descricao = descricao;
+            this.key = key;
+            this.value = value;
         }
 
-        public string id { get; set; }
-        public string descricao { get; set; }
+        public string key { get; set; }
+        public string value { get; set; }
     }
 }
