@@ -88,8 +88,12 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                    && sa.DataSaldo >= DateTimeClass.DataHoraIni(dataIni)
                    && sa.DataSaldo <= DateTimeClass.DataHoraFim(dataFim));
             var saldosDiariosDTO = mongoDBContext.VwSaldosDiario.Find(filter).ToList();
-
             saldosDiariosDTO = SetMovimentacoesRealizadas(saldosDiariosDTO);
+
+            var saldosDiariosDTOAnterior = GetMaxGroupBySaldoConta(dataIni.AddMonths(-1));
+            saldosDiariosDTOAnterior = SetMovimentacoesRealizadas(saldosDiariosDTOAnterior);
+
+            saldosDiariosDTO.AddRange(saldosDiariosDTOAnterior);
 
             return saldosDiariosDTO.ToList().OrderByDescending(sd => sd.DataSaldo).ToList();
         }
