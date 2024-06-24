@@ -27,8 +27,8 @@ namespace GestaoFinanceira.Domain.Validations
                 .NotEmpty()
                 .OverridePropertyName("Valor:")
                 .WithMessage("O valor é obrigatório. ")
-                .GreaterThan(0)
-                .WithMessage("O valor deve ser maior do que zero. ");
+                .NotEqual(0)
+                .WithMessage("O valor deve ser diferente de zero. ");
 
             RuleFor(mr => mr.IdFormaPagamento)
                 .NotEmpty()
