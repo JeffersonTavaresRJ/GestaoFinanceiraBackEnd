@@ -10,6 +10,8 @@ namespace GestaoFinanceira.Domain.Models
         public int IdConta { get; set; }
         public string DescricaoConta { get; set; }
         public int Ano { get; set; }
+        public int TotalMeses { get; set; }
         public float Saldo { get; set; }
+        public float ReceitaAnual { get; set; }
     }
 }
