@@ -30,18 +30,21 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
                 .HasColumnName("ANO")
                 .HasColumnType("INT");
 
-            builder.Property(s => s.TotalMeses)
-                .HasColumnName("TOTAL_MESES")
-                .HasColumnType("INT");
-
             builder.Property(s => s.Saldo)
                 .HasColumnName("SALDO")
                 .HasColumnType("FLOAT");
 
-            builder.Property(s => s.ReceitaAnual)
-                .HasColumnName("RECEITA_ANUAL")
+            builder.Property(s => s.ReceitaTotalAnual)
+                .HasColumnName("RECEITA_TOTAL_ANUAL")
                 .HasColumnType("FLOAT");
 
+            builder.Property(s => s.ReceitaMediaMensal)
+                .HasColumnName("RECEITA_MEDIA_MENSAL")
+                .HasColumnType("FLOAT");
+
+            builder.Property(s => s.SaldoEsperado)
+                .HasColumnName("SALDO_ESPERADO")
+                .HasColumnType("FLOAT");
         }
     }
 }

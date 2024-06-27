@@ -9,8 +9,9 @@ namespace GestaoFinanceira.Domain.DTOs
         public int IdConta { get; set; }
         public string DescricaoConta { get; set; }
         public int Ano { get; set; }
-        public int TotalMeses { get; set; }
         public float Saldo { get; set; }
-        public float ReceitaAnual { get; set; }
+        public float ReceitaTotalAnual { get; set; }
+        public float ReceitaMediaMensal { get; set; }
+        public float SaldoEsperado { get; set; }
     }
 }
