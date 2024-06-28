@@ -29,6 +29,10 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
                 .IsRequired()
                 .HasDefaultValue("N");
 
+            builder.Property(c => c.Tipo)
+                .HasColumnName("TIPO")
+                .HasDefaultValue("I");
+
             builder.Property(c => c.IdUsuario)
                 .HasColumnName("ID_USUA")
                 .IsRequired();

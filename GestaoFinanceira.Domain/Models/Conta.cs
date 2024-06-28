@@ -10,6 +10,7 @@ namespace GestaoFinanceira.Domain.Models
         public string Descricao { get; set; }
         public bool Status { get; set; }
         public string DefaultConta { get; set; }
+        public string Tipo { get; set; }
         public int IdUsuario { get; set; }
         public Usuario Usuario { get; set; }
         public virtual List<MovimentacaoRealizada> MovimentacoesRealizadas { get; set; }

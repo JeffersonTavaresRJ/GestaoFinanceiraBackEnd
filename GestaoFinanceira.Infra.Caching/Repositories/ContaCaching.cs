@@ -45,7 +45,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public List<ContaDTO> GetAll()
         {
             var filter = Builders<ContaDTO>.Filter.Eq(c => c.IdUsuario, UserEntity.IdUsuario);
-            return mongoDBContext.Contas.Find(filter).ToList().OrderBy(c=>c.Descricao).ToList();
+            return mongoDBContext.Contas.Find(filter).ToList().OrderBy(c => c.Descricao).ToList(); 
         }
     }
 }
