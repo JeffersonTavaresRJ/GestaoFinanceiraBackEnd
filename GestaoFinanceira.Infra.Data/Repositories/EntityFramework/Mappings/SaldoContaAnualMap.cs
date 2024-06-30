@@ -34,6 +34,10 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
                 .HasColumnName("SALDO")
                 .HasColumnType("FLOAT");
 
+            builder.Property(s => s.ValorInicial)
+                .HasColumnName("VALOR_INICIAL")
+                .HasColumnType("FLOAT");
+
             builder.Property(s => s.ReceitaTotalAnual)
                 .HasColumnName("RECEITA_TOTAL_ANUAL")
                 .HasColumnType("FLOAT");

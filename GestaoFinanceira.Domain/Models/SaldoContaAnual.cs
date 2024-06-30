@@ -11,6 +11,7 @@ namespace GestaoFinanceira.Domain.Models
         public string DescricaoConta { get; set; }
         public int Ano { get; set; }
         public float Saldo { get; set; }
+        public float ValorInicial { get; set; }
         public float ReceitaTotalAnual { get; set; }
         public float ReceitaMediaMensal { get; set; }
         public float SaldoEsperado { get; set; }
