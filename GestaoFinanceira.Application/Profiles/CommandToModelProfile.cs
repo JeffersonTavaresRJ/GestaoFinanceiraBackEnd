@@ -39,6 +39,7 @@ namespace GestaoFinanceira.Application.Profiles
             #region Conta
             CreateMap<CreateContaCommand, Conta>()
                 .AfterMap((src, dest) => dest.IdUsuario = UserEntity.IdUsuario)
+                .AfterMap((src, dest) => dest.Tipo = "MO")
                 .AfterMap((src, dest)=>dest.Status = true);
             CreateMap<UpdateContaCommand, Conta>()
                 .AfterMap((src, dest) => dest.IdUsuario = UserEntity.IdUsuario);

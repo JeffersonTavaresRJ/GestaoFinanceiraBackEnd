@@ -31,7 +31,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
 
             builder.Property(c => c.Tipo)
                 .HasColumnName("TIPO")
-                .HasDefaultValue("I");
+                .HasDefaultValue("MO");
 
             builder.Property(c => c.IdUsuario)
                 .HasColumnName("ID_USUA")
