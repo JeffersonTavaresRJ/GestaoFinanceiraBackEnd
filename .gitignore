@@ -19,3 +19,4 @@ GestaoFinanceira.Infra.Ioc/obj/*
 GestaoFinanceira.Service.Api/obj/*
 GestaoFinanceira.Service.Api/Properties/*
 GestaoFinanceira.Service.Api/appsettings.json
+GestaoFinanceira.Infra.Reports.Excel/obj/Debug/net6.0/GestaoFinanceira.Infra.Reports.Excel.sourcelink.json
