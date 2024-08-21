@@ -266,6 +266,20 @@ namespace GestaoFinanceira.Service.Api.Controllers
             }
         }
 
+        [HttpGet("GetSaldoConta/{idConta}/{dataReferencia}")]
+        public IActionResult GetSaldoConta(int idConta, DateTime dataReferencia)
+        {
+            try
+            {
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(movimentacaoRealizadaApplicationService.GetSaldoConta(idConta, dataReferencia));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
         [HttpPost("GetByMovimentacaoRealizadaMensalReportExcel")]
         public IActionResult GetByMovimentacaoRealizadaMensalReportExcel(ReaderMovimentacaoMensalPorConta command)
         {

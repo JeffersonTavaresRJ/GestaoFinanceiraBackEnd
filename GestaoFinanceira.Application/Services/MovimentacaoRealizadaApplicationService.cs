@@ -91,11 +91,25 @@ namespace GestaoFinanceira.Application.Services
             return saldoDiarioCaching.GetMaxGroupBySaldoConta(dataReferencia); 
         }
 
+        public double GetSaldoConta(int idConta, DateTime dataReferencia)
+        {
+            var saldo = saldoDiarioCaching.GetSaldoConta(idConta, dataReferencia);
+            if (saldo == 0)
+            {
+                var ano = dataReferencia.Year;
+                var mes = dataReferencia.Month;
+                saldo = saldoDiarioCaching.GetSaldoConta(idConta, new DateTime(ano, mes, 1).AddMonths(-1));
+            }
+            return saldo;
+        }
+
         public byte[] GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia, int totalMeses)
         {
             List<MovimentacaoRealizadaMensalDTO> movimentacaoRealizadaMensalDTOs 
                 = movimentacaoRealizadaMensalCaching.GetByMovimentacaoRealizadaMensal(idsConta, dataReferencia, totalMeses);
             return ReportMovimentacaoRealizadaMensal.GetAll(movimentacaoRealizadaMensalDTOs, totalMeses);
         }
+
+       
     }
 }
