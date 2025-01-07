@@ -1,6 +1,5 @@
 ﻿using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Interfaces.Caching;
-using GestaoFinanceira.Domain.Models;
 using GestaoFinanceira.Infra.Caching.Context;
 using GestaoFinanceira.Infra.CrossCutting.GenericFunctions;
 using GestaoFinanceira.Infra.CrossCutting.Security;
@@ -15,11 +14,15 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
     {
         private readonly MongoDBContext mongoDBContext;
         private readonly IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching;
+        private readonly IContaCaching contaCaching;
 
-        public SaldoDiarioCaching(MongoDBContext mongoDBContext, IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching)
+        public SaldoDiarioCaching(MongoDBContext mongoDBContext, 
+                                  IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching,
+                                  IContaCaching contaCaching)
         {
             this.mongoDBContext = mongoDBContext;
             this.movimentacaoRealizadaCaching = movimentacaoRealizadaCaching;
+            this.contaCaching= contaCaching;
         }
 
         public void Add(SaldoDiarioDTO obj)
@@ -123,7 +126,23 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                 saldoDiarioDTO.MovimentacoesRealizadas = null;
                 saldosDiario.Add(saldoDiarioDTO);
             }
-            return saldosDiario;
+
+
+            //retornando na lista todas as contas ativas, mesmo que não tenha saldo no mês..
+            var contas = contaCaching.GetAll().Where(c=>c.Status==true).ToList();
+            foreach (var conta in contas)
+            {
+                var count = saldosDiario.Where(sd => sd.Conta.Id == conta.Id).Count();
+                if (count == 0)
+                {
+                    saldosDiario.Add(new SaldoDiarioDTO { Conta = conta, 
+                                                          DataSaldo = dataFim, 
+                                                          MovimentacoesRealizadas = null, 
+                                                          Status = null, 
+                                                          Valor = 0});
+                }
+            }
+            return saldosDiario.OrderBy(sd=>sd.Conta.Descricao).ToList();
         }
 
         public double GetSaldoConta(int idConta, DateTime dataReferencia)
