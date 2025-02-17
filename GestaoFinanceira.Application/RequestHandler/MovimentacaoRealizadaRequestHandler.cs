@@ -58,7 +58,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
 
             /*adicionando no banco de dados..*/
-            movimentacaoRealizada = movimentacaoRealizadaDomainService.Add(movimentacaoRealizada, out movimentacaoPrevista);
+            movimentacaoRealizada = movimentacaoRealizadaDomainService.Add(movimentacaoRealizada, out movimentacaoPrevista, request.StatusMovimentacaoPrevista);
             movimentacoesRealizadas.Add(movimentacaoRealizada);
 
             /*adicionando no mongoDB..*/
@@ -120,7 +120,7 @@ namespace GestaoFinanceira.Application.RequestHandler
                 throw new ValidationException(validate.Errors);
             }
 
-            movimentacaoRealizadaDomainService.Update(movimentacaoRealizada, out movimentacaoPrevista);
+            movimentacaoRealizadaDomainService.Update(movimentacaoRealizada, out movimentacaoPrevista, request.StatusMovimentacaoPrevista);
             movimentacoesRealizadas.Add(movimentacaoRealizada);
 
             await mediator.Publish(new MovimentacaoRealizadaNotification
