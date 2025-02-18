@@ -2,6 +2,7 @@
 using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
+using GestaoFinanceira.Domain.Models.Enuns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,7 +80,15 @@ namespace GestaoFinanceira.Domain.Services
                     movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) < movimentacao.MovimentacaoPrevista.Valor &&
                     movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
                 {
-                    movimentacao.MovimentacaoPrevista.Status = statusMovimentacaoPrevista==null? Models.Enuns.StatusMovimentacaoPrevista.A: Models.Enuns.StatusMovimentacaoPrevista.N;
+                    if (statusMovimentacaoPrevista != null)
+                    {
+                        movimentacao.MovimentacaoPrevista.Status = (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), statusMovimentacaoPrevista);
+                    }
+                    else
+                    {
+                        movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
+                    }
+                    
                     unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
                     movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
 
@@ -217,10 +226,9 @@ namespace GestaoFinanceira.Domain.Services
                     unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
                     movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
 
-                }else if(statusMovimentacaoPrevista != null)
-                {
-                    //tratamento para encerrar a Movimentação Prevista "Em Aberto", que não será quitada durante o mês..
-                    movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.N;
+                }else if(statusMovimentacaoPrevista != null) //tratamento para encerrar a Movimentação Prevista "Em Aberto", que não será totalmente quitada no mês..
+                {                    
+                    movimentacao.MovimentacaoPrevista.Status = (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), statusMovimentacaoPrevista);
                     unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
                     movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
                 }
