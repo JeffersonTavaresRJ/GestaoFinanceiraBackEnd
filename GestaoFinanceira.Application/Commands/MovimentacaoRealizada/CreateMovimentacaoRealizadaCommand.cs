@@ -10,5 +10,6 @@ namespace GestaoFinanceira.Application.Commands.MovimentacaoRealizada
         public double Valor { get; set; }
         public int IdFormaPagamento { get; set; }
         public int IdConta { get; set; }
+        public string StatusMovimentacaoPrevista { get; set; }
     }
 }

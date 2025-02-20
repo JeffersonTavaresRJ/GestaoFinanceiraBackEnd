@@ -2,6 +2,7 @@
 using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
+using GestaoFinanceira.Domain.Models.Enuns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace GestaoFinanceira.Domain.Services
             this.transferenciaContasRepository = transferenciaContasRepository;
         }
 
-        public MovimentacaoRealizada Add(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista)
+        public MovimentacaoRealizada Add(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista, string statusMovimentacaoPrevista = null)
         {
             MovimentacaoPrevista _movimentacaoPrevista = null;
 
@@ -45,7 +46,7 @@ namespace GestaoFinanceira.Domain.Services
                 var id = unitOfWork.IMovimentacaoRealizadaRepository.Add(movimentacaoRealizada);
                 movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(id);
 
-                _movimentacaoPrevista = AtualizaStatusMovimentacaoPrevista(movimentacaoRealizada, movimentacao);
+                _movimentacaoPrevista = AtualizaStatusMovimentacaoPrevista(movimentacaoRealizada, movimentacao, statusMovimentacaoPrevista);
 
                 unitOfWork.Commit();
 
@@ -62,7 +63,7 @@ namespace GestaoFinanceira.Domain.Services
             return movimentacaoRealizada;
         }
 
-        public MovimentacaoRealizada Update(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista)
+        public MovimentacaoRealizada Update(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista, string statusMovimentacaoPrevista = null)
         {
             try
             {
@@ -79,7 +80,15 @@ namespace GestaoFinanceira.Domain.Services
                     movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) < movimentacao.MovimentacaoPrevista.Valor &&
                     movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
                 {
-                    movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
+                    if (statusMovimentacaoPrevista != null)
+                    {
+                        movimentacao.MovimentacaoPrevista.Status = (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), statusMovimentacaoPrevista);
+                    }
+                    else
+                    {
+                        movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
+                    }
+                    
                     unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
                     movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
 
@@ -197,7 +206,7 @@ namespace GestaoFinanceira.Domain.Services
             
         }
 
-        private MovimentacaoPrevista AtualizaStatusMovimentacaoPrevista(MovimentacaoRealizada movimentacaoRealizada, Movimentacao movimentacao)
+        private MovimentacaoPrevista AtualizaStatusMovimentacaoPrevista(MovimentacaoRealizada movimentacaoRealizada, Movimentacao movimentacao, string statusMovimentacaoPrevista=null)
         {
             MovimentacaoPrevista movimentacaoPrevista = null;
 
@@ -214,6 +223,12 @@ namespace GestaoFinanceira.Domain.Services
                 if (valorTotalMovReal >= movimentacao.MovimentacaoPrevista.Valor)
                 {
                     movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
+                    unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
+                    movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
+
+                }else if(statusMovimentacaoPrevista != null) //tratamento para encerrar a Movimentação Prevista "Em Aberto", que não será totalmente quitada no mês..
+                {                    
+                    movimentacao.MovimentacaoPrevista.Status = (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), statusMovimentacaoPrevista);
                     unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
                     movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
                 }
