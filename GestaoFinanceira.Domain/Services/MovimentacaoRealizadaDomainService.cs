@@ -77,14 +77,13 @@ namespace GestaoFinanceira.Domain.Services
                                                                                         movimentacaoRealizada.DataReferencia);
 
                 if (movimentacao.MovimentacaoPrevista != null && 
-                    movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) < movimentacao.MovimentacaoPrevista.Valor &&
-                    movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
+                    movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) < movimentacao.MovimentacaoPrevista.Valor)
                 {
-                    if (statusMovimentacaoPrevista != null)
+                    if (statusMovimentacaoPrevista != null && movimentacao.MovimentacaoPrevista.Status != Models.Enuns.StatusMovimentacaoPrevista.Q)
                     {
                         movimentacao.MovimentacaoPrevista.Status = (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), statusMovimentacaoPrevista);
                     }
-                    else
+                    else if(movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
                     {
                         movimentacao.MovimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
                     }
@@ -134,7 +133,7 @@ namespace GestaoFinanceira.Domain.Services
 
                 movimentacaoPrevista = null;
 
-                if (movimentacao.MovimentacaoPrevista != null && movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.Q)
+                if (movimentacao.MovimentacaoPrevista != null)
                 {
 
                     if (movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) < movimentacao.MovimentacaoPrevista.Valor)
@@ -210,9 +209,7 @@ namespace GestaoFinanceira.Domain.Services
         {
             MovimentacaoPrevista movimentacaoPrevista = null;
 
-            if (movimentacao != null &&
-                                movimentacao.MovimentacaoPrevista != null &&
-                                movimentacao.MovimentacaoPrevista.Status == Models.Enuns.StatusMovimentacaoPrevista.A)
+            if (movimentacao != null && movimentacao.MovimentacaoPrevista != null)
             {
                 //pegando o valor total de lançamentos realizados..
                 double valorTotalMovReal = unitOfWork.IMovimentacaoRealizadaRepository.GetByDataReferencia(movimentacaoRealizada.IdItemMovimentacao,
@@ -226,7 +223,7 @@ namespace GestaoFinanceira.Domain.Services
                     unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
                     movimentacaoPrevista = movimentacao.MovimentacaoPrevista;
 
-                }else if(statusMovimentacaoPrevista != null) //tratamento para encerrar a Movimentação Prevista "Em Aberto", que não será totalmente quitada no mês..
+                }else if(statusMovimentacaoPrevista != null) //tratamento para reabrir ou encerrar a Movimentação Prevista no mês..
                 {                    
                     movimentacao.MovimentacaoPrevista.Status = (StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), statusMovimentacaoPrevista);
                     unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacao.MovimentacaoPrevista);
