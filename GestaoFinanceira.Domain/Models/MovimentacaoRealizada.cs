@@ -13,6 +13,7 @@ namespace GestaoFinanceira.Domain.Models
         public double Valor { get; set; }
         public int IdFormaPagamento { get; set; }
         public int IdConta { get; set; }
+        public string Observacao { get; set; }
 
         public virtual FormaPagamento FormaPagamento { get; set; }
         public virtual Conta Conta { get; set; }

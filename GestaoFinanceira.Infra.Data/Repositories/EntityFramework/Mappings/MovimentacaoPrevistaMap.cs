@@ -53,6 +53,10 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
                .HasColumnName("NR_PARCELA_TOTAL")
                .IsRequired();
 
+            builder.Property(mp => mp.Observacao)
+               .HasColumnName("OBSERVACAO_MOPR")
+               .HasMaxLength(200);
+
             builder.HasOne(mp => mp.FormaPagamento)
                .WithMany(m => m.MovimentacoesPrevistas)
                .HasForeignKey(mp => mp.IdFormaPagamento);

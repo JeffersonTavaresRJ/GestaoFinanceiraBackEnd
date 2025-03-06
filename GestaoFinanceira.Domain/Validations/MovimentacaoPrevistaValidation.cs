@@ -54,10 +54,10 @@ namespace GestaoFinanceira.Domain.Validations
                 .OverridePropertyName("Forma de Pagamento:")
                 .WithMessage("A forma de pagamento é obrigatória.");
 
-            RuleFor(mp => mp.Movimentacao.Observacao)
-                .MaximumLength(100)
+            RuleFor(mp => mp.Observacao)
+                .MaximumLength(200)
                 .OverridePropertyName("Observação:")
-                .WithMessage("A observação deve ter no máximo 100 caracteres.");
+                .WithMessage("A observação deve ter no máximo 200 caracteres.");
 
             RuleFor(mp => mp.Status)
                 .IsInEnum()
