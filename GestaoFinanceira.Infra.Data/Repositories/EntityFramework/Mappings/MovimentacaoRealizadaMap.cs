@@ -39,6 +39,10 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
                 .HasColumnName("VALOR_MORE")
                 .IsRequired();
 
+            builder.Property(mp => mp.Observacao)
+               .HasColumnName("OBSERVACAO_MORE")
+               .HasMaxLength(200);
+
             builder.HasOne(mr => mr.Conta)
                 .WithMany(c => c.MovimentacoesRealizadas)
                 .HasForeignKey(mr => mr.IdConta);

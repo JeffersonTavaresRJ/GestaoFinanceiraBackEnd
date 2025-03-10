@@ -30,6 +30,11 @@ namespace GestaoFinanceira.Domain.Validations
                 .NotEqual(0)
                 .WithMessage("O valor deve ser diferente de zero. ");
 
+            RuleFor(mp => mp.Observacao)
+                .MaximumLength(200)
+                .OverridePropertyName("Observação:")
+                .WithMessage("A observação deve ter no máximo 200 caracteres.");
+
             RuleFor(mr => mr.IdFormaPagamento)
                 .NotEmpty()
                 .OverridePropertyName("Forma de Pagamento:")

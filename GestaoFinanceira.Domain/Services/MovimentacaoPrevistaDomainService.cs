@@ -67,10 +67,17 @@ namespace GestaoFinanceira.Domain.Services
             {
                 unitOfWork.BeginTransaction();
                 unitOfWork.IMovimentacaoRepository.Update(obj.Movimentacao);
+
+                //Tratamento para não alterar o número de parcelas..
+                var movimentacaoPrevista = GetByKey(obj.IdItemMovimentacao, obj.DataReferencia);
+                obj.NrParcela = movimentacaoPrevista.NrParcela;
+                obj.NrParcelaTotal = movimentacaoPrevista.NrParcelaTotal;
+
                 unitOfWork.IMovimentacaoPrevistaRepository.Update(obj);
                 unitOfWork.Commit();
+
                 //Preenchimento de todas as propriedades para atualização do MongoDB..
-                movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetByKey(obj.IdItemMovimentacao, obj.DataReferencia) as MovimentacaoPrevista;
+                movPrev = GetByKey(obj.IdItemMovimentacao, obj.DataReferencia) as MovimentacaoPrevista;
 
             }
             catch (Exception e)
