@@ -34,10 +34,6 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
                 .HasConversion(v => v.ToString(),
                                v => (TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), v));
 
-            builder.Property(m => m.Observacao)
-                .HasColumnName("OBSERVACAO_MOVI")
-                .HasMaxLength(50);
-
             builder.HasOne(m => m.ItemMovimentacao)
                 .WithMany(i => i.Movimentacoes)
                 .HasForeignKey(m => m.IdItemMovimentacao);

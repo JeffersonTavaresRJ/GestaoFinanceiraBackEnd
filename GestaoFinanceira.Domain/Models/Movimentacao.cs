@@ -10,7 +10,6 @@ namespace GestaoFinanceira.Domain.Models
         public int IdItemMovimentacao { get; set; }      
         public DateTime DataReferencia { get; set; }
         public TipoPrioridade TipoPrioridade { get; set; }
-        public string Observacao { get; set; }
 
         public virtual ItemMovimentacao ItemMovimentacao { get; set; }
         public virtual MovimentacaoPrevista MovimentacaoPrevista { get; set; }

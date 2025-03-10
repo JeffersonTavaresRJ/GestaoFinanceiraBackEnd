@@ -39,7 +39,7 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((scr, dest) => dest.StatusDescricao = ExtensionEnum.ObterDescricao((StatusMovimentacaoPrevista)Enum.Parse(typeof(StatusMovimentacaoPrevista), dest.Status.ToString())))
                 .AfterMap((scr, dest) => dest.TipoPrioridade = scr.Movimentacao.TipoPrioridade.ToString())
                 .AfterMap((scr, dest) => dest.TipoPrioridadeDescricao = ExtensionEnum.ObterDescricao((TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), scr.Movimentacao.TipoPrioridade.ToString())))
-                .AfterMap((scr, dest) => dest.Observacao = scr.Observacao!=null? scr.Observacao: scr.Movimentacao.Observacao)
+                .AfterMap((scr, dest) => dest.Observacao = scr.Observacao)
                 .AfterMap((scr, dest) => dest.DataReferencia = new DateTime(scr.DataReferencia.Year, scr.DataReferencia.Month, scr.DataReferencia.Day,0,0,0))
                 .AfterMap((scr, dest) => dest.DataVencimento = new DateTime(scr.DataVencimento.Year, scr.DataVencimento.Month, scr.DataVencimento.Day,0,0,0))
                 .AfterMap((scr, dest) => dest.Parcela = scr.NrParcelaTotal > 1 ? $"({scr.NrParcela}/{scr.NrParcelaTotal})": "");
@@ -57,7 +57,7 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((scr, dest) => dest.TipoPrioridadeDescricao = ExtensionEnum.ObterDescricao((TipoPrioridade)Enum.Parse(typeof(TipoPrioridade), scr.Movimentacao.TipoPrioridade.ToString())))
                 .AfterMap((scr, dest) => dest.DataMovimentacaoRealizada = new DateTime(scr.DataMovimentacaoRealizada.Year, scr.DataMovimentacaoRealizada.Month, scr.DataMovimentacaoRealizada.Day,0,0,0))
                 .AfterMap((scr, dest) => dest.DataReferencia = new DateTime(scr.DataReferencia.Year, scr.DataReferencia.Month, scr.DataReferencia.Day,0,0,0))
-                .AfterMap((scr, dest) => dest.Observacao = scr.Observacao!=null? scr.Observacao: scr.Movimentacao.Observacao);
+                .AfterMap((scr, dest) => dest.Observacao = scr.Observacao);
 
             CreateMap<SaldoDiario, SaldoDiarioDTO>()
                 .AfterMap((scr, dest) => dest.Conta = new ContaDTO())

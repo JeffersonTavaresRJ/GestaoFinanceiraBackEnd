@@ -107,26 +107,34 @@ namespace GestaoFinanceira.Application.RequestHandler
             Movimentacao movimentacao = movimentacaoDomainService.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
                                                                            movimentacaoPrevista.DataReferencia);
 
-            if (movimentacao.MovimentacoesRealizadas.Count > 0 && !movimentacaoPrevista.Status.Equals(StatusMovimentacaoPrevista.Q))
+            var sumValorReal = 0d;
+
+            foreach (var item in movimentacao.MovimentacoesRealizadas)
+            {
+                sumValorReal += item.Valor;
+            }
+
+            if (sumValorReal == movimentacaoPrevista.Valor && !movimentacaoPrevista.Status.Equals(StatusMovimentacaoPrevista.Q))
             {
                 throw new MovPrevStatusInvalidoException(movimentacao.ItemMovimentacao.Descricao,
                                                               movimentacao.DataReferencia,
                                                               StatusMovimentacaoPrevista.Q);
             }
 
-            if (movimentacao.MovimentacoesRealizadas.Count == 0 && movimentacaoPrevista.Status.Equals(StatusMovimentacaoPrevista.Q))
+            if (sumValorReal != movimentacaoPrevista.Valor && movimentacaoPrevista.Status.Equals(StatusMovimentacaoPrevista.Q))
             {
                 throw new MovPrevStatusInvalidoException(movimentacao.ItemMovimentacao.Descricao,
                                                               movimentacao.DataReferencia,
                                                               StatusMovimentacaoPrevista.A);
             }
-
+            /*
             if (movimentacaoPrevista.Status.Equals(StatusMovimentacaoPrevista.N))
             {
                 throw new MovPrevStatusInvalidoException(movimentacao.ItemMovimentacao.Descricao,
                                                          movimentacao.DataReferencia,
                                                          movimentacaoPrevista.Status);
             }
+            */
 
             movimentacaoPrevista = movimentacaoPrevistaDomainService.UpdateResult(movimentacaoPrevista);
 
@@ -172,6 +180,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
             return Unit.Value;
         }
+
         /*
         private List<MovimentacaoPrevista> ConvertList(MovimentacaoPrevista obj, string tipoRecorrencia, int qtdeParcelas)
         {

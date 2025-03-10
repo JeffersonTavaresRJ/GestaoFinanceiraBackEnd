@@ -37,7 +37,7 @@ namespace GestaoFinanceira.Domain.Services
                 }
                 else
                 {
-                    movimentacao.Observacao = movimentacaoRealizada.Movimentacao.Observacao;
+                    //movimentacao.Observacao = movimentacaoRealizada.Movimentacao.Observacao;
                     movimentacao.TipoPrioridade = movimentacaoRealizada.Movimentacao.TipoPrioridade;
 
                     unitOfWork.IMovimentacaoRepository.Update(movimentacao);
