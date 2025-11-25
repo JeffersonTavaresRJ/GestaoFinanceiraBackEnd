@@ -83,15 +83,14 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpDelete("{IdItemMovimentacao}/{dataReferencia}")]
-        public async Task<IActionResult> Delete(int idItemMovimentacao, DateTime dataReferencia)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 DeleteMovimentacaoPrevistaCommand command = new DeleteMovimentacaoPrevistaCommand
                 {
-                    IdItemMovimentacao = idItemMovimentacao,
-                    DataReferencia = dataReferencia
+                    Id = id
                 };
                 
                 await movimentacaoPrevistaApplicationService.Delete(command);

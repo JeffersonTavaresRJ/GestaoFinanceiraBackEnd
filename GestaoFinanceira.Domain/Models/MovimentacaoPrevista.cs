@@ -12,6 +12,7 @@ namespace GestaoFinanceira.Domain.Models
         public double Valor { get; set; }
         public StatusMovimentacaoPrevista Status { get; set; }
         public int IdFormaPagamento { get; set; }
+        public int IdMovPrevParcelada { get; set; }
         public int NrParcela { get; set; }
         public int NrParcelaTotal { get; set; }
         public string Observacao { get; set; }

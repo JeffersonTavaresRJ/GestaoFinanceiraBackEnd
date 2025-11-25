@@ -112,11 +112,9 @@ namespace GestaoFinanceira.Domain.Services
                     DateTime dataIni = obj.NrParcela == 1 ? obj.DataReferencia : obj.DataReferencia.AddMonths(obj.NrParcelaTotal*-1);
                     DateTime dataFim = obj.NrParcela == 1 ? obj.DataReferencia.AddMonths(obj.NrParcelaTotal) : obj.DataReferencia;
 
-                    listaMovPrevistas = unitOfWork.IMovimentacaoPrevistaRepository.GetByDataReferencia(
-                        obj.IdFormaPagamento,
-                        obj.IdItemMovimentacao,
-                        dataIni,
-                        dataFim).OrderBy(mp => mp.DataReferencia).ToList();
+                    listaMovPrevistas = unitOfWork.IMovimentacaoPrevistaRepository
+                                                  .GetByMovPrevParcelada(obj.IdMovPrevParcelada)
+                                                  .OrderBy(mp => mp.DataReferencia).ToList();
 
                     int parcela = 0;
                     foreach (MovimentacaoPrevista movPrevista in listaMovPrevistas)

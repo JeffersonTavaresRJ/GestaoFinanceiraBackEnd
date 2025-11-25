@@ -55,7 +55,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
                         .Include(mr => mr.Movimentacao).ThenInclude(x => x.ItemMovimentacao).ThenInclude(x => x.Categoria)
                         .Include(mr => mr.Conta)
                         .Include(mr => mr.FormaPagamento)
-                        .Include(mr => mr.Movimentacao.MovimentacaoPrevista).FirstOrDefault();
+                        .Include(mr => mr.Movimentacao.MovimentacoesPrevistas).FirstOrDefault();
         }
 
         public IEnumerable<MovimentacaoRealizada> GetByDataReferencia(int idItemMovimentacao, DateTime dataReferencia)
@@ -63,7 +63,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
             return dbset.Where(mr => mr.DataReferencia == dataReferencia && mr.IdItemMovimentacao == idItemMovimentacao)
                         .Include(mr => mr.Movimentacao.ItemMovimentacao)
                         .Include(mr => mr.Movimentacao.ItemMovimentacao.Categoria)
-                        .Include(mr => mr.Movimentacao.MovimentacaoPrevista)
+                        .Include(mr => mr.Movimentacao.MovimentacoesPrevistas)
                         .Include(mr => mr.Conta)
                         .Include(mr => mr.FormaPagamento);
         }
@@ -73,7 +73,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
             return dbset.Where(mr => mr.DataReferencia == dataReferencia && mr.Conta.IdUsuario == idUsuario)
                         .Include(mr => mr.Movimentacao.ItemMovimentacao)
                         .Include(mr => mr.Movimentacao.ItemMovimentacao.Categoria)
-                        .Include(mr => mr.Movimentacao.MovimentacaoPrevista)
+                        .Include(mr => mr.Movimentacao.MovimentacoesPrevistas)
                         .Include(mr => mr.Conta)
                         .Include(mr => mr.FormaPagamento);
         }
