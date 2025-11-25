@@ -9,5 +9,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework
     {
         MovimentacaoPrevista GetByKey(int idItemMovimentacao, DateTime idDataReferencia);
         IEnumerable<MovimentacaoPrevista> GetByDataReferencia(int idUsuario, int? idtemMovimentacao, DateTime dataRefIni, DateTime dataRefFim);
+        IEnumerable<MovimentacaoPrevista> GetByDataReferencia(int idFormaPagamento, int idtemMovimentacao, DateTime dataRefIni, DateTime dataRefFim);
     }
 }

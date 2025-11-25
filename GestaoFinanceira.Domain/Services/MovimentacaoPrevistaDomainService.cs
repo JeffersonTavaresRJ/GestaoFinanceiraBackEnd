@@ -31,8 +31,8 @@ namespace GestaoFinanceira.Domain.Services
                     {
                         unitOfWork.IMovimentacaoRepository.Add(movimentacaoPrevista.Movimentacao);
                     }
-                    MovimentacaoPrevista movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
-                                                                                                       movimentacaoPrevista.DataReferencia);
+                    MovimentacaoPrevista movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetId(movimentacaoPrevista.Id);
+                                                                                                       
                     if(movPrev != null)
                     {
                         throw new MovPrevExisteException(movPrev.Movimentacao.ItemMovimentacao.Descricao,
@@ -40,8 +40,7 @@ namespace GestaoFinanceira.Domain.Services
                     }
                     unitOfWork.IMovimentacaoPrevistaRepository.Add(movimentacaoPrevista);
 
-                    movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
-                                                                                  movimentacaoPrevista.DataReferencia);
+                    movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetId(movimentacaoPrevista.Id);
                     result.Add(movPrev);
                 }
                 unitOfWork.Commit();
@@ -69,7 +68,7 @@ namespace GestaoFinanceira.Domain.Services
                 unitOfWork.IMovimentacaoRepository.Update(obj.Movimentacao);
 
                 //Tratamento para não alterar o número de parcelas..
-                var movimentacaoPrevista = GetByKey(obj.IdItemMovimentacao, obj.DataReferencia);
+                var movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository.GetId(obj.Id);
                 obj.NrParcela = movimentacaoPrevista.NrParcela;
                 obj.NrParcelaTotal = movimentacaoPrevista.NrParcelaTotal;
 
@@ -77,7 +76,7 @@ namespace GestaoFinanceira.Domain.Services
                 unitOfWork.Commit();
 
                 //Preenchimento de todas as propriedades para atualização do MongoDB..
-                movPrev = GetByKey(obj.IdItemMovimentacao, obj.DataReferencia) as MovimentacaoPrevista;
+                movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetId(obj.Id);
 
             }
             catch (Exception e)
@@ -102,7 +101,7 @@ namespace GestaoFinanceira.Domain.Services
                 unitOfWork.IMovimentacaoPrevistaRepository.Delete(obj);
 
                 Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(obj.IdItemMovimentacao, obj.DataReferencia);
-                if (movimentacao.MovimentacoesRealizadas.Count == 0)
+                if ( movimentacao.MovimentacoesRealizadas.Count + movimentacao.MovimentacoesPrevistas.Count == 0)
                 {
                     unitOfWork.IMovimentacaoRepository.Delete(movimentacao);
                 }
@@ -114,7 +113,7 @@ namespace GestaoFinanceira.Domain.Services
                     DateTime dataFim = obj.NrParcela == 1 ? obj.DataReferencia.AddMonths(obj.NrParcelaTotal) : obj.DataReferencia;
 
                     listaMovPrevistas = unitOfWork.IMovimentacaoPrevistaRepository.GetByDataReferencia(
-                        obj.Movimentacao.ItemMovimentacao.Categoria.IdUsuario,
+                        obj.IdFormaPagamento,
                         obj.IdItemMovimentacao,
                         dataIni,
                         dataFim).OrderBy(mp => mp.DataReferencia).ToList();
@@ -151,9 +150,9 @@ namespace GestaoFinanceira.Domain.Services
             return unitOfWork.IMovimentacaoPrevistaRepository.GetByDataReferencia(idUsuario, ItemMovimentacaoId, dataRefIni, dataRefFim).ToList();
         }
 
-        public MovimentacaoPrevista GetByKey(int idItemMovimentacao, DateTime dataReferencia)
+        public MovimentacaoPrevista GetId(int id)
         {
-            return unitOfWork.IMovimentacaoPrevistaRepository.GetByKey(idItemMovimentacao, dataReferencia);
+            return unitOfWork.IMovimentacaoPrevistaRepository.GetId(id);
         }
     }
 }

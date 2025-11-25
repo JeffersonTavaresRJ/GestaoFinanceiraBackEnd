@@ -14,7 +14,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
         {
             builder.ToTable("MOVIMENTACAO_PREVISTA");
 
-            builder.HasKey(mp => new { mp.IdItemMovimentacao, mp.DataReferencia });
+            builder.HasKey(mp => new { mp.Id });
 
             builder.Property(mp => mp.IdItemMovimentacao)
                 .HasColumnName("ID_ITMO")

@@ -5,6 +5,7 @@ namespace GestaoFinanceira.Domain.Models
 {
     public class MovimentacaoPrevista
     {
+        public int Id { get; set; }
         public int IdItemMovimentacao { get; set; }
         public DateTime DataReferencia { get; set; }
         public DateTime DataVencimento { get; set; }

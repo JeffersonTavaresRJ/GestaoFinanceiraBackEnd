@@ -43,11 +43,24 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
             dbset.RemoveRange(dbset.Where(mp => mp.FormaPagamento.IdUsuario == idUsuario));
         }
 
-        public IEnumerable<MovimentacaoPrevista> GetByDataReferencia(int idUsuario, int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim)
+        public IEnumerable<MovimentacaoPrevista> GetByDataReferencia(int idUsuario, 
+                                                                     int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim)
         {
             return dbset.Where(mp => mp.FormaPagamento.IdUsuario == idUsuario &&
                                           (mp.IdItemMovimentacao == idItemMovimentacao ||
                                           idItemMovimentacao == null) &&
+                                          mp.DataReferencia >= dataRefIni &&
+                                          mp.DataReferencia <= dataRefFim)
+                        .Include(mp => mp.Movimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria).ToList();
+        }
+
+        public IEnumerable<MovimentacaoPrevista> GetByDataReferencia(int idFormaPagamento, 
+                                                                     int idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim)
+        {
+            return dbset.Where(mp => mp.FormaPagamento.Id == idFormaPagamento &&
+                                          mp.IdItemMovimentacao == idItemMovimentacao &&
                                           mp.DataReferencia >= dataRefIni &&
                                           mp.DataReferencia <= dataRefFim)
                         .Include(mp => mp.Movimentacao)
@@ -64,6 +77,16 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
         {
             return dbset.Where(mp => mp.IdItemMovimentacao == idItemMovimentacao &&
                                mp.DataReferencia == dataReferencia)
+                        .Include(mp => mp.Movimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria)
+                        .FirstOrDefault();
+
+        }
+
+        public override MovimentacaoPrevista GetId(int id)
+        {
+            return dbset.Where(mp => mp.Id == id)
                         .Include(mp => mp.Movimentacao)
                         .Include(mp => mp.Movimentacao.ItemMovimentacao)
                         .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria)

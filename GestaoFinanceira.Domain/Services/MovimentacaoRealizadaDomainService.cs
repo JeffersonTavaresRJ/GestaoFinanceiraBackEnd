@@ -76,8 +76,8 @@ namespace GestaoFinanceira.Domain.Services
                 Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoRealizada.IdItemMovimentacao,
                                                                                         movimentacaoRealizada.DataReferencia);
 
-                if (movimentacao.MovimentacaoPrevista != null && 
-                    movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) < movimentacao.MovimentacaoPrevista.Valor)
+                if (movimentacao.MovimentacoesPrevistas.Count > 0 && 
+                    movimentacao.MovimentacoesRealizadas.Sum(x => x.Valor) < movimentacao.MovimentacoesPrevistas.Sum(mp=>mp.Valor))
                 {
                     if (statusMovimentacaoPrevista != null && movimentacao.MovimentacaoPrevista.Status != Models.Enuns.StatusMovimentacaoPrevista.Q)
                     {
