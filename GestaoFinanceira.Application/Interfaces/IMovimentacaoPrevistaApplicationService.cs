@@ -13,6 +13,7 @@ namespace GestaoFinanceira.Application.Interfaces
         Task Update(UpdateMovimentacaoPrevistaCommand command);
         Task Delete(DeleteMovimentacaoPrevistaCommand command);
         MovimentacaoPrevistaDTO GetId(int id);
+        MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia);
         List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao);
         List<GenericEnum> GetAllStatus();
         List<GenericEnum> GetAllPrioridades();

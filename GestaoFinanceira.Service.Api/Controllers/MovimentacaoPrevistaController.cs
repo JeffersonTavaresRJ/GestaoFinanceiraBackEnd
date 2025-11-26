@@ -118,6 +118,21 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
+        [HttpGet("{idItemMovimentacao}/{dataReferencia}")]
+        public IActionResult Get(int idItemMovimentacao, DateTime dataReferencia)
+        {
+            try
+            {
+                UserEntity.SetUsuarioID(this.User);
+                return Ok(movimentacaoPrevistaApplicationService.GetByKey(idItemMovimentacao, dataReferencia));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
+        }
+
         [HttpGet("GetByDataVencimento/{dataVencIni?}/{dataVencFim?}/{idItemMovimentacao?}")]
         public IActionResult GetAll(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao)
         {

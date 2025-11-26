@@ -43,6 +43,7 @@ namespace GestaoFinanceira.Domain.Services
                     }
 
                     movimentacaoPrevista.IdMovPrevParcelada = idMovPrevParcelada;
+                    unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
 
                     MovimentacaoPrevista movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetId(movimentacaoPrevista.Id);
                     result.Add(movPrev);

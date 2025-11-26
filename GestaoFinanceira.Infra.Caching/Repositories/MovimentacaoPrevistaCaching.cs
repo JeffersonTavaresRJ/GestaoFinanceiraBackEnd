@@ -59,6 +59,16 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).FirstOrDefault();
         }
 
+        public MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia)
+        {
+            var filter = Builders<MovimentacaoPrevistaDTO>.Filter
+                .Where(mp => mp.ItemMovimentacao.Id == idItemMovimentacao &&
+                       mp.DataReferencia >= DateTimeClass.DataHoraIni(dataReferencia.Date) &&
+                       mp.DataReferencia <= DateTimeClass.DataHoraFim(dataReferencia.Date) &&
+                       mp.FormaPagamento.IdUsuario == UserEntity.IdUsuario);
+            return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).FirstOrDefault();
+        }
+
         public List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao)
         {
 
