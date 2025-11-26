@@ -61,11 +61,9 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
         public MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia)
         {
-            var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.ItemMovimentacao.Id == idItemMovimentacao &&
-                       mp.DataReferencia >= DateTimeClass.DataHoraIni(dataReferencia.Date) &&
-                       mp.DataReferencia <= DateTimeClass.DataHoraFim(dataReferencia.Date) &&
-                       mp.FormaPagamento.IdUsuario == UserEntity.IdUsuario);
+            var filterBuilder = Builders<MovimentacaoPrevistaDTO>.Filter;
+            var filter = filterBuilder.Gte(x => x.ItemMovimentacao.Id, idItemMovimentacao) &
+                         filterBuilder.Lt(x => x.DataReferencia, dataReferencia.ToUniversalTime());
             return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).FirstOrDefault();
         }
 
