@@ -30,18 +30,14 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public void Update(MovimentacaoPrevistaDTO obj)
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.ItemMovimentacao.Id == obj.ItemMovimentacao.Id && 
-                       mp.DataReferencia >= DateTimeClass.DataHoraIni(obj.DataReferencia.Date) &&
-                       mp.DataReferencia <= DateTimeClass.DataHoraFim(obj.DataReferencia.Date));
+                .Where(mp => mp.Id == obj.Id);
             mongoDBContext.MovimentacoesPrevistas.ReplaceOne(filter, obj);  
         }
 
         public void Delete(MovimentacaoPrevistaDTO obj)
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.ItemMovimentacao.Id == obj.ItemMovimentacao.Id &&
-                       mp.DataReferencia >= DateTimeClass.DataHoraIni(obj.DataReferencia.Date) &&
-                       mp.DataReferencia <= DateTimeClass.DataHoraFim(obj.DataReferencia.Date)); 
+                .Where(mp => mp.Id == obj.Id);  
             mongoDBContext.MovimentacoesPrevistas.DeleteOne(filter);        }
 
         public List<MovimentacaoPrevistaDTO> GetAll()
@@ -56,13 +52,10 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).ToList();
         }
 
-        public MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia)
+        public MovimentacaoPrevistaDTO GetId(int id)
         {
             var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.ItemMovimentacao.Id == idItemMovimentacao && 
-                       mp.DataReferencia >= DateTimeClass.DataHoraIni(dataReferencia.Date) &&
-                       mp.DataReferencia <= DateTimeClass.DataHoraFim(dataReferencia.Date) &&
-                       mp.FormaPagamento.IdUsuario == UserEntity.IdUsuario);
+                .Where(mp => mp.Id == id);
             return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).FirstOrDefault();
         }
 

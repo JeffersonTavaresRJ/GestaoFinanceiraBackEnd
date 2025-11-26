@@ -2,7 +2,6 @@
 using GestaoFinanceira.Domain.DTOs;
 using GestaoFinanceira.Domain.Models.Enuns;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,7 +12,7 @@ namespace GestaoFinanceira.Application.Interfaces
         Task Add(CreateMovimentacaoPrevistaCommand command);
         Task Update(UpdateMovimentacaoPrevistaCommand command);
         Task Delete(DeleteMovimentacaoPrevistaCommand command);
-        MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia);
+        MovimentacaoPrevistaDTO GetId(int id);
         List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao);
         List<GenericEnum> GetAllStatus();
         List<GenericEnum> GetAllPrioridades();

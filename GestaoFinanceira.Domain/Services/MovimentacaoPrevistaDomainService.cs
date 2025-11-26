@@ -23,6 +23,9 @@ namespace GestaoFinanceira.Domain.Services
             try
             {
                 unitOfWork.BeginTransaction();
+                movimentacoesPrevistas = movimentacoesPrevistas.OrderBy(mp=>mp.NrParcela).ToList();
+                int? idMovPrevParcelada = null;
+
                 foreach (MovimentacaoPrevista movimentacaoPrevista in movimentacoesPrevistas)
                 {
                     Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoPrevista.IdItemMovimentacao,
@@ -31,16 +34,17 @@ namespace GestaoFinanceira.Domain.Services
                     {
                         unitOfWork.IMovimentacaoRepository.Add(movimentacaoPrevista.Movimentacao);
                     }
-                    MovimentacaoPrevista movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetId(movimentacaoPrevista.Id);
-                                                                                                       
-                    if(movPrev != null)
-                    {
-                        throw new MovPrevExisteException(movPrev.Movimentacao.ItemMovimentacao.Descricao,
-                                                                      movPrev.DataReferencia);
-                    }
-                    unitOfWork.IMovimentacaoPrevistaRepository.Add(movimentacaoPrevista);
+                    
+                    unitOfWork.IMovimentacaoPrevistaRepository.Add(movimentacaoPrevista);                    
 
-                    movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetId(movimentacaoPrevista.Id);
+                    if(movimentacaoPrevista.NrParcela == 1)
+                    {
+                        idMovPrevParcelada = movimentacaoPrevista.Id;
+                    }
+
+                    movimentacaoPrevista.IdMovPrevParcelada = idMovPrevParcelada;
+
+                    MovimentacaoPrevista movPrev = unitOfWork.IMovimentacaoPrevistaRepository.GetId(movimentacaoPrevista.Id);
                     result.Add(movPrev);
                 }
                 unitOfWork.Commit();
@@ -113,7 +117,7 @@ namespace GestaoFinanceira.Domain.Services
                     DateTime dataFim = obj.NrParcela == 1 ? obj.DataReferencia.AddMonths(obj.NrParcelaTotal) : obj.DataReferencia;
 
                     listaMovPrevistas = unitOfWork.IMovimentacaoPrevistaRepository
-                                                  .GetByMovPrevParcelada(obj.IdMovPrevParcelada)
+                                                  .GetByMovPrevParcelada((int)obj.IdMovPrevParcelada)
                                                   .OrderBy(mp => mp.DataReferencia).ToList();
 
                     int parcela = 0;

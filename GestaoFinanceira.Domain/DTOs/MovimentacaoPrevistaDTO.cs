@@ -1,13 +1,12 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GestaoFinanceira.Domain.DTOs
 {
     [BsonIgnoreExtraElements]
     public class MovimentacaoPrevistaDTO : MovimentacaoDTO
     {
+        public int Id { get; set; }
         public FormaPagamentoDTO FormaPagamento { get; set; }
         public DateTime DataVencimento { get; set; }
         public double Valor { get; set; }

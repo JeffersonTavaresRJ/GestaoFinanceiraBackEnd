@@ -6,7 +6,7 @@ namespace GestaoFinanceira.Domain.Interfaces.Caching
 {
     public interface IMovimentacaoPrevistaCaching : IGenericWriteCaching<MovimentacaoPrevistaDTO>
     {
-        MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia);
+        MovimentacaoPrevistaDTO GetId(int id);
         List<MovimentacaoPrevistaDTO> GetAll();
         List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao);
     }

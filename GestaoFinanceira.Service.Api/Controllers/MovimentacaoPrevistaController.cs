@@ -103,13 +103,13 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpGet("{idItemMovimentacao}/{dataReferencia}")]
-        public IActionResult Get(int idItemMovimentacao, DateTime dataReferencia)
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
         {
             try
             {
                 UserEntity.SetUsuarioID(this.User);
-                return Ok(movimentacaoPrevistaApplicationService.GetByKey(idItemMovimentacao, dataReferencia));
+                return Ok(movimentacaoPrevistaApplicationService.GetId(id));
             }
             catch (Exception e)
             {
