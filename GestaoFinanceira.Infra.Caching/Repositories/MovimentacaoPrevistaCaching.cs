@@ -7,6 +7,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 
 namespace GestaoFinanceira.Infra.Caching.Repositories
 {
@@ -62,8 +63,12 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         public MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia)
         {
             var filterBuilder = Builders<MovimentacaoPrevistaDTO>.Filter;
-            var filter = filterBuilder.Gte(x => x.ItemMovimentacao.Id, idItemMovimentacao) &
-                         filterBuilder.Lt(x => x.DataReferencia, dataReferencia.ToUniversalTime());
+            var dataIni = DateTimeClass.DataHoraIni(new DateTime(dataReferencia.Year, dataReferencia.Month, dataReferencia.Day));
+            var dataFim = DateTimeClass.DataHoraFim(new DateTime(dataReferencia.Year, dataReferencia.Month, dataReferencia.Day));
+
+            var filter = filterBuilder.Eq(x => x.ItemMovimentacao.Id, idItemMovimentacao) &
+                         filterBuilder.Gte(x => x.DataReferencia, dataIni) &
+                         filterBuilder.Lt(x => x.DataReferencia, dataFim);
             return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).FirstOrDefault();
         }
 
@@ -80,12 +85,22 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                 dataFim = dataVencFim.Value;
             }
 
-            var filter = Builders<MovimentacaoPrevistaDTO>.Filter
-                .Where(mp => mp.DataVencimento >= dataIni.Date && 
-                             mp.DataVencimento <= dataFim.Date &&
-                             mp.FormaPagamento.IdUsuario== UserEntity.IdUsuario &&
-                            (mp.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null) );
-            return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).ToList();
+            var filterBuilder = Builders<MovimentacaoPrevistaDTO>.Filter;
+            var filtros = new List<FilterDefinition<MovimentacaoPrevistaDTO>>();
+
+            filtros.Add(filterBuilder.Gte(mp => mp.DataVencimento, dataIni));//maior ou igual
+            filtros.Add(filterBuilder.Lt(mp => mp.DataVencimento, dataFim));//menor ou igual
+            filtros.Add(filterBuilder.Eq(mp => mp.FormaPagamento.IdUsuario, UserEntity.IdUsuario));//igual
+
+            if (idItemMovimentacao != null)
+            {
+                filtros.Add(filterBuilder.Eq(mp=>mp.ItemMovimentacao.Id, idItemMovimentacao));
+            }
+            // Se houver filtros, combine-os usando AND (comportamento padrão de múltiplos critérios)
+            // Se a intenção for OR, use filterBuilder.Or(filtros)
+            FilterDefinition<MovimentacaoPrevistaDTO> filtroFinal = filterBuilder.And(filtros);
+
+            return mongoDBContext.VwMovimentacoesPrevistas.Find(filtroFinal).ToList();
         }        
     }
 }
