@@ -69,14 +69,13 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
             return dbset.Where(mp => mp.FormaPagamento.IdUsuario == idUsuario);
         }
 
-        public MovimentacaoPrevista GetByKey(int idItemMovimentacao, DateTime dataReferencia)
+        public IEnumerable<MovimentacaoPrevista> GetByKey(int idItemMovimentacao, DateTime dataReferencia)
         {
             return dbset.Where(mp => mp.IdItemMovimentacao == idItemMovimentacao &&
                                mp.DataReferencia == dataReferencia)
                         .Include(mp => mp.Movimentacao)
                         .Include(mp => mp.Movimentacao.ItemMovimentacao)
-                        .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria)
-                        .FirstOrDefault();
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria).ToList();
 
         }
 

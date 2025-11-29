@@ -60,7 +60,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).FirstOrDefault();
         }
 
-        public MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia)
+        public List<MovimentacaoPrevistaDTO> GetByKey(int idItemMovimentacao, DateTime dataReferencia)
         {
             var filterBuilder = Builders<MovimentacaoPrevistaDTO>.Filter;
             var dataIni = DateTimeClass.DataHoraIni(new DateTime(dataReferencia.Year, dataReferencia.Month, dataReferencia.Day));
@@ -69,7 +69,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             var filter = filterBuilder.Eq(x => x.ItemMovimentacao.Id, idItemMovimentacao) &
                          filterBuilder.Gte(x => x.DataReferencia, dataIni) &
                          filterBuilder.Lt(x => x.DataReferencia, dataFim);
-            return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).FirstOrDefault();
+            return mongoDBContext.VwMovimentacoesPrevistas.Find(filter).ToList();
         }
 
         public List<MovimentacaoPrevistaDTO> GetByDataVencimento(DateTime? dataVencIni, DateTime? dataVencFim, int? idItemMovimentacao)
