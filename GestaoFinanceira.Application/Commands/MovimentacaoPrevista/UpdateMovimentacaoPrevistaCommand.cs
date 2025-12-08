@@ -7,7 +7,6 @@ namespace GestaoFinanceira.Application.Commands.MovimentacaoPrevista
     public class UpdateMovimentacaoPrevistaCommand : MovimentacaoCommand, IRequest
     {
         public int Id { get; set; }
-        public int? IdMovPrevParcelada { get; set; }
         public DateTime DataVencimento { get; set; }
         public double Valor { get; set; }
         public string Status { get; set; }
