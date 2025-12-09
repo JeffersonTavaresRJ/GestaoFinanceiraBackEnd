@@ -26,8 +26,9 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
         public override void Update(MovimentacaoPrevista obj)
         {
             context.Entry(obj).State = EntityState.Modified;
-            //context.Entry(obj).Property(mp => mp.NrParcela).IsModified = obj.NrParcelaTotal > 1? true:false;
-            //context.Entry(obj).Property(mp => mp.NrParcelaTotal).IsModified = obj.NrParcelaTotal > 1 ? true : false;
+            context.Entry(obj).Property(mp => mp.NrParcela).IsModified = obj.IdMovPrevParcelada > 0 ? true:false;
+            context.Entry(obj).Property(mp => mp.NrParcelaTotal).IsModified = obj.IdMovPrevParcelada > 0 ? true : false;
+            context.Entry(obj).Property(mp => mp.IdMovPrevParcelada).IsModified = obj.IdMovPrevParcelada > 0? true : false;
             context.SaveChanges();
         }
 

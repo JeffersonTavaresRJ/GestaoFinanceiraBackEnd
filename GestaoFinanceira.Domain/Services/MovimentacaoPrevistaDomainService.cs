@@ -73,9 +73,9 @@ namespace GestaoFinanceira.Domain.Services
                 unitOfWork.IMovimentacaoRepository.Update(obj.Movimentacao);
 
                 //Tratamento para não alterar o número de parcelas..
-                var movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository.GetId(obj.Id);
-                obj.NrParcela = movimentacaoPrevista.NrParcela;
-                obj.NrParcelaTotal = movimentacaoPrevista.NrParcelaTotal;
+                //var movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository.GetId(obj.Id);
+                //obj.NrParcela = movimentacaoPrevista.NrParcela;
+                //obj.NrParcelaTotal = movimentacaoPrevista.NrParcelaTotal;
 
                 unitOfWork.IMovimentacaoPrevistaRepository.Update(obj);
                 unitOfWork.Commit();
@@ -122,10 +122,18 @@ namespace GestaoFinanceira.Domain.Services
                                                   .OrderBy(mp => mp.DataReferencia).ToList();
 
                     int parcela = 0;
+                    int idMovPrevParcelada = 0;
                     foreach (MovimentacaoPrevista movPrevista in listaMovPrevistas)
                     {
                         movPrevista.NrParcela = ++parcela;
                         movPrevista.NrParcelaTotal = obj.NrParcelaTotal;
+
+                        if (movPrevista.NrParcela == 1)
+                        {
+                            idMovPrevParcelada = movPrevista.Id;
+                        }
+                        movPrevista.IdMovPrevParcelada = idMovPrevParcelada;
+
                         unitOfWork.IMovimentacaoPrevistaRepository.Update(movPrevista);
                     }
 
