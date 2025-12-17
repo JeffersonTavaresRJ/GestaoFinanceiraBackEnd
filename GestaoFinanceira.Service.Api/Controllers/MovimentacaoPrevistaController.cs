@@ -103,7 +103,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetId/{id}")]
         public IActionResult Get(int id)
         {
             try
