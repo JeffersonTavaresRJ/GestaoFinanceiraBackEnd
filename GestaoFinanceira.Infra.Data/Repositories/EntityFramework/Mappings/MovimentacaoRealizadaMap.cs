@@ -1,6 +1,7 @@
 ﻿using GestaoFinanceira.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,6 +28,9 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
                 .HasColumnName("ID_FOPA")
                 .IsRequired();
 
+            builder.Property(mr => mr.IdMovimentacaoPrevista)
+                .HasColumnName("ID_MOPR");
+
             builder.Property(mr => mr.DataReferencia)
                 .HasColumnName("DATA_REFERENCIA_MOVI")
                 .IsRequired();
@@ -50,6 +54,10 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
             builder.HasOne(mr => mr.FormaPagamento)
                 .WithMany(f => f.MovimentacoesRealizadas)
                 .HasForeignKey(mr => mr.IdFormaPagamento);
+
+            builder.HasOne(mr => mr.MovimentacaoPrevista)
+                .WithMany(f => f.MovimentacoesRealizadas)
+                .HasForeignKey(mr => mr.IdMovimentacaoPrevista);
 
             builder.HasOne(mr => mr.Movimentacao)
                 .WithMany(m => m.MovimentacoesRealizadas)

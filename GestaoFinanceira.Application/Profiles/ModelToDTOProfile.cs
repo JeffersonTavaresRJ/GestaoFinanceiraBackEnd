@@ -49,6 +49,8 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((scr, dest) => dest.ItemMovimentacao.Id = scr.IdItemMovimentacao)
                 .AfterMap((scr, dest) => dest.FormaPagamento = new FormaPagamentoDTO())
                 .AfterMap((scr, dest) => dest.FormaPagamento.Id = scr.IdFormaPagamento)
+                .AfterMap((scr, dest) => dest.MovimentacaoPrevista = new MovimentacaoPrevistaDTO())
+                .AfterMap((scr, dest) => dest.MovimentacaoPrevista.Id = (int)(scr.IdMovimentacaoPrevista == null ? 0 : scr.IdMovimentacaoPrevista))
                 .AfterMap((scr, dest) => dest.FormaPagamento.IdUsuario = UserEntity.IdUsuario)
                 .AfterMap((scr, dest) => dest.Conta = new ContaDTO())
                 .AfterMap((scr, dest) => dest.Conta.Id = scr.IdConta)

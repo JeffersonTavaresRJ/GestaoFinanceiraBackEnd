@@ -7,6 +7,7 @@ namespace GestaoFinanceira.Domain.Models
     public class MovimentacaoRealizada
     {
         public int Id { get; set; }
+        public int? IdMovimentacaoPrevista { get; set; }
         public int IdItemMovimentacao { get; set; }
         public DateTime DataReferencia { get; set; }
         public DateTime DataMovimentacaoRealizada { get; set; }
@@ -18,5 +19,7 @@ namespace GestaoFinanceira.Domain.Models
         public virtual FormaPagamento FormaPagamento { get; set; }
         public virtual Conta Conta { get; set; }
         public virtual Movimentacao Movimentacao { get; set; }
+        public virtual MovimentacaoPrevista MovimentacaoPrevista { get; set; }
+
     }
 }

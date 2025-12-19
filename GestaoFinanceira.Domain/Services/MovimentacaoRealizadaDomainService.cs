@@ -43,7 +43,7 @@ namespace GestaoFinanceira.Domain.Services
                     unitOfWork.IMovimentacaoRepository.Update(movimentacao);
                 }
 
-                resultMovPrevistas = AtualizaStatusMovimentacõesPrevistas(movimentacao, unitOfWork);
+                //resultMovPrevistas = AtualizaStatusMovimentacõesPrevistas(movimentacao, unitOfWork);
 
                 //Tratamento para retorno do método para gravação no MongoDB..
                 var id = unitOfWork.IMovimentacaoRealizadaRepository.Add(movimentacaoRealizada);
@@ -76,7 +76,7 @@ namespace GestaoFinanceira.Domain.Services
                 Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoRealizada.IdItemMovimentacao,
                                                                                         movimentacaoRealizada.DataReferencia);
 
-                resultMovPrevistas = AtualizaStatusMovimentacõesPrevistas(movimentacao, unitOfWork);
+                //resultMovPrevistas = AtualizaStatusMovimentacõesPrevistas(movimentacao, unitOfWork);
 
                 unitOfWork.Commit();
 
@@ -108,9 +108,9 @@ namespace GestaoFinanceira.Domain.Services
                 {
                     unitOfWork.IMovimentacaoRepository.Delete(movimentacao);
                 }
-                else
+                else 
                 {
-                    resultMovPrevistas = AtualizaStatusMovimentacõesPrevistas(movimentacao, unitOfWork);
+                    //resultMovPrevistas = AtualizaStatusMovimentacõesPrevistas(movimentacao, unitOfWork);
                 }               
 
                 unitOfWork.Commit();

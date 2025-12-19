@@ -1,5 +1,6 @@
 ﻿using GestaoFinanceira.Domain.Models.Enuns;
 using System;
+using System.Collections.Generic;
 
 namespace GestaoFinanceira.Domain.Models
 {
@@ -19,5 +20,6 @@ namespace GestaoFinanceira.Domain.Models
 
         public virtual Movimentacao Movimentacao { get; set; }
         public virtual FormaPagamento FormaPagamento { get; set; }
+        public virtual List<MovimentacaoRealizada> MovimentacoesRealizadas { get; set; }
     }
 }

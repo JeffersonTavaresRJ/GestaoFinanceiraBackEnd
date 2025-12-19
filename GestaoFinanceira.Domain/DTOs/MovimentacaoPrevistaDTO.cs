@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
 
 namespace GestaoFinanceira.Domain.DTOs
 {
@@ -13,6 +14,7 @@ namespace GestaoFinanceira.Domain.DTOs
         public string Status { get; set; }
         public string StatusDescricao { get; set; }
         public string Parcela { get; set; }
+        public List<MovimentacaoRealizadaDTO> MovimentacoesRealizadas { get; set; }
 
     }
 }
