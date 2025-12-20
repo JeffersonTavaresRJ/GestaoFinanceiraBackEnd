@@ -118,7 +118,7 @@ namespace GestaoFinanceira.Application.RequestHandler
                 throw new ValidationException(validate.Errors);
             }
 
-            movimentacaoRealizadaDomainService.Update(movimentacaoRealizada, out movimentacoesPrevistas, request.StatusMovimentacaoPrevista);
+            movimentacaoRealizada = movimentacaoRealizadaDomainService.Update(movimentacaoRealizada, out movimentacoesPrevistas, request.StatusMovimentacaoPrevista);
             movimentacoesRealizadas.Add(movimentacaoRealizada);
 
             await mediator.Publish(new MovimentacaoRealizadaNotification

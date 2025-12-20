@@ -34,6 +34,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
         {
             context.Entry(obj).State = EntityState.Modified;
             context.Entry(obj).Reference(mr => mr.Movimentacao).IsModified = false;
+            context.Entry(obj).Property(mr => mr.IdMovimentacaoPrevista).IsModified = false;
             context.SaveChanges();
         }
 

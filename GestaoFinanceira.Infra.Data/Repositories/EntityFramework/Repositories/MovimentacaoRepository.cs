@@ -24,6 +24,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
         {
             return dbset.Where(m => m.IdItemMovimentacao == idItemMovimentacao && m.DataReferencia == dataReferencia)
                         .Include(m => m.MovimentacoesPrevistas).ThenInclude(x => x.FormaPagamento)
+                        .Include(m => m.MovimentacoesPrevistas).ThenInclude(x => x.MovimentacoesRealizadas)
                         .Include(m => m.MovimentacoesRealizadas).ThenInclude(x => x.FormaPagamento)
                         .Include(m => m.MovimentacoesRealizadas).ThenInclude(x => x.Conta)
                         .Include(m => m.ItemMovimentacao)
