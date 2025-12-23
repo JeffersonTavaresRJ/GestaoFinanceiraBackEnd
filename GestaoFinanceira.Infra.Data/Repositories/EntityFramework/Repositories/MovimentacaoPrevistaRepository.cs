@@ -25,10 +25,21 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
 
         public override void Update(MovimentacaoPrevista obj)
         {
-            context.Entry(obj).State = EntityState.Modified;
-            context.Entry(obj).Property(mp => mp.NrParcela).IsModified = obj.IdMovPrevParcelada > 0 ? true:false;
-            context.Entry(obj).Property(mp => mp.NrParcelaTotal).IsModified = obj.IdMovPrevParcelada > 0 ? true : false;
-            context.Entry(obj).Property(mp => mp.IdMovPrevParcelada).IsModified = obj.IdMovPrevParcelada > 0? true : false;
+            //var trackedEntity = context.ChangeTracker.Entries<MovimentacaoPrevista>().FirstOrDefault(e => e.Entity.Id == obj.Id);
+
+            //if (trackedEntity != null)
+            //{
+            //    context.Entry(obj).State = EntityState.Detached;
+            //}
+            //else
+            //{
+            //    context.Entry(obj).State = EntityState.Modified;
+                
+            //}
+            //context.Entry(obj).Property(mp => mp.NrParcela).IsModified = obj.IdMovPrevParcelada > 0 ? true : false;
+            //context.Entry(obj).Property(mp => mp.NrParcelaTotal).IsModified = obj.IdMovPrevParcelada > 0 ? true : false;
+            //context.Entry(obj).Property(mp => mp.IdMovPrevParcelada).IsModified = obj.IdMovPrevParcelada > 0 ? true : false;
+            context.Update(obj);
             context.SaveChanges();
         }
 
@@ -82,6 +93,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
 
         public override MovimentacaoPrevista GetId(int id)
         {
+            //desanexa a entidade para executar somente leitura, não afetando o update..
             return dbset.Where(mp => mp.Id == id)
                         .Include(mp => mp.Movimentacao)
                         .Include(mp => mp.MovimentacoesRealizadas)
