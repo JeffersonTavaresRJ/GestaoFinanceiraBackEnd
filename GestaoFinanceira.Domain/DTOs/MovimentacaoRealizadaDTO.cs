@@ -9,7 +9,7 @@ namespace GestaoFinanceira.Domain.DTOs
         public int Id { get; set; }
         public DateTime DataMovimentacaoRealizada { get; set; }
         public double Valor { get; set; }
-        public MovimentacaoPrevistaDTO MovimentacaoPrevista { get; set; }
+        public int IdMovimentacaoPrevista { get; set; }
 
 
     }

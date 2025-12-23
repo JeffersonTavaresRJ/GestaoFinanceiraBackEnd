@@ -1,10 +1,6 @@
 ﻿using GestaoFinanceira.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
 {
@@ -56,8 +52,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
                 .HasForeignKey(mr => mr.IdFormaPagamento);
 
             builder.HasOne(mr => mr.MovimentacaoPrevista)
-                .WithMany(f => f.MovimentacoesRealizadas)
-                .HasForeignKey(mr => mr.IdMovimentacaoPrevista);
+               .WithMany(mp => mp.MovimentacoesRealizadas)
+               .HasForeignKey(mr => mr.IdMovimentacaoPrevista);
 
             builder.HasOne(mr => mr.Movimentacao)
                 .WithMany(m => m.MovimentacoesRealizadas)

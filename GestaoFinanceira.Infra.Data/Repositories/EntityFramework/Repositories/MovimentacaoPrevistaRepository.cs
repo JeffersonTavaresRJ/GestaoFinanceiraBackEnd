@@ -84,6 +84,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
         {
             return dbset.Where(mp => mp.Id == id)
                         .Include(mp => mp.Movimentacao)
+                        .Include(mp => mp.MovimentacoesRealizadas)
+                        .Include(mp => mp.MovimentacoesRealizadas).ThenInclude(mr => mr.Movimentacao)
                         .Include(mp => mp.Movimentacao.ItemMovimentacao)
                         .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria)
                         .FirstOrDefault();

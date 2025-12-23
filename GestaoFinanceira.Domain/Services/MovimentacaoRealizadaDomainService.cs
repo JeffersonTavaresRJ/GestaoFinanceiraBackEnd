@@ -2,7 +2,6 @@
 using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
-using GestaoFinanceira.Domain.Models.Enuns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,15 +42,18 @@ namespace GestaoFinanceira.Domain.Services
                     unitOfWork.IMovimentacaoRepository.Update(movimentacao);
                 }
 
-                if (movimentacaoRealizada.IdMovimentacaoPrevista != null)
-                {
-                    var movimentacaoPrevista = AtualizaStatusMovimentacaoPrevista((int)movimentacaoRealizada.IdMovimentacaoPrevista, unitOfWork);
-                    resultMovPrevistas.Add(movimentacaoPrevista);
-                }
-
                 //Tratamento para retorno do método para gravação no MongoDB..
                 var id = unitOfWork.IMovimentacaoRealizadaRepository.Add(movimentacaoRealizada);
-                movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(id);                
+                movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(id);
+
+                //Tratamento do Status da Movimentação Prevista, se houver..
+                if (movimentacaoRealizada.IdMovimentacaoPrevista != null)
+                {
+                    var idMovimentacaoPrevista = (int)movimentacaoRealizada.IdMovimentacaoPrevista;
+                    var movimentacaoPrevista = AtualizaStatusMovimentacaoPrevista(idMovimentacaoPrevista, unitOfWork);
+                    resultMovPrevistas.Add(movimentacaoPrevista);
+                }
+                
 
                 unitOfWork.Commit();
 
@@ -77,9 +79,10 @@ namespace GestaoFinanceira.Domain.Services
                 //Tratamento para retorno do método para gravação no MongoDB..
                 movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(movimentacaoRealizada.Id);
 
-                if (movimentacaoRealizada.IdMovimentacaoPrevista != null)
+                if (movimentacaoRealizada.MovimentacaoPrevista != null)
                 {
-                    var movimentacaoPrevista = AtualizaStatusMovimentacaoPrevista((int)movimentacaoRealizada.IdMovimentacaoPrevista, unitOfWork);
+                    //var movimentacaoPrevista = AtualizaStatusMovimentacaoPrevista((int)movimentacaoRealizada.IdMovimentacaoPrevista, unitOfWork);
+                    var movimentacaoPrevista = AtualizaStatusMovimentacaoPrevista(movimentacaoRealizada.MovimentacaoPrevista, unitOfWork);
                     resultMovPrevistas.Add(movimentacaoPrevista);
                 }               
 
@@ -187,7 +190,8 @@ namespace GestaoFinanceira.Domain.Services
         {
             MovimentacaoPrevista movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository.GetId(idMovimentacaoPrevista);
 
-            if (movimentacaoPrevista.Valor > movimentacaoPrevista.MovimentacoesRealizadas.Sum(x => x.Valor))
+            if (movimentacaoPrevista.MovimentacoesRealizadas == null ||
+               (movimentacaoPrevista.Valor > movimentacaoPrevista.MovimentacoesRealizadas.Sum(x => x.Valor)))
             {
                 movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
             }
@@ -197,6 +201,24 @@ namespace GestaoFinanceira.Domain.Services
             }
             unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
             
+            return movimentacaoPrevista;
+        }
+
+        private MovimentacaoPrevista AtualizaStatusMovimentacaoPrevista(MovimentacaoPrevista movimentacaoPrevista, IUnitOfWork unitOfWork)
+        {
+            //MovimentacaoPrevista movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository.GetId(idMovimentacaoPrevista);
+
+            if (movimentacaoPrevista == null ||
+               (movimentacaoPrevista.Valor > movimentacaoPrevista.MovimentacoesRealizadas.Sum(x => x.Valor)))
+            {
+                movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
+            }
+            else
+            {
+                movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
+            }
+            unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
+
             return movimentacaoPrevista;
         }
     }

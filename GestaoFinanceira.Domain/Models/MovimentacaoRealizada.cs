@@ -21,5 +21,6 @@ namespace GestaoFinanceira.Domain.Models
         public virtual Movimentacao Movimentacao { get; set; }
         public virtual MovimentacaoPrevista MovimentacaoPrevista { get; set; }
 
+
     }
 }
