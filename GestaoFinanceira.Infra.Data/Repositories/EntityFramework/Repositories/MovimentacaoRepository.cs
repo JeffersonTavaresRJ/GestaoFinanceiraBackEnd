@@ -23,12 +23,12 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
         public Movimentacao GetByKey(int idItemMovimentacao, DateTime dataReferencia)
         {
             return dbset.Where(m => m.IdItemMovimentacao == idItemMovimentacao && m.DataReferencia == dataReferencia)
-                        .Include(m => m.MovimentacoesPrevistas).ThenInclude(x => x.FormaPagamento)
-                        .Include(m => m.MovimentacoesPrevistas).ThenInclude(x => x.MovimentacoesRealizadas)
-                        .Include(m => m.MovimentacoesRealizadas).ThenInclude(x => x.FormaPagamento)
-                        .Include(m => m.MovimentacoesRealizadas).ThenInclude(x => x.Conta)
+                        .Include(m => m.MovimentacoesRealizadas)
+                                 .ThenInclude(x => x.Conta)                                 
+                        .Include(m => m.MovimentacoesRealizadas)
+                                 .ThenInclude(x => x.FormaPagamento)
                         .Include(m => m.ItemMovimentacao)
-                        .Include(m => m.ItemMovimentacao.Categoria)
+                                 .ThenInclude(x => x.Categoria)
                         .FirstOrDefault();
 
         }

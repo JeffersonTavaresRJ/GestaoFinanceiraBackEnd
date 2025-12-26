@@ -5,6 +5,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 
@@ -52,9 +53,14 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
 
         public override MovimentacaoRealizada GetId(int id)
         {
-            return dbset.Where(mr => mr.Id == id)
-                        .Include(mr => mr.Movimentacao).ThenInclude(x => x.ItemMovimentacao).ThenInclude(x => x.Categoria)
-                        .Include(mr => mr.MovimentacaoPrevista)
+            return dbset.AsNoTracking().Where(mr => mr.Id == id)
+                        .Include(mr => mr.Movimentacao)
+                            .ThenInclude(x => x.ItemMovimentacao)
+                            .ThenInclude(x => x.Categoria)
+                        .Include(mr => mr.MovimentacaoPrevista)                            
+                            .ThenInclude(x => x.Movimentacao)
+                            .ThenInclude(x => x.ItemMovimentacao)
+                            .ThenInclude(x => x.Categoria)                            
                         .Include(mr => mr.Conta)
                         .Include(mr => mr.FormaPagamento).FirstOrDefault();
         }

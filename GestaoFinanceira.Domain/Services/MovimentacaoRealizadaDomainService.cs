@@ -26,6 +26,7 @@ namespace GestaoFinanceira.Domain.Services
             try
             {
                 unitOfWork.BeginTransaction();
+                
                 Movimentacao movimentacao = null;
                 movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoRealizada.IdItemMovimentacao,
                                                                            movimentacaoRealizada.DataReferencia);
@@ -42,17 +43,18 @@ namespace GestaoFinanceira.Domain.Services
                     unitOfWork.IMovimentacaoRepository.Update(movimentacao);
                 }
 
+                //Tratamento do Status da Movimentação Prevista, se houver..
+                if (movimentacaoRealizada.IdMovimentacaoPrevista > 0)
+                {
+                    var movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository.GetId((int)movimentacaoRealizada.IdMovimentacaoPrevista);
+                    AtualizaStatusMovimentacaoPrevista(movimentacaoPrevista, movimentacaoRealizada.Valor);
+                }
+
+
                 //Tratamento para retorno do método para gravação no MongoDB..
                 var id = unitOfWork.IMovimentacaoRealizadaRepository.Add(movimentacaoRealizada);
                 movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(id);
 
-                //Tratamento do Status da Movimentação Prevista, se houver..
-                if (movimentacaoRealizada.IdMovimentacaoPrevista != null)
-                {
-                    var idMovimentacaoPrevista = (int)movimentacaoRealizada.IdMovimentacaoPrevista;                   
-                    var movimentacaoPrevista = AtualizaStatusMovimentacaoPrevista(idMovimentacaoPrevista, unitOfWork);
-                    resultMovPrevistas.Add(movimentacaoPrevista);
-                }
                 
 
                 unitOfWork.Commit();
@@ -75,15 +77,13 @@ namespace GestaoFinanceira.Domain.Services
             try
             {
                 unitOfWork.BeginTransaction();
+
                 unitOfWork.IMovimentacaoRealizadaRepository.Update(movimentacaoRealizada);
                 //Tratamento para retorno do método para gravação no MongoDB..
                 movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(movimentacaoRealizada.Id);
 
-                if (movimentacaoRealizada.MovimentacaoPrevista != null)
-                {
-                    var movimentacaoPrevista = AtualizaStatusMovimentacaoPrevista((int)movimentacaoRealizada.IdMovimentacaoPrevista, unitOfWork);
-                    resultMovPrevistas.Add(movimentacaoPrevista);
-                }               
+                //Tratamento do Status da Movimentação Prevista, se houver..
+                AtualizaStatusMovimentacaoPrevista(movimentacaoRealizada.MovimentacaoPrevista, 0);
 
                 unitOfWork.Commit();
 
@@ -106,21 +106,19 @@ namespace GestaoFinanceira.Domain.Services
             try
             {
                 unitOfWork.BeginTransaction();
+
                 unitOfWork.IMovimentacaoRealizadaRepository.Delete(movimentacaoRealizada);
+
+                //Tratamento do Status da Movimentação Prevista, se houver..
+                AtualizaStatusMovimentacaoPrevista(movimentacaoRealizada.MovimentacaoPrevista, 0);
 
                 Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(movimentacaoRealizada.IdItemMovimentacao,
                                                                                         movimentacaoRealizada.DataReferencia);
 
-                if(movimentacao.MovimentacoesPrevistas.Count + movimentacao.MovimentacoesRealizadas.Count == 0)
+                if(movimentacaoRealizada.MovimentacaoPrevista == null & movimentacao.MovimentacoesRealizadas.Count == 0)
                 {
                     unitOfWork.IMovimentacaoRepository.Delete(movimentacao);
-                }
-
-                if (movimentacaoRealizada.IdMovimentacaoPrevista != null)
-                {
-                    var movimentacaoPrevista = AtualizaStatusMovimentacaoPrevista((int)movimentacaoRealizada.IdMovimentacaoPrevista, unitOfWork);
-                    resultMovPrevistas.Add(movimentacaoPrevista);
-                }
+                }                
 
                 unitOfWork.Commit();
             }
@@ -185,22 +183,26 @@ namespace GestaoFinanceira.Domain.Services
             
         }
 
-        private MovimentacaoPrevista AtualizaStatusMovimentacaoPrevista(int idMovimentacaoPrevista, IUnitOfWork unitOfWork)
+        private void AtualizaStatusMovimentacaoPrevista(MovimentacaoPrevista movimentacaoPrevista, double valorPago)
         {
-            MovimentacaoPrevista movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository.GetId(idMovimentacaoPrevista);
+            if(movimentacaoPrevista != null)
+            {
+                var valorTotalPago = unitOfWork.IMovimentacaoPrevistaRepository.GetValorTotalPago(movimentacaoPrevista.Id);
 
-            if (movimentacaoPrevista.MovimentacoesRealizadas == null ||
-               (movimentacaoPrevista.Valor > movimentacaoPrevista.MovimentacoesRealizadas.Sum(x => x.Valor)))
-            {
-                movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
+                if (movimentacaoPrevista.MovimentacoesRealizadas == null ||
+                   (movimentacaoPrevista.Valor > valorTotalPago + valorPago))
+                {
+                    movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
+                }
+                else
+                {
+                    movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
+                }
+
+                unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
+
+                resultMovPrevistas.Add(movimentacaoPrevista);
             }
-            else
-            {
-                movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.Q;
-            }
-            unitOfWork.IMovimentacaoPrevistaRepository.Update(movimentacaoPrevista);
-            
-            return movimentacaoPrevista;
         }
         
     }
