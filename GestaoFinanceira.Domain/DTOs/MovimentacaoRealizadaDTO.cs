@@ -1,7 +1,4 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace GestaoFinanceira.Domain.DTOs
 {
@@ -12,6 +9,7 @@ namespace GestaoFinanceira.Domain.DTOs
         public int Id { get; set; }
         public DateTime DataMovimentacaoRealizada { get; set; }
         public double Valor { get; set; }
+        public int IdMovimentacaoPrevista { get; set; }
 
 
     }

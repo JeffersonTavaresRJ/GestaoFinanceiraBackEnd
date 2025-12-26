@@ -4,6 +4,7 @@ using GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
@@ -17,7 +18,9 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
 
         public override int Add(MovimentacaoPrevista obj)
         {
+            //adicionando ao contexto um novo objeto para inclusão..
             context.Entry(obj).State = EntityState.Added;
+
             context.Entry(obj).Reference(mr => mr.Movimentacao).IsModified = false;
             context.SaveChanges();
             return 0;
@@ -25,15 +28,20 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
 
         public override void Update(MovimentacaoPrevista obj)
         {
+            //adicionando ao contexto um novo objeto para alteração..
             context.Entry(obj).State = EntityState.Modified;
-            //context.Entry(obj).Property(mp => mp.NrParcela).IsModified = obj.NrParcelaTotal > 1? true:false;
-            //context.Entry(obj).Property(mp => mp.NrParcelaTotal).IsModified = obj.NrParcelaTotal > 1 ? true : false;
+
+            context.Entry(obj).Property(mp => mp.NrParcela).IsModified = obj.IdMovPrevParcelada > 0 ? true : false;
+            context.Entry(obj).Property(mp => mp.NrParcelaTotal).IsModified = obj.IdMovPrevParcelada > 0 ? true : false;
+            context.Entry(obj).Property(mp => mp.IdMovPrevParcelada).IsModified = obj.IdMovPrevParcelada > 0 ? true : false;
             context.SaveChanges();
         }
 
         public override void Delete(MovimentacaoPrevista obj)
         {
+            //adicionando ao contexto um novo objeto para exclusão..
             context.Entry(obj).State = EntityState.Deleted;
+
             context.Entry(obj).Reference(mp => mp.Movimentacao).IsModified = false;
             context.SaveChanges();
         }
@@ -43,7 +51,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
             dbset.RemoveRange(dbset.Where(mp => mp.FormaPagamento.IdUsuario == idUsuario));
         }
 
-        public IEnumerable<MovimentacaoPrevista> GetByDataReferencia(int idUsuario, int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim)
+        public IEnumerable<MovimentacaoPrevista> GetByDataReferencia(int idUsuario, 
+                                                                     int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim)
         {
             return dbset.Where(mp => mp.FormaPagamento.IdUsuario == idUsuario &&
                                           (mp.IdItemMovimentacao == idItemMovimentacao ||
@@ -55,20 +64,44 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
                         .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria).ToList();
         }
 
+        public IEnumerable<MovimentacaoPrevista> GetByMovPrevParcelada(int idMovPrevParcelada)
+        {
+            return dbset.Where(mp => mp.IdMovPrevParcelada == idMovPrevParcelada)
+                        .Include(mp => mp.Movimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria).ToList();
+        }
+
         public override IEnumerable<MovimentacaoPrevista> GetAll(int idUsuario)
         {
             return dbset.Where(mp => mp.FormaPagamento.IdUsuario == idUsuario);
         }
 
-        public MovimentacaoPrevista GetByKey(int idItemMovimentacao, DateTime dataReferencia)
+        public IEnumerable<MovimentacaoPrevista> GetByKey(int idItemMovimentacao, DateTime dataReferencia)
         {
             return dbset.Where(mp => mp.IdItemMovimentacao == idItemMovimentacao &&
                                mp.DataReferencia == dataReferencia)
                         .Include(mp => mp.Movimentacao)
                         .Include(mp => mp.Movimentacao.ItemMovimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria).ToList();
+
+        }
+
+        public override MovimentacaoPrevista GetId(int id)
+        {
+            return dbset.AsNoTracking().Where(mp => mp.Id == id)
+                        .Include(mp => mp.Movimentacao)
+                        .Include(mp => mp.MovimentacoesRealizadas)
+                        .Include(mp => mp.MovimentacoesRealizadas).ThenInclude(mr => mr.Movimentacao)
+                        .Include(mp => mp.Movimentacao.ItemMovimentacao)
                         .Include(mp => mp.Movimentacao.ItemMovimentacao.Categoria)
                         .FirstOrDefault();
 
+        }
+
+        public double GetValorTotalPago(int id)
+        {
+            return dbset.Where(mp => mp.Id == id).Select(mp => mp.MovimentacoesRealizadas.Sum(mr => mr.Valor)).FirstOrDefault();
         }
     }
 }
