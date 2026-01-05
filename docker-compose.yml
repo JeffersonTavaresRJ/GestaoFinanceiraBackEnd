@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # --- Sua API .NET ---
+  api-financeira:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "5000:8080" # Acessível em localhost:5000
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__GestaoFinanceira=Server=sql-server;Database=DESKTOP-L20MIDT/SQLEXPRESS/GestaoFinanceiradsv;User Id=sa;Password=Admin#123;TrustServerCertificate=True
+      - MongoDBSettings__ConnectionString=mongodb+srv://netcoredsv:jst1976@cluster0.7wluicu.mongodb.net/?retryWrites=true&w=majority
+    depends_on:
+      - sql-server
+      - mongodb
+
+  # --- SQL Server ---
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Admin#123
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  # --- MongoDB ---
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=jst1976
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  sql_data:
+  mongo_data:
