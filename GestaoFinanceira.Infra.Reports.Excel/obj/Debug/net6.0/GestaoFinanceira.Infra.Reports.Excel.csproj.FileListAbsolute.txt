@@ -24,7 +24,8 @@ F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Report
 F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.Reports.Excel.AssemblyInfoInputs.cache
 F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.Reports.Excel.AssemblyInfo.cs
 F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.Reports.Excel.csproj.CoreCompileInputs.cache
-F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.Reports.Excel.csproj.CopyComplete
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.Reports.Excel.sourcelink.json
+F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\net6.0\GestaoFi.2DE5A4C2.Up2Date
 F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.Reports.Excel.dll
 F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\net6.0\refint\GestaoFinanceira.Infra.Reports.Excel.dll
 F:\Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd\GestaoFinanceira.Infra.Reports.Excel\obj\Debug\net6.0\GestaoFinanceira.Infra.Reports.Excel.pdb
