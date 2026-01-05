@@ -10,7 +10,7 @@ namespace GestaoFinanceira.Domain.Interfaces.Services
         List<MovimentacaoPrevista> AddResult(List<MovimentacaoPrevista> movimentacaoPrevistas);
         MovimentacaoPrevista UpdateResult(MovimentacaoPrevista movimentacaoPrevista);
         void Delete(MovimentacaoPrevista movimentacaoPrevista, out List<MovimentacaoPrevista> movimentacoesPrevistas);
-        MovimentacaoPrevista GetByKey(int idItemMovimentacao, DateTime dataReferencia);
+        MovimentacaoPrevista GetId(int id);
         List<MovimentacaoPrevista> GetByDataReferencia(int idUsuario, int? idItemMovimentacao, DateTime dataRefIni, DateTime dataRefFim);
     }
 }
