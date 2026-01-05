@@ -302,10 +302,7 @@
           "MongoDB.Bson": "2.25.0"
         },
         "runtime": {
-          "GestaoFinanceira.Domain.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "GestaoFinanceira.Domain.dll": {}
         }
       }
     }

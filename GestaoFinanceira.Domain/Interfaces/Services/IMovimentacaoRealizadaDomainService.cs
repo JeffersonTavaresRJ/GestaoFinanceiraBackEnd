@@ -6,10 +6,10 @@ namespace GestaoFinanceira.Domain.Interfaces.Services
 {
     public interface IMovimentacaoRealizadaDomainService
     {
-        MovimentacaoRealizada Add(MovimentacaoRealizada movimentacoesRealizada, out List<MovimentacaoPrevista> movimentacoesPrevistas, string statusMovimentacaoPrevista=null);
+        MovimentacaoRealizada Add(MovimentacaoRealizada movimentacoesRealizada, out MovimentacaoPrevista movimentacoesPrevista, string statusMovimentacaoPrevista=null);
         List<MovimentacaoRealizada> ExecutarTransferencia(TransferenciaContas transferenciaConta);
-        MovimentacaoRealizada Update(MovimentacaoRealizada movimentacaoRealizada, out List<MovimentacaoPrevista> movimentacoesPrevistas, string statusMovimentacaoPrevista=null);
-        void Delete(MovimentacaoRealizada movimentacaoRealizada, out List<MovimentacaoPrevista> movimentacoesPrevistas);
+        MovimentacaoRealizada Update(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista, string statusMovimentacaoPrevista=null);
+        void Delete(MovimentacaoRealizada movimentacaoRealizada, out MovimentacaoPrevista movimentacaoPrevista);
         MovimentacaoRealizada GetId(int id);
         List<MovimentacaoRealizada> GetByUsuario(int idUsuario, DateTime dataReferencia);
 

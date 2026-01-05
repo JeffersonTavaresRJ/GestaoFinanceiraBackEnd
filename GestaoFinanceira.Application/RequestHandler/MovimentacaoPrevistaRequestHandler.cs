@@ -152,7 +152,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
         public async Task<Unit> Handle(DeleteMovimentacaoPrevistaCommand request, CancellationToken cancellationToken)
         {
-            MovimentacaoPrevista movimentacaoPrevista = movimentacaoPrevistaDomainService.GetId(request.Id);
+            MovimentacaoPrevista movimentacaoPrevista = movimentacaoPrevistaDomainService.GetByKey(request.IdItemMovimentacao, request.DataReferencia);
             var listaDelete = new List<MovimentacaoPrevista>();
             listaDelete.Add(movimentacaoPrevista);
             ;

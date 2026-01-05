@@ -11,7 +11,6 @@ using GestaoFinanceira.Domain.Validations;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,6 +27,7 @@ namespace GestaoFinanceira.Application.RequestHandler
         private readonly ISaldoDiarioDomainService saldoDiarioDomainService;
         private readonly IMediator mediator;
         private readonly IMapper mapper;
+        private MovimentacaoPrevista movimentacaoPrevista;
         private List<SaldoDiario> saldosDiario = new List<SaldoDiario>();
         private List<MovimentacaoRealizada> movimentacoesRealizadas = new List<MovimentacaoRealizada>();
         private List<MovimentacaoPrevista> movimentacoesPrevistas = new List<MovimentacaoPrevista>();
@@ -58,7 +58,7 @@ namespace GestaoFinanceira.Application.RequestHandler
 
 
             /*adicionando no banco de dados..*/
-            movimentacaoRealizada = movimentacaoRealizadaDomainService.Add(movimentacaoRealizada, out movimentacoesPrevistas, request.StatusMovimentacaoPrevista);
+            movimentacaoRealizada = movimentacaoRealizadaDomainService.Add(movimentacaoRealizada, out movimentacaoPrevista, request.StatusMovimentacaoPrevista);
             movimentacoesRealizadas.Add(movimentacaoRealizada);
 
             /*adicionando no mongoDB..*/
@@ -88,17 +88,19 @@ namespace GestaoFinanceira.Application.RequestHandler
 
 
             /*==Atualização do Status das Movimentações Previstas no MongoDB==*/
-            if (movimentacoesPrevistas.Count > 0)
+            if (movimentacaoPrevista != null)
             {
-                 await mediator.Publish(new MovimentacaoPrevistaNotification
+                movimentacoesPrevistas.Add(movimentacaoPrevista);
+                await mediator.Publish(new MovimentacaoPrevistaNotification
                 {
                     MovimentacoesPrevistas = movimentacoesPrevistas,
                     Action = ActionNotification.Atualizar
                 });
 
-                throw new MovPrevAlteraStatus(movimentacoesPrevistas.Select(mp=>mp.Movimentacao.ItemMovimentacao.Descricao).ToList<string>(),
-                                              movimentacoesPrevistas.Select(mp => mp.Movimentacao.DataReferencia).FirstOrDefault(),
-                                              movimentacoesPrevistas.Select(mp => mp.Status).FirstOrDefault());
+                throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
+                                              movimentacaoPrevista.DataReferencia,
+                                              movimentacaoPrevista.Status/*,
+                                              movimentacaoRealizada.Id*/);
             }
             else
             {
@@ -118,7 +120,7 @@ namespace GestaoFinanceira.Application.RequestHandler
                 throw new ValidationException(validate.Errors);
             }
 
-            movimentacaoRealizada = movimentacaoRealizadaDomainService.Update(movimentacaoRealizada, out movimentacoesPrevistas, request.StatusMovimentacaoPrevista);
+            movimentacaoRealizadaDomainService.Update(movimentacaoRealizada, out movimentacaoPrevista, request.StatusMovimentacaoPrevista);
             movimentacoesRealizadas.Add(movimentacaoRealizada);
 
             await mediator.Publish(new MovimentacaoRealizadaNotification
@@ -165,17 +167,18 @@ namespace GestaoFinanceira.Application.RequestHandler
             });
 
             /*==Atualização do Status das Movimentações Previstas no MongoDB==*/
-            if (movimentacoesPrevistas.Count > 0)
+            if (movimentacaoPrevista != null)
             {
+                movimentacoesPrevistas.Add(movimentacaoPrevista);
                 await mediator.Publish(new MovimentacaoPrevistaNotification
                 {
                     MovimentacoesPrevistas = movimentacoesPrevistas,
                     Action = ActionNotification.Atualizar
                 });
 
-                throw new MovPrevAlteraStatus(movimentacoesPrevistas.Select(mp => mp.Movimentacao.ItemMovimentacao.Descricao).ToList<string>(),
-                                              movimentacoesPrevistas.Select(mp => mp.Movimentacao.DataReferencia).FirstOrDefault(),
-                                              movimentacoesPrevistas.Select(mp => mp.Status).FirstOrDefault());
+                throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
+                                                     movimentacaoPrevista.DataReferencia,
+                                                     movimentacaoPrevista.Status/*, null*/);
             }
 
             return Unit.Value;
@@ -184,7 +187,7 @@ namespace GestaoFinanceira.Application.RequestHandler
         public async Task<Unit> Handle(DeleteMovimentacaoRealizadaCommand request, CancellationToken cancellationToken)
         {
             MovimentacaoRealizada movimentacaoRealizada = movimentacaoRealizadaDomainService.GetId(request.Id);
-            movimentacaoRealizadaDomainService.Delete(movimentacaoRealizada, out movimentacoesPrevistas);
+            movimentacaoRealizadaDomainService.Delete(movimentacaoRealizada, out movimentacaoPrevista);
 
             movimentacoesRealizadas.Add(movimentacaoRealizada);
             await mediator.Publish(new MovimentacaoRealizadaNotification
@@ -219,17 +222,18 @@ namespace GestaoFinanceira.Application.RequestHandler
 
 
             /*==Atualização do Status das Movimentações Previstas no MongoDB==*/
-            if (movimentacoesPrevistas.Count > 0)
+            if (movimentacaoPrevista != null)
             {
+                movimentacoesPrevistas.Add(movimentacaoPrevista);
                 await mediator.Publish(new MovimentacaoPrevistaNotification
                 {
                     MovimentacoesPrevistas = movimentacoesPrevistas,
                     Action = ActionNotification.Atualizar
                 });
 
-                throw new MovPrevAlteraStatus(movimentacoesPrevistas.Select(mp => mp.Movimentacao.ItemMovimentacao.Descricao).ToList<string>(),
-                                              movimentacoesPrevistas.Select(mp => mp.Movimentacao.DataReferencia).FirstOrDefault(),
-                                              movimentacoesPrevistas.Select(mp => mp.Status).FirstOrDefault());
+                throw new MovPrevAlteraStatus(movimentacaoPrevista.Movimentacao.ItemMovimentacao.Descricao,
+                                                     movimentacaoPrevista.DataReferencia,
+                                                     movimentacaoPrevista.Status/*, null*/);
             }
 
             return Unit.Value;

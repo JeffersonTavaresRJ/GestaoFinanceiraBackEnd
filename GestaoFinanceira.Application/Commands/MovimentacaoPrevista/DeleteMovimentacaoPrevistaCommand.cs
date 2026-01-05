@@ -8,7 +8,8 @@ namespace GestaoFinanceira.Application.Commands.MovimentacaoPrevista
     public class DeleteMovimentacaoPrevistaCommand : IRequest
     {
 
-        public int Id { get; set; }
+        public int IdItemMovimentacao { get; set; }
+        public DateTime DataReferencia { get; set; }
 
     }
 }

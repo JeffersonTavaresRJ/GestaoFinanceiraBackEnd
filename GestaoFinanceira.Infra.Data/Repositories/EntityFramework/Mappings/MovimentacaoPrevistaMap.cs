@@ -14,7 +14,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
         {
             builder.ToTable("MOVIMENTACAO_PREVISTA");
 
-            builder.HasKey(mp => new { mp.Id });
+            builder.HasKey(mp => new { mp.IdItemMovimentacao, mp.DataReferencia });
 
             builder.Property(mp => mp.IdItemMovimentacao)
                 .HasColumnName("ID_ITMO")
@@ -45,9 +45,6 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
                .HasColumnName("ID_FOPA")
                .IsRequired();
 
-            builder.Property(mp => mp.IdMovPrevParcelada)
-               .HasColumnName("ID_MOPR_PARCELADA");
-
             builder.Property(mp => mp.NrParcela)
                .HasColumnName("NR_PARCELA")
                .IsRequired();
@@ -65,8 +62,8 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Mappings
                .HasForeignKey(mp => mp.IdFormaPagamento);
 
             builder.HasOne(mp => mp.Movimentacao)
-                .WithMany(m => m.MovimentacoesPrevistas)
-                .HasForeignKey(mp => new { mp.IdItemMovimentacao, mp.DataReferencia })
+                .WithOne(m => m.MovimentacaoPrevista)
+                .HasForeignKey<MovimentacaoPrevista>(mp => new { mp.IdItemMovimentacao, mp.DataReferencia })
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

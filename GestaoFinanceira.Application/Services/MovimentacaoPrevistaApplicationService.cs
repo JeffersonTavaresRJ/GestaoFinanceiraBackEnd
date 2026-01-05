@@ -37,12 +37,7 @@ namespace GestaoFinanceira.Application.Services
             return mediator.Send(command);
         }
 
-        public MovimentacaoPrevistaDTO GetId(int id)
-        {
-            return movimentacaoPrevistaCaching.GetId(id);
-        }
-
-        public List<MovimentacaoPrevistaDTO> GetByKey(int idItemMovimentacao, DateTime dataReferencia)
+        public MovimentacaoPrevistaDTO GetByKey(int idItemMovimentacao, DateTime dataReferencia)
         {
             return movimentacaoPrevistaCaching.GetByKey(idItemMovimentacao, dataReferencia);
         }

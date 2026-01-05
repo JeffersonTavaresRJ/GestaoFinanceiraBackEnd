@@ -83,34 +83,20 @@ namespace GestaoFinanceira.Service.Api.Controllers
 
         }
 
-        [HttpDelete("{Id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{IdItemMovimentacao}/{dataReferencia}")]
+        public async Task<IActionResult> Delete(int idItemMovimentacao, DateTime dataReferencia)
         {
             try
             {
                 DeleteMovimentacaoPrevistaCommand command = new DeleteMovimentacaoPrevistaCommand
                 {
-                    Id = id
+                    IdItemMovimentacao = idItemMovimentacao,
+                    DataReferencia = dataReferencia
                 };
                 
                 await movimentacaoPrevistaApplicationService.Delete(command);
                 return Ok(new { message = "Movimentação excluída com sucesso!" });
             }            
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
-
-        }
-
-        [HttpGet("GetId/{id}")]
-        public IActionResult Get(int id)
-        {
-            try
-            {
-                UserEntity.SetUsuarioID(this.User);
-                return Ok(movimentacaoPrevistaApplicationService.GetId(id));
-            }
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
