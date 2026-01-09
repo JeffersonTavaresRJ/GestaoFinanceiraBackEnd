@@ -106,7 +106,7 @@ namespace GestaoFinanceira.Domain.Services
                 unitOfWork.IMovimentacaoPrevistaRepository.Delete(obj);
 
                 Movimentacao movimentacao = unitOfWork.IMovimentacaoRepository.GetByKey(obj.IdItemMovimentacao, obj.DataReferencia);
-                if ( movimentacao.MovimentacoesRealizadas.Count + movimentacao.MovimentacoesPrevistas.Count == 0)
+                if ( movimentacao.MovimentacoesRealizadas ==null && movimentacao.MovimentacoesPrevistas == null)
                 {
                     unitOfWork.IMovimentacaoRepository.Delete(movimentacao);
                 }
