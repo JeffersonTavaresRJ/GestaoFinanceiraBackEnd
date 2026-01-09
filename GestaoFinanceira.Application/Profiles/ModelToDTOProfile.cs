@@ -27,6 +27,7 @@ namespace GestaoFinanceira.Application.Profiles
                 .AfterMap((scr, dest) => dest.TipoDescricao = ExtensionEnum.ObterDescricao((TipoItemMovimentacao)Enum.Parse(typeof(TipoItemMovimentacao), dest.Tipo.ToString())));
 
             CreateMap<MovimentacaoPrevista, MovimentacaoPrevistaDTO>()
+                .AfterMap((scr, dest) => dest.Id =scr.Id)
                 .AfterMap((scr, dest) => dest.ItemMovimentacao = new ItemMovimentacaoDTO())
                 .AfterMap((scr, dest) => dest.ItemMovimentacao.Id = scr.IdItemMovimentacao)
                 .AfterMap((scr, dest) => dest.FormaPagamento = new FormaPagamentoDTO())

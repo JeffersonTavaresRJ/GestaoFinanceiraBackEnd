@@ -47,7 +47,7 @@ namespace GestaoFinanceira.Domain.Services
                 if (movimentacaoRealizada.IdMovimentacaoPrevista > 0)
                 {
                     var movimentacaoPrevista = unitOfWork.IMovimentacaoPrevistaRepository.GetId((int)movimentacaoRealizada.IdMovimentacaoPrevista);
-                    AtualizaStatusMovimentacaoPrevista(movimentacaoPrevista, movimentacaoRealizada.Valor);
+                    AtualizaStatusMovimentacaoPrevista(movimentacaoPrevista, movimentacaoRealizada.Valor, statusMovimentacaoPrevista);
                 }
 
 
@@ -183,13 +183,17 @@ namespace GestaoFinanceira.Domain.Services
             
         }
 
-        private void AtualizaStatusMovimentacaoPrevista(MovimentacaoPrevista movimentacaoPrevista, double valorPago)
+        private void AtualizaStatusMovimentacaoPrevista(MovimentacaoPrevista movimentacaoPrevista, double valorPago, string statusMovimentacaoPrevista = null)
         {
             if(movimentacaoPrevista != null)
             {
                 var valorTotalPago = unitOfWork.IMovimentacaoPrevistaRepository.GetValorTotalPago(movimentacaoPrevista.Id);
 
-                if (movimentacaoPrevista.MovimentacoesRealizadas == null ||
+                if(statusMovimentacaoPrevista != null)
+                {
+                    movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.N;
+                }
+                else if (movimentacaoPrevista.MovimentacoesRealizadas == null ||
                    (movimentacaoPrevista.Valor > valorTotalPago + valorPago))
                 {
                     movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
