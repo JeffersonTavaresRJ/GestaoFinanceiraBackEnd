@@ -27,6 +27,7 @@ namespace GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Repositories
 
         public virtual void Update(TEntity obj)
         {
+            //update em todo o contexto que foi lido. Se tiver AsNoTraking, vai dar erro..
             dbset.Update(obj);
             context.SaveChanges();
         }

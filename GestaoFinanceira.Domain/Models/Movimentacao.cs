@@ -12,7 +12,7 @@ namespace GestaoFinanceira.Domain.Models
         public TipoPrioridade TipoPrioridade { get; set; }
 
         public virtual ItemMovimentacao ItemMovimentacao { get; set; }
-        public virtual MovimentacaoPrevista MovimentacaoPrevista { get; set; }
+        public virtual List<MovimentacaoPrevista> MovimentacoesPrevistas { get; set; }
         public virtual List<MovimentacaoRealizada> MovimentacoesRealizadas { get; set; }
     }
 }
