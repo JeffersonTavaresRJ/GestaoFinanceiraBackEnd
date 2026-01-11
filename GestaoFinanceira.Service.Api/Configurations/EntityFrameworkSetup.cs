@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Context;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using GestaoFinanceira.Infra.Data.Repositories.EntityFramework.Context;
+using System;
 
 namespace GestaoFinanceira.Service.Api.Configurations
 {
@@ -26,7 +27,16 @@ namespace GestaoFinanceira.Service.Api.Configurations
             //services.AddControllers().AddNewtonsoftJson(x =>x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<SqlContext>(
-                options => { options.UseSqlServer(configuration.GetConnectionString("GestaoFinanceira"));
+                options => { options.UseSqlServer(configuration.GetConnectionString("GestaoFinanceira"),
+                            sqlServerOptionsAction: sqlOptions =>
+                            {
+                                // Ativa a resiliência para falhas temporárias (comum no Docker)
+                                sqlOptions.EnableRetryOnFailure(
+                                    maxRetryCount: 10,           // Tenta até 10 vezes
+                                    maxRetryDelay: TimeSpan.FromSeconds(30), // Espera até 30s entre as tentativas
+                                    errorNumbersToAdd: null     // Adicione códigos de erro SQL específicos se necessário
+                                );
+                            });
                     //TODO: LOG DE EXECUÇÃO DO EF CORE - PASSO 03: ADICIONAR O EnableSensitiveDataLogging(true) no OPTIONS..
                     options.EnableSensitiveDataLogging(false);
                 });
