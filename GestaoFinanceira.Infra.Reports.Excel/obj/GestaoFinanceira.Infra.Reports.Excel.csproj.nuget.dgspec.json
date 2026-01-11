@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Reports.Excel\\GestaoFinanceira.Infra.Reports.Excel.csproj": {}
+    "F:\\Estudos\\NetCore\\GestaoFinanceira\\Fontes\\BackEnd\\GestaoFinanceira.Infra.Reports.Excel\\GestaoFinanceira.Infra.Reports.Excel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
+    "F:\\Estudos\\NetCore\\GestaoFinanceira\\Fontes\\BackEnd\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
+        "projectUniqueName": "F:\\Estudos\\NetCore\\GestaoFinanceira\\Fontes\\BackEnd\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
         "projectName": "GestaoFinanceira.Domain",
-        "projectPath": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
-        "packagesPath": "C:\\Users\\Jefferson Tavares\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\obj\\",
+        "projectPath": "F:\\Estudos\\NetCore\\GestaoFinanceira\\Fontes\\BackEnd\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj",
+        "packagesPath": "C:\\Users\\coxin\\.nuget\\packages\\",
+        "outputPath": "F:\\Estudos\\NetCore\\GestaoFinanceira\\Fontes\\BackEnd\\GestaoFinanceira.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Jefferson Tavares\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\coxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net6.0": {
@@ -75,24 +75,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Reports.Excel\\GestaoFinanceira.Infra.Reports.Excel.csproj": {
+    "F:\\Estudos\\NetCore\\GestaoFinanceira\\Fontes\\BackEnd\\GestaoFinanceira.Infra.Reports.Excel\\GestaoFinanceira.Infra.Reports.Excel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Reports.Excel\\GestaoFinanceira.Infra.Reports.Excel.csproj",
+        "projectUniqueName": "F:\\Estudos\\NetCore\\GestaoFinanceira\\Fontes\\BackEnd\\GestaoFinanceira.Infra.Reports.Excel\\GestaoFinanceira.Infra.Reports.Excel.csproj",
         "projectName": "GestaoFinanceira.Infra.Reports.Excel",
-        "projectPath": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Reports.Excel\\GestaoFinanceira.Infra.Reports.Excel.csproj",
-        "packagesPath": "C:\\Users\\Jefferson Tavares\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Infra.Reports.Excel\\obj\\",
+        "projectPath": "F:\\Estudos\\NetCore\\GestaoFinanceira\\Fontes\\BackEnd\\GestaoFinanceira.Infra.Reports.Excel\\GestaoFinanceira.Infra.Reports.Excel.csproj",
+        "packagesPath": "C:\\Users\\coxin\\.nuget\\packages\\",
+        "outputPath": "F:\\Estudos\\NetCore\\GestaoFinanceira\\Fontes\\BackEnd\\GestaoFinanceira.Infra.Reports.Excel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Jefferson Tavares\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\coxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -107,8 +107,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
-                "projectPath": "C:\\Users\\Public\\GestaoFinanceira\\Fontes\\backend\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
+              "F:\\Estudos\\NetCore\\GestaoFinanceira\\Fontes\\BackEnd\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj": {
+                "projectPath": "F:\\Estudos\\NetCore\\GestaoFinanceira\\Fontes\\BackEnd\\GestaoFinanceira.Domain\\GestaoFinanceira.Domain.csproj"
               }
             }
           }
@@ -123,7 +123,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net6.0": {
@@ -131,7 +131,7 @@
           "dependencies": {
             "EPPlus": {
               "target": "Package",
-              "version": "[7.2.0, )"
+              "version": "[8.4.0, )"
             }
           },
           "imports": [
@@ -150,7 +150,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
