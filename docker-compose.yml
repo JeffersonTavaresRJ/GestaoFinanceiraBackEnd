@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # --- Sua API .NET ---
+  api-financeira:
+    build:
+      context: .
+      dockerfile: dockerfile
+    volumes:
+     - ./aspnetapp.pfx:/https/aspnetapp.pfx:ro
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      #- ASPNETCORE_URLS=http://+:5000
+      - ASPNETCORE_URLS=https://+:5001;http://+:5000
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Admin456
+      - ConnectionStrings__GestaoFinanceira=Server=host.docker.internal,1433;Database=GestaoFinanceira;User Id=sa;Password=Admin#123;TrustServerCertificate=True
+      - MongoDBSettings__ConnectionString=mongodb+srv://netcoredsv:jst1976@cluster0.7wluicu.mongodb.net/?retryWrites=true&w=majority
+    ports:
+     # - "5000:8080" # Acessível em localhost:5000
+     - "5000:5000"
+     - "5001:5001"
+    depends_on:
+      - sqlserver-gestao-financeira
+      - mongodb-gestao-financeira
+
+  # --- SQL Server ---
+  sqlserver-gestao-financeira:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Admin#123
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  # --- MongoDB ---
+  mongodb-gestao-financeira:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=jst1976
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  sql_data:
+  mongo_data:
