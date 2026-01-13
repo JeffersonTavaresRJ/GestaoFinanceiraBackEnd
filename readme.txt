@@ -1,3 +1,5 @@
+cd Estudos\NetCore\GestaoFinanceira\Fontes\BackEnd
+
 Passos para dockerizar a api:
 1) Criar o arquivo "dockerfile" (sem a extensão) no diretório raiz da aplicação, onde está a solution;
 
