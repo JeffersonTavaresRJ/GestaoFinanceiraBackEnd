@@ -17,6 +17,5 @@ jobs:
         run: docker-compose up --build -d
           # --build: Força a reconstrução das imagens
           # -d: Roda em segundo plano (detached mode)
-          docker-compose up --build -d
       - name: Limpar imagens antigas
         run: docker image prune -f
