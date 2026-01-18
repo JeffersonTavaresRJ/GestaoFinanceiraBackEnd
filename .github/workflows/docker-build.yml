@@ -1,0 +1,22 @@
+name: Build Local Docker utilizando o Docker Compose
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    # Garante que o comando rode no seu computador (Self-hosted Runner)
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Build e Up com Docker Compose
+        run: docker-compose up --build -d     |
+          # --build: Força a reconstrução das imagens
+          # -d: Roda em segundo plano (detached mode)
+          docker-compose up --build -d
+      - name: Limpar imagens antigas
+        run: docker image prune -f

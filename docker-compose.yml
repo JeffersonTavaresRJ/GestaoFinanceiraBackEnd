@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   # --- Sua API .NET ---
-  api-financeira:
+  api-service-gestao-financeira:
     build:
       context: .
       dockerfile: dockerfile
@@ -10,19 +10,21 @@ services:
      - ./aspnetapp.pfx:/https/aspnetapp.pfx:ro
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      #- ASPNETCORE_URLS=http://+:5000
-      - ASPNETCORE_URLS=https://+:5001;http://+:5000
+      - ASPNETCORE_URLS=http://+:5000
+      #- ASPNETCORE_URLS=https://+:5001;http://+:5000
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Admin456
       - ConnectionStrings__GestaoFinanceira=Server=host.docker.internal,1433;Database=GestaoFinanceira;User Id=sa;Password=Admin#123;TrustServerCertificate=True
       - MongoDBSettings__ConnectionString=mongodb+srv://netcore03:jst1976@gestaofinanceira.whfwa.mongodb.net/GestaoFinanceira?retryWrites=true&w=majority
     ports:
-     # - "5000:8080" # Acessível em localhost:5000
+    # - "5000:8080" # Acessível em localhost:5000
      - "5000:5000"
      - "5001:5001"
     depends_on:
       - sqlserver-gestao-financeira
       - mongodb-gestao-financeira
+    networks:
+      - rede-gestao-financeira
 
   # --- SQL Server ---
   sqlserver-gestao-financeira:
@@ -49,3 +51,7 @@ services:
 volumes:
   sql_data:
   mongo_data:
+
+networks:
+  rede-gestao-financeira:
+    external: true

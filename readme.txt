@@ -12,7 +12,11 @@ Passos para dockerizar a api:
    
 4) Criar o arquivo com o nome "docker-compose.yml" no mesmo diretório;
 
-5) Para CRIAR A IMAGEM E SUBIR A APLICAÇÃO, use o comando: "docker-compose up --build -d"
+5) Para CRIAR A IMAGEM E SUBIR A APLICAÇÃO, use o comando: 
+Comando para criar o container:
+"docker-compose down" //remove o container..
+"docker-compose up --build -d" //cria novamente..
+
    up: Sobe todos os serviços do arquivo.
    --build: Força o Docker a reconstruir a imagem da sua API (importante sempre que você mudar algo no código ou no Dockerfile).
    -d: Roda em "segundo plano" (seu terminal fica livre).
