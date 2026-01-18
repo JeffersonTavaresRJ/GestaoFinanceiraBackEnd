@@ -3,6 +3,9 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 # Dentro do container, criamos uma pasta chamada 'app' para organizar
 WORKDIR /app
 
+# Adicione esta linha abaixo para limpar o lixo de cache
+RUN dotnet nuget locals all --clear
+
 # 1. Copia todos os arquivos .sln e .csproj da raiz e subpastas
 # Isso mantém a estrutura de pastas para que as referências funcionem
 
