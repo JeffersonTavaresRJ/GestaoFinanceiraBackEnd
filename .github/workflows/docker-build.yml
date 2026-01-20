@@ -10,12 +10,24 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
+      #- name: Checkout do código
+      #  uses: actions/checkout@v4
+        
+      #- name: Limpar imagens antigas
+      #  run: docker image prune -f
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+           dotnet-version: '6.0.x'
+
+      - name: Clear NuGet caches
+         run: dotnet nuget locals all --clear
+
+      - name: Restore dependencies
+         run: dotnet restore
+
 
       - name: Build e Up com Docker Compose
         run: docker-compose up --build -d
           # --build: Força a reconstrução das imagens
           # -d: Roda em segundo plano (detached mode)
-      - name: Limpar imagens antigas
-        run: docker image prune -f
