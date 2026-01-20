@@ -3,9 +3,6 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 # Dentro do container, criamos uma pasta chamada 'app' para organizar
 WORKDIR /app
 
-# Adicione esta linha abaixo para limpar o lixo de cache
-RUN dotnet nuget locals all --clear
-
 # 1. Copia todos os arquivos .sln e .csproj da raiz e subpastas
 # Isso mantém a estrutura de pastas para que as referências funcionem
 
@@ -32,6 +29,10 @@ COPY . .
 # 4. Publica o projeto principal
 
 WORKDIR "/app/GestaoFinanceira.Service.Api"
+
+# Limpa o lixo de cache..
+RUN dotnet nuget locals all --clear
+
 RUN dotnet publish "GestaoFinanceira.Service.Api.csproj" -c Release -o /app/publish
 
 # --- Estágio de Runtime ---
