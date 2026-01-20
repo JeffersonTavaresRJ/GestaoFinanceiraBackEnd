@@ -3,7 +3,7 @@ name: gestao-financeira-backend
 services:
   # --- Sua API .NET ---
   api-service-gestao-financeira:
-  container_name: gestao-financeira-api
+    container_name: gestao-financeira-api
     build:
       context: .
       dockerfile: dockerfile
