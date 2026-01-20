@@ -19,8 +19,13 @@ services:
       #--
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Admin456
-      - ConnectionStrings__GestaoFinanceira=Server=host.docker.internal,1433;Database=GestaoFinanceira;User Id=sa;Password=Admin#123;TrustServerCertificate=True
-      - MongoDBSettings__ConnectionString=mongodb+srv://netcore03:jst1976@gestaofinanceira.whfwa.mongodb.net/GestaoFinanceira?retryWrites=true&w=majority
+      #-PRD:
+     # - ConnectionStrings__GestaoFinanceira=Server=host.docker.internal,1433;Database=GestaoFinanceira;User Id=sa;Password=Admin#123;TrustServerCertificate=True
+     # - MongoDBSettings__ConnectionString=mongodb+srv://netcore03:jst1976@gestaofinanceira.whfwa.mongodb.net/GestaoFinanceira?retryWrites=true&w=majority
+      #-DSV:
+      - ConnectionStrings__GestaoFinanceira=Server=host.docker.internal,1433;Database=GestaoFinanceiradsv;User Id=sa;Password=Admin#123;TrustServerCertificate=True
+      - MongoDBSettings__ConnectionString=mongodb+srv://netcoredsv:jst1976@cluster0.7wluicu.mongodb.net/?retryWrites=true&w=majorit
+    
     ports:
     # - "5000:8080" # Acessível em localhost:5000
      - "5000:5000"
