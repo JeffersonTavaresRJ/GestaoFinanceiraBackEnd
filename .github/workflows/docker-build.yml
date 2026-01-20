@@ -20,7 +20,7 @@ jobs:
         #with:
            #dotnet-version: '6.0.x'
            
-      - name: Remove o container e limpa rede
+      - name: Remove o container e limpa rede 5000
         continue-on-error: true
         run: docker-compose down --remove-orphans Get-Process -Id (Get-NetTCPConnection -LocalPort 5000).OwningProcess | Stop-Process -Force
      
