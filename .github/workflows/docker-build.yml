@@ -15,7 +15,7 @@ jobs:
         
       #- name: Limpar imagens antigas
       #  run: docker image prune -f
-      - name: Setup .NET
+      - name: Setup .NET Teste 6
         uses: actions/setup-dotnet@v3
         with:
            dotnet-version: '6.0.x'
