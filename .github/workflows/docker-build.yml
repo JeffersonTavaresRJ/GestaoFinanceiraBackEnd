@@ -22,7 +22,7 @@ jobs:
            
      - name: Remove o container e limpa rede
        run: docker-compose down --remove-orphans
-
+       
       - name: Build e Up com Docker Compose
         run: docker-compose up --build -d
           # --build: Força a reconstrução das imagens
