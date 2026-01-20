@@ -1,8 +1,9 @@
 version: '3.8'
-
+name: gestao-financeira-backend
 services:
   # --- Sua API .NET ---
   api-service-gestao-financeira:
+  container_name: gestao-financeira-api
     build:
       context: .
       dockerfile: dockerfile
@@ -32,6 +33,7 @@ services:
 
   # --- SQL Server ---
   sqlserver-gestao-financeira:
+    container_name: gestao-financeira-sql-server
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
       - "1433:1433"
@@ -43,6 +45,7 @@ services:
 
   # --- MongoDB ---
   mongodb-gestao-financeira:
+    container_name: gestao-financeira-mongo-db
     image: mongo:latest
     ports:
       - "27017:27017"
