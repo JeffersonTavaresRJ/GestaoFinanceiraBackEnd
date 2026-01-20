@@ -23,13 +23,13 @@ jobs:
       - name: Remove o container e limpa rede
         continue-on-error: true
         run: docker-compose down --remove-orphans Get-Process -Id (Get-NetTCPConnection -LocalPort 5000).OwningProcess | Stop-Process -Force
-        
-       
-      - name: Build e Up com Docker Compose
-        #run: docker-compose up --build -d
-         run: |
+     
+      - name: Build Limpo e Deploy
+        run: |
           docker-compose build --no-cache
-          docker-compose up -d
-          
+          docker-compose up -d     
+       
+    #  - name: Build e Up com Docker Compose
+        #run: docker-compose up --build -d
           # --build: Força a reconstrução das imagens
           # -d: Roda em segundo plano (detached mode)
