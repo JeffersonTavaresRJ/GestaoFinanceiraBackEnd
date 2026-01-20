@@ -20,8 +20,8 @@ jobs:
         #with:
            #dotnet-version: '6.0.x'
            
-      - name: Remove o container
-        run: docker-compose down
+     - name: Remove o container e limpa rede
+        run: docker-compose down --remove-orphans
 
       - name: Build e Up com Docker Compose
         run: docker-compose up --build -d

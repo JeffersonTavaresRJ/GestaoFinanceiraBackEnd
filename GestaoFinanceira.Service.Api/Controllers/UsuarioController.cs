@@ -148,7 +148,7 @@ namespace GestaoFinanceira.Service.Api.Controllers
                 {
                     return Ok(new
                     {
-                        message = "Usuário autenticado com sucesso: Docker Desktop Action Teste 13!",
+                        message = "Usuário autenticado com sucesso: Docker Desktop Action Teste 14!",
                         user = user
                     });                    
                 }
