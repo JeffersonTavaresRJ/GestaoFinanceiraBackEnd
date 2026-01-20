@@ -26,6 +26,7 @@ jobs:
         
        
       - name: Build e Up com Docker Compose
-        run: docker-compose up --build -d
+        #run: docker-compose up --build -d
+         run: docker-compose build --no-cache && docker-compose up -d
           # --build: Força a reconstrução das imagens
           # -d: Roda em segundo plano (detached mode)

@@ -2,3 +2,6 @@
 **/.obj
 **/.vs
 **/.git
+**/.vscode
+**/bin
+**/obj
