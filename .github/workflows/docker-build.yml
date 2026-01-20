@@ -21,7 +21,8 @@ jobs:
            #dotnet-version: '6.0.x'
            
       - name: Remove o container e limpa rede
-        run: docker-compose down --remove-orphans || true
+        run: docker-compose down --remove-orphans
+        continue-on-error: true
        
       - name: Build e Up com Docker Compose
         run: docker-compose up --build -d
