@@ -25,6 +25,9 @@ services:
       #-DSV:
       - ConnectionStrings__GestaoFinanceira=Server=host.docker.internal,1433;Database=GestaoFinanceiradsv;User Id=sa;Password=Admin#123;TrustServerCertificate=True
       - MongoDBSettings__ConnectionString=mongodb+srv://netcoredsv:jst1976@cluster0.7wluicu.mongodb.net/GestaoFinanceira?retryWrites=true&w=majority
+
+      - MongoDBSettings__DataBaseName=GestaoFinanceira
+      - MongoDBSettings__IsSSL=false
     
     ports:
     # - "5000:8080" # Acessível em localhost:5000
