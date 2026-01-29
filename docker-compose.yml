@@ -28,6 +28,7 @@ services:
 
       - MongoDBSettings__DataBaseName=GestaoFinanceira
       - MongoDBSettings__IsSSL=false
+      - EPPlusLicenseContext=NonCommercial
     
     ports:
     # - "5000:8080" # Acessível em localhost:5000
