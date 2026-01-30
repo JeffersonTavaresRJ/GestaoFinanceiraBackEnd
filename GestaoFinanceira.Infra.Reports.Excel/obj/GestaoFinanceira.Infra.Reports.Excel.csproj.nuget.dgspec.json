@@ -131,7 +131,7 @@
           "dependencies": {
             "EPPlus": {
               "target": "Package",
-              "version": "[8.4.0, )"
+              "version": "[7.1.3, )"
             }
           },
           "imports": [
