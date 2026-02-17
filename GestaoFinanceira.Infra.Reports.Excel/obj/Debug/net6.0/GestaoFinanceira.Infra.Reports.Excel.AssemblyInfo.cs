@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GestaoFinanceira.Infra.Reports.Excel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0496c1c6e9f83869fdf0c832c6766cd3c58f536b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b45e899a4cb6a9c5da3f7b758406d46789a8f05")]
 [assembly: System.Reflection.AssemblyProductAttribute("GestaoFinanceira.Infra.Reports.Excel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GestaoFinanceira.Infra.Reports.Excel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -59,6 +59,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
                          && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFimUTC(dataMovRealFim)
                          && mr.FormaPagamento.IdUsuario == UserEntity.IdUsuario
                          && (mr.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null));
+                         //&& (mr.ItemMovimentacao.Id == 2134));
              return mongoDBContext.VwMovimentacoesRealizadas.Find(filter).ToList();
         }
 
@@ -68,7 +69,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             
             var builder = Builders<MovimentacaoRealizadaDTO>.Filter;
             var filter =  builder.Where(mr => mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIniUTC(dataMovRealIni)
-                                           && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraIniUTC(dataMovRealFim)
+                                           && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFimUTC(dataMovRealFim)
                                            && mr.FormaPagamento.IdUsuario == UserEntity.IdUsuario) &
                           builder.In(mr => mr.Conta.Id, idContas);
 
@@ -79,7 +80,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         {
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter
                .Where(mr=> mr.DataMovimentacaoRealizada >= DateTimeClass.DataHoraIniUTC(dataMovReal)
-                        && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraIniUTC(dataMovReal)
+                        && mr.DataMovimentacaoRealizada <= DateTimeClass.DataHoraFimUTC(dataMovReal)
                         && (mr.Conta.Id == idConta));
 
             return mongoDBContext.VwMovimentacoesRealizadas.Find(filter).ToList();
@@ -89,7 +90,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         {
             var filter = Builders<MovimentacaoRealizadaDTO>.Filter
                .Where(mr => mr.DataReferencia >= DateTimeClass.DataHoraIniUTC(dataReferencia) &&
-                            mr.DataReferencia <= DateTimeClass.DataHoraIniUTC(dataReferencia) &&
+                            mr.DataReferencia <= DateTimeClass.DataHoraFimUTC(dataReferencia) &&
                             (mr.ItemMovimentacao.Id == idItemMovimentacao || idItemMovimentacao == null));
 
             return mongoDBContext.VwMovimentacoesRealizadas.Find(filter).ToList();
