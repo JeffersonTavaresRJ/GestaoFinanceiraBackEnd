@@ -2,6 +2,7 @@
 using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
+using GestaoFinanceira.Domain.Models.Enuns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,7 +84,8 @@ namespace GestaoFinanceira.Domain.Services
                 movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(movimentacaoRealizada.Id);
 
                 //Tratamento do Status da Movimentação Prevista, se houver..
-                AtualizaStatusMovimentacaoPrevista(movimentacaoRealizada.MovimentacaoPrevista, 0);
+                statusMovimentacaoPrevista = movimentacaoRealizada.MovimentacaoPrevista.Status.ToString();
+                AtualizaStatusMovimentacaoPrevista(movimentacaoRealizada.MovimentacaoPrevista, 0, statusMovimentacaoPrevista);
 
                 unitOfWork.Commit();
 
@@ -196,7 +198,15 @@ namespace GestaoFinanceira.Domain.Services
                 else if (movimentacaoPrevista.MovimentacoesRealizadas == null ||
                    (movimentacaoPrevista.Valor > valorTotalPago + valorPago))
                 {
-                    movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
+                    if (statusMovimentacaoPrevista == "N")
+                    {
+                        movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.N;
+                    }
+                    else
+                    {
+                        movimentacaoPrevista.Status = Models.Enuns.StatusMovimentacaoPrevista.A;
+                    }
+                    
                 }
                 else
                 {

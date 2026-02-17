@@ -77,6 +77,7 @@ namespace GestaoFinanceira.Service.Api.Configurations
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyProject");
+                c.RoutePrefix = string.Empty;
             });
         }
     }

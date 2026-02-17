@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System;
 
+
 namespace GestaoFinanceira.Infra.Reports.Excel
 {
     public class ReportMovimentacaoRealizadaMensal
@@ -19,10 +20,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 {
                     return null;
                 }
-
-                //definir o tipo de licença..
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
 
                 //abrindo o conteúdo do arquivo excel..
                 using (var excel = new ExcelPackage())
