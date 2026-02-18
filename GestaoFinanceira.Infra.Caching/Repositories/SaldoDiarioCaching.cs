@@ -62,8 +62,8 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
         {
             var filter = Builders<SaldoDiarioDTO>.Filter
                .Where(sa => sa.Conta.Id == idConta && 
-               sa.DataSaldo >= DateTimeClass.DataHoraIni(dataSaldo) &&
-               sa.DataSaldo <= DateTimeClass.DataHoraFim(dataSaldo));
+               sa.DataSaldo >= DateTimeClass.DataHoraIniUTC(dataSaldo) &&
+               sa.DataSaldo <= DateTimeClass.DataHoraFimUTC(dataSaldo));
             var saldoDiarioDTO =  mongoDBContext.VwSaldosDiario.Find(filter).FirstOrDefault<SaldoDiarioDTO>();
 
             if(saldoDiarioDTO != null)
