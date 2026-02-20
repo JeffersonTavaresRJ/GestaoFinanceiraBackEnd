@@ -28,7 +28,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     string cellRef;
                     int coluna;
                     int linha;
-                    int linhaIniRangeMeses = 4;
+                    int linhaIniRangeMeses = 5;
                     ExcelRange cellExc;
 
                     //criando a planilha..
@@ -38,7 +38,8 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     //largura das colunas..
                     sheet.Column(1).Width = 20;
                     sheet.Column(2).Width = 20;
-                    sheet.Column(3).Width = 34;
+                    sheet.Column(3).Width = 20;
+                    sheet.Column(4).Width = 34;
 
                     var larguraValores = 15;
 
@@ -81,7 +82,8 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     //cabeçalho..
                     sheet.Cells["A3"].Value = "CONTA";
                     sheet.Cells["B3"].Value = "TIPO DE MOVIMENTAÇÃO";
-                    sheet.Cells["C3"].Value = "MOVIMENTAÇÃO";
+                    sheet.Cells["C3"].Value = "CATEGORIA";
+                    sheet.Cells["D3"].Value = "ITEM DE MOVIMENTAÇÃO";
 
                     coluna = 1;
                     foreach (var item in movimentacaoRealizadaMensalDTOs[0].SaldoContaDTOs)
@@ -110,10 +112,12 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     linha = linhaIniRangeMeses;
                     var contaContas = 1;
                     var linhaIniConta = 0;
+                    var descricaoConta = "";
                     foreach (MovimentacaoRealizadaMensalDTO movimentacaoRealizadaMensal in movimentacaoRealizadaMensalDTOs)
                     {
                         linhaIniConta = linha;
-                        sheet.Cells[$"A{linha}"].Value = movimentacaoRealizadaMensal.Conta.Descricao;
+                        //sheet.Cells[$"A{linha}"].Value = movimentacaoRealizadaMensal.Conta.Descricao;
+                        descricaoConta = movimentacaoRealizadaMensal.Conta.Descricao;
 
                         int totalItensReceitas = movimentacaoRealizadaMensal.TiposMovimentacao.Where(t => t.Tipo.Equals("R")).Select(t => t.ItemDTOs.Count()).FirstOrDefault();
                         int totalItensDespesas = movimentacaoRealizadaMensal.TiposMovimentacao.Where(t => t.Tipo.Equals("D")).Select(t => t.ItemDTOs.Count()).FirstOrDefault();
@@ -123,7 +127,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
                         //SALDOS POR CONTA (SALDO ANTERIOR E SALDO MENSAL)..
                         var linhaSaldoAnterior = linha;
-                        var saldoAnterior = sheet.Cells[$"C{linhaSaldoAnterior}"];
+                        var saldoAnterior = sheet.Cells[$"D{linhaSaldoAnterior}"];
                         saldoAnterior.Value = "SALDO ANTERIOR";
                         saldoAnterior.Style.Font.Color.SetColor(Color.DarkGray);
                         saldoAnterior.Style.Font.Italic = true;
@@ -131,7 +135,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                         saldoAnterior.Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
                         var linhaSaldoMensal = linhaSaldoAnterior + totalItensReceitas + totalItensDespesas + 1;
-                        var saldoMensal = sheet.Cells[$"C{linhaSaldoMensal}"];
+                        var saldoMensal = sheet.Cells[$"D{linhaSaldoMensal}"];
                         saldoMensal.Value = "SALDO MENSAL";
                         saldoMensal.Style.Font.Bold = true;
                         saldoMensal.Style.Border.BorderAround(ExcelBorderStyle.Thin);
@@ -163,8 +167,8 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
 
                         //ITENS DE MOVIMENTAÇÃO POR CONTA (RECEITA E DESPESA)..
-                        linha = PopulateItensMovimentacao(movimentacaoRealizadaMensal, "R", sheet, celsRecPorConta, linha, totalMeses);
-                        linha = PopulateItensMovimentacao(movimentacaoRealizadaMensal, "D", sheet, celsDesPorConta, linha, totalMeses);
+                        linha = PopulateItensMovimentacao(movimentacaoRealizadaMensal, descricaoConta, "R", sheet, celsRecPorConta, linha, totalMeses);
+                        linha = PopulateItensMovimentacao(movimentacaoRealizadaMensal, descricaoConta, "D", sheet, celsDesPorConta, linha, totalMeses);
 
 
                         //FORMATAÇÃO DO CONTEÚDO POR CONTA..
@@ -178,7 +182,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                             conteudo.Style.Fill.BackgroundColor.SetColor(Color.AntiqueWhite);
                         }
 
-                        conta.Merge = true;
+                        //conta.Merge = true;
                         conta.Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
                         linha++;
@@ -210,7 +214,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
 
                     //FORMATAÇÃO DO CONTEÚDO DO TOTAL GERAL..
-                    totalGeral.Merge = true;
+                    //totalGeral.Merge = true;
                     totalGeral.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     totalGeral.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     //FINAL DA TABELA
@@ -226,7 +230,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
                     //===============VARIAÇÃO===============/
                     linha++;
-                    var cellVariacaoPercentual = sheet.Cells[$"C{linha}"];
+                    var cellVariacaoPercentual = sheet.Cells[$"D{linha}"];
                     cellVariacaoPercentual.Value = "VARIAÇÃO (%)";
                     cellVariacaoPercentual.Style.Font.Bold = true;
                     cellVariacaoPercentual.Style.Border.BorderAround(ExcelBorderStyle.Thin);
@@ -292,17 +296,17 @@ namespace GestaoFinanceira.Infra.Reports.Excel
         {
             switch(totalMeses)
             {
-                case 2: return tipo == "F" ? $"E{linha}" : $"G{linha}";
-                case 3: return tipo == "F" ? $"F{linha}" : $"H{linha}";
-                case 4: return tipo == "F" ? $"G{linha}" : $"I{linha}";
-                case 5: return tipo == "F" ? $"H{linha}" : $"J{linha}";
-                case 6: return tipo == "F" ? $"I{linha}" : $"K{linha}";
-                case 7: return tipo == "F" ? $"J{linha}" : $"L{linha}";
-                case 8: return tipo == "F" ? $"K{linha}" : $"M{linha}";
-                case 9: return tipo == "F" ? $"L{linha}" : $"N{linha}";
-                case 10: return tipo == "F" ? $"M{linha}" : $"0{linha}";
-                case 11: return tipo == "F" ? $"N{linha}" : $"P{linha}";
-                case 12: return tipo == "F" ? $"O{linha}" : $"Q{linha}";
+                case 2: return tipo == "F" ? $"F{linha}" : $"H{linha}";
+                case 3: return tipo == "F" ? $"G{linha}" : $"I{linha}";
+                case 4: return tipo == "F" ? $"H{linha}" : $"J{linha}";
+                case 5: return tipo == "F" ? $"I{linha}" : $"K{linha}";
+                case 6: return tipo == "F" ? $"J{linha}" : $"L{linha}";
+                case 7: return tipo == "F" ? $"K{linha}" : $"M{linha}";
+                case 8: return tipo == "F" ? $"L{linha}" : $"N{linha}";
+                case 9: return tipo == "F" ? $"M{linha}" : $"O{linha}";
+                case 10: return tipo == "F" ? $"N{linha}" : $"P{linha}";
+                case 11: return tipo == "F" ? $"O{linha}" : $"Q{linha}";
+                case 12: return tipo == "F" ? $"P{linha}" : $"R{linha}";
                 default: return "";
             }
         }
@@ -331,33 +335,33 @@ namespace GestaoFinanceira.Infra.Reports.Excel
         {
             switch (coluna)
             {
-                case 1: return $"D{linha}";
-                case 2: return $"E{linha}";
-                case 3: return $"F{linha}";
-                case 4: return $"G{linha}";
-                case 5: return $"H{linha}";
-                case 6: return $"I{linha}";
-                case 7: return $"J{linha}";
-                case 8: return $"K{linha}";
-                case 9: return $"L{linha}";
-                case 10: return $"M{linha}";
-                case 11: return $"N{linha}";
-                case 12: return $"O{linha}";
-                case 13: return $"P{linha}";
-                case 14: return $"Q{linha}";
-                case 15: return $"R{linha}";
+                case 1: return $"E{linha}";
+                case 2: return $"F{linha}";
+                case 3: return $"G{linha}";
+                case 4: return $"H{linha}";
+                case 5: return $"I{linha}";
+                case 6: return $"J{linha}";
+                case 7: return $"K{linha}";
+                case 8: return $"L{linha}";
+                case 9: return $"M{linha}";
+                case 10: return $"N{linha}";
+                case 11: return $"O{linha}";
+                case 12: return $"P{linha}";
+                case 13: return $"Q{linha}";
+                case 14: return $"R{linha}";
+                case 15: return $"S{linha}";
                 default: return "";
             }
         }
 
         private static string GetFormulaSumRow(int totalMeses, int linha)
         {
-            return $"=SUM(D{linha}:{GetCellFinish("F", totalMeses, linha)})";
+            return $"=SUM(E{linha}:{GetCellFinish("G", totalMeses, linha)})";
         }
 
         private static string GetFormulaMediaRow(int totalMeses, int linha)
         {
-            return $"=SUM(D{linha}:{GetCellFinish("F", totalMeses, linha)})/COUNTIF(D{linha}:{GetCellFinish("F", totalMeses, linha)},\">0\")";
+            return $"=SUM(E{linha}:{GetCellFinish("G", totalMeses, linha)})/COUNTIF(E{linha}:{GetCellFinish("G", totalMeses, linha)},\">0\")";
         }
 
         private static void SetCellNumberProperties(ExcelRange cell, Color fontColor)
@@ -374,7 +378,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
             cell.Style.Font.Bold = true;
         }
 
-        private static int PopulateItensMovimentacao(MovimentacaoRealizadaMensalDTO movimentacaoRealizadaMensal, string tipo, ExcelWorksheet sheet, List<Totalizador> cellsTotalizador, int linha, int totalMeses)
+        private static int PopulateItensMovimentacao(MovimentacaoRealizadaMensalDTO movimentacaoRealizadaMensal, string conta, string tipo, ExcelWorksheet sheet, List<Totalizador> cellsTotalizador, int linha, int totalMeses)
         {
             //ERRO AQUI: 56 MESES PARA A CONTA MAXIME DI..
             List<ItemDTO> itemDTOs = movimentacaoRealizadaMensal.TiposMovimentacao.Where(t => t.Tipo.Equals(tipo)).FirstOrDefault().ItemDTOs;
@@ -384,20 +388,23 @@ namespace GestaoFinanceira.Infra.Reports.Excel
             {
                 linha++;
                 Color color;
+                var tipoMovimentacao = "";
                 if (tipo.Equals("R"))
                 {
-                    sheet.Cells[$"B{linha}"].Value = "RECEITA";
+                    //sheet.Cells[$"B{linha}"].Value = "RECEITA";
+                    tipoMovimentacao = "RECEITA";
                     color = Color.Blue;
                 }
                 else
                 {
-                    sheet.Cells[$"B{linha}"].Value = "DESPESA";
+                    //sheet.Cells[$"B{linha}"].Value = "DESPESA";
+                    tipoMovimentacao = "DESPESA";
                     color = Color.Red;
                 }
 
 
                 var tipoConteudo = sheet.Cells[$"B{linha}:B{linha + itemDTOs.Count() - 1}"];
-                tipoConteudo.Merge = true;
+                //tipoConteudo.Merge = true;
                 tipoConteudo.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 tipoConteudo.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                 tipoConteudo.Style.Border.BorderAround(ExcelBorderStyle.Thin);
@@ -405,9 +412,21 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
                 foreach (ItemDTO itemDTO in itemDTOs)
                 {
-                    sheet.Cells[$"C{linha}"].Value = itemDTO.ItemMovimentacaoDTO.Descricao;
+                    //CONTA
+                    sheet.Cells[$"A{linha}"].Value = conta;
+
+                    //TIPO DE MOVIMENTAÇÃO
+                    sheet.Cells[$"B{linha}"].Value = tipoMovimentacao;
+
+                    //CATEGORIA..
+                    sheet.Cells[$"C{linha}"].Value = itemDTO.ItemMovimentacaoDTO.Categoria.Descricao;
                     sheet.Cells[$"C{linha}"].Style.Font.Color.SetColor(color);
                     sheet.Cells[$"C{linha}"].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+
+                    //ITEM MOVIMENTAÇÃO
+                    sheet.Cells[$"D{linha}"].Value = itemDTO.ItemMovimentacaoDTO.Descricao;
+                    sheet.Cells[$"D{linha}"].Style.Font.Color.SetColor(color);
+                    sheet.Cells[$"D{linha}"].Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
                     var coluna = 1;
                     string cellRef;
@@ -464,8 +483,8 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     color = Color.Red;
                 }
 
-                var tipoConteudo = sheet.Cells[$"B{linha}:C{linha}"];
-                tipoConteudo.Merge = true;
+                var tipoConteudo = sheet.Cells[$"B{linha}:D{linha}"];
+                //tipoConteudo.Merge = true;
                 tipoConteudo.Style.Border.BorderAround(ExcelBorderStyle.Thin);
                 tipoConteudo.Style.Font.Color.SetColor(color);
 
@@ -504,7 +523,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
         private static void PopulateTotalizadorSaldo(string tipo, ExcelWorksheet sheet, List<Totalizador> cellsTotalizador, List<Totalizador> cellVariacao, int linha, int totalMeses)
         {
             Color color;
-            var saldoConteudo = sheet.Cells[$"B{linha}:C{linha}"];
+            var saldoConteudo = sheet.Cells[$"B{linha}:D{linha}"];
             if (tipo.Equals("SA"))
             {
                 saldoConteudo.Value = "SALDO ANTERIOR";                
