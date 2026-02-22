@@ -28,7 +28,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                     string cellRef;
                     int coluna;
                     int linha;
-                    int linhaIniRangeMeses = 5;
+                    int linhaInicioDetalhe = 4;
                     ExcelRange cellExc;
 
                     //criando a planilha..
@@ -37,15 +37,16 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
                     //largura das colunas..
                     sheet.Column(1).Width = 20;
-                    sheet.Column(2).Width = 20;
+                    sheet.Column(2).Width = 30;
                     sheet.Column(3).Width = 20;
-                    sheet.Column(4).Width = 34;
+                    sheet.Column(4).Width = 30;
 
-                    var larguraValores = 15;
+                    var larguraValores = 20;
 
-                    var i = linhaIniRangeMeses;
-       
-                    while ((totalMeses + 5) >= i)
+                    //var i = linhaInicioDetalhe;
+                    var i = 5;
+
+                    while ((totalMeses + 6) >= i)
                     {
                         sheet.Column(i).Width = larguraValores;
                         i++;
@@ -109,15 +110,16 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
                     //================POPULATE CONTA================
 
-                    linha = linhaIniRangeMeses;
+                    linha = linhaInicioDetalhe;
                     var contaContas = 1;
                     var linhaIniConta = 0;
                     var descricaoConta = "";
                     foreach (MovimentacaoRealizadaMensalDTO movimentacaoRealizadaMensal in movimentacaoRealizadaMensalDTOs)
                     {
                         linhaIniConta = linha;
-                        //sheet.Cells[$"A{linha}"].Value = movimentacaoRealizadaMensal.Conta.Descricao;
+                        
                         descricaoConta = movimentacaoRealizadaMensal.Conta.Descricao;
+                        sheet.Cells[$"A{linha}"].Value = descricaoConta;
 
                         int totalItensReceitas = movimentacaoRealizadaMensal.TiposMovimentacao.Where(t => t.Tipo.Equals("R")).Select(t => t.ItemDTOs.Count()).FirstOrDefault();
                         int totalItensDespesas = movimentacaoRealizadaMensal.TiposMovimentacao.Where(t => t.Tipo.Equals("D")).Select(t => t.ItemDTOs.Count()).FirstOrDefault();
@@ -135,6 +137,8 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                         saldoAnterior.Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
                         var linhaSaldoMensal = linhaSaldoAnterior + totalItensReceitas + totalItensDespesas + 1;
+                        sheet.Cells[$"A{linhaSaldoMensal}"].Value = descricaoConta;
+
                         var saldoMensal = sheet.Cells[$"D{linhaSaldoMensal}"];
                         saldoMensal.Value = "SALDO MENSAL";
                         saldoMensal.Style.Font.Bold = true;
@@ -189,11 +193,11 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                         contaContas++;                        
                     }
 
-
+                    
 
 
                     //===============TOTAL GERAL===============/
-
+                    linha = linha+3;//Inserindo 02 linhas depois de todo o detalhe de receita e despesas das contas
                     var linhaIniTotalizador = linha;
                     sheet.Cells[$"A{linha}"].Value = "TOTAL GERAL";
                     var totalGeral = sheet.Cells[$"A{linha}:A{linha + 3}"];
@@ -214,7 +218,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
 
                     //FORMATAÇÃO DO CONTEÚDO DO TOTAL GERAL..
-                    //totalGeral.Merge = true;
+                    totalGeral.Merge = true;
                     totalGeral.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     totalGeral.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
                     //FINAL DA TABELA
@@ -259,8 +263,9 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                         coluna++;
                     }
 
+                    //CONGELAR PAINÉIS (LINHA/COLUNA)
+                    sheet.View.FreezePanes(4, 5);
 
-                    sheet.View.FreezePanes(4, 4);
                     //FINAL DA TABELA
                     var tabela = sheet.Cells[$"A3:{GetCellFinish("T",totalMeses,linha)}"];
                     tabela.Style.Border.BorderAround(ExcelBorderStyle.Medium);
@@ -356,12 +361,12 @@ namespace GestaoFinanceira.Infra.Reports.Excel
 
         private static string GetFormulaSumRow(int totalMeses, int linha)
         {
-            return $"=SUM(E{linha}:{GetCellFinish("G", totalMeses, linha)})";
+            return $"=SUM(E{linha}:{GetCellFinish("F", totalMeses, linha)})";
         }
 
         private static string GetFormulaMediaRow(int totalMeses, int linha)
         {
-            return $"=SUM(E{linha}:{GetCellFinish("G", totalMeses, linha)})/COUNTIF(E{linha}:{GetCellFinish("G", totalMeses, linha)},\">0\")";
+            return $"=SUM(E{linha}:{GetCellFinish("F", totalMeses, linha)})/COUNTIF(E{linha}:{GetCellFinish("F", totalMeses, linha)},\">0\")";
         }
 
         private static void SetCellNumberProperties(ExcelRange cell, Color fontColor)
@@ -414,9 +419,14 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 {
                     //CONTA
                     sheet.Cells[$"A{linha}"].Value = conta;
+                    //sheet.Cells[$"A{linha}"].Style.Font.Color.SetColor(color);
+                    sheet.Cells[$"A{linha}"].Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
                     //TIPO DE MOVIMENTAÇÃO
                     sheet.Cells[$"B{linha}"].Value = tipoMovimentacao;
+                    sheet.Cells[$"B{linha}"].Style.Font.Color.SetColor(color);
+                    sheet.Cells[$"B{linha}"].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+
 
                     //CATEGORIA..
                     sheet.Cells[$"C{linha}"].Value = itemDTO.ItemMovimentacaoDTO.Categoria.Descricao;
@@ -484,7 +494,7 @@ namespace GestaoFinanceira.Infra.Reports.Excel
                 }
 
                 var tipoConteudo = sheet.Cells[$"B{linha}:D{linha}"];
-                //tipoConteudo.Merge = true;
+                tipoConteudo.Merge = true;
                 tipoConteudo.Style.Border.BorderAround(ExcelBorderStyle.Thin);
                 tipoConteudo.Style.Font.Color.SetColor(color);
 
