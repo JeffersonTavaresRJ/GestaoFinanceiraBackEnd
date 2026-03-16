@@ -9,7 +9,6 @@ using GestaoFinanceira.Infra.Reports.Excel;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Application.Services

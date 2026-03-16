@@ -2,7 +2,6 @@
 using GestaoFinanceira.Domain.Interfaces.Repositories.EntityFramework;
 using GestaoFinanceira.Domain.Interfaces.Services;
 using GestaoFinanceira.Domain.Models;
-using GestaoFinanceira.Domain.Models.Enuns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,8 +83,11 @@ namespace GestaoFinanceira.Domain.Services
                 movimentacaoRealizada = unitOfWork.IMovimentacaoRealizadaRepository.GetId(movimentacaoRealizada.Id);
 
                 //Tratamento do Status da Movimentação Prevista, se houver..
-                statusMovimentacaoPrevista = movimentacaoRealizada.MovimentacaoPrevista.Status.ToString();
-                AtualizaStatusMovimentacaoPrevista(movimentacaoRealizada.MovimentacaoPrevista, 0, statusMovimentacaoPrevista);
+                if (movimentacaoRealizada.MovimentacaoPrevista != null)
+                {
+                    statusMovimentacaoPrevista = movimentacaoRealizada.MovimentacaoPrevista.Status.ToString();
+                    AtualizaStatusMovimentacaoPrevista(movimentacaoRealizada.MovimentacaoPrevista, 0, statusMovimentacaoPrevista);
+                }               
 
                 unitOfWork.Commit();
 
