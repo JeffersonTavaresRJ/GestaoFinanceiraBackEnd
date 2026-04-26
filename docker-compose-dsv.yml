@@ -1,0 +1,68 @@
+version: '3.8'
+name: dsv-gestao-financeira-backend
+services:
+  # --- Sua API .NET ---
+  api-service-gestao-financeira:
+    container_name: dsv-gestao-financeira-api
+    build:
+      context: .
+      dockerfile: dockerfile
+    volumes:
+     - ./aspnetapp.pfx:/https/aspnetapp.pfx:ro
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5001
+      #- ASPNETCORE_URLS=https://+:5001;http://+:5000
+      # Configuração do AppSettings para que o docker enxergue os valores..
+      - AppSettings__Secret=f590400244b949efa123db307367618c
+      - AppSettings__ValidForMinutes=1000
+      #--
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Admin456
+      #-DSV:
+      - ConnectionStrings__GestaoFinanceira=Server=host.docker.internal,1433;Database=GestaoFinanceiradsv;User Id=sa;Password=Admin#123;TrustServerCertificate=True
+      - MongoDBSettings__ConnectionString=mongodb+srv://netcoredsv:jst1976@cluster0.7wluicu.mongodb.net/GestaoFinanceira?retryWrites=true&w=majority
+
+      - MongoDBSettings__DataBaseName=GestaoFinanceiradsv
+      - MongoDBSettings__IsSSL=false
+      - EPPlusLicenseContext=NonCommercial
+    
+    ports:
+     - "5001:5001"
+    depends_on:
+      - dsv-sqlserver-gestao-financeira
+      - dsv-mongodb-gestao-financeira
+    networks:
+      - rede-gestao-financeira
+
+  # --- SQL Server ---
+  dsv-sqlserver-gestao-financeira:
+    container_name: dsv-gestao-financeira-sql-server
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1444:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Admin#123
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  # --- MongoDB ---
+  dsv-mongodb-gestao-financeira:
+    container_name: dsv-gestao-financeira-mongo-db
+    image: mongo:latest
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=jst1976
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  sql_data:
+  mongo_data:
+
+networks:
+  rede-gestao-financeira:
+    external: true
