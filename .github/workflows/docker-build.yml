@@ -25,7 +25,7 @@ jobs:
             echo "PORTA_API=5001" >> $GITHUB_ENV
           }
           
-       - name: Debug das Variáveis
+      - name: Debug das Variáveis
         run: |
           echo "O arquivo usado será: ${{ env.ENV_FILE }}"
           echo "A porta usada será: ${{ env.PORTA_API }}"
