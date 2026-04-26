@@ -42,5 +42,7 @@ jobs:
 
       - name: Build Limpo e Deploy
         run: |
+          # Garante que o PowerShell aponte para o motor do Docker corretamente
+          $env:DOCKER_HOST = "npipe:////./pipe/docker_engine"
           docker-compose -f ${{ env.ENV_FILE }} build --no-cache
           docker-compose -f ${{ env.ENV_FILE }} up -d
