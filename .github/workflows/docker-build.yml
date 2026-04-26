@@ -18,17 +18,17 @@ jobs:
       - name: Definir Variáveis de Ambiente
         run: |
           if ("${{ github.ref }}" -like "*master*") {
-            echo "ENV_FILE=docker-compose.yml" >> $GITHUB_ENV
-            echo "PORTA_API=5000" >> $GITHUB_ENV
+            Add-Content -Path $env:GITHUB_ENV -Value "ENV_FILE=docker-compose.yml"
+            Add-Content -Path $env:GITHUB_ENV -Value "PORTA_API=5000"
           } else {
-            echo "ENV_FILE=docker-compose-dsv.yml" >> $GITHUB_ENV
-            echo "PORTA_API=5001" >> $GITHUB_ENV
+            Add-Content -Path $env:GITHUB_ENV -Value "ENV_FILE=docker-compose-dsv.yml"
+            Add-Content -Path $env:GITHUB_ENV -Value "PORTA_API=5001"
           }
           
       - name: Debug das Variáveis
         run: |
-          echo "O arquivo usado será: ${{ env.ENV_FILE }}"
-          echo "A porta usada será: ${{ env.PORTA_API }}"
+          echo "O arquivo usado: ${{ env.ENV_FILE }}"
+          echo "A porta usada: ${{ env.PORTA_API }}"
 
       - name: Parar containers e libertar porta
         continue-on-error: true
