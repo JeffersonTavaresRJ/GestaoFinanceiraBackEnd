@@ -18,10 +18,10 @@ jobs:
       - name: Definir Variáveis de Ambiente
         run: |
           if ("${{ github.ref }}" -like "*master*") {
-            echo "ENV_FILE=docker-compose.prod.yml" >> $GITHUB_ENV
+            echo "ENV_FILE=docker-compose.yml" >> $GITHUB_ENV
             echo "PORTA_API=5000" >> $GITHUB_ENV
           } else {
-            echo "ENV_FILE=docker-compose.dev.yml" >> $GITHUB_ENV
+            echo "ENV_FILE=docker-compose-dsv.yml" >> $GITHUB_ENV
             echo "PORTA_API=5001" >> $GITHUB_ENV
           }
 
