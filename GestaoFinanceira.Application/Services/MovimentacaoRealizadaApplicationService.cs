@@ -19,6 +19,7 @@ namespace GestaoFinanceira.Application.Services
         private readonly IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching;
         private readonly IMovimentacaoRealizadaMensalCaching movimentacaoRealizadaMensalCaching;
         private readonly ISaldoDiarioCaching saldoDiarioCaching;
+        private int qtdeMeses = 1;
 
         public MovimentacaoRealizadaApplicationService(IMediator mediator, 
                                                        IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching,
@@ -93,14 +94,27 @@ namespace GestaoFinanceira.Application.Services
 
         public double GetSaldoConta(int idConta, DateTime dataReferencia)
         {
-            var saldo = saldoDiarioCaching.GetSaldoConta(idConta, dataReferencia);
-            if (saldo == 0)
+            SaldoDiarioDTO saldoDiario = saldoDiarioCaching.GetSaldoConta(idConta, dataReferencia);
+
+            if (saldoDiario == null)
             {
                 var ano = dataReferencia.Year;
                 var mes = dataReferencia.Month;
-                saldo = saldoDiarioCaching.GetSaldoConta(idConta, new DateTime(ano, mes, 1).AddMonths(-1));
+                saldoDiario = saldoDiarioCaching.GetSaldoConta(idConta, new DateTime(ano, mes, 1).AddMonths(qtdeMeses * - 1));
+
+                //se também não encontrou registro no mês anterior, recursivamente busca nos últimos 12 meses...
+                if (saldoDiario == null && qtdeMeses < 12)
+                {
+                    qtdeMeses += 1;
+                    GetSaldoConta(idConta, new DateTime(ano, mes, 1).AddMonths(qtdeMeses * -1));
+                }
+                else
+                {
+                    //se não encontrou nada nos últimos 12 meses, retorna zero..
+                    return 0;
+                }
             }
-            return saldo;
+            return saldoDiario.Valor;
         }
 
         public byte[] GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia, int totalMeses)

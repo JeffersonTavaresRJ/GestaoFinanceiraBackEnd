@@ -145,7 +145,7 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             return saldosDiario.OrderBy(sd=>sd.Conta.Descricao).ToList();
         }
 
-        public double GetSaldoConta(int idConta, DateTime dataReferencia)
+        public SaldoDiarioDTO GetSaldoConta(int idConta, DateTime dataReferencia)
         {
             var dataIni = new DateTime(dataReferencia.Year, dataReferencia.Month, 1);
             var dataFim = new DateTime(dataReferencia.Year, dataReferencia.Month, DateTime.DaysInMonth(dataReferencia.Year, dataReferencia.Month));
@@ -156,12 +156,10 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
             {
                 DateTime dataSaldoMax = saldosDiarioDTO.Select(s => s.DataSaldo).Max();
 
-                return GetByKey(idConta, dataSaldoMax).Valor;
+                return GetByKey(idConta, dataSaldoMax);
             }
-            else
-            {
-                return 0;
-            }         
+
+            return null;            
             
         }
 

@@ -10,6 +10,6 @@ namespace GestaoFinanceira.Domain.Interfaces.Caching
         List<SaldoDiarioDTO> GetAll();
         List<SaldoDiarioDTO> GetGroupBySaldoDiario(DateTime dataIni, DateTime dataFim);
         List<SaldoDiarioDTO> GetMaxGroupBySaldoConta(DateTime dataReferencia);
-        double GetSaldoConta(int idConta, DateTime dataReferencia);
+        SaldoDiarioDTO GetSaldoConta(int idConta, DateTime dataReferencia);
     }
 }

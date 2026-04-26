@@ -67,12 +67,18 @@ namespace GestaoFinanceira.Infra.Caching.Repositories
 
                 while (meses < totalMeses)
                 {
+                    var _saldoDiarioAnterior = saldoDiarioCaching.GetSaldoConta(contaDTO.Id, new DateTime(ano, mes, 1).AddMonths(-1));
+                    var _saldoDiarioAtual = saldoDiarioCaching.GetSaldoConta(contaDTO.Id, new DateTime(ano, mes, 1));
+
+                    var _saldoAnterior = _saldoDiarioAnterior == null ? 0 : _saldoDiarioAnterior.Valor;
+                    var _saldoAtual    = _saldoDiarioAtual == null ? 0 : _saldoDiarioAtual.Valor;
+
                     SaldoContaDTO saldoContaDTO = new SaldoContaDTO()
                     {
                         Mes = mes,
                         Ano = ano,
-                        SaldoAnterior = saldoDiarioCaching.GetSaldoConta(contaDTO.Id, new DateTime(ano, mes, 1).AddMonths(-1)),
-                        SaldoAtual = saldoDiarioCaching.GetSaldoConta(contaDTO.Id, new DateTime(ano, mes, 1))
+                        SaldoAnterior = _saldoAnterior,
+                        SaldoAtual = _saldoAtual
                     };
 
                     mes++;
