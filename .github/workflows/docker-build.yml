@@ -24,15 +24,23 @@ jobs:
             echo "ENV_FILE=docker-compose-dsv.yml" >> $GITHUB_ENV
             echo "PORTA_API=5001" >> $GITHUB_ENV
           }
+          
+       - name: Debug das Variáveis
+        run: |
+          echo "O arquivo usado será: ${{ env.ENV_FILE }}"
+          echo "A porta usada será: ${{ env.PORTA_API }}"
 
       - name: Parar containers e libertar porta
         continue-on-error: true
         run: |
-          docker-compose ${{ env.ENV_FILE }} down --remove-orphans
+          docker-compose -f ${{ env.ENV_FILE }} down --remove-orphans
           # O comando abaixo tenta libertar a porta apenas se necessário
-          docker stop $(docker ps -q --filter "publish=${{ env.PORTA_API }}") 2>$null || true
+          $conn = Get-NetTCPConnection -LocalPort ${{ env.PORTA_API }} -ErrorAction SilentlyContinue
+          if ($conn) {
+              Get-Process -Id $conn.OwningProcess -ErrorAction SilentlyContinue | Stop-Process -Force
+          }
 
       - name: Build Limpo e Deploy
         run: |
-          docker-compose ${{ env.ENV_FILE }} build --no-cache
-          docker-compose ${{ env.ENV_FILE }} up -d
+          docker-compose -f ${{ env.ENV_FILE }} build --no-cache
+          docker-compose -f ${{ env.ENV_FILE }} up -d
