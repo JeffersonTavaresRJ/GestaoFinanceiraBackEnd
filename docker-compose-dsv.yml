@@ -1,9 +1,9 @@
 version: '3.8'
-name: dsv-gestao-financeira-backend
+name: dsv-gest-fin-backend
 services:
   # --- Sua API .NET ---
-  dsv-api-service-gestao-financeira:
-    container_name: dsv-gestao-financeira-api
+  dsv-api-service-gest-fin:
+    container_name: dsv-gest-fin-api
     build:
       context: .
       dockerfile: dockerfile
@@ -31,14 +31,14 @@ services:
     # - "5000:8080" # Acessível em localhost:5000
      - "5001:5000"
     depends_on:
-      - dsv-sqlserver-gestao-financeira
-      - dsv-mongodb-gestao-financeira
+      - dsv-sqlserver-gest-fin
+      - dsv-mongodb-gest-fin
     networks:
       - dsv-rede-gestao-financeira
 
   # --- SQL Server ---
-  dsv-sqlserver-gestao-financeira:
-    container_name: dsv-gestao-financeira-sql-server
+  dsv-sqlserver-gest-fin:
+    container_name: dsv-gest-fin-sql-server
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
       - "1434:1433"
@@ -49,8 +49,8 @@ services:
       - sql_data:/var/opt/mssql
 
   # --- MongoDB ---
-  dsv-mongodb-gestao-financeira:
-    container_name: dsv-gestao-financeira-mongo-db
+  dsv-mongodb-gest-fin:
+    container_name: dsv-gest-fin-mongo-db
     image: mongo:latest
     ports:
       - "27018:27017"
