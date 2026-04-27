@@ -21,7 +21,7 @@ jobs:
             Add-Content -Path $env:GITHUB_ENV -Value "ENV_FILE=docker-compose.yml"
             Add-Content -Path $env:GITHUB_ENV -Value "PORTA_API=5000"
           } else {
-            Add-Content -Path $env:GITHUB_ENV -Value "ENV_FILE=docker-compose-dsv.yml"
+            Add-Content -Path $env:GITHUB_ENV -Value "ENV_FILE=docker-compose.dsv.yml"
             Add-Content -Path $env:GITHUB_ENV -Value "PORTA_API=5001"
           }
           
