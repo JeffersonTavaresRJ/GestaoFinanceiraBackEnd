@@ -10,7 +10,12 @@ jobs:
 
     steps:
       - name: Checkout do código
-        uses: actions/checkout@v4  
+        uses: actions/checkout@v4
+        
+      - name: Limpar imagens antigas
+        run: |
+          $env:DOCKER_HOST = "npipe:////./pipe/docker_engine"
+          docker image prune -f
 
       - name: Definir Variáveis de Ambiente
         run: |
@@ -26,9 +31,6 @@ jobs:
         run: |
           echo "O arquivo usado: ${{ env.ENV_FILE }}"
           echo "A porta usada: ${{ env.PORTA_API }}"
-          
-      - name: Limpar imagens antigas
-        run: docker image prune -f  
 
       - name: Parar containers e libertar porta
         continue-on-error: true
