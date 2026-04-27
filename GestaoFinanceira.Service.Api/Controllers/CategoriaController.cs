@@ -14,6 +14,8 @@ namespace GestaoFinanceira.Service.Api.Controllers
     [Authorize] //executam somente com token válido
     [Route("api/[controller]")]
     [ApiController]
+
+    //05-teste ambiente desenvolvimento docker
     public class CategoriaController : ControllerBase
     {
         private readonly ICategoriaApplicationService categoriaApplicationService;
