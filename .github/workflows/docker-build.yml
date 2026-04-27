@@ -2,7 +2,7 @@ name: Build Local Docker utilizando o Docker Compose
 
 on:
   push:
-    branches: [ "master", "desenv" ]
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -15,37 +15,19 @@ jobs:
         
       - name: Limpar imagens antigas
         run: docker image prune -f
-
-      - name: Definir Variáveis de Ambiente
-        shell: pwsh
-        run: |
-          if ("${{ github.ref }}" -like "*master*") {
-            echo "ENV_FILE=docker-compose.yml" >> $env:GITHUB_ENV
-            echo "PORTA_API=5000" >> $env:GITHUB_ENV
-          } else {
-            echo "ENV_FILE=docker-compose-dsv.yml" >> $env:GITHUB_ENV
-            echo "PORTA_API=5001" >> $env:GITHUB_ENV
-          }
+      #- name: Setup .NET
+      #  uses: actions/setup-dotnet@v3
+        #with:
+           #dotnet-version: '6.0.x'
            
       - name: Remove o container e limpa rede 5000
         continue-on-error: true
-        shell: pwsh
-        run: |
-          # Derruba especificamente o ambiente que está sendo atualizado
-          docker-compose -f ${{ env.ENV_FILE }} down --remove-orphans
-          
-          # Limpa a porta específica do ambiente (5000 para Prod, 5001 para Dev)
-          $port = ${{ env.PORTA_API }}
-          $connection = Get-NetTCPConnection -LocalPort $port -ErrorAction SilentlyContinue
-          if ($connection) {
-            Get-Process -Id $connection.OwningProcess | Stop-Process -Force
-          }
+        run: docker-compose down --remove-orphans Get-Process -Id (Get-NetTCPConnection -LocalPort 5000).OwningProcess | Stop-Process -Force
      
       - name: Build Limpo e Deploy
-        shell: pwsh
         run: |
-          docker-compose -f ${{ env.ENV_FILE }} build --no-cache
-          docker-compose -f ${{ env.ENV_FILE }} up -d   
+          docker-compose build --no-cache
+          docker-compose up -d     
        
     #  - name: Build e Up com Docker Compose
         #run: docker-compose up --build -d
