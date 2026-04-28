@@ -21,7 +21,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Admin456
       #-DSV:
       # Use o nome do serviço (dsv-sqlserver-gestao-financeira)
-      - ConnectionStrings__GestaoFinanceira=Server=dsv-sqlserver-gestao-financeira,1433;Database=GestaoFinanceiradsv;User Id=sa;Password=Admin#123;TrustServerCertificate=True
+      - ConnectionStrings__GestaoFinanceira=Server=host.docker.internal,1433;Database=GestaoFinanceiradsv;User Id=sa;Password=Admin#123;TrustServerCertificate=True
       - MongoDBSettings__ConnectionString=mongodb+srv://netcoredsv:jst1976@cluster0.7wluicu.mongodb.net/GestaoFinanceiraDSV?retryWrites=true&w=majority
 
       - MongoDBSettings__DataBaseName=GestaoFinanceiraDSV
