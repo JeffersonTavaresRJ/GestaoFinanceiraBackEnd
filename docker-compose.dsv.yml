@@ -53,7 +53,7 @@ services:
     container_name: dsv-gestao-financeira-mongo-db
     image: mongo:latest
     ports:
-      - "27017:27018"
+      - "27018:27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=jst1976
