@@ -43,7 +43,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
       # O Windows acessa pela 1434 (para não conflitar com a produção na 1433)
-      # Mas o Docker redireciona para a 1433 interna do SQL Server
+      # Mas o Docker redireciona para a 1433 interna do SQL Server#
       - "1434:1433" 
     environment:
       - ACCEPT_EULA=Y
