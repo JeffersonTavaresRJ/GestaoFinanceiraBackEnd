@@ -20,7 +20,8 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Admin456
       #-DSV:
-      - ConnectionStrings__GestaoFinanceira=Server=host.docker.internal,1434;Database=GestaoFinanceiradsv;User Id=sa;Password=Admin#123;TrustServerCertificate=True
+      # Use o nome do serviço (dsv-sqlserver-gestao-financeira) e a porta INTERNA (1433)
+      - ConnectionStrings__GestaoFinanceira=Server=dsv-sqlserver-gestao-financeira,1433;Database=GestaoFinanceira;User Id=sa;Password=Admin#123;TrustServerCertificate=True
       - MongoDBSettings__ConnectionString=mongodb+srv://netcoredsv:jst1976@cluster0.7wluicu.mongodb.net/GestaoFinanceiraDSV?retryWrites=true&w=majority
 
       - MongoDBSettings__DataBaseName=GestaoFinanceiraDSV
@@ -41,7 +42,9 @@ services:
     container_name: dsv-gestao-financeira-sql-server
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
-      - "1434:1434"
+      # O Windows acessa pela 1434 (para não conflitar com a produção na 1433)
+      # Mas o Docker redireciona para a 1433 interna do SQL Server
+      - "1434:1433" 
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=Admin#123
