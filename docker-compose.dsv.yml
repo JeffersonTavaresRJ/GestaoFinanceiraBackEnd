@@ -29,7 +29,7 @@ services:
     
     ports:
     # - "5000:8080" # Acessível em localhost:5000
-     - "5001:5000"
+     - "5001:5001"
     depends_on:
       - dsv-sqlserver-gestao-financeira
       - dsv-mongodb-gestao-financeira
