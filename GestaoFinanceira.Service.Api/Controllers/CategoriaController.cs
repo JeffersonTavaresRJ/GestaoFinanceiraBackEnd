@@ -15,7 +15,6 @@ namespace GestaoFinanceira.Service.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    //14-teste ambiente desenvolvimento docker
     public class CategoriaController : ControllerBase
     {
         private readonly ICategoriaApplicationService categoriaApplicationService;
