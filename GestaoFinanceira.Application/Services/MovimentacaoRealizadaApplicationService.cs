@@ -9,6 +9,7 @@ using GestaoFinanceira.Infra.Reports.Excel;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 
 namespace GestaoFinanceira.Application.Services
@@ -95,26 +96,18 @@ namespace GestaoFinanceira.Application.Services
         public double GetSaldoConta(int idConta, DateTime dataReferencia)
         {
             SaldoDiarioDTO saldoDiario = saldoDiarioCaching.GetSaldoConta(idConta, dataReferencia);
+            var valor = saldoDiario == null ? 0 : saldoDiario.Valor;
 
-            if (saldoDiario == null)
+            //busca o saldo da conta nos últimos 12 meses..
+            for (int qtdeMeses = 0; (qtdeMeses < 12 && saldoDiario == null); qtdeMeses++)
             {
                 var ano = dataReferencia.Year;
                 var mes = dataReferencia.Month;
-                saldoDiario = saldoDiarioCaching.GetSaldoConta(idConta, new DateTime(ano, mes, 1).AddMonths(qtdeMeses * - 1));
-
-                //se também não encontrou registro no mês anterior, recursivamente busca nos últimos 12 meses...
-                if (saldoDiario == null && qtdeMeses < 12)
-                {
-                    qtdeMeses += 1;
-                    GetSaldoConta(idConta, new DateTime(ano, mes, 1).AddMonths(qtdeMeses * -1));
-                }
-                else
-                {
-                    //se não encontrou nada nos últimos 12 meses, retorna zero..
-                    return 0;
-                }
+                saldoDiario = saldoDiarioCaching.GetSaldoConta(idConta, new DateTime(ano, mes, 1).AddMonths(qtdeMeses * -1));
+                valor = saldoDiario == null ? 0 :  saldoDiario.Valor;
             }
-            return saldoDiario.Valor;
+        
+            return valor;
         }
 
         public byte[] GetByMovimentacaoRealizadaMensal(List<int> idsConta, DateTime dataReferencia, int totalMeses)
