@@ -20,7 +20,6 @@ namespace GestaoFinanceira.Application.Services
         private readonly IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching;
         private readonly IMovimentacaoRealizadaMensalCaching movimentacaoRealizadaMensalCaching;
         private readonly ISaldoDiarioCaching saldoDiarioCaching;
-        private int qtdeMeses = 1;
 
         public MovimentacaoRealizadaApplicationService(IMediator mediator, 
                                                        IMovimentacaoRealizadaCaching movimentacaoRealizadaCaching,
